@@ -23,22 +23,22 @@ class Cake
     private string $picture1;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private string $picture2;
+    private string|null $picture2;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private string $picture3;
+    private string|null $picture3;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private string $picture4;
+    private string|null $picture4;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private string $picture5;
+    private string|null $picture5;
 
     #[ORM\Column(type: 'text')]
-    private string $description;
+    private string|null $description;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private string $allergens;
+    private string|null $allergens;
 
     #[ORM\Column(type: 'float')]
     private float $price;
@@ -48,7 +48,7 @@ class Cake
 
     #[ORM\ManyToOne(targetEntity: Baker::class, inversedBy: 'cakes')]
     #[ORM\JoinColumn(nullable: false)]
-    private Baker $baker;
+    private ?Baker $baker;
 
     public function getId(): ?int
     {
