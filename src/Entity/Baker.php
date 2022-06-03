@@ -25,7 +25,7 @@ class Baker
     private string $firstname;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private string $commercialName;
+    private ?string $commercialName;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $email;
@@ -34,7 +34,7 @@ class Baker
     private string $password;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private string $address;
+    private ?string $address;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $phone;

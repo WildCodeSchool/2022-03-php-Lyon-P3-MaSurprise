@@ -16,9 +16,9 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 10; $i++) {
             $cake = new Cake();
             $cake->setCreated($faker->dateTime);
-            $cake->setName($faker->words(3, true));
+            $cake->setName((string) $faker->words(3, true));
             $cake->setPicture1('cake picture');
-            $cake->setDescription($faker->paragraphs(2, true));
+            $cake->setDescription((string) $faker->paragraphs(2, true));
             $cake->setPrice($faker->randomFloat(2, 50, 300));
             $cake->setSize('small');
             $cake->setBaker($this->getReference('baker_' . $faker->numberBetween(1, 9)));
