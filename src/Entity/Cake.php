@@ -16,8 +16,9 @@ class Cake
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $created;
 
+    //array is not valid but is set here because of the cakefixtures whitch can be array or string type
     #[ORM\Column(type: 'string', length: 255)]
-    private string $name;
+    private string|array $name;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $picture1;
@@ -34,8 +35,9 @@ class Cake
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string|null $picture5;
 
+    //array is not valid but is set here because of the cakefixtures whitch can be array or string type
     #[ORM\Column(type: 'text')]
-    private string|null $description;
+    private string|array|null $description;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private string|null $allergens;
@@ -192,7 +194,7 @@ class Cake
         return $this->baker;
     }
 
-    public function setBaker(?Baker $baker): self
+    public function setBaker(?Baker $baker): ?self
     {
         $this->baker = $baker;
 
