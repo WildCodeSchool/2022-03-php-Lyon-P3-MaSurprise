@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Baker;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -16,9 +17,9 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 10; $i++) {
             $cake = new Cake();
             $cake->setCreated($faker->dateTime);
-            $cake->setName($faker->words(3, true));
+            $cake->setName($faker->text(25));
             $cake->setPicture1('cake picture');
-            $cake->setDescription($faker->paragraphs(2, true));
+            $cake->setDescription($faker->text(250));
             $cake->setPrice($faker->randomFloat(2, 50, 300));
             $cake->setSize('small');
             $cake->setBaker($this->getReference('baker_' . $faker->numberBetween(1, 9)));
