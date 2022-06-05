@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% if baker.commercialName is not empty %}
+    {{ baker.commercialName}}
+        {% else %}{{ baker.firstname }} {{ baker.lastname }}
+        {% endif %}{% endblock %}
+
+{% block body %}
+    <h1>{{ baker.firstname }} {{ baker.lastname }}</h1>
+    <p>Téléphone : {{ baker.phone }}</p>
+    <p>Adresse : {{ baker.address }}</p>
+    <p>Date d'inscription : {{ baker.created | date("d/m/Y")}}</p>
+    <button><a href="{{ path('app_baker_index')}}">Retour à la liste des pâtissiers</a></button>
+    {# todo : add list of related cakes when the page will be ready #}
+{% endblock %}
