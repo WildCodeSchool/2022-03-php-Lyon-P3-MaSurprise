@@ -22,7 +22,11 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
             $cake->setDescription($faker->text(250));
             $cake->setPrice($faker->randomFloat(2, 50, 300));
             $cake->setSize('small');
-            $cake->setBaker($this->getReference('baker_' . $faker->numberBetween(1, 9)));
+
+            $baker = $this->getReference('baker_' . $faker->numberBetween(1, 9));
+            if ($baker instanceof Baker) {
+                $cake->setBaker($baker);
+            }
             $manager->persist($cake);
         }
 
