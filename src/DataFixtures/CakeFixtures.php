@@ -17,14 +17,14 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 50; $i++) {
             $cake = new Cake();
             $cake->setCreated($faker->dateTime);
-            $cake->setName($faker->randomElement(
+            $cake->setName((string) $faker->randomElement(
                 ['Gâteau d\'anniversaire', 'Forêt noire', 'Pièce montée', 'Gâteau licorne',
                 'Fraisier', 'Gâteau à étages, crème au beurre', 'Baba au rhum']
             ));
             $cake->setPicture1($faker->imageUrl(640, 640, 'photo d\'un gâteau'));
             $cake->setDescription($faker->text(250));
             $cake->setPrice($faker->randomFloat(2, 50, 300));
-            $cake->setSize($faker->randomElement((['10/12 parts', '14/16 parts', '18/20 parts'])));
+            $cake->setSize((string) $faker->randomElement((['10/12 parts', '14/16 parts', '18/20 parts'])));
             $baker = $this->getReference('baker_' . $faker->numberBetween(1, 9));
             if ($baker instanceof Baker) {
                 $cake->setBaker($baker);

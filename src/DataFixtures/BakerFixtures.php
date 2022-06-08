@@ -17,7 +17,7 @@ class BakerFixtures extends Fixture
             $baker->setCreated($faker->dateTime);
             $baker->setLastname($faker->lastName());
             $baker->setFirstname($faker->firstName());
-            $baker->setCommercialname($faker->optional()->randomElement(
+            $baker->setCommercialname((string) $faker->optional()->randomElement(
                 ['La fée des gâteaux', 'Super Cake', 'Maison Truffe', 'Cakery Lina', 'Chef Alex', 'Gâteau sur commande']
             ));
             $baker->setEmail($faker->email());
