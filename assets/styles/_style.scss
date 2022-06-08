@@ -1,3 +1,26 @@
+/* ---------- REDEFINING BOOTSTRAP COLOURS ---------- */
+$primary: #B1367E;
+$light: #FCF5EE;
+
+
+/* ---------- VARIABLES ---------- */
+:root {
+    --background-dark: #EFEAE4;
+    --background-light: #FCF5EE;
+    --background-footer-navbar: #EEEEEE;
+    --text-title-pink: #B1367E;
+    --text-red: #C92A00;
+    --text-pink: #ffd9da;
+    --text-pinkred: #C46A88;
+    --text-pinkorange: #FF7C82;
+    --text-orange: #D67826;
+    --text-purple: #6165A0;
+    --text-lightblue: rgb(202, 241, 255);
+    --text-darkgreen: #608441;
+    --text-maroon: #C4B192;
+    --box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 1px;
+}
+
 /* ---------- FONTS ---------- */
 @font-face {
     font-family: 'Cup Cakes';
@@ -21,20 +44,6 @@
     src: url('../fonts/Poppins/Poppins-Black.ttf') format('truetype');
 }
 
-/* ---------- VARIABLES ---------- */
-:root {
-    --background-dark: #EFEAE4;
-    --background-light: #FCF5EE;
-    --background-footer: #EEEEEE;
-    --text-title-pink: #B1367E;
-    --text-red: #C92A00;
-    --text-pink: #FF7C82;
-    --text-orange: #D67826;
-    --text-lightblue: #75BDD3;
-    --text-darkgreen: #608441;
-    --box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 1px;
-}
-
 /* ---------- GLOBAL POLICIES ---------- */
 * {
     margin: 0;
@@ -43,8 +52,70 @@
 }
 
 body {
-    background-color: var(--background-light);
+    background-color: #B1367E;
     font-family: "Karla", sans-serif;
+}
+
+/* ---------- GLOBAL COLOURS ---------- */
+.text-red {
+    color: var(--text-red);
+}
+
+.text-pink {
+    color: var(--text-pink);
+}
+
+.text-pinkred {
+    color: var(--text-pinkred);
+}
+
+.text-pinkorange {
+    color: var(--text-pinkorange);
+}
+
+.text-orange {
+    color: var(--text-orange);
+}
+
+.text-purple {
+    color: var(--text-purple);
+}
+
+.text-lightblue {
+    color: var(--text-lightblue);
+}
+
+.text-darkgreen {
+    color: var(--text-darkgreen);
+}
+
+.text-maroon {
+    color: var(--text-maroon);
+}
+
+.border-red {
+    border: 1px solid;
+    border-color: var(--text-red);
+}
+
+.border-lightblue {
+    border: 1px solid;
+    border-color: var(--text-lightblue);
+}
+
+.border-darkgreen {
+    border: 1px solid;
+    border-color: var(--text-darkgreen);
+}
+
+.border-pinkorange {
+    border: 1px solid;
+    border-color: var(--text-pinkorange);
+}
+
+.border-orange {
+    border: 1px solid;
+    border-color: var(--text-orange);
 }
 
 /* ---------- HOMEPAGE ---------- */
@@ -58,7 +129,6 @@ h1, h2, h3 {
 .main-how-to-container-title,
 .main-sweet-dream-container-title,
 .main-references-container-title {
-    color: #B1367E;
     font-size: 48pt;
 }
 
@@ -82,20 +152,22 @@ h1, h2, h3 {
 }
 
 /* ----- themes ----- */
-.main-theme-container {
-    background-color: var(--background-dark);
-}
-
 .theme-container {
-    row-gap: 20px;
+    column-gap: 20px;
 }
 
 .theme-button {
     background-color: white;
     height: 375px;
     width: 375px;
-    border: 1px solid #D67826;
     border-radius: 6px;
+    padding: 30px;
+}
+
+.theme-button:hover {
+    cursor: pointer;
+    //background-color: var(--text-pink);
+    box-shadow: rgba(60, 64, 67, 0.3) 0 0 10px 5px;
 }
 
 .theme-img {
@@ -103,21 +175,71 @@ h1, h2, h3 {
     height: 100px;
 }
 
-/* ----- how to ----- */
-
 /* ----- sweet dream ----- */
 .main-sweet-dream-container {
     background-color: var(--background-dark);
 }
 
-.carousel-img {
-    width: 285px;
-    height: 285px;
+.sweet-dream-container {
+    row-gap: 10vh;
 }
 
-/* ----- pièces montées ----- */
+.carousel-container {
+    column-gap: 15px;
+}
+
+.carousel-img {
+    width: 250px;
+    height: 250px;
+    padding: 15px;
+    border: 10px solid white;
+    box-shadow: var(--box-shadow);
+}
+
+/* ----- how to ----- */
+.main-how-to-container {
+    background-color: var(--background-dark);
+}
+
+.how-to-light-bg {
+    background-color: var(--background-light);
+    padding: 40px;
+}
+
+.how-to-container {
+    column-gap: 20px;
+}
+
+.how-to {
+    border-radius: 6px;
+    width: 400px;
+    padding: 30px;
+}
 
 /* ----- references ----- */
+.main-ratings-container {
+    column-gap: 20px;
+}
+
+.ratings-container {
+    border: 1px solid #D67826;
+    border-radius: 6px;
+    height: 370px;
+    width: 400px;
+    padding: 30px;
+    background-color: white;
+}
+
+.ratings-container h3 {
+    color: #B1367E;
+}
+
+.comment-img {
+    width: 135px;
+    height: 135px;
+    border-radius: 100%;
+}
+
 .floating-img {
     width: 80px;
     height: 80px;
