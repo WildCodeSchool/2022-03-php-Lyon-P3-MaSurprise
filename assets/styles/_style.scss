@@ -1,0 +1,124 @@
+/* ---------- FONTS ---------- */
+@font-face {
+    font-family: 'Cup Cakes';
+    src: url('../fonts/CupCakes/cup-cakes.otf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Cuprum';
+    src: url('../fonts/Cuprum/Cuprum-VariableFont_wght.ttf') format('truetype'),
+    url('../fonts/Cuprum/Cuprum-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Karla';
+    src: url('../fonts/Karla/Karla-VariableFont_wght.ttf') format('truetype'),
+    url('../fonts/Karla/Karla-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins/Poppins-Black.ttf') format('truetype');
+}
+
+/* ---------- VARIABLES ---------- */
+:root {
+    --background-dark: #EFEAE4;
+    --background-light: #FCF5EE;
+    --background-footer: #EEEEEE;
+    --text-title-pink: #B1367E;
+    --text-red: #C92A00;
+    --text-pink: #FF7C82;
+    --text-orange: #D67826;
+    --text-lightblue: #75BDD3;
+    --text-darkgreen: #608441;
+    --box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 1px;
+}
+
+/* ---------- GLOBAL POLICIES ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--background-light);
+    font-family: "Karla", sans-serif;
+}
+
+/* ---------- HOMEPAGE ---------- */
+/* ----- general ----- */
+h1, h2, h3 {
+    font-family: "Cup Cakes", sans-serif;
+    margin: 20px;
+}
+
+.main-theme-container-title,
+.main-how-to-container-title,
+.main-sweet-dream-container-title,
+.main-references-container-title {
+    color: #B1367E;
+    font-size: 48pt;
+}
+
+.main-theme-container,
+.main-how-to-container,
+.main-sweet-dream-container,
+.main-references-container {
+    padding: 50px;
+}
+
+/* ----- header ----- */
+.header-img {
+    background-image: url("../images/header.jpg");
+    background-position: center center;
+    background-size: cover;
+    height: 740px;
+}
+
+.header-img form {
+    padding-top: 200px;
+}
+
+/* ----- themes ----- */
+.main-theme-container {
+    background-color: var(--background-dark);
+}
+
+.theme-container {
+    row-gap: 20px;
+}
+
+.theme-button {
+    background-color: white;
+    height: 375px;
+    width: 375px;
+    border: 1px solid #D67826;
+    border-radius: 6px;
+}
+
+.theme-img {
+    width: 100px;
+    height: 100px;
+}
+
+/* ----- how to ----- */
+
+/* ----- sweet dream ----- */
+.main-sweet-dream-container {
+    background-color: var(--background-dark);
+}
+
+.carousel-img {
+    width: 285px;
+    height: 285px;
+}
+
+/* ----- pièces montées ----- */
+
+/* ----- references ----- */
+.floating-img {
+    width: 80px;
+    height: 80px;
+}
