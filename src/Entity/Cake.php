@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CakeRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CakeRepository::class)]
@@ -49,6 +50,11 @@ class Cake
     #[ORM\ManyToOne(targetEntity: Baker::class, inversedBy: 'cakes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Baker $baker;
+
+    public function __construct()
+    {
+        $this->created = new DateTime();
+    }
 
     public function getId(): ?int
     {
