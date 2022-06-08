@@ -3,14 +3,25 @@
 {% block title %}Liste des pâtissiers{% endblock %}
 
 {% block body %}
-    {% for baker in bakers %}
-    <h1>{% if baker.commercialName is not empty %}
-    {{ baker.commercialName}}
-        {% else %}{{ baker.firstname }} {{ baker.lastname }}
-        {% endif %}
-    </h1>
-    <p>Téléphone : {{ baker.phone }}</p>
-    <button><a href="{{ path('app_baker_list', {id:baker.id} ) }}">Plus de détails</a></button>
-    {% endfor %}
+    <main class="container-fluid">
 
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                {% for baker in bakers %}
+                <div class="col-md-8">
+                <div class="card-body">
+                    <h2 class="card-title">{% if baker.commercialName is not empty %}
+                    {{ baker.commercialName}}
+                        {% else %}{{ baker.firstname }} {{ baker.lastname }}
+                        {% endif %}
+                    </h2>
+                    <p class="card-text">Téléphone : {{ baker.phone }}</p>
+                    <a href="{{ path('app_baker_list', {id:baker.id} ) }}" class="btn btn-primary">Plus de détails</a>
+                </div>
+                </div>
+                {% endfor %} 
+            </div>
+        </div>
+
+    </main>
 {% endblock %}

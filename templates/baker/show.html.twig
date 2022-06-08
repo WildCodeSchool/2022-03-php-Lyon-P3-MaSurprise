@@ -10,6 +10,14 @@
     <p>Téléphone : {{ baker.phone }}</p>
     <p>Adresse : {{ baker.address }}</p>
     <p>Date d'inscription : {{ baker.created | date("d/m/Y")}}</p>
-    <button><a href="{{ path('app_baker_index')}}">Retour à la liste des pâtissiers</a></button>
-    {# todo : add list of related cakes when the page will be ready #}
+    {% for cake in baker.cakes %}
+        <h2>Gâteau n°{{ loop.index }} : {{ cake.name }}</h2>
+        <ul>
+            <li>Prix : {{ cake.price}} €</li>
+            <li>Taille : {{ cake.size }}</li>
+        </ul>
+    {% else %}
+        <p>Ce pâtissier ne propose aucun article actuellement</p>
+    {% endfor %}
+    <a href="{{ path('app_baker_index')}}" class="btn btn-primary">Retour à la liste des pâtissiers</a>
 {% endblock %}
