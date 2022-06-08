@@ -10,18 +10,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/patissier')]
+#[Route('/patissier', name:'app_baker_')]
 class BakerController extends AbstractController
 {
-    #[Route('/', name: 'app_baker_index')]
-    public function index(): Response
+    #[Route('/', name: 'index')]
+    public function index(BakerRepository $bakerRepository): Response
     {
+        $bakers = $bakerRepository->findAll();
         return $this->render('baker/index.html.twig', [
-            'controller_name' => 'BakerController',
+            'bakers' => $bakers,
         ]);
     }
 
-    #[Route('/new', name: 'baker_form')]
+    #[Route('/new', name: 'form')]
     public function newBaker(Request $request, BakerRepository $bakerRepository): Response
     {
         $baker = new Baker();
@@ -37,7 +38,16 @@ class BakerController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/modifier', name: 'app_baker_edit', methods: ['GET', 'POST'])]
+
+    #[Route('/{id}', name: 'list')]
+    public function detail(Baker $baker): Response
+    {
+        return $this->render('baker/show.html.twig', [
+            'baker' => $baker,
+        ]);
+    }
+
+    #[Route('/{id}/modifier', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Baker $baker, BakerRepository $bakerRepository): Response
     {
         $form = $this->createForm(BakerType::class, $baker);
@@ -55,7 +65,7 @@ class BakerController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_baker_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Baker $baker, BakerRepository $bakerRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $baker->getId(), $request->request->get('_token'))) {

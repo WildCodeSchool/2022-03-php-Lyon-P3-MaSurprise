@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% if baker.commercialName is not empty %}
+    {{ baker.commercialName}}
+        {% else %}{{ baker.firstname }} {{ baker.lastname }}
+        {% endif %}{% endblock %}
+
+{% block body %}
+    <h1>{{ baker.firstname }} {{ baker.lastname }}</h1>
+    <p>Téléphone : {{ baker.phone }}</p>
+    <p>Adresse : {{ baker.address }}</p>
+    <p>Date d'inscription : {{ baker.created | date("d/m/Y")}}</p>
+    {% for cake in baker.cakes %}
+        <h2>Gâteau n°{{ loop.index }} : {{ cake.name }}</h2>
+        <ul>
+            <li>Prix : {{ cake.price}} €</li>
+            <li>Taille : {{ cake.size }}</li>
+        </ul>
+    {% else %}
+        <p>Ce pâtissier ne propose aucun article actuellement</p>
+    {% endfor %}
+    <a href="{{ path('app_baker_index')}}" class="btn btn-primary">Retour à la liste des pâtissiers</a>
+{% endblock %}

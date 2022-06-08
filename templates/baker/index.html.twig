@@ -1,20 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BakerController!{% endblock %}
+{% block title %}Liste des pâtissiers{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <main class="container-fluid">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                {% for baker in bakers %}
+                <div class="col-md-8">
+                <div class="card-body">
+                    <h2 class="card-title">{% if baker.commercialName is not empty %}
+                    {{ baker.commercialName}}
+                        {% else %}{{ baker.firstname }} {{ baker.lastname }}
+                        {% endif %}
+                    </h2>
+                    <p class="card-text">Téléphone : {{ baker.phone }}</p>
+                    <a href="{{ path('app_baker_list', {id:baker.id} ) }}" class="btn btn-primary">Plus de détails</a>
+                </div>
+                </div>
+                {% endfor %} 
+            </div>
+        </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/emmanuelle/dev/projets/2022-03-php-Lyon-P3-MaSurprise/src/Controller/BakerController.php'|file_link(0) }}">src/Controller/BakerController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/emmanuelle/dev/projets/2022-03-php-Lyon-P3-MaSurprise/templates/baker/index.html.twig'|file_link(0) }}">templates/baker/index.html.twig</a></code></li>
-    </ul>
-</div>
+    </main>
 {% endblock %}
