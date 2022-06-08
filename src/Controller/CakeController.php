@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Cake;
 use App\Repository\CakeRepository;
 use App\Form\CakeType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,11 +14,22 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/cake')]
 class CakeController extends AbstractController
 {
-    #[Route('/', name: 'app_cake_index')]
-    public function index(): Response
+    #[Route('/cake', name: 'app_cake_index')]
+    public function index(CakeRepository $cakeRepository): Response
+
     {
+        $cakes = $cakeRepository->findAll();
         return $this->render('cake/index.html.twig', [
-            'controller_name' => 'CakeController',
+            'cakes' => $cakes,
+        ]);
+    }
+
+    #[Route('/cake/{id}/', name: 'app_cake_show')]
+    public function show(Cake $cake): Response
+    {
+
+        return $this->render('cake/show.html.twig', [
+            'cake' => $cake,
         ]);
     }
 
