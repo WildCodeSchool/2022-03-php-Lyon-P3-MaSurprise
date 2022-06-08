@@ -14,9 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/cake')]
 class CakeController extends AbstractController
 {
-    #[Route('/cake', name: 'app_cake_index')]
+    #[Route('/', name: 'app_cake_index')]
     public function index(CakeRepository $cakeRepository): Response
-
     {
         $cakes = $cakeRepository->findAll();
         return $this->render('cake/index.html.twig', [
@@ -24,7 +23,7 @@ class CakeController extends AbstractController
         ]);
     }
 
-    #[Route('/cake/{id}/', name: 'app_cake_show')]
+    #[Route('/{id}/', name: 'app_cake_show')]
     public function show(Cake $cake): Response
     {
 
