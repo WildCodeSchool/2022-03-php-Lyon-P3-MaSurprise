@@ -27,10 +27,22 @@ class BakerType extends AbstractType
                 'label' => "Nom de l'entreprise",
                 'required' => "Le champ Nom de l'entreprise est obligatoire"
                 ])
-            ->add('email', EmailType::class)
-            ->add('password', TextType::class)
-            ->add('address', TextareaType::class)
-            ->add('phone')
+            ->add('email', EmailType::class, [
+                'label' => "E-mail",
+                'required' => "Le champ E-mail est obligatoire"
+                ])
+            ->add('password', TextType::class, [
+                'label' => "Mot de passe",
+                'required' => "Le champ Mot de passe est obligatoire"
+                ])
+            ->add('address', TextareaType::class, [
+                'label' => "Adresse",
+                'required' => "Le champ Adresse est obligatoire"
+                ])
+            ->add('phone', TextType::class, [
+                'label' => "Téléphone",
+                'required' => "Le champ Nom de l'entreprise est obligatoire"
+                ])
         ;
     }
 
