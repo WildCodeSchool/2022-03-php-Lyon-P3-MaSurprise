@@ -16,9 +16,17 @@
                         {% endif %}
                     </h2>
                     <p class="card-text">Téléphone : {{ baker.phone }}</p>
-                    <a href="{{ path('app_baker_list', {id:baker.id} ) }}" class="btn btn-primary">Plus de détails</a>
-                    <a href="{{ path('app_baker_edit', {id:baker.id} ) }}" class="btn btn-primary">Modifier</a>
-                    {{ include('baker/_delete_form.html.twig') }}
+                    <div class="d-flex justify-content-between">
+                        <div class="">
+                        <a href="{{ path('app_baker_list', {id:baker.id} ) }}" class="btn btn-primary">Plus de détails</a>
+                        </div>
+                        <div class="">
+                        <a href="{{ path('app_baker_edit', {id:baker.id} ) }}" class="btn btn-primary">Modifier</a>
+                        </div>
+                        <div class="">
+                        {{ include('baker/_delete_form.html.twig') }}
+                        </div>
+                    </div>
                 </div>
                 </div>
                 {% endfor %} 

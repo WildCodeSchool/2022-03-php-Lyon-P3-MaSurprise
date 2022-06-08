@@ -1,51 +1,44 @@
+{{ form_start(form) }}
 
-  <form name="baker" method="post">
-    <div id="baker-form" class="d-flex flex-column m-5">
-        <div class="form-row">
+<div id="baker-form" class="d-flex flex-column align-items-center m-5">
+        <div class="form-row w-50">
             <div class="form-group">
-                <label for="baker_lastname" class="required col-form-label">Nom</label>
-                <input type="text" id="baker_lastname" class="form-control" name="baker[lastname]" required="required" value="Will" />
-            </div>
+            {{ form_row(form.firstname) }}
+             </div>
         </div>
-        <div class="form-row">
+        <div class="form-row w-50">
             <div class="form-group">
-                <label for="baker_firstname" class="required col-sm-2 col-form-label">Prénom</label>
-                <input type="text" id="baker_firstname" class="form-control" name="baker[firstname]" required="required" value="Norene" />
+            {{ form_row(form.lastname) }}
             </div>
         </div>
-        <div class="form-row">
+        <div class="form-row w-50">
             <div class="form-group">
-                <label for="baker_commercialName" class="required col-sm-2 col-form-label">Nom de l&#039;entreprise</label>
-                <input type="text" id="baker_commercialName" class="form-control" name="baker[commercialName]" required="required" />
+            {{ form_row(form.commercialName) }}
             </div>
         </div>
-        <div class="form-row">
+        <div class="form-row w-50">
             <div class="form-group">
-                <label for="baker_email" class="required col-sm-2 col-form-label">E-mail</label>
-                <input type="email" id="baker_email" class="form-control" name="baker[email]" required="required" value="furman.predovic@kerluke.info" />
+            {{ form_row(form.email) }}
             </div>
         </div>
-        <div class="form-row">
+        <div class="form-row w-50">
             <div class="form-group">
-                <label for="baker_password" class="required col-sm-2 col-form-label">Mot de passe</label>
-                <input type="text" id="baker_password" class="form-control" name="baker[password]" required="required" value="qS,z78^xp[m17" />
+            {{ form_row(form.password) }}
             </div>
         </div>
-        <div class="form-row">
+        <div class="form-row w-50">
             <div class="form-group">
-                <label for="baker_address" class="required col-sm-2 col-form-label">Adresse</label>
-                <textarea id="baker_address" class="form-control" name="baker[address]" required="required"></textarea>
+            {{ form_row(form.address)}}
             </div>
         </div>
-        <div class="form-row">
-            <div class=" form-group">
-                <label for="baker_phone" class="required col-sm-2 col-form-label">Téléphone</label>
-                <input type="text" id="baker_phone" class="form-control" name="baker[phone]" required="required" value="(563) 798-4047" />
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.phone)}}
             </div>
         </div>
-        <input type="hidden" id="baker__token" class="form-control" name="baker[_token]" value="6accbcd051a89bedeb035e804ece.-3qv3o3_25b1OIQA5nezDb87A5DSSbVLtJzLiTG-Bcc.sgD47sioo-6PYMFGt1ryOtdzcemdJ9M6g_6gx2KOcaaaFemYw6qh05AM0Q" />
-        <div>
-        <button class="btn btn-primary mt-4">Mettre à jour</button>
+{{ form_rest(form) }}
+        <div class="d-flex justify-content-center">
+            <input type="submit" class="btn btn-primary mt-4" value="Valider" />
         </div>
-    </div>
-</form>
+</div>
+{{ form_end(form) }}
