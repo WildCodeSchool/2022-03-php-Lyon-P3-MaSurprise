@@ -74,6 +74,7 @@ class CakeController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $cake->getId(), $request->request->get('_token'))) {
             $cakeRepository->remove($cake, true);
+            return $this->redirectToRoute('app_cake_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->redirectToRoute('app_cake_index', [], Response::HTTP_SEE_OTHER);
