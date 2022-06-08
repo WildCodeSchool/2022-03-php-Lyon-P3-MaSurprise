@@ -6,6 +6,7 @@ use _PHPStan_0a43b4828\Nette\Neon\Exception;
 use App\Entity\Cake;
 use App\Repository\CakeRepository;
 use App\Form\CakeType;
+use phpDocumentor\Reflection\Types\Integer;
 use phpDocumentor\Reflection\Types\String_;
 use phpDocumentor\Reflection\Types\Void_;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use function _PHPStan_0a43b4828\RingCentral\Psr7\str;
 use function PHPUnit\Framework\throwException;
 
 #[Route('/cake')]
@@ -77,13 +79,13 @@ class CakeController extends AbstractController
     #[Route('/{id}', name: 'app_cake_delete', methods: ['POST'])]
     public function delete(Request $request, Cake $cake, CakeRepository $cakeRepository): Response
     {
-        if ($request != String_::class) {
-            throw new Exception('Impossible de supprimer le gateau');
+        if (is_string($request->request->get('_token')) || is_null($request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete' . $cake->getId(), $request->request->get('_token'))) {
+                $cakeRepository->remove($cake, true);
+            } else {
+                throw new Exception('Impossible de supprimer le gateau');
+            }
         }
-        if ($this->isCsrfTokenValid('delete' . $cake->getId(), $request->request->get('_token'))) {
-            $cakeRepository->remove($cake, true);
-        }
-
         return $this->redirectToRoute('app_cake_index', [], Response::HTTP_SEE_OTHER);
     }
 }
