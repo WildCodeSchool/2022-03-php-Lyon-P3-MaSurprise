@@ -4,24 +4,32 @@
 
 {% block body %}
     <main class="container-fluid">
+        <h1 class="text-center text-primary p-3">Liste des pâtissiers</h1>
 
-        <div class="card mb-3" style="max-width: 540px;">
-            <div class="row g-0">
-                {% for baker in bakers %}
-                <div class="col-md-8">
-                <div class="card-body">
-                    <h2 class="card-title">{% if baker.commercialName is not empty %}
-                    {{ baker.commercialName}}
-                        {% else %}{{ baker.firstname }} {{ baker.lastname }}
-                        {% endif %}
-                    </h2>
-                    <p class="card-text">Téléphone : {{ baker.phone }}</p>
-                    <a href="{{ path('app_baker_list', {id:baker.id} ) }}" class="btn btn-primary">Plus de détails</a>
+        {% for baker in bakers %}
+            <div class="card bg-light mb-3">
+                <div class="row m-3 g-{{loop.index0}}">
+                    <div class="col-md-4">
+                        <img src="https://images.pexels.com/photos/3771812/pexels-photo-3771812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="img-fluid rounded-start" alt="portrait du pâtissier">
+                    </div>
+                    <div class="col-md-8">
+                    <div class="card-body">
+                        <h2 class="card-title">{% if baker.commercialName is not empty %}
+                        {{ baker.commercialName}}
+                            {% else %}{{ baker.firstname }} {{ baker.lastname }}
+                            {% endif %}
+                        </h2>
+                        <p class="card-text">{% if baker.commercialName is not empty %}
+                        {{ baker.firstname }} {{ baker.lastname }}
+                            {% endif %}
+                        </p>
+                        <p class="card-text">Téléphone : {{ baker.phone }}</p>
+                        <p class="card-text">Lieu : 69 - Rhône</p>
+                        <a href="{{ path('app_baker_list', {id:baker.id} ) }}" class="btn btn-primary">Plus de détails</a>
+                    </div>
+                    </div>
                 </div>
-                </div>
-                {% endfor %} 
             </div>
-        </div>
-
+        {% endfor %}
     </main>
 {% endblock %}
