@@ -5,15 +5,16 @@ namespace App\Controller;
 use App\Entity\Baker;
 use App\Form\BakerType;
 use App\Repository\BakerRepository;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/patissier', name:'app_baker_')]
+#[Route('/patissier', name:'app_baker')]
 class BakerController extends AbstractController
 {
-    #[Route('/', name: 'index')]
+    #[Route('/', name: '_index')]
     public function index(BakerRepository $bakerRepository): Response
     {
         $bakers = $bakerRepository->findAll();
@@ -22,7 +23,7 @@ class BakerController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'form')]
+    #[Route('/new', name: '_form')]
     public function newBaker(Request $request, BakerRepository $bakerRepository): Response
     {
         $baker = new Baker();
@@ -39,7 +40,7 @@ class BakerController extends AbstractController
     }
 
 
-    #[Route('/{id}', name: 'list')]
+    #[Route('/{id}', name: '_list')]
     public function detail(Baker $baker): Response
     {
         return $this->render('baker/show.html.twig', [
@@ -47,7 +48,7 @@ class BakerController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/modifier', name: 'edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modifier', name: '_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Baker $baker, BakerRepository $bakerRepository): Response
     {
         $form = $this->createForm(BakerType::class, $baker);
@@ -65,11 +66,15 @@ class BakerController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'delete', methods: ['POST'])]
+    #[Route('/{id}', name: '_delete', methods: ['POST'])]
     public function delete(Request $request, Baker $baker, BakerRepository $bakerRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $baker->getId(), $request->request->get('_token'))) {
-            $bakerRepository->remove($baker, true);
+        if (is_string($request->request->get('_token')) || is_null($request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('_delete' . $baker->getId(), $request->request->get('_token'))) {
+                $bakerRepository->remove($baker, true);
+            } else {
+                throw new Exception(message : 'entrecôte');
+            }
         }
 
         return $this->redirectToRoute('app_baker_index', [], Response::HTTP_SEE_OTHER);

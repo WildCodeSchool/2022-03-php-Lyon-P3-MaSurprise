@@ -3,9 +3,8 @@
 {% block title %}Modifier Pâtissier{% endblock %}
 
 {% block body %}
-    <h1>Compte pâtissier : modifier</h1>
+    <h1 class="text-primary text-center">Compte pâtissier : modifier</h1>
 
-    {{ include('baker/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    {{ include('baker/_form.html.twig') }}
 
-    {{ include('baker/_delete_form.html.twig') }}
 {% endblock %}

@@ -1,3 +1,11 @@
+$primary:#E3A7A7;
+
+$theme-colors:(
+    "primary": $primary
+);
 
 @import "~bootstrap/scss/bootstrap";
 
+#baker-form{
+    display:flex;
+}

@@ -1,3 +1,9 @@
+$primary:#E3A7A7;
+
+$theme-colors:(
+    "primary": $primary
+);
+
 @import "~bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
