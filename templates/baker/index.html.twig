@@ -7,7 +7,7 @@
         <h1 class="text-center text-primary p-3">Liste des pâtissiers</h1>
 
         {% for baker in bakers %}
-            <div id="baker-card"class="card mb-3">
+            <div id="baker-card" class="card mb-3">
                 <div class="row m-3 g-{{loop.index0}}">
                     <div class="col-md-4">
                         <img src="https://images.pexels.com/photos/3771812/pexels-photo-3771812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="img-fluid rounded-start" alt="portrait du pâtissier">
@@ -25,7 +25,11 @@
                         </p>
                         <p class="card-text">Téléphone : {{ baker.phone }}</p>
                         <p class="card-text">Lieu : 69 - Rhône</p>
-                        <a href="{{ path('app_baker_list', {id:baker.id} ) }}" class="btn btn-primary">Plus de détails</a>
+                        <a href="{{ path('app_baker_list', {id:baker.id} ) }}" class="btn btn-primary m-3">Plus de détails</a></br>
+                        <div class="d-flex align-items-center">
+                            <a href="{{ path('app_baker_edit', {id:baker.id} ) }}" class="btn btn-secondary text-white m-2">Modifier</a>
+                            {{ include('baker/_delete_form.html.twig') }}
+                        </div>
                     </div>
                     </div>
                 </div>
