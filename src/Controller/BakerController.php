@@ -23,7 +23,7 @@ class BakerController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: '_form')]
+    #[Route('/nouveau', name: '_form')]
     public function newBaker(Request $request, BakerRepository $bakerRepository): Response
     {
         $baker = new Baker();
