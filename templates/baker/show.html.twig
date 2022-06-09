@@ -6,18 +6,33 @@
         {% endif %}{% endblock %}
 
 {% block body %}
+<main class="container-fluid">
+    <p>{% if baker.commercialName is not empty %}
+    {{ baker.commercialName}}
+    {% endif %}
+    </p>
     <h1>{{ baker.firstname }} {{ baker.lastname }}</h1>
     <p>Téléphone : {{ baker.phone }}</p>
     <p>Adresse : {{ baker.address }}</p>
     <p>Date d'inscription : {{ baker.created | date("d/m/Y")}}</p>
-    {% for cake in baker.cakes %}
-        <h2>Gâteau n°{{ loop.index }} : {{ cake.name }}</h2>
-        <ul>
-            <li>Prix : {{ cake.price}} €</li>
-            <li>Taille : {{ cake.size }}</li>
-        </ul>
-    {% else %}
-        <p>Ce pâtissier ne propose aucun article actuellement</p>
-    {% endfor %}
-    <a href="{{ path('app_baker_index')}}" class="btn btn-primary">Retour à la liste des pâtissiers</a>
+
+    {% if baker.cakes is not empty %}<h2 class="text-center">Liste des gâteaux proposés par ce pâtissier</h2>{% endif %}
+    <div class="card-group">
+        {% for cake in baker.cakes %}
+        <div class="card m-2">
+            <img src="https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h3 class="text-center">Gâteau n°{{ loop.index }} : {{ cake.name }}</h3>
+                <ul>
+                    <li>Prix : {{ cake.price}} €</li>
+                    <li>Taille : {{ cake.size }}</li>
+                </ul>
+            </div>
+        </div>
+        {% else %}
+        <h2>Ce pâtissier ne propose aucun gâteau actuellement</h2>
+        {% endfor %}
+    </div>
+    <a href="{{ path('app_baker_index')}}" class="btn btn-primary p-2 m-2">Retour à la liste des pâtissiers</a>
+</main>
 {% endblock %}
