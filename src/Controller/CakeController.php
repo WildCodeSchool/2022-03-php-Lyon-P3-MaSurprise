@@ -6,17 +6,10 @@ use _PHPStan_0a43b4828\Nette\Neon\Exception;
 use App\Entity\Cake;
 use App\Repository\CakeRepository;
 use App\Form\CakeType;
-use phpDocumentor\Reflection\Types\Integer;
-use phpDocumentor\Reflection\Types\String_;
-use phpDocumentor\Reflection\Types\Void_;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
-use function _PHPStan_0a43b4828\RingCentral\Psr7\str;
-use function PHPUnit\Framework\throwException;
 
 #[Route('/cake')]
 class CakeController extends AbstractController
