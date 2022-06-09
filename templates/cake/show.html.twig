@@ -3,16 +3,35 @@
 {% block title %}Hello CakeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <p> {{ cake.name}} </p>
-    <p> {{ cake.description}} </p>
-    <p> {{ cake.allergens}} </p>
-    <p> {{ cake.baker.firstname}} {{ cake.baker.lastname }}</p>
-    <a href="{{ path('app_cake_index') }}">Retour à la liste des gateaux</a>
-</div>
+    <div class="container cake-presenation">
+        <div class="row">
+            <div class="col-6 cake-image">
+
+            </div>
+        </div>
+        <div class="col-6 cake-descritpion"></div>
+    </div>
+    <div class="container baker-presentation">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+    <div class="container container-card">
+        <div class="row d-flex justify-content-around">
+            {% for cake in cakes %}
+                <div class="cake-card card border-0 bg-light col-3">
+                    <img class="card-img-top" src="{{ asset('build/images/cake.png') }}" alt="Card image cap">
+                    <div class="card-body d-flex flex-column">
+                        <a href="{{ path('app_cake_show', {'id': cake.id}) }}"
+                           class="title-cake text-dark text-decoration-none">{{ cake.name }} </a>
+                        <p class="align-self-end">{{ cake.price }}</p>
+                        <h5 class="text-start opacity-50"> {{ cake.baker.lastname }}
+                            .{{ cake.baker.firstname |slice(0, 1) }} </h5>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

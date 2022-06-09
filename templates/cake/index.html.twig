@@ -13,7 +13,7 @@
                     <div class="card-body d-flex flex-column">
                         <a href="{{ path('app_cake_show', {'id': cake.id}) }}"
                            class="title-cake text-dark text-decoration-none">{{ cake.name }} </a>
-                        <p>{{ cake.price }}</p>
+                        <p class="align-self-end">{{ cake.price }}</p>
                         <h5 class="text-start opacity-50"> {{ cake.baker.lastname }}
                             .{{ cake.baker.firstname |slice(0, 1) }} </h5>
                     </div>
