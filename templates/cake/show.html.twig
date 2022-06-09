@@ -9,12 +9,12 @@
             <div class="cake-img container col-6">
                 <div class="row flex-column">
                     <div class="cake-image container col-10"><img src="{{ asset('build/images/gateau.jpg') }}"
-                                                                  class="cake-img-pres" width="100%"></div>
-                    <div class="container col-2"><p>o</p></div>
+                                                                  class="cake-img-pres img-fluid w-75"></div>
+                    <div class="container col-2"><p></p></div>
                 </div>
             </div>
-            <div class="cake-description container col-6">
-                <h1 class="mb-5 font-weight-bold display-1">{{ cake.name }}</h1>
+            <div class="cake-description d-flex flex-column justify-content-between container col-6">
+                <h1 class="cake-title m-0 font-weight-bold">{{ cake.name }}</h1>
                 <p class="fs-3"> {{ cake.price }}€ </p>
                 <div class="d-flex flex-row align-items-center">
                     <img src="{{ asset('build/images/icons/Star_15.png') }}">
@@ -24,15 +24,53 @@
                     <img src="{{ asset('build/images/icons/Star_15.png') }}">
                     <p class="avis">3 avis</p>
                 </div>
-                <P class="mt-5 cake-description fs-4">{{ cake.description }}</P>
-                <div class="">
+                <P class="mt-2 cake-description">{{ cake.description }}</P>
+                <div class="d-flex flex-row justify-content-between">
                     <p class="">ville</p>
                     <p>disponibilité</p>
                 </div>
                 <div class="d-flex flex-row align-items-baseline">
-                    <H2 class="ingredient-title text-decoration-underline">Ingrédients</H2>
+                    <H2 class="ingredient-title text-decoration-underline m-0">Ingrédients</H2>
                     <img src="{{ asset('build/images/icons/bouton_dropdown_ingredients.png') }}">
                 </div>
+                <p class="border p-2">ingrédient 1, ingrédient 2, ingrédient 3, ingrédient 4, ingrédient 5 ,ingrédient 6
+                    ingrédient 7, ingrédient 8, ingrédient 9, ingrédient 10</p>
+                <div class="d-flex flex-row align-items-baseline">
+                    <H2 class="ingredient-title text-decoration-underline m-0">Allergènes</H2>
+                    <img src="{{ asset('build/images/icons/bouton_dropdown_ingredients.png') }}">
+                </div>
+                <p class="border p-2">Allergènes 1, Allergènes 2, Allergènes 3, Allergènes 4, Allergènes 5 ,Allergènes 6
+                    Allergènes 7, Allergènes 8, Allergènes 9, Allergènes 10</p>
+                <div class="d-flex flex-row">
+                    <button class="add-btn btn btn-primary">Ajouter au panier</button>
+                    <div class="col-1">
+                        <input type="text" id="quantity" name="quantity" class="form-control input-number text-center"
+                               value="1"
+                               min="1" max="100">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid baker-description mb-5">
+        <div class="baker-row row d-flex flex-row justify-content-center">
+            <div class="col-3 border-end">
+                <div class="d-flex flex-row">
+                    <img class="comment-img" src="https://i.pravatar.cc/">
+                    <div class="d-flex flex-column justify-content-center">
+                        <p class="text-start font-weight-bold mb-0"> {{ cake.baker.lastname }}
+                            .{{ cake.baker.firstname |slice(0, 1) }} </p>
+                        <p class="titre">Patissier professionel</p>
+                    </div>
+                </div>
+                <div class="">Description du patissier ...Description du patissier ...Description du patissier
+                    ...Description du patissier ...Description du patissier ...Description du patissier ...
+                </div>
+            </div>
+            <div class="col-3 d-flex flex-column justify-content-center">
+                <p class="mb-1">Livraison</p>
+                <p class="mb-1">Click & collect</p>
+                <p class="mb-1">CAP Pâtissier</p>
             </div>
         </div>
     </div>
