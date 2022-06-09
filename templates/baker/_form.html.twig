@@ -1,0 +1,44 @@
+{{ form_start(form) }}
+
+<div id="baker-form" class="d-flex flex-column align-items-center m-5">
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.firstname) }}
+             </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.lastname) }}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.commercialName) }}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.email) }}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.password) }}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.address)}}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.phone)}}
+            </div>
+        </div>
+{{ form_rest(form) }}
+        <div class="d-flex justify-content-center">
+            <input type="submit" class="btn btn-primary mt-4" value="Valider" />
+        </div>
+</div>
+{{ form_end(form) }}
