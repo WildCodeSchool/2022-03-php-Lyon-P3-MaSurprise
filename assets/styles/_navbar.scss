@@ -1,0 +1,26 @@
+   @media (min-width: 0px) and (max-width: 767px) {
+    #desktop-nav {
+        display: none;
+      }
+    #mobile-nav {
+        display: block;
+      }
+   }
+
+   @media (min-width: 768px) {
+    #desktop-nav {
+        display: block;
+      }
+    #mobile-nav {
+        display: none;
+      }
+   }
+
+.navbar-colour { 
+    background-color: #EEEEEE;
+    }
+
+.logo-picture {
+    width: 150px;
+    height: 150px;
+}

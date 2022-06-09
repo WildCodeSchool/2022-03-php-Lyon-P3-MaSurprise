@@ -1,0 +1,53 @@
+{# _navbar.html.twig #}
+
+<!-- DESKTOP VERSION HEREUNDER -->
+
+	<nav class="navbar navbar-expand-md navbar-colour sticky-top" id="desktop-nav"> <div class=" navbar-collapse d-flex justify-content-around">
+		
+    <a class="text-primary nav-link" href="{{ path('app_cake') }}">NOS CAKES</a>
+		<a class="text-primary nav-link" href="{{ path('app_cake') }}">DISPONIBILITÉS</a>
+		<a class="navbar-brand" href="{{ path('app_cake') }}"><img class="logo-picture" alt="logo" src="{{ asset('build/images/logo_mycakeevent.png') }}"></a>
+		<a class="text-primary nav-link" href="{{ path('app_cake') }}">ACCÈS PÂTISSIERS</a>
+		<a class="text-primary nav-link" href="{{ path('app_cake') }}">CONNEXION</a>
+	
+
+</nav>
+
+<!-- MOBILE VERSION HEREUNDER -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="mobile-nav">
+	
+		<div class="container-fluid d-flex justify-content-between">
+			<div>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+		</div>
+    <div>
+		
+				<a class="navbar-brand" href="{{ path('app_cake') }}"><img class="logo-picture" alt="logo" src="{{ asset('build/images/logo_mycakeevent.png') }}"></a>
+		</div>
+    <div>
+				<a href="{{ path('app_cake') }}"><img alt="recherche" src="{{ asset('build/images/search_navbar.png') }}"></a>
+				<a href="{{ path('app_cake') }}"><img alt="panier" src="{{ asset('build/images/shopping_navbar.png') }}"></a>
+				</div>	
+		</div>
+	
+
+	<div class="collapse navbar-collapse" id="navbarNavDropdown">
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link active" aria-current="page" href="{{ path('app_cake') }}">NOS CAKES</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link active" href="{{ path('app_cake') }}">DISPONIBILITÉS</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link active" href="{{ path('app_cake') }}">ACCÈS PÂTISSIERS</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link active" href="{{ path('app_cake') }}">CONNEXION</a>
+			</li>
+		</ul>
+	</div>
+</nav>
