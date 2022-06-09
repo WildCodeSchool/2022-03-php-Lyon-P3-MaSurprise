@@ -6,11 +6,20 @@
 
     <div class="container cake-presenation">
         <div class="row">
-            <div class="col-6 cake-image">
-
+            <div class="col-6 d-flex flex-column cake-image">
+                <div class="row">
+                    <div class="col-10"></div>
+                    <div class="col-2">
+                        <div class="row">
+                            <div class=""></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-6 cake-descritpion"></div>
+        <div class="col-6 cake-descritpion">
+            <div class="row"></div>
+        </div>
     </div>
     <div class="container baker-presentation">
         <div class="row">
@@ -20,15 +29,15 @@
     </div>
     <div class="container container-card">
         <div class="row d-flex justify-content-around">
-            {% for cake in cakes %}
+            {% for item in cake %}
                 <div class="cake-card card border-0 bg-light col-3">
                     <img class="card-img-top" src="{{ asset('build/images/cake.png') }}" alt="Card image cap">
                     <div class="card-body d-flex flex-column">
-                        <a href="{{ path('app_cake_show', {'id': cake.id}) }}"
-                           class="title-cake text-dark text-decoration-none">{{ cake.name }} </a>
-                        <p class="align-self-end">{{ cake.price }}</p>
-                        <h5 class="text-start opacity-50"> {{ cake.baker.lastname }}
-                            .{{ cake.baker.firstname |slice(0, 1) }} </h5>
+                        <a href="{{ path('app_cake_show', {'id': item.id}) }}"
+                           class="title-cake text-dark text-decoration-none">{{ item.name }} </a>
+                        <p class="align-self-end">{{ item.price }}</p>
+                        <h5 class="text-start opacity-50"> {{ item.baker.lastname }}
+                            .{{ item.baker.firstname |slice(0, 1) }} </h5>
                     </div>
                 </div>
             {% endfor %}

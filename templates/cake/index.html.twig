@@ -3,6 +3,7 @@
 {% block title %}Hello CakeController!{% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
 
     <div class="container container-card">
         <div class="row d-flex justify-content-around">
@@ -16,9 +17,42 @@
                         <p class="align-self-end">{{ cake.price }}</p>
                         <h5 class="text-start opacity-50"> {{ cake.baker.lastname }}
                             .{{ cake.baker.firstname |slice(0, 1) }} </h5>
+=======
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
+
+        <div class="container">
+            <h1 class="text-center">Nos gateaux</h1>
+        <div class="row">
+            {% for cake in cakes %}
+                <div class="col-12 col-md-6 col-lg-4 mb-2">
+                    <img src="{{ asset('build/images/gateau.jpg') }}" class="card-img-top" alt="...">
+                    <div class="card">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <a class="card-title"
+                               href="{{ path('app_cake_show', {'id': cake.id}) }}">{{ cake.name }} </a>
+                            <a>{{ cake.baker.firstname }}.{{ cake.baker.lastname|slice(0, 1) }}</a>
+                        </div>
+>>>>>>> 42acb9fd8915dba112f866187c362d40045648bd
                     </div>
                 </div>
             {% endfor %}
         </div>
+<<<<<<< HEAD
     </div>
+=======
+        </div>
+>>>>>>> 42acb9fd8915dba112f866187c362d40045648bd
 {% endblock %}
+
