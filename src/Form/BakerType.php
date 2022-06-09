@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Baker;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,7 +32,7 @@ class BakerType extends AbstractType
                 'label' => "E-mail",
                 'required' => "Le champ E-mail est obligatoire"
                 ])
-            ->add('password', TextType::class, [
+            ->add('password', PasswordType::class, [
                 'label' => "Mot de passe",
                 'required' => "Le champ Mot de passe est obligatoire"
                 ])

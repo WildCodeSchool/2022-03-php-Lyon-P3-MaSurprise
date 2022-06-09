@@ -3,42 +3,42 @@
 <div id="baker-form" class="d-flex flex-column align-items-center m-5">
         <div class="form-row w-50">
             <div class="form-group">
-            {{ form_row(form.firstname) }}
+            <h6>{{ form_row(form.firstname) }}</h6>
              </div>
         </div>
         <div class="form-row w-50">
             <div class="form-group">
-            {{ form_row(form.lastname) }}
+            <h6>{{ form_row(form.lastname) }}</h6>
             </div>
         </div>
         <div class="form-row w-50">
             <div class="form-group">
-            {{ form_row(form.commercialName) }}
+            <h6>{{ form_row(form.commercialName) }}</h6>
             </div>
         </div>
         <div class="form-row w-50">
             <div class="form-group">
-            {{ form_row(form.email) }}
+            <h6>{{ form_row(form.email) }}</h6>
             </div>
         </div>
         <div class="form-row w-50">
             <div class="form-group">
-            {{ form_row(form.password) }}
+            <h6>{{ form_row(form.address)}}</h6>
             </div>
         </div>
         <div class="form-row w-50">
             <div class="form-group">
-            {{ form_row(form.address)}}
+            <h6>{{ form_row(form.phone)}}</h6>
             </div>
         </div>
         <div class="form-row w-50">
             <div class="form-group">
-            {{ form_row(form.phone)}}
+            <h6>{{ form_row(form.password)}}</h6>
             </div>
         </div>
-{{ form_rest(form) }}
+{{ form_end(form) }}
         <div class="d-flex justify-content-center">
             <input type="submit" class="btn btn-primary mt-4" value="Valider" />
         </div>
 </div>
-{{ form_end(form) }}
+
