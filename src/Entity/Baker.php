@@ -179,4 +179,10 @@ class Baker
 
         return $this;
     }
+
+    // gets the fullname and displays it inside the form: CakeType
+    public function getFullName(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
 }
