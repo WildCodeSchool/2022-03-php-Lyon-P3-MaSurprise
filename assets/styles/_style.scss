@@ -1,0 +1,280 @@
+/* ---------- REDEFINING BOOTSTRAP COLOURS ---------- */
+$primary: #B1367E;
+$light: #FCF5EE;
+
+
+/* ---------- VARIABLES ---------- */
+:root {
+    --background-dark: #EFEAE4;
+    --background-light: #FCF5EE;
+    --background-footer-navbar: #EEEEEE;
+    --text-title-pink: #B1367E;
+    --text-red: #C92A00;
+    --text-pink: #ffd9da;
+    --text-pinkred: #C46A88;
+    --text-pinkorange: #FF7C82;
+    --text-orange: #D67826;
+    --text-purple: #6165A0;
+    --text-lightblue: rgb(202, 241, 255);
+    --text-darkgreen: #608441;
+    --text-maroon: #C4B192;
+    --box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 1px;
+}
+
+/* ---------- FONTS ---------- */
+@font-face {
+    font-family: 'Cup Cakes';
+    src: url('../fonts/CupCakes/cup-cakes.otf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Cuprum';
+    src: url('../fonts/Cuprum/Cuprum-VariableFont_wght.ttf') format('truetype'),
+    url('../fonts/Cuprum/Cuprum-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Karla';
+    src: url('../fonts/Karla/Karla-VariableFont_wght.ttf') format('truetype'),
+    url('../fonts/Karla/Karla-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins/Poppins-Black.ttf') format('truetype');
+}
+
+/* ---------- GLOBAL POLICIES ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #B1367E;
+    font-family: "Karla", sans-serif;
+}
+
+/* ---------- GLOBAL COLOURS ---------- */
+.text-red {
+    color: var(--text-red);
+}
+
+.text-pink {
+    color: var(--text-pink);
+}
+
+.text-pinkred {
+    color: var(--text-pinkred);
+}
+
+.text-pinkorange {
+    color: var(--text-pinkorange);
+}
+
+.text-orange {
+    color: var(--text-orange);
+}
+
+.text-purple {
+    color: var(--text-purple);
+}
+
+.text-lightblue {
+    color: var(--text-lightblue);
+}
+
+.text-darkgreen {
+    color: var(--text-darkgreen);
+}
+
+.text-maroon {
+    color: var(--text-maroon);
+}
+
+.border-red {
+    border: 1px solid;
+    border-color: var(--text-red);
+}
+
+.border-lightblue {
+    border: 1px solid;
+    border-color: var(--text-lightblue);
+}
+
+.border-darkgreen {
+    border: 1px solid;
+    border-color: var(--text-darkgreen);
+}
+
+.border-pinkorange {
+    border: 1px solid;
+    border-color: var(--text-pinkorange);
+}
+
+.border-orange {
+    border: 1px solid;
+    border-color: var(--text-orange);
+}
+
+/* ---------- HOMEPAGE ---------- */
+/* ----- general ----- */
+h1, h2, h3, h4 {
+    font-family: "Cup Cakes", sans-serif;
+    margin: 20px;
+}
+
+.main-theme-container-title,
+.main-how-to-container-title,
+.main-sweet-dream-container-title,
+.main-references-container-title {
+    font-size: 48pt;
+}
+
+.main-theme-container,
+.main-how-to-container,
+.main-sweet-dream-container,
+.main-references-container {
+    padding: 50px;
+}
+
+/* ----- header ----- */
+.header-img {
+    background-image: url("../images/header.jpg");
+    background-position: center center;
+    background-size: cover;
+    height: 740px;
+}
+
+.header-img form {
+    padding-top: 200px;
+}
+
+/* ----- themes ----- */
+.theme-container {
+    column-gap: 20px;
+}
+
+.theme-button {
+    background-color: white;
+    height: 375px;
+    width: 375px;
+    border-radius: 6px;
+    padding: 30px;
+}
+
+.theme-button:hover {
+    cursor: pointer;
+    //background-color: var(--text-pink);
+    box-shadow: rgba(60, 64, 67, 0.3) 0 0 10px 5px;
+}
+
+.theme-img {
+    width: 100px;
+    height: 100px;
+}
+
+/* ----- sweet dream ----- */
+.main-sweet-dream-container {
+    background-color: var(--background-dark);
+}
+
+.sweet-dream-container {
+    row-gap: 10vh;
+}
+
+.carousel-container {
+    column-gap: 15px;
+}
+
+.carousel-img {
+    width: 250px;
+    height: 250px;
+    padding: 15px;
+    border: 10px solid white;
+    box-shadow: var(--box-shadow);
+}
+
+/* ----- how to ----- */
+.main-how-to-container {
+    background-color: var(--background-dark);
+}
+
+.how-to-light-bg {
+    background-color: var(--background-light);
+    padding: 40px;
+}
+
+.how-to-container {
+    column-gap: 20px;
+}
+
+.how-to {
+    border-radius: 6px;
+    width: 400px;
+    padding: 30px;
+}
+
+/* ----- references ----- */
+.main-ratings-container {
+    column-gap: 20px;
+}
+
+.ratings-container {
+    border: 1px solid #D67826;
+    border-radius: 6px;
+    height: 370px;
+    width: 400px;
+    padding: 30px;
+    background-color: white;
+}
+
+.ratings-container h3 {
+    color: #B1367E;
+}
+
+.comment-img {
+    width: 135px;
+    height: 135px;
+    border-radius: 100%;
+}
+
+.separator {
+    width: 100px;
+    height: 2px;
+    margin: 50px 0 50px 0;
+}
+
+.floating-img {
+    width: 80px;
+    height: 80px;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+    height: 300px;
+    background-color: var(--background-footer-navbar);
+    padding: 50px;
+}
+
+footer h4 {
+    font-size: 25px;
+}
+
+footer ul {
+    list-style-type: none;
+}
+
+footer ul a {
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+}
+
+.footer-logo {
+    height: 200px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}

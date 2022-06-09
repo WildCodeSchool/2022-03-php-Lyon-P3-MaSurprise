@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\BakerRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -45,6 +46,7 @@ class Baker
     public function __construct()
     {
         $this->cakes = new ArrayCollection();
+        $this->created = new DateTime();
     }
 
     public function getId(): ?int
@@ -176,5 +178,11 @@ class Baker
         }
 
         return $this;
+    }
+
+    // gets the fullname and displays it inside the form: CakeType
+    public function getFullName(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 }
