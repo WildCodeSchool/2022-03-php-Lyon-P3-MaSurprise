@@ -120,7 +120,7 @@ body {
 
 /* ---------- HOMEPAGE ---------- */
 /* ----- general ----- */
-h1, h2, h3 {
+h1, h2, h3, h4 {
     font-family: "Cup Cakes", sans-serif;
     margin: 20px;
 }
@@ -240,7 +240,41 @@ h1, h2, h3 {
     border-radius: 100%;
 }
 
+.separator {
+    width: 100px;
+    height: 2px;
+    margin: 50px 0 50px 0;
+}
+
 .floating-img {
     width: 80px;
     height: 80px;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+    height: 300px;
+    background-color: var(--background-footer-navbar);
+    padding: 50px;
+}
+
+footer h4 {
+    font-size: 25px;
+}
+
+footer ul {
+    list-style-type: none;
+}
+
+footer ul a {
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+}
+
+.footer-logo {
+    height: 200px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }

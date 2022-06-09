@@ -11,12 +11,18 @@ class BakerFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create();
-        for ($i = 0; $i < 10; $i++) {
+        $faker = Factory::create('fr_FR');
+        for ($i = 0; $i < 15; $i++) {
             $baker = new Baker();
             $baker->setCreated($faker->dateTime);
             $baker->setLastname($faker->lastName());
             $baker->setFirstname($faker->firstName());
+            $commercialName = $faker->optional()->randomElement(
+                ['La fée des gâteaux', 'Super Cake', 'Maison Truffe', 'Cakery Lina', 'Chef Alex', 'Gâteau sur commande']
+            );
+            if (is_string($commercialName)) {
+                $baker->setCommercialname($commercialName);
+            }
             $baker->setEmail($faker->email());
             $baker->setPassword($faker->password(8, 15));
             $baker->setPhone($faker->phoneNumber());
