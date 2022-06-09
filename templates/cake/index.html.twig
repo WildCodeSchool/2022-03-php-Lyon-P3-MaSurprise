@@ -3,16 +3,22 @@
 {% block title %}Hello CakeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-
-    {% for cake in cakes %}
-        <a href="{{ path('app_cake_show', {'id': cake.id}) }}">{{ cake.name }} </a>
-        <p> {{ cake.picture1 }}</p>
-    {% endfor %}
-</div>
+    <div class="container container-card">
+        <div class="row d-flex justify-content-around">
+            <h1 class="title-show text-center col-12">Nos gâteaux</h1>
+            {% for cake in cakes %}
+                <div class="cake-card card border-0 bg-light col-md-6 col-lg-4 g-5">
+                    <img class="card-img-top" src="{{ asset('build/images/cake.png') }}" alt="Card image cap">
+                    <div class="card-body d-flex flex-column">
+                        <a href="{{ path('app_cake_show', {'id': cake.id}) }}"
+                           class="title-cake text-dark text-decoration-none">{{ cake.name }} </a>
+                        <p>{{ cake.price }}</p>
+                        <h5 class="text-start opacity-50"> {{ cake.baker.lastname }}
+                            .{{ cake.baker.firstname |slice(0, 1) }} </h5>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
