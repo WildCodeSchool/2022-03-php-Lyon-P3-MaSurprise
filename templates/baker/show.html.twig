@@ -7,16 +7,16 @@
 
 {% block body %}
 <main class="container-fluid">
-    <p>{% if baker.commercialName is not empty %}
+    <h1>{% if baker.commercialName is not empty %}
     {{ baker.commercialName}}
     {% endif %}
-    </p>
-    <h1>{{ baker.firstname }} {{ baker.lastname }}</h1>
+    </h1>
+    <h2>{{ baker.firstname }} {{ baker.lastname }}</h2>
     <p>Téléphone : {{ baker.phone }}</p>
     <p>Adresse : {{ baker.address }}</p>
     <p>Date d'inscription : {{ baker.created | date("d/m/Y")}}</p>
 
-    {% if baker.cakes is not empty %}<h2 class="text-center">Liste des gâteaux proposés par ce pâtissier</h2>{% endif %}
+    {% if baker.cakes is not empty %}<h3 class="text-center">Liste des gâteaux proposés par ce pâtissier</h3>{% endif %}
     <div class="card-group">
         {% for cake in baker.cakes %}
         <div class="card m-2">
@@ -33,6 +33,6 @@
         <h2>Ce pâtissier ne propose aucun gâteau actuellement</h2>
         {% endfor %}
     </div>
-    <a href="{{ path('app_baker_index')}}" class="btn btn-primary p-2 m-2">Retour à la liste des pâtissiers</a>
+    <a href="{{ path('app_baker_index')}}" class="btn btn-primary center p-2 m-2">Retour à la liste des pâtissiers</a>
 </main>
 {% endblock %}
