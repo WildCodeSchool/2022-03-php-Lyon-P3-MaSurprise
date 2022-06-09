@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CakeController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <p> {{ cake.name}} </p>
+    <p> {{ cake.description}} </p>
+    <p> {{ cake.allergens}} </p>
+    <p> {{ cake.baker.firstname}} {{ cake.baker.lastname }}</p>
+    <a href="{{ path('app_cake_index') }}">Retour à la liste des gateaux</a>
+</div>
+{% endblock %}
