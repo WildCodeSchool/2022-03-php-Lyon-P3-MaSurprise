@@ -53,6 +53,7 @@ $secondary: #E3A7A7;
 }
 
 body {
+    padding-top: 210px;
     background-color: #B1367E;
     font-family: "Karla", sans-serif;
 }
@@ -150,6 +151,35 @@ h1, h2, h3, h4 {
 
 .header-img form {
     padding-top: 200px;
+}
+
+/* ----- navbar ----- */
+
+@media (min-width: 0px) and (max-width: 767px) {
+    #desktop-nav {
+        display: none;
+      }
+    #mobile-nav {
+        display: block;
+      }
+   }
+
+   @media (min-width: 768px) {
+    #desktop-nav {
+        display: block;
+      }
+    #mobile-nav {
+        display: none;
+      }
+   }
+
+.navbar-colour { 
+    background-color: #EEEEEE;
+    }
+
+.logo-picture {
+    width: 150px;
+    height: 150px;
 }
 
 /* ----- themes ----- */
