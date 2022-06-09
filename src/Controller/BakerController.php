@@ -73,7 +73,7 @@ class BakerController extends AbstractController
             if ($this->isCsrfTokenValid('_delete' . $baker->getId(), $request->request->get('_token'))) {
                 $bakerRepository->remove($baker, true);
             } else {
-                throw new Exception(message : 'entrecôte');
+                throw new Exception(message : 'token should be string or null');
             }
         }
 
