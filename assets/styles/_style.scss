@@ -2,7 +2,7 @@
 $primary: #B1367E;
 $light: #FCF5EE;
 $secondary: #E3A7A7;
-
+$enable-responsive-font-sizes: true;
 
 /* ---------- VARIABLES ---------- */
 :root {
@@ -173,7 +173,7 @@ h1, h2, h3, h4 {
       }
    }
 
-.navbar-colour { 
+.navbar-colour {
     background-color: #EEEEEE;
     }
 
