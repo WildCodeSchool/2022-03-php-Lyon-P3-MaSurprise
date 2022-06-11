@@ -9,7 +9,16 @@
             <div class="header-img d-flex justify-content-center">
                 <form>
                     <div class="input-group input-group-lg mb-3">
-                        <input type="search" class="form-control" placeholder="Rechercher" aria-label="Username">
+
+                        <div>
+                            {{ form_start(searchForm) }}
+                            {{ form_widget(searchForm) }}
+                            <button>
+                                Test
+                            </button>
+                            {{ form_end(searchForm) }}
+                        </div>
+
                         <select class="form-select" id="inputGroupSelect04"
                                 aria-label="Example select with button addon">
                             <option selected>Localisation</option>

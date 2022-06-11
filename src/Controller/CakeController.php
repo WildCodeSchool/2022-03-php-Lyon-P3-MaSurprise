@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\SearchCakeFormType;
 use Exception;
 use App\Entity\Cake;
 use App\Form\CakeType;
@@ -15,18 +16,39 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CakeController extends AbstractController
 {
     #[Route('/', name: 'app_cake_index')]
-    public function index(CakeRepository $cakeRepository): Response
+    public function index(Request $request, CakeRepository $cakeRepository): Response
     {
-        $cakes = $cakeRepository->findAll();
+        // creating form
+        $searchForm = $this->createForm(SearchCakeFormType::class);
+        $searchForm->handleRequest($request);
+        $errors = "";
+
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            //fetching data from form
+            $search = $searchForm->getData()['search'];
+            $cakes = $cakeRepository->findLikeName($search);
+
+            // displaying a message if none found
+            if ($cakeRepository->findLikeName($search) == null) {
+                $errors = "Aucun gâteau ne correspond à vos critères de recherche...
+                Découvrez tous nos gâteaux ci-dessous.";
+                $cakes = $cakeRepository->findAll();
+            }
+        } else {
+            // displaying all cakes
+            $cakes = $cakeRepository->findAll();
+        }
+
         return $this->render('cake/index.html.twig', [
             'cakes' => $cakes,
+            'searchForm' => $searchForm->createView(),
+            'errors' => $errors,
         ]);
     }
 
     #[Route('/{id}/', name: 'app_cake_show')]
     public function show(Cake $cake): Response
     {
-
         return $this->render('cake/show.html.twig', [
             'cake' => $cake,
         ]);
