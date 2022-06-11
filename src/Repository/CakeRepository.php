@@ -50,6 +50,17 @@ class CakeRepository extends ServiceEntityRepository
         return $queryBuilder->getResult();
     }
 
+    public function findLikeDescription(string $description): array
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->where('c.description LIKE :description')
+            ->setParameter('description', '%' . $description . '%')
+            ->orderBy('c.description', 'ASC')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
 //    /**
 //     * @return Cake[] Returns an array of Cake objects
 //     */

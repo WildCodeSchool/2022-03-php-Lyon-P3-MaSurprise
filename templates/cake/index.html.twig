@@ -8,15 +8,12 @@
         <div class="row d-flex justify-content-start">
             <h1 class="title-show text-center col-12">Nos gâteaux</h1>
             <div class="input-group input-group-lg mb-3">
-                {{ form_start(searchForm) }}
-                {{ form_widget(searchForm) }}
-                <button type="submit" class="form-control">Rechercher
-                </button>
-                {{ form_end(searchForm) }}
+                {{ include('home/_form.html.twig') }}
             </div>
             {% if errors != "" %}
                 <h2>{{ errors }}</h2>
             {% endif %}
+            <p>{{ cakes|length }} résultats</p>
             {% for cake in cakes %}
                 <div class="cake-card card border-0 bg-light col-md-6 col-lg-4 ">
                     <img class="card-img-top" src="{{ asset('build/images/gateau.jpg') }}" alt="Card image cap">

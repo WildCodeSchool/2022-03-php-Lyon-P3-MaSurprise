@@ -12,10 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/cake')]
+#[Route('/cake', name: 'app_cake_')]
 class CakeController extends AbstractController
 {
-    #[Route('/', name: 'app_cake_index')]
+    #[Route('/', name: 'index')]
     public function index(Request $request, CakeRepository $cakeRepository): Response
     {
         // creating form
@@ -26,16 +26,27 @@ class CakeController extends AbstractController
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             //fetching data from form
             $search = $searchForm->getData()['search'];
-            $cakes = $cakeRepository->findLikeName($search);
 
-            // displaying a message if none found
-            if ($cakeRepository->findLikeName($search) == null) {
-                $errors = "Aucun gâteau ne correspond à vos critères de recherche...
-                Découvrez tous nos gâteaux ci-dessous.";
+            if (!$search) {
+                // if the form is submitted empty, display everything
                 $cakes = $cakeRepository->findAll();
+            } else {
+                // else, display name-matched AND description-matched results
+                $cakes = $cakeRepository->findLikeName($search);
+                $cakes += $cakeRepository->findLikeDescription($search);
+
+                // display a message if none found
+                if (
+                    $cakeRepository->findLikeName($search) == null &&
+                    $cakeRepository->findLikeDescription($search) == null
+                ) {
+                    $errors = "Oh non, aucun gâteau ne correspond à vos critères de recherche...
+                Laissez-vous tenter par d'autres choix ci-dessous !";
+                    $cakes = $cakeRepository->findAll();
+                }
             }
         } else {
-            // displaying all cakes
+            // default: displaying all cakes
             $cakes = $cakeRepository->findAll();
         }
 
@@ -46,7 +57,7 @@ class CakeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/', name: 'app_cake_show')]
+    #[Route('/{id}/', name: 'show')]
     public function show(Cake $cake): Response
     {
         return $this->render('cake/show.html.twig', [
@@ -54,7 +65,7 @@ class CakeController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_cake_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(CakeRepository $cakeRepository, Request $request): Response
     {
         $cake = new Cake();
@@ -73,7 +84,7 @@ class CakeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_cake_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Cake $cake, CakeRepository $cakeRepository): Response
     {
         $form = $this->createForm(CakeType::class, $cake);
@@ -91,7 +102,7 @@ class CakeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_cake_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Cake $cake, CakeRepository $cakeRepository): Response
     {
         if (is_string($request->request->get('_token')) || is_null($request->request->get('_token'))) {

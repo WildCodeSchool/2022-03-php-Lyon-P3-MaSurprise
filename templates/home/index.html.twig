@@ -11,12 +11,7 @@
                     <div class="input-group input-group-lg mb-3">
 
                         <div>
-                            {{ form_start(searchForm) }}
-                            {{ form_widget(searchForm) }}
-                            <button>
-                                Test
-                            </button>
-                            {{ form_end(searchForm) }}
+                            {{ include('home/_form.html.twig') }}
                         </div>
 
                         <select class="form-select" id="inputGroupSelect04"
