@@ -4,17 +4,17 @@
 
 {% block body %}
 
-    <div class="container-fluid">
-        <div class="row">
+    <div id="cake-list" class="container-fluid container-lg">
+        <div class="row justify-content-center">
             {% for cake in cakes %}
-            <div class="col-6 col-md-4 d-flex flex-column align-items-start">
+            <div class="cake-card col-6 col-md-4 d-flex flex-column  p-2 p-lg-4">
                 <div>
-                    <img class="img-fluid" src="{{ asset('build/images/gateau.jpg') }}">
+                    <img class="cake-img img-fluid" src="{{ asset('build/images/gateau.jpg') }}">
                 </div>
-                <div class="m-0">
-                    <h1 class="m-0">{{ cake.name }}</h1>
+                <div class="mt-2">
+                    <h1 class="cake-name m-0">{{ cake.name }}</h1>
                 </div>
-                <div class="d-flex align-items-baseline">
+                <div class="cake-stars d-flex align-items-baseline pt-1 pb-1">
                     <div class="rating  m-0"><!--
 		--><a href="#5" title="Give 5 stars">☆</a><!--
 		--><a href="#4" title="Give 4 stars">☆</a><!--
@@ -22,18 +22,19 @@
 		--><a href="#2" title="Give 2 stars">☆</a><!--
 		--><a href="#1" title="Give 1 star">☆</a>
                     </div>
-                    <p class=" m-0">3 avis</p>
+                    <p class="cake-reviews m-0">3 avis</p>
                 </div>
-                <div class="container-fluid p-0 d-flex flex-row justify-content-between">
-                    <P class="m-1">Lyon</P>
+                <div class="cake-city container-fluid p-0 d-flex flex-row justify-content-between m-0 p-0">
+                    <p class="cake-price m-0">{{ cake.price }}€</p>
+                    <P class="m-0">Lyon</P>
                 </div>
-                <div>
-                    <p>Disponnible dans 10 jours</p>
-                    <p class="m-1">{{ cake.price }}€</p>
+                <div class="cake-price-rev m-0 p-0">
+                    <p class="cake-disponibility m-0">Disponnible dans 10 jours</p>
+
                 </div>
-                <div class="d-flex align-items-baseline">
-                    <img src="{{ asset('build/images/icons/hat.png') }}" class="hat">
-                    <h5 class="text-start opacity-50"> {{ cake.baker.lastname }}
+                <div class="d-flex align-items-baseline m-0 p-0">
+                    <img src="{{ asset('build/images/icons/hat.png') }}" class="hat img-fluid w-auto">
+                    <h5 class="baker-name text-start opacity-50"> {{ cake.baker.lastname }}
                         .{{ cake.baker.firstname |slice(0, 1) }} </h5>
                 </div>
             </div>

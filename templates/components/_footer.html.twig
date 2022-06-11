@@ -1,22 +1,27 @@
-<footer class="container-fluid">
-    <div class="row">
-        <div class="footer-main-container d-flex flex-row">
-            <div class="footer-help-container d-flex flex-column">
-                <h4>Besoin d'aide ?</h4>
-                <ul>
-                    <li><a href="#">FAQ</a></li>
+<footer class="container">
+    <div class="row align-items-baseline">
+        <div class="col-4">
+            <div class="footer-help-container d-flex flex-column m-0 p-0">
+                <h4 class="ml-1 p-2">Besoin d'aide ?</h4>
+                <ul class="ml-1 p-2">
+                    <li class="ml-1"><a href="#">FAQ</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
             </div>
-            <div class="footer-misc-container d-flex flex-column">
-                <h4>Divers</h4>
-                <ul>
-                    <li><a href="#">Inscription pâtissier</a></li>
-                    <li><a href="#">CGV</a></li>
-                    <li><a href="#">COVID 19</a></li>
-                </ul>
+        </div>
+        <div class="col-4">
+            <div class="footer-logo-container">
+                <a href="#"><img class="footer-logo" src="{{ asset('build/images/logo.png') }}" alt="Logo"></a>
             </div>
-            <a href="#"><img class="footer-logo" src="{{ asset('build/images/logo.png') }}" alt="Logo"></a>
+        </div>
+        <div class="col-4 footer-misc-container d-flex flex-column">
+            <h4>Divers</h4>
+            <ul>
+                <li><a href="#">Inscription pâtissier</a></li>
+                <li><a href="#">CGV</a></li>
+                <li><a href="#">COVID 19</a></li>
+            </ul>
         </div>
     </div>
 </footer>
+

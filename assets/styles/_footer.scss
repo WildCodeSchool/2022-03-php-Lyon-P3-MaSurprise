@@ -1,0 +1,26 @@
+footer ul a {
+    text-decoration: none;
+    color: black;
+    font-size: 0.7em;
+}
+
+footer h4, footer .h4 {
+    font-size: 1.5em;
+}
+
+h4.ml-1.p-2 {
+    font-size: 1.5em;
+    z-index: 50;
+
+}
+
+.footer-logo {
+    height: 15vh;
+    z-index: 0;
+}
+
+footer {
+    height: 300px;
+    background-color: var(--background-footer-navbar);
+    padding: 25px;
+}
