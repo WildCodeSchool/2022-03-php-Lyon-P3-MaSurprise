@@ -4,3 +4,11 @@
     border-radius: 20px;
     background: green;
 }
+
+@media screen and (min-width: 768px) {
+
+    .cake-show {
+        display: contents;
+    }
+
+}
