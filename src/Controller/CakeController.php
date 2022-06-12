@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Exception;
 use App\Entity\Cake;
+use App\Entity\Baker;
 use App\Form\CakeType;
 use App\Repository\CakeRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,11 +25,11 @@ class CakeController extends AbstractController
     }
 
     #[Route('/{id}/', name: 'app_cake_show')]
-    public function show(Cake $cake): Response
+    public function show(Cake $cake, Baker $baker): Response
     {
 
         return $this->render('cake/show.html.twig', [
-            'cake' => $cake,
+            'cake' => $cake, 'baker' => $baker
         ]);
     }
 
