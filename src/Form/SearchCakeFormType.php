@@ -12,7 +12,8 @@ class SearchCakeFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('search', SearchType::class, ['required' => false,]);
+            ->add('search', SearchType::class, ['required' => false,])
+            ->setMethod('POST');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

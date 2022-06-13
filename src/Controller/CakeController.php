@@ -50,6 +50,7 @@ class CakeController extends AbstractController
             $cakes = $cakeRepository->findAll();
         }
 
+
         return $this->render('cake/index.html.twig', [
             'cakes' => $cakes,
             'searchForm' => $searchForm->createView(),
