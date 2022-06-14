@@ -10,8 +10,9 @@
             <div class="input-group input-group-lg mb-3">
                 {{ include('components/_searchform.html.twig') }}
             </div>
-            {% if errors != "" %}
-                <h2>{{ errors }}</h2>
+            {% if errors == 1 %}
+                <h2>Oh non, aucun gâteau ne correspond à vos critères de recherche... Laissez-vous tenter par d'autres
+                    choix ci-dessous !</h2>
             {% endif %}
             <p>{{ cakes|length }} résultats</p>
             {% for cake in cakes %}

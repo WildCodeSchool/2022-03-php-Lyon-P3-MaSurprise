@@ -21,24 +21,26 @@ class CakeController extends AbstractController
         // creating form
         $searchForm = $this->createForm(SearchCakeFormType::class);
         $searchForm->handleRequest($request);
-        $errors = "";
 
+        // initializing errors
+        $errors = 0;
+
+        // //fetching data from form
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
-            //fetching data from form
             $search = $searchForm->getData()['search'];
         }
 
         if (!isset($search)) {
+            // if search is empty, display everything
             $cakes = $cakeRepository->findAll();
         } else {
             // else, display name-matched AND description-matched results
             $cakes = $cakeRepository->findLikeName($search);
             $cakes += $cakeRepository->findLikeDescription($search);
 
-            // display a message if none found
+            // display a message if nothing matches search
             if ($cakes == null) {
-                $errors = "Oh non, aucun gâteau ne correspond à vos critères de recherche...
-        Laissez-vous tenter par d'autres choix ci-dessous !";
+                $errors = 1;
                 $cakes = $cakeRepository->findAll();
             }
         }
