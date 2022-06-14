@@ -23,15 +23,6 @@ class CakeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/', name: 'app_cake_show')]
-    public function show(Cake $cake): Response
-    {
-
-        return $this->render('cake/show.html.twig', [
-            'cake' => $cake,
-        ]);
-    }
-
     #[Route('/new', name: 'app_cake_new', methods: ['GET', 'POST'])]
     public function new(CakeRepository $cakeRepository, Request $request): Response
     {
@@ -80,5 +71,14 @@ class CakeController extends AbstractController
             }
         }
         return $this->redirectToRoute('app_cake_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/', name: 'app_cake_show')]
+    public function show(Cake $cake): Response
+    {
+
+        return $this->render('cake/show.html.twig', [
+            'cake' => $cake,
+        ]);
     }
 }
