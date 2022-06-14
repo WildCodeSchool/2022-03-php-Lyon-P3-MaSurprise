@@ -1,4 +1,10 @@
 {{ form_start(searchForm) }}
-    {{ form_widget(searchForm) }}
-<button class="btn btn-primary">{{ button_label|default('Rechercher') }}</button>
+<div class="d-flex">
+    <div class="col">
+        {{ form_widget(searchForm) }}
+    </div>
+    <div class="col">
+        <button class="btn btn-primary">{{ button_label|default('Rechercher') }}</button>
+    </div>
+</div>
 {{ form_end(searchForm) }}

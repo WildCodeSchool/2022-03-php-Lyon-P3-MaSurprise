@@ -149,33 +149,29 @@ h1, h2, h3, h4 {
     height: 740px;
 }
 
-.header-img form {
-    padding-top: 200px;
-}
-
 /* ----- navbar ----- */
 
 @media (min-width: 0px) and (max-width: 767px) {
     #desktop-nav {
         display: none;
-      }
+    }
     #mobile-nav {
         display: block;
-      }
-   }
+    }
+}
 
-   @media (min-width: 768px) {
+@media (min-width: 768px) {
     #desktop-nav {
         display: block;
-      }
+    }
     #mobile-nav {
         display: none;
-      }
-   }
-
-.navbar-colour { 
-    background-color: #EEEEEE;
     }
+}
+
+.navbar-colour {
+    background-color: #EEEEEE;
+}
 
 .logo-picture {
     width: 150px;

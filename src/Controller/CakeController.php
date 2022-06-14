@@ -34,9 +34,10 @@ class CakeController extends AbstractController
             // if search is empty, display everything
             $cakes = $cakeRepository->findAll();
         } else {
-            // else, display name-matched AND description-matched results
+            // else, display name-matched, description-matched AND baker-matched results
             $cakes = $cakeRepository->findLikeName($search);
             $cakes += $cakeRepository->findLikeDescription($search);
+            $cakes += $cakeRepository->findLikeBaker($search);
 
             // display a message if nothing matches search
             if ($cakes == null) {
