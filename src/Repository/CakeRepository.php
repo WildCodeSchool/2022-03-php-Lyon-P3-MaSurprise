@@ -61,12 +61,12 @@ class CakeRepository extends ServiceEntityRepository
         return $queryBuilder->getResult();
     }
 
-    public function findLikeBaker(string $baker): array
+    public function findLikeBaker(string $bakerName): array
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->leftJoin('c.baker', 'baker_name')
-            ->where('baker_name.lastname LIKE :baker')
-            ->setParameter('baker', '%' . $baker . '%')
+            ->where('baker_name.lastname LIKE :baker_name')
+            ->setParameter('baker_name', '%' . $bakerName . '%')
             ->orderBy('baker_name.lastname', 'ASC')
             ->getQuery();
 

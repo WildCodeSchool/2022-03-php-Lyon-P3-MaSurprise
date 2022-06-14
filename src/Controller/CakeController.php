@@ -25,7 +25,7 @@ class CakeController extends AbstractController
         // initializing errors
         $errors = 0;
 
-        // //fetching data from form
+        // fetching data from form
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $search = $searchForm->getData()['search'];
         }
@@ -33,6 +33,7 @@ class CakeController extends AbstractController
         if (!isset($search)) {
             // if search is empty, display everything
             $cakes = $cakeRepository->findAll();
+            $search = "";
         } else {
             // else, display name-matched, description-matched AND baker-matched results
             $cakes = $cakeRepository->findLikeName($search);
@@ -50,6 +51,7 @@ class CakeController extends AbstractController
             'cakes' => $cakes,
             'searchForm' => $searchForm,
             'errors' => $errors,
+            'search' => $search,
         ]);
     }
 

@@ -14,7 +14,13 @@
                 <h2>Oh non, aucun gâteau ne correspond à vos critères de recherche... Laissez-vous tenter par d'autres
                     choix ci-dessous !</h2>
             {% endif %}
-            <p>{{ cakes|length }} résultats</p>
+
+            {% if search and errors == 0 %}
+                <p>{{ cakes|length }} résultats correspondant à "{{ search }}"</p>
+            {% else %}
+                <p>{{ cakes|length }} gâteaux</p>
+            {% endif %}
+
             {% for cake in cakes %}
                 <div class="cake-card card border-0 bg-light col-md-6 col-lg-4 ">
                     <img class="card-img-top" src="{{ asset('build/images/gateau.jpg') }}" alt="Card image cap">
