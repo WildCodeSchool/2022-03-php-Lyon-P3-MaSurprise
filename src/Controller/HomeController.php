@@ -21,17 +21,10 @@ class HomeController extends AbstractController
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $search = $searchForm->getData()['search'];
-            if (!$search) {
-                // if the form is submitted empty, display everything
-                $cakes = $cakeRepository->findAll();
-            } else {
-                $cakes = $cakeRepository->findLikeName($search);
-                $cakes += $cakeRepository->findLikeDescription($search);
-            }
 
-            return $this->redirectToRoute('app_cake_index', ['cakes' => $cakes]);
+            return $this->redirectToRoute('app_cake_index', ['search' => $search]);
         }
 
-        return $this->render('home/index.html.twig', ['searchForm' => $searchForm->createView()]);
+        return $this->renderForm('home/index.html.twig', ['searchForm' => $searchForm]);
     }
 }

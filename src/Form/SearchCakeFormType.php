@@ -11,8 +11,10 @@ class SearchCakeFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        //TODO : modify cake/ route
         $builder
             ->add('search', SearchType::class, ['required' => false,])
+            ->setAction('/cake/')
             ->setMethod('POST');
     }
 

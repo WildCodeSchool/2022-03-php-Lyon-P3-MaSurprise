@@ -26,34 +26,26 @@ class CakeController extends AbstractController
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             //fetching data from form
             $search = $searchForm->getData()['search'];
-
-            if (!$search) {
-                // if the form is submitted empty, display everything
-                $cakes = $cakeRepository->findAll();
-            } else {
-                // else, display name-matched AND description-matched results
-                $cakes = $cakeRepository->findLikeName($search);
-                $cakes += $cakeRepository->findLikeDescription($search);
-
-                // display a message if none found
-                if (
-                    $cakeRepository->findLikeName($search) == null &&
-                    $cakeRepository->findLikeDescription($search) == null
-                ) {
-                    $errors = "Oh non, aucun gâteau ne correspond à vos critères de recherche...
-                Laissez-vous tenter par d'autres choix ci-dessous !";
-                    $cakes = $cakeRepository->findAll();
-                }
-            }
-        } else {
-            // default: displaying all cakes
-            $cakes = $cakeRepository->findAll();
         }
 
+        if (!isset($search)) {
+            $cakes = $cakeRepository->findAll();
+        } else {
+            // else, display name-matched AND description-matched results
+            $cakes = $cakeRepository->findLikeName($search);
+            $cakes += $cakeRepository->findLikeDescription($search);
 
-        return $this->render('cake/index.html.twig', [
+            // display a message if none found
+            if ($cakes == null) {
+                $errors = "Oh non, aucun gâteau ne correspond à vos critères de recherche...
+        Laissez-vous tenter par d'autres choix ci-dessous !";
+                $cakes = $cakeRepository->findAll();
+            }
+        }
+
+        return $this->renderForm('cake/index.html.twig', [
             'cakes' => $cakes,
-            'searchForm' => $searchForm->createView(),
+            'searchForm' => $searchForm,
             'errors' => $errors,
         ]);
     }
