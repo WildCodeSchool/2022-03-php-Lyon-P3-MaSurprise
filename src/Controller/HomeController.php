@@ -19,7 +19,11 @@ class HomeController extends AbstractController
         $searchForm->handleRequest($request);
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
-            $search = $searchForm->getData()['search'];
+            $search = [];
+
+            if (is_array($searchForm->getData())) {
+                $search = $searchForm->getData()['search'];
+            }
 
             return $this->redirectToRoute('app_cake_index', ['search' => $search]);
         }

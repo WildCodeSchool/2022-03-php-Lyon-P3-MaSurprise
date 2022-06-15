@@ -41,7 +41,7 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes whose names match searched words
-    public function findLikeName(string $name): ArrayCollection
+    public function findLikeName(string $name): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->where('c.name LIKE :name')
@@ -53,7 +53,7 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes whose descriptions match searched words
-    public function findLikeDescription(string $description): ArrayCollection
+    public function findLikeDescription(string $description): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->where('c.description LIKE :description')
@@ -65,7 +65,7 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes whose bakers match searched words (using join)
-    public function findLikeBaker(string $bakerName): ArrayCollection
+    public function findLikeBaker(string $bakerName): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->leftJoin('c.baker', 'baker_name')
