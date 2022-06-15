@@ -51,6 +51,12 @@ class Cake
     #[ORM\JoinColumn(nullable: false)]
     private ?Baker $baker;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $theme;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $category;
+
     public function __construct()
     {
         $this->created = new DateTime();
@@ -201,6 +207,30 @@ class Cake
     public function setBaker(?Baker $baker): self
     {
         $this->baker = $baker;
+
+        return $this;
+    }
+
+    public function getTheme(): ?string
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(string $theme): self
+    {
+        $this->theme = $theme;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

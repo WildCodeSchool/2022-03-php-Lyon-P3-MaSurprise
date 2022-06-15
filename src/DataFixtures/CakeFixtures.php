@@ -24,6 +24,18 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
             if (is_string($name)) {
                 $cake->setName($name);
             }
+            $category = $faker->randomElement(
+                ['Gâteau', 'Cupcake', 'Magnum & Pop cake', 'Spécialité étrangères', 'Mini gâteau']
+            );
+            if (is_string($category)) {
+                $cake->setCategory($category);
+            }
+            $theme = $faker->randomElement(
+                ['Enfance', 'Super héros', 'Animaux', 'Dessins animés', 'Sport', 'Fleurie', 'Fruit', 'Chic']
+            );
+            if (is_string($theme)) {
+                $cake->setTheme($theme);
+            }
 
             $cake->setPicture1($faker->imageUrl(640, 640, 'photo d\'un gâteau'));
             $cake->setDescription($faker->text(250));
