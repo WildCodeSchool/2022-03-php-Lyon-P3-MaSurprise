@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CakeController!{% endblock %}
+{% block title %} - Gâteaux{% endblock %}
 
 {% block body %}
     <div class="container container-card">
@@ -13,16 +13,14 @@
                         <a href="{{ path('app_cake_show', {'id': cake.id}) }}"
                            class="title-cake text-dark text-decoration-none mb-2">{{ cake.name }} </a>
                         <div class="d-flex flex-row align-items-center">
-                            <img src="{{ asset('build/images/icons/Star_15.png') }}">
-                            <img src="{{ asset('build/images/icons/Star_15.png') }}">
-                            <img src="{{ asset('build/images/icons/Star_15.png') }}">
-                            <img src="{{ asset('build/images/icons/Star_15.png') }}">
-                            <img src="{{ asset('build/images/icons/Star_15.png') }}">
-                            <p class="avis">3 avis</p>
+                            {% for i in 1..5 %}
+                                <img src="{{ asset('build/images/icons/Star_15.png') }}">
+                            {% endfor %}
+                            <p class="avis">{{ random(12) }} avis</p>
                         </div>
                         <div class="d-flex flew-row justify-content-between">
-                            <p>Disponnible dans 10 jours</p>
-                            <p class="">{{ cake.price }}</p>
+                            <p>Disponible dans 10 jours</p>
+                            <p class="">{{ cake.price|format_currency('EUR', locale='de') }}</p>
                         </div>
                         <div class="d-flex align-items-baseline">
                             <img src="{{ asset('build/images/icons/hat.png') }}" class="hat">
@@ -35,4 +33,3 @@
         </div>
     </div>
 {% endblock %}
-

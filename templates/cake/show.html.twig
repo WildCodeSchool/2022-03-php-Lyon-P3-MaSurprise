@@ -15,13 +15,11 @@
             </div>
             <div class="cake-description d-flex flex-column justify-content-between container col-6">
                 <h1 class="cake-title m-0 font-weight-bold">{{ cake.name }}</h1>
-                <p class="fs-3"> {{ cake.price }}€ </p>
+                <p class="fs-3">{{ cake.price|format_currency('EUR', locale='de') }}</p>
                 <div class="d-flex flex-row align-items-center">
-                    <img src="{{ asset('build/images/icons/Star_15.png') }}">
-                    <img src="{{ asset('build/images/icons/Star_15.png') }}">
-                    <img src="{{ asset('build/images/icons/Star_15.png') }}">
-                    <img src="{{ asset('build/images/icons/Star_15.png') }}">
-                    <img src="{{ asset('build/images/icons/Star_15.png') }}">
+                    {% for i in 1..5 %}
+                        <img src="{{ asset('build/images/icons/Star_15.png') }}">
+                    {% endfor %}
                     <p class="avis">3 avis</p>
                 </div>
                 <P class="mt-2 cake-description">{{ cake.description }}</P>
