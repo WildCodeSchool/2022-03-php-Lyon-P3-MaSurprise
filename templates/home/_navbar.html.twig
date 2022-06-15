@@ -15,19 +15,19 @@
 
 	<!-- MOBILE VERSION HEREUNDER -->
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="mobile-nav">
+	<nav class="navbar navbar-expand-lg navbar-light navbar-colour fixed-top" id="mobile-nav">
 		<div class="container-fluid d-flex justify-content-between">
-			<div>
+			<div class="position-absolute top-50 start-0 translate-middle-y">
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 			</div>
-			<div>
+			<div class="position-absolute top-50 start-50 translate-middle">
 				<a class="navbar-brand" href="{{ path('app_home') }}"><img class="logo-picture" alt="logo" src="{{ asset('build/images/logo_mycakeevent.png') }}"></a>
 			</div>
-			<div>
-				<a href="#"><img alt="recherche" src="{{ asset('build/images/search_navbar.png') }}"></a>
-				<a href="#"><img alt="panier" src="{{ asset('build/images/shopping_navbar.png') }}"></a>
+			<div class="position-absolute top-50 end-0 translate-middle-y">
+				<a href="#"><img class= "nav-icon" alt="recherche" src="{{ asset('build/images/search_navbar.png') }}"></a>
+				<a href="#"><img class= "nav-icon" alt="panier" src="{{ asset('build/images/shopping_navbar.png') }}"></a>
 			</div>
 		</div>
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
