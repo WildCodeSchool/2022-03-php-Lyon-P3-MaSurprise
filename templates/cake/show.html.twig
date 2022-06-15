@@ -1,16 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CakeController!{% endblock %}
+{% block title %}{{ cake.name }} - {{ parent() }}{% endblock %}
 
 {% block body %}
 
-    <div class="container-fluid cake-presenation p-5">
+    <div class="container-fluid cake-presentation p-5">
         <div class="row d-flex flex-row">
             <div class="cake-img container col-6">
-                <div class="row flex-column">
-                    <div class="cake-image container col-10"><img src="{{ asset('build/images/gateau.jpg') }}"
-                                                                  class="cake-img-pres img-fluid w-75"></div>
-                    <div class="container col-2"><p></p></div>
+                <div class="row">
+                    <div class="cake-image container col-10">
+                        <img src="{{ asset('build/images/gateau.jpg') }}"
+                             class="cake-img-pres img-fluid w-75">
+                    </div>
                 </div>
             </div>
             <div class="cake-description d-flex flex-column justify-content-between container col-6">
@@ -27,26 +28,43 @@
                     <p class="">ville</p>
                     <p>disponibilité</p>
                 </div>
-                <div class="d-flex flex-row align-items-baseline">
-                    <H2 class="ingredient-title text-decoration-underline m-0">Ingrédients</H2>
-                    <img src="{{ asset('build/images/icons/bouton_dropdown_ingredients.png') }}">
-                </div>
-                <p class="border p-2">ingrédient 1, ingrédient 2, ingrédient 3, ingrédient 4, ingrédient 5 ,ingrédient 6
-                    ingrédient 7, ingrédient 8, ingrédient 9, ingrédient 10</p>
-                <div class="d-flex flex-row align-items-baseline">
-                    <H2 class="ingredient-title text-decoration-underline m-0">Allergènes</H2>
-                    <img src="{{ asset('build/images/icons/bouton_dropdown_ingredients.png') }}">
-                </div>
-                <p class="border p-2">Allergènes 1, Allergènes 2, Allergènes 3, Allergènes 4, Allergènes 5 ,Allergènes 6
-                    Allergènes 7, Allergènes 8, Allergènes 9, Allergènes 10</p>
-                <div class="d-flex flex-row">
-                    <button class="add-btn btn btn-primary">Ajouter au panier</button>
-                    <div class="col-1">
-                        <input type="text" id="quantity" name="quantity" class="form-control input-number text-center"
-                               value="1"
-                               min="1" max="100">
+
+                <p>
+                    <a class="btn btn-outline-secondary text-secondary" data-bs-toggle="collapse"
+                       href="#collapseIngredients"
+                       role="button"
+                       aria-expanded="false" aria-controls="collapseIngredients">
+                        Ingrédients et saveurs
+                    </a>
+                </p>
+                <div class="collapse" id="collapseIngredients">
+                    <div class="container-fluid card card-body bg-light">
+                        <div class="row">
+                            {% for i in 1..10 %}
+                                ingrédient {{ i }},
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
+
+                <p>
+                    <a class="btn btn-outline-secondary text-secondary" data-bs-toggle="collapse"
+                       href="#collapseAllergens"
+                       role="button"
+                       aria-expanded="false" aria-controls="collapseAllergens">
+                        Allergènes
+                    </a>
+                </p>
+                <div class="collapse" id="collapseAllergens">
+                    <div class="container-fluid card card-body bg-light">
+                        <div class="row">
+                            {% for i in 1..10 %}
+                                allergène {{ i }},
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -61,8 +79,10 @@
                         <p class="titre">Patissier professionel</p>
                     </div>
                 </div>
-                <div class="">Description du patissier ...Description du patissier ...Description du patissier
-                    ...Description du patissier ...Description du patissier ...Description du patissier ...
+                <div>
+                    Nullam finibus enim in justo tincidunt volutpat. Proin a elementum mi. Mauris cursus
+                    blandit risus, in porta ipsum semper vitae. Pellentesque dictum vel sapien ut fringilla. Interdum et
+                    malesuada fames ac ante ipsum primis in faucibus.
                 </div>
             </div>
             <div class="col-3 d-flex flex-column justify-content-center">

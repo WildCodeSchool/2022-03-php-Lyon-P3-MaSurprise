@@ -153,25 +153,25 @@ h1, h2, h3, h4 {
     padding-top: 200px;
 }
 
-/* ----- navbar ----- */
+/* ----- NAVBAR ----- */
 
 @media (min-width: 0px) and (max-width: 767px) {
     #desktop-nav {
         display: none;
-      }
+    }
     #mobile-nav {
         display: block;
-      }
-   }
+    }
+}
 
-   @media (min-width: 768px) {
+@media (min-width: 768px) {
     #desktop-nav {
         display: block;
-      }
+    }
     #mobile-nav {
         display: none;
-      }
-   }
+    }
+}
 
 #desktop-nav, #mobile-nav {
     height: 160px;
@@ -183,7 +183,7 @@ h1, h2, h3, h4 {
     margin-right: 12px;
 }
 
-.navbar-colour { 
+.navbar-colour {
     background-color: #EEEEEE;
 }
 
@@ -195,6 +195,15 @@ h1, h2, h3, h4 {
 .nav-icon {
     width: 43px;
     height: 43px;
+}
+
+.navbar {
+    box-shadow: var(--box-shadow);
+}
+
+.navbar a {
+    font-family: "Cup Cakes";
+    font-size: 16pt;
 }
 
 /* ----- themes ----- */
