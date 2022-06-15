@@ -28,7 +28,11 @@ class CakeController extends AbstractController
 
         // fetching search from form
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
-            $search = $searchForm->getData()['search'];
+            $search = "";
+
+            if (is_array($searchForm->getData())) {
+                $search = $searchForm->getData()['search'];
+            }
         }
 
         if (!isset($search)) {
