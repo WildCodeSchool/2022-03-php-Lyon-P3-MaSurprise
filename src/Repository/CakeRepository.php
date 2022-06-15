@@ -44,6 +44,7 @@ class CakeRepository extends ServiceEntityRepository
     public function findLikeName(mixed $name): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
+            ->join('c.baker', 'b')
             ->where('c.name LIKE :name')
             ->setParameter('name', '%' . $name . '%')
             ->orderBy('c.name', 'ASC')
@@ -56,6 +57,7 @@ class CakeRepository extends ServiceEntityRepository
     public function findLikeDescription(mixed $description): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
+            ->join('c.baker', 'b')
             ->where('c.description LIKE :description')
             ->setParameter('description', '%' . $description . '%')
             ->orderBy('c.description', 'ASC')
@@ -68,10 +70,10 @@ class CakeRepository extends ServiceEntityRepository
     public function findLikeBaker(mixed $bakerName): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
-            ->leftJoin('c.baker', 'baker_name')
-            ->where('baker_name.lastname LIKE :baker_name')
+            ->join('c.baker', 'b')
+            ->where('b.lastname LIKE :baker_name')
             ->setParameter('baker_name', '%' . $bakerName . '%')
-            ->orderBy('baker_name.lastname', 'ASC')
+            ->orderBy('b.lastname', 'ASC')
             ->getQuery();
 
         return $queryBuilder->getResult();
