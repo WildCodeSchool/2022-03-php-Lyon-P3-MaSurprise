@@ -7,11 +7,38 @@
     <div class="container container-card">
         <div class="row d-flex justify-content-start">
             <h1 class="title-show text-center col-12">Nos gâteaux</h1>
-            <div class="input-group input-group-lg mb-3">
-                {{ include('components/_searchform.html.twig') }}
+
+            <p>
+                <a class="btn btn-secondary" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                   aria-expanded="false" aria-controls="collapseExample">
+                    Filtres
+                </a>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="container-fluid card card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <h3>Rechercher</h3>
+                            {{ include('components/_filterform.html.twig') }}
+                        </div>
+                        {#                        FOR TESTING PURPOSES, WILL BE UPDATED #}
+                        <div class="col-3">
+                            <h3>Département</h3>
+                            <select class="form-select">
+                                <option selected>Département</option>
+                                <option value="1">01 - Ain</option>
+                                <option value="2">02 - Aisne</option>
+                                <option value="69">69 - Rhône</option>
+                                <option>etc.</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
+
             {% if errors == 1 %}
-                <h2>Oh non, aucun gâteau ne correspond à vos critères de recherche... Laissez-vous tenter par d'autres
+                <h2 class="text-primary">Oh non, aucun gâteau ne correspond à vos critères de recherche... Laissez-vous
+                    tenter par d'autres
                     choix ci-dessous !</h2>
             {% endif %}
 
