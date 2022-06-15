@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Cake;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -40,7 +41,7 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes whose names match searched words
-    public function findLikeName(string $name): array
+    public function findLikeName(string $name): ArrayCollection
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->where('c.name LIKE :name')
@@ -52,7 +53,7 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes whose descriptions match searched words
-    public function findLikeDescription(string $description): array
+    public function findLikeDescription(string $description): ArrayCollection
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->where('c.description LIKE :description')
@@ -64,7 +65,7 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes whose bakers match searched words (using join)
-    public function findLikeBaker(string $bakerName): array
+    public function findLikeBaker(string $bakerName): ArrayCollection
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->leftJoin('c.baker', 'baker_name')
