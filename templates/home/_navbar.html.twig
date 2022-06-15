@@ -2,15 +2,44 @@
 
 <!-- DESKTOP VERSION HEREUNDER -->
 
-	<nav class="navbar navbar-expand-md navbar-colour fixed-top" id="desktop-nav"> <div class=" navbar-collapse d-flex justify-content-around">
-
+	<nav class="navbar navbar-expand-md navbar-colour" id="desktop-nav"> 
+	<div class=" navbar-collapse d-flex justify-content-around">
 		<a class="text-primary nav-link" href="{{ path('app_cake_index') }}">NOS CAKES</a>
 		<a class="text-primary nav-link" href="#">DISPONIBILITÉS</a>
 		<a class="navbar-brand" href="{{ path('app_home') }}"><img class="logo-picture" alt="logo" src="{{ asset('build/images/logo_mycakeevent.png') }}"></a>
 		<a class="text-primary nav-link" href="#">ACCÈS PÂTISSIERS</a>
-		<a class="text-primary nav-link" href="#">CONNEXION</a>
-
-
+		<!-- Button trigger modal -->
+		<a type="button" class="text-primary nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+		CONNEXION
+		</a>
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title text-primary" id="exampleModalLabel">Connexion</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body container">
+								<form action="{{ path('login') }}" method="post" class="row">
+									<label for="username"></label>
+									<input type="text" id="username" name="_username" placeholder="Email" class="w-75 mb-3 connection-fields"/>
+									<label for="password"></label>
+									<input type="password" id="password" name="_password" placeholder="Mot de passe" class="w-75 mb-3 connection-fields"/>
+									<input type="hidden" name="_target_path" value="/"/>
+									<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+									<button type="submit" class="btn-connection mt-3">Connexion</button>
+								</form>
+							</div>
+							<div class="modal-footer container d-flex justify-content-around pb-3">
+								<a class="forgotten-password">Mot de passe oublié</a>
+								<a class="create-account" href="{{path('app_register')}}">Créer un compte</a>
+							</div>
+						</div>
+					</div>
+				</div>
+	
+	</div>
 	</nav>
 
 	<!-- MOBILE VERSION HEREUNDER -->
@@ -42,7 +71,7 @@
 					<a class="nav-link active" href="#">ACCÈS PÂTISSIERS</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="#">CONNEXION</a>
+					<a class="nav-link active" href="{{ path('login') }}">CONNEXION</a>
 				</li>
 			</ul>
 		</div>
