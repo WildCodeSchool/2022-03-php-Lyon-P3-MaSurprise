@@ -9,9 +9,11 @@
 		<a class="navbar-brand" href="{{ path('app_home') }}"><img class="logo-picture" alt="logo" src="{{ asset('build/images/logo_mycakeevent.png') }}"></a>
 		<a class="text-primary nav-link" href="#">ACCÈS PÂTISSIERS</a>
 		<!-- Button trigger modal -->
-		<a type="button" class="text-primary nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
-		CONNEXION
-		</a>
+		{% if app.user %}
+    	<a type="button" class="text-primary nav-link" href="{{ path('logout') }}"> Se déconnecter</a>
+		{% else %}
+		<a type="button" class="text-primary nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal" href="{{ path('login') }}"> Se connecter</a>
+		{% endif %}
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
@@ -33,7 +35,7 @@
 							</div>
 							<div class="modal-footer container d-flex justify-content-around pb-3">
 								<a class="forgotten-password">Mot de passe oublié</a>
-								<a class="create-account" href="{{path('app_register')}}">Créer un compte</a>
+								<a class="create-account" href="{#{{path('app_register')}}#}">Créer un compte</a>
 							</div>
 						</div>
 					</div>
