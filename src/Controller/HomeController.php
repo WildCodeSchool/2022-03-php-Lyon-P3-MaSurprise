@@ -14,19 +14,9 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(Request $request): Response
     {
-        // creating form
+        // creating form which will redirect to cakes page when submitted
         $searchForm = $this->createForm(SearchCakeFormType::class);
         $searchForm->handleRequest($request);
-
-        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
-            $search = [];
-
-            if (is_array($searchForm->getData())) {
-                $search = $searchForm->getData()['search'];
-            }
-
-            return $this->redirectToRoute('app_cake_index', ['search' => $search]);
-        }
 
         return $this->renderForm('home/index.html.twig', ['searchForm' => $searchForm]);
     }

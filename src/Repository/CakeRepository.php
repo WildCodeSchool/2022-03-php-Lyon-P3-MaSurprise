@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Cake;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
