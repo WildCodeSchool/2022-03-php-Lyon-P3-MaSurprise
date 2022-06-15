@@ -2,6 +2,8 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Categories;
+use App\Entity\Themes;
 use App\Entity\Baker;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -47,6 +49,8 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
         return
         [
             BakerFixtures::class,
+            CategoriesFixtures::class,
+            ThemesFixtures::class
         ];
     }
 }

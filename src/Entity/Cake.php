@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\CakeRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CakeRepository::class)]
@@ -51,9 +53,17 @@ class Cake
     #[ORM\JoinColumn(nullable: false)]
     private ?Baker $baker;
 
+    #[ORM\ManyToOne(targetEntity: Categories::class, inversedBy: 'cakes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $category;
+
+    #[ORM\ManyToMany(targetEntity: Themes::class, inversedBy: 'cakes')]
+    private $theme;
+
     public function __construct()
     {
         $this->created = new DateTime();
+        $this->theme = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -201,6 +211,42 @@ class Cake
     public function setBaker(?Baker $baker): self
     {
         $this->baker = $baker;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Categories
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Categories $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Themes>
+     */
+    public function getTheme(): Collection
+    {
+        return $this->theme;
+    }
+
+    public function addTheme(Themes $theme): self
+    {
+        if (!$this->theme->contains($theme)) {
+            $this->theme[] = $theme;
+        }
+
+        return $this;
+    }
+
+    public function removeTheme(Themes $theme): self
+    {
+        $this->theme->removeElement($theme);
 
         return $this;
     }
