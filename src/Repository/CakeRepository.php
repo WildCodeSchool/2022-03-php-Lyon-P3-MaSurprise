@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Cake;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Parameter;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,6 +39,19 @@ class CakeRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function getFilteredCakes($filter = [])
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb->where($qb->expr()->in('c.category', ':category'));
+        $qb->andWhere($qb->expr()->in('c.theme', ':theme'));
+        $qb->setParameters(new ArrayCollection([
+            new Parameter('category', $filter["category"]),
+            new Parameter('theme', $filter["theme"])]));
+
+        return $qb->getQuery()->getResult();
+
     }
 
 //    /**

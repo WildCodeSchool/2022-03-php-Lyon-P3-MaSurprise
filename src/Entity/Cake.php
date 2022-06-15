@@ -52,10 +52,10 @@ class Cake
     private ?Baker $baker;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $theme;
+    private ?string $theme;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $category;
+    private ?string $category;
 
     public function __construct()
     {

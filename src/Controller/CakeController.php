@@ -23,6 +23,28 @@ class CakeController extends AbstractController
         ]);
     }
 
+    #[route('/getFilteredCakes', name: 'get_filetered_cakes', methods: ['POST'])]
+    public function getFilteredCakes(CakeRepository $cakeRepository, Request $request): Response
+    {
+        dd($request->request);
+        //TODO recuperer la request dans l'objet request
+        $filter = '{
+            "category": [
+                "cupcake"
+                ],
+            "theme": [
+            "fleurie",
+            "chic",
+    "sport"
+    ]
+    }';
+
+        $cakes = $cakeRepository->getFilteredCakes($request->request);
+
+        return $this->render('cake/index.html.twig', [
+            'cakes' => $cakes,
+        ]);    }
+
     #[Route('/{id}/', name: 'app_cake_show')]
     public function show(Cake $cake): Response
     {
