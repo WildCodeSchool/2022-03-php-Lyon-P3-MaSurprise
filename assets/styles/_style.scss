@@ -9,6 +9,7 @@ $secondary: #E3A7A7;
     --background-dark: #EFEAE4;
     --background-light: #FCF5EE;
     --background-footer-navbar: #EEEEEE;
+    --background-lightblue: #86D1DE;
     --text-title-pink: #B1367E;
     --text-red: #C92A00;
     --text-pink: #ffd9da;
@@ -378,4 +379,38 @@ footer ul a {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+}
+
+/* ---------- CONNEXION MODAL ---------- */
+.btn-connection{
+    background-color: var(--background-lightblue);
+    color: white;
+    height: 8vh;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Karla';
+}
+
+.modal-footer{
+    justify-content: space-around;
+    font-family: 'Karla';
+}
+
+.connection-fields{
+    height: 5vh;
+    background-color: white;
+    border:rgba(0, 0, 0, 0.75) 1;
+    font-family: 'Karla';
+}
+
+.forgotten-password, .create-account{
+    color: black;
+    text-decoration: none;
+    font-family: 'Karla';
+    font-size: 12px;
+}
+
+.modal-header, .modal-body, .modal-footer{
+    background-color: var(--background-light);
+    font-family: 'Karla';
 }
