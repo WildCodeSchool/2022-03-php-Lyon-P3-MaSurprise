@@ -1,11 +1,6 @@
 {% extends 'base.html.twig' %}
 
-<<<<<<< HEAD
-{% block title %}Hello CakeController!
-{% endblock %}
-=======
 {% block title %}Nos gâteaux - {{ parent() }}{% endblock %}
->>>>>>> dev
 
 {% block body %}
     <div class="container container-card">
@@ -129,11 +124,7 @@
                         </div>
                         <div class="d-flex flew-row justify-content-between">
                             <p>Disponible dans 10 jours</p>
-<<<<<<< HEAD
-                            <p class="">{{ cake.price }}</p>
-=======
                             <p class="">{{ cake.price|format_currency('EUR', locale='de') }}</p>
->>>>>>> dev
                         </div>
                         <div class="d-flex align-items-baseline">
                             <img src="{{ asset('build/images/icons/hat.png') }}" class="hat">
