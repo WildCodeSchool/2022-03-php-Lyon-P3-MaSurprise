@@ -33,7 +33,8 @@ class BakerFixtures extends Fixture implements DependentFixtureInterface
             $baker->setStreetName($faker->streetName());
             $baker->setPostcode($faker->randomNumber(5, true));
             $baker->setCity($faker->city());
-            $baker->setDepartment($this->getReference('department_' . $faker->departmentNumber()));
+            $baker->setDepartment($this
+            ->getReference('department_' . $faker->departmentNumber())); // @phpstan-ignore-line
 
             $manager->persist($baker);
         }

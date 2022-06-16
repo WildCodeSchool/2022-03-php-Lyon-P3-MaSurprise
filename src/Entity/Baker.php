@@ -36,9 +36,6 @@ class Baker
     #[ORM\Column(type: 'string', length: 255)]
     private string $password;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $address;
-
     #[ORM\Column(type: 'string', length: 255)]
     private string $phone;
 
@@ -146,18 +143,6 @@ class Baker
     public function setPassword(string $password): self
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(?string $address): self
-    {
-        $this->address = $address;
 
         return $this;
     }

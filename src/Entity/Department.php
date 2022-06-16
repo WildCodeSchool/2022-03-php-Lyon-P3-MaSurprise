@@ -59,6 +59,11 @@ class Department
         return $this;
     }
 
+    public function getDisplayName(): string
+    {
+        return $this->number . ' - ' . $this->name;
+    }
+
     /**
      * @return Collection<int, Baker>
      */
