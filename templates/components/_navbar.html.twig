@@ -3,7 +3,7 @@
 <!-- DESKTOP VERSION HEREUNDER -->
 
 <nav class="navbar navbar-expand-md navbar-colour fixed-top" id="desktop-nav">
-    <div class=" navbar-collapse d-flex justify-content-around">
+    <div class="navbar-collapse d-flex justify-content-around align-items-center">
 
         <a class="text-primary nav-link" href="{{ path('app_cake_index') }}">NOS CAKES</a>
         <a class="text-primary nav-link" href="#">DISPONIBILITÉS</a>
@@ -12,6 +12,7 @@
         </a>
         <a class="text-primary nav-link" href="#">ACCÈS PÂTISSIERS</a>
         <a class="text-primary nav-link" href="#">CONNEXION</a>
+
     </div>
 </nav>
 
@@ -19,22 +20,30 @@
 
 <nav class="navbar navbar-expand-lg navbar-light navbar-colour fixed-top" id="mobile-nav">
     <div class="container-fluid d-flex justify-content-between">
-        <div class="position-absolute top-50 start-0 translate-middle-y">
+
+        <div class="position-absolute top-50 translate-middle-y">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                     aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
         <div class="position-absolute top-50 start-50 translate-middle">
-            <a class="navbar-brand" href="{{ path('app_home') }}"><img class="logo-picture" alt="logo"
-                                                                       src="{{ asset('build/images/logo_mycakeevent.png') }}"></a>
+            <a class="navbar-brand" href="{{ path('app_home') }}">
+                <img class="logo-picture" alt="logo"
+                     src="{{ asset('build/images/logo_mycakeevent.png') }}">
+            </a>
         </div>
         <div class="position-absolute top-50 end-0 translate-middle-y">
-            <a href="#"><img class="nav-icon" alt="recherche" src="{{ asset('build/images/search_navbar.png') }}"></a>
-            <a href="#"><img class="nav-icon" alt="panier" src="{{ asset('build/images/shopping_navbar.png') }}"></a>
+            <a href="{{ path('app_cake_index') }}">
+                <img class="nav-icon" alt="recherche"
+                     src="{{ asset('build/images/search_navbar.png') }}"></a>
+            <a href="#">
+                <img class="nav-icon" alt="panier" src="{{ asset('build/images/shopping_navbar.png') }}"></a>
         </div>
+
     </div>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{{ path('app_cake_index') }}">NOS CAKES</a>
@@ -49,5 +58,6 @@
                 <a class="nav-link active" href="#">CONNEXION</a>
             </li>
         </ul>
+
     </div>
 </nav>
