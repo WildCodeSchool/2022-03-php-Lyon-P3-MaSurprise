@@ -18,12 +18,15 @@
     {% endblock %}
 </head>
 
+<body class="bg-light">
+
 <header>
     {% include 'components/_navbar.html.twig' %}
 </header>
 
-<body class="bg-light">
 {% block body %}{% endblock %}
+
 {% include "/components/_footer.html.twig" %}
+
 </body>
 </html>
