@@ -30,8 +30,12 @@ class BakerController extends AbstractController
         $form = $this->createForm(BakerType::class, $baker);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $bakerRepository->add($baker, true);
-            return $this->redirectToRoute('app_baker_index');
+            //$serviceRequest = $request->get("baker");
+            //$services = $serviceRequest;
+            var_dump($request->get("baker"));
+
+            //$bakerRepository->add($baker, true);
+            //return $this->redirectToRoute('app_baker_index');
         }
 
         return $this->renderForm('baker/new.html.twig', [

@@ -24,12 +24,13 @@ class BakerType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
                 ])
-            ->add('services', ChoiceType::class, [
+            /*->add('services', ChoiceType::class, [
                 'label' => 'Quelle(s) prestation(s) proposez-vous ?*',
                 'choices' => ['pâtissier' => 'pâtissier', 'atelier' => 'atelier', 'formation' => 'formation'],
                 'expanded' => true,
                 'multiple' => true,
-                ])
+                'compound' => true
+                ])*/
             ->add('lastname', TextType::class, [
             'label' => 'Nom*',
             'required' => 'Le champ Nom est obligatoire'
@@ -78,12 +79,14 @@ class BakerType extends AbstractType
                 ])
             ->add('facebook', TextType::class, [
                 'label' => "Facebook",
+                'required' => false,
                 ])
             ->add('instagram', TextType::class, [
                 'label' => "Instagram",
+                'required' => false,
                 ])
         ;
-        $builder->get('services')
+        /*$builder->get('services')
             ->addModelTransformer(new CallbackTransformer(
                 function ($servicesAsString) {
                     // transform the string back to an array
@@ -93,7 +96,7 @@ class BakerType extends AbstractType
                     // transform the array to a string
                     return implode(', ', $servicesAsArray);
                 },
-            ));
+            ));*/
     }
 
     public function configureOptions(OptionsResolver $resolver): void
