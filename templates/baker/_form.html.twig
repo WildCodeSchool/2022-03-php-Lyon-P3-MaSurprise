@@ -42,22 +42,37 @@
             </div>
         </div>
         
-        <div class="form-row w-50">
+        <div class="form-row w-50 hidden" id="commercialName">
             <div class="form-group">
             {{ form_row(form.commercialName) }}
             </div>
         </div>
-        <div class="form-row w-50">
+        <div class="form-row w-50 hidden" id="facebook">
             <div class="form-group">
             {{ form_row(form.facebook) }}
             </div>
         </div>
-        <div class="form-row w-50">
+        <div class="form-row w-50 hidden" id="instagram">
             <div class="form-group">
             {{ form_row(form.instagram) }}
             </div>
-        
         </div>
+        <div class="form-row w-50 hidden" id="logoFile">
+            <div class="form-group">
+            {{ form_row(form.logoFile) }}
+            </div>
+        </div>
+        <div class="form-row w-50 hidden" id="siretFile">
+            <div class="form-group">
+            {{ form_row(form.siretFile) }}
+            </div>
+        </div>
+        <div class="form-row w-50 hidden" id="diplomaFile">
+            <div class="form-group">
+            {{ form_row(form.diplomaFile) }}
+            </div>
+        </div>
+
         
 {{ form_rest(form) }}
         <div class="d-flex justify-content-center">
