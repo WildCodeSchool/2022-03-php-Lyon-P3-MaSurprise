@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}{{ parent() }}{% endblock %}
 
 {% block body %}
 
@@ -302,19 +302,19 @@
                 <div class="separator d-flex justify-content-center"></div>
 
                 <div class="floating-logos d-flex justify-content-center">
-                    <img class="floating-img" src="{{ asset('build/images/brands/apple.png') }}"
+                    <img class="floating-img float1" src="{{ asset('build/images/brands/apple.png') }}"
                          alt="Une image de gâteau.">
-                    <img class="floating-img" src="{{ asset('build/images/brands/auchan.png') }}"
+                    <img class="floating-img float2" src="{{ asset('build/images/brands/auchan.png') }}"
                          alt="Une image de gâteau.">
-                    <img class="floating-img" src="{{ asset('build/images/brands/dior.png') }}"
+                    <img class="floating-img float1" src="{{ asset('build/images/brands/dior.png') }}"
                          alt="Une image de gâteau.">
-                    <img class="floating-img" src="{{ asset('build/images/brands/fedex.png') }}"
+                    <img class="floating-img float2" src="{{ asset('build/images/brands/fedex.png') }}"
                          alt="Une image de gâteau.">
-                    <img class="floating-img" src="{{ asset('build/images/brands/total.png') }}"
+                    <img class="floating-img float1" src="{{ asset('build/images/brands/total.png') }}"
                          alt="Une image de gâteau.">
-                    <img class="floating-img" src="{{ asset('build/images/brands/kfc.png') }}"
+                    <img class="floating-img float2" src="{{ asset('build/images/brands/kfc.png') }}"
                          alt="Une image de gâteau.">
-                    <img class="floating-img" src="{{ asset('build/images/brands/lv.png') }}"
+                    <img class="floating-img float1" src="{{ asset('build/images/brands/lv.png') }}"
                          alt="Une image de gâteau.">
                 </div>
             </div>
