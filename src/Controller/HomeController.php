@@ -12,9 +12,9 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(DepartmentRepository $departmentRepository): Response
     {
-        $department = $departmentRepository->findAll();
+        $departments = $departmentRepository->findAll();
         return $this->render('home/index.html.twig', [
-            'departments' => $department,
+            'departments' => $departments,
         ]);
     }
 }

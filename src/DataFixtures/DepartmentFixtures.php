@@ -38,7 +38,7 @@ class DepartmentFixtures extends Fixture
         ['number' => '26', 'name' => 'Drôme'],
         ['number' => '27', 'name' => 'Eure'],
         ['number' => '28', 'name' => 'Eure-et-Loire'],
-        ['number' => '29', 'name' => 'Finistère'],   
+        ['number' => '29', 'name' => 'Finistère'],
         ['number' => '30', 'name' => 'Gard'],
         ['number' => '31', 'name' => 'Haute-Garonne'],
         ['number' => '32', 'name' => 'Gers'],
@@ -88,7 +88,7 @@ class DepartmentFixtures extends Fixture
         ['number' => '76', 'name' => 'Seine-Maritime'],
         ['number' => '77', 'name' => 'Seine-et-Marne'],
         ['number' => '78', 'name' => 'Yvelines'],
-        ['number' => '79', 'name' => 'Deux-Sèvres'],   
+        ['number' => '79', 'name' => 'Deux-Sèvres'],
         ['number' => '80', 'name' => 'Somme'],
         ['number' => '81', 'name' => 'Tarn'],
         ['number' => '82', 'name' => 'Tarn-et-Garonne'],
@@ -102,8 +102,14 @@ class DepartmentFixtures extends Fixture
         ['number' => '90', 'name' => 'Territoire de Belfort'],
         ['number' => '91', 'name' => 'Essonne'],
         ['number' => '92', 'name' => 'Hauts-de-Seine'],
-        ['number' => '93', 'name' => 'Val-de-Marne'],
-        ['number' => '94', 'name' => 'Val-d\'Oise'],
+        ['number' => '93', 'name' => 'Seine-Saint-Denis'],
+        ['number' => '94', 'name' => 'Val-de-Marne'],
+        ['number' => '95', 'name' => 'Val-d\'Oise'],
+        ['number' => '971', 'name' => 'Guadeloupe'],
+        ['number' => '972', 'name' => 'Martinique'],
+        ['number' => '973', 'name' => 'Guyane'],
+        ['number' => '974', 'name' => 'La Réunion'],
+        ['number' => '976', 'name' => 'Mayotte'],
     ];
 
 
@@ -114,6 +120,8 @@ class DepartmentFixtures extends Fixture
             $department->setNumber($departmentName['number'])
                         ->setName($departmentName['name']);
             $manager->persist($department);
+            // ajout de référence pour permettre la mise en relation Department => Baker
+            $this->addReference('department_' . $departmentName['number'], $department);
         }
         $manager->flush();
     }
