@@ -253,6 +253,7 @@ h1, h2, h3, h4 {
     width: 300px;
     height: 300px;
     border: 10px solid white;
+    object-fit: cover;
     box-shadow: var(--box-shadow);
 }
 
@@ -365,19 +366,16 @@ h1, h2, h3, h4 {
 
 @keyframes float1 {
     0% {
-        //box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
         -webkit-filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
         filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
         transform: translatey(0px);
     }
     50% {
-        //box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
         -webkit-filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
         filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
         transform: translatey(-20px);
     }
     100% {
-        //box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
         -webkit-filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
         filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
         transform: translatey(0px);
@@ -386,21 +384,18 @@ h1, h2, h3, h4 {
 
 @keyframes float2 {
     0% {
-        //box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
-        -webkit-filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.6));
-        filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.6));
+        -webkit-filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
         transform: translatey(-20px);
     }
     50% {
-        //box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
-        -webkit-filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.2));
-        filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.2));
+        -webkit-filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
         transform: translatey(0px);
     }
     100% {
-        //box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
-        -webkit-filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.6));
-        filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.6));
+        -webkit-filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
         transform: translatey(-20px);
     }
 }
