@@ -150,8 +150,9 @@ h1, h2, h3, h4 {
     height: 740px;
 }
 
-.header-img form {
-    padding-top: 200px;
+.header-subtext {
+    background-color: rgba(255, 255, 255, 0.27);
+    padding: 20px;
 }
 
 /* ----- NAVBAR ----- */
@@ -226,7 +227,6 @@ h1, h2, h3, h4 {
 
 .theme-button:hover {
     cursor: pointer;
-    //background-color: var(--text-pink);
     box-shadow: rgba(60, 64, 67, 0.3) 0 0 10px 5px;
 }
 
