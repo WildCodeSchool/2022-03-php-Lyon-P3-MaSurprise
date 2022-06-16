@@ -162,21 +162,13 @@ h1, h2, h3, h4 {
         display: none;
     }
     #mobile-nav {
-<<<<<<< HEAD
-        display: block;
-=======
         display: flex;
->>>>>>> dev
     }
 }
 
 @media (min-width: 768px) {
     #desktop-nav {
-<<<<<<< HEAD
-        display: block;
-=======
         display: flex;
->>>>>>> dev
     }
     #mobile-nav {
         display: none;
@@ -187,15 +179,6 @@ h1, h2, h3, h4 {
     min-height: 160px;
 }
 
-<<<<<<< HEAD
-#mobile-nav {
-    min-width: 300px;
-    margin-left: 12px;
-    margin-right: 12px;
-}
-
-=======
->>>>>>> dev
 .navbar-colour {
     background-color: #EEEEEE;
 }
@@ -244,7 +227,6 @@ h1, h2, h3, h4 {
 
 .theme-button:hover {
     cursor: pointer;
-    //background-color: var(--text-pink);
     box-shadow: rgba(60, 64, 67, 0.3) 0 0 10px 5px;
 }
 
