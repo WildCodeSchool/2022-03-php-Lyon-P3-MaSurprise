@@ -3,6 +3,11 @@
 <div id="baker-form" class="d-flex flex-column align-items-center m-5">
         <div class="form-row w-50">
             <div class="form-group">
+            {{ form_row(form.services) }}
+             </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
             {{ form_row(form.firstname) }}
              </div>
         </div>
@@ -11,12 +16,7 @@
             {{ form_row(form.lastname) }}
             </div>
         </div>
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(form.commercialName) }}
-            </div>
-        </div>
-        <div class="form-row w-50">
+         <div class="form-row w-50">
             <div class="form-group">
             {{ form_row(form.email) }}
             </div>
@@ -28,14 +28,37 @@
         </div>
         <div class="form-row w-50">
             <div class="form-group">
+            {{ form_row(form.phone)}}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
             {{ form_row(form.address)}}
             </div>
         </div>
         <div class="form-row w-50">
             <div class="form-group">
-            {{ form_row(form.phone)}}
+            {{ form_row(form.bakerType)}}
             </div>
         </div>
+        
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.commercialName) }}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.facebook) }}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.instagram) }}
+            </div>
+        
+        </div>
+        
 {{ form_rest(form) }}
         <div class="d-flex justify-content-center">
             <input type="submit" class="btn btn-primary mt-4" value="Valider" />

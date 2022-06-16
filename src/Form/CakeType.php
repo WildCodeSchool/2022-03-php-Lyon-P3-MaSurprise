@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class CakeType extends AbstractType
 {
@@ -15,7 +16,12 @@ class CakeType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, ['label' => 'Nom'])
-            ->add('picture1', TextType::class, ['label' => 'Image 1'])
+            ->add('picture1File', VichFileType::class, [
+                'label' => 'Image 1',
+                'required' => false,
+                'allow_delete' => true,
+                'download_uri' => true,
+            ])
             ->add('picture2', TextType::class, ['label' => 'Image 2'])
             ->add('picture3', TextType::class, ['label' => 'Image 3'])
             ->add('picture4', TextType::class, ['label' => 'Image 4'])
