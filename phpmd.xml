@@ -14,10 +14,11 @@
     </rule>
     <rule ref="rulesets/codesize.xml" >
         <exclude name="TooManyFields" />
+        <exclude name="ExcessiveClassComplexity" />
     </rule>
     <rule ref="rulesets/codesize.xml/TooManyFields" >
         <properties>
-            <property name="maxfields" value="20" />
+            <property name="maxfields" value="50" />
         </properties>
     </rule>
     <rule ref="rulesets/controversial.xml" >
