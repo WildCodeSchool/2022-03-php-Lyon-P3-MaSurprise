@@ -22,7 +22,7 @@ class BakerType extends AbstractType
                 'label' => 'Vous êtes :*',
                 'choices' => ['professionnel' => 'professionnel', 'amateur' => 'amateur'],
                 'expanded' => true,
-                'multiple' => true,
+                'multiple' => false,
                 ])
             ->add('services', ChoiceType::class, [
                 'label' => 'Quelle(s) prestation(s) proposez-vous ?*',
@@ -40,7 +40,7 @@ class BakerType extends AbstractType
                 ])
             ->add('commercialName', TextType::class, [
                 'label' => "Nom de l'entreprise",
-                'required' => false
+                'required' => false,
                 ])
             ->add('logoFile', VichFileType::class, [
                 'label' => 'Logo',
@@ -53,7 +53,6 @@ class BakerType extends AbstractType
                 'required' => false,
                 'allow_delete' => false,
                 'download_uri' => true,
-                'multiple' => 'multiple'
             ])
             ->add('diplomaFile', VichFileType::class, [
                 'label' => 'CAP, autre diplôme ou accréditation',
