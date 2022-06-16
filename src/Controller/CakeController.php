@@ -29,18 +29,22 @@ class CakeController extends AbstractController
 //        $search = $request->get('search');
 //        var_dump($search);
 
-        // fetching search from form
-        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
-            $search = "";
-
-            if (is_array($searchForm->getData())) {
-                $search = $searchForm->getData()['search'];
-            }
-        }
-
+//        // fetching search from form
 //        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
-//            $search = $request->get('search');
+//            $search = "";
+//
+//            if (is_array($searchForm->getData())) {
+//                $search = $searchForm->getData()['search'];
+//            }
 //        }
+
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $search = $request->get("search_cake_form['search']");
+//            $search = $search['search'];
+
+            var_dump($search);
+            var_dump($request->get("search_cake_form"));
+        }
 
         if (!isset($search)) {
             // if search is empty, display everything
