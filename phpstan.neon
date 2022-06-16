@@ -5,6 +5,7 @@ includes:
 parameters:
     excludePaths:
     - src/Security
+    - src/Entity
     ignoreErrors:
     reportUnmatchedIgnoredErrors: false
     checkGenericClassInNonGenericObjectType: false

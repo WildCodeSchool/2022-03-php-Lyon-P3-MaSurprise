@@ -23,5 +23,6 @@ Dear Wilder using Windows, it seems you miss something in readme during project 
     <exclude-pattern>tests/bootstrap.php</exclude-pattern>
     <exclude-pattern>public/index.php</exclude-pattern>
     <exclude-pattern>src/kernel.php</exclude-pattern>
+    <exclude-pattern>src/Entity/Baker.php</exclude-pattern>
     <exclude-pattern>migrations</exclude-pattern>
 </ruleset>
