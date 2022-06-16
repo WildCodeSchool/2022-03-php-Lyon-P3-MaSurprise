@@ -53,6 +53,7 @@ class BakerType extends AbstractType
                 'required' => false,
                 'allow_delete' => false,
                 'download_uri' => true,
+                'multiple' => 'multiple'
             ])
             ->add('diplomaFile', VichFileType::class, [
                 'label' => 'CAP, autre diplôme ou accréditation',
