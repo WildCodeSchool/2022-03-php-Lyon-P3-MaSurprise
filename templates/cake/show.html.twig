@@ -3,9 +3,10 @@
 {% block title %}Hello CakeController!{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <!--pc-->
+    <div class="container d-none d-md-block">
         <div class="row">
-            <div class="col-12 col-md-6">
+            <div class="col-6">
                 <div class="row">
                     <img class="img-fluid" src="{{ asset('build/images/gateau.jpg') }}" alt="ceci est un gâteau">
                 </div>
@@ -17,6 +18,17 @@
                         <div class="col-2 cercle"></div>
                         <div class="col-2 cercle"></div>
                         <div class="col-2 cercle"></div>
+                    </div>
+                </div>
+                <div class="row buy justify-content-center mt-3">
+                    <div class="col-6 d-flex flex-row">
+                        <button class="buy-btn btn btn-primary">Ajouter au panier</button>
+                        <div class="col-6">
+                            <input type="text" id="quantity" name="quantity"
+                                   class="form-control input-number text-center"
+                                   value="1"
+                                   min="1" max="100">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -50,7 +62,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12 d-flex flex-row justify-content-between align-items-baseline">
-                        <div class="d-flex align-items-baseline mt-1 p-0">
+                        <div class="d-flex align-items-baseline mt-1 p-0 ">
                             <img src="{{ asset('build/images/icons/hat.png') }}" class="hat img-fluid w-auto"
                                  alt="ceci est un chapeau">
                             <h5 class="baker-name text-start opacity-50"> {{ cake.baker.lastname }}
@@ -61,12 +73,10 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <p>
-                            <button class="show-btn btn btn-primary" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                Ingrédients
-                            </button>
-                        </p>
+                        <h2 class="show-btn" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            Ingrédients
+                        </h2>
                         <div class="collapse" id="collapseOne">
                             <div class="card card-body bg-light border-dark">
                                 <p>
@@ -77,12 +87,10 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <p>
-                                <button class="show-btn btn btn-primary" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Allergénes
-                                </button>
-                            </p>
+                            <h2 class="show-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Allergénes
+                            </h2>
                             <div class="collapse" id="collapseTwo">
                                 <div class="card card-body bg-light border-dark">
                                     <p>
@@ -95,26 +103,15 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 mt-3">
-            <div class="row buy">
-                <div class="d-flex flex-row buy-row">
-                    <button class="buy-btn btn btn-primary">Ajouter au panier</button>
-                    <div class="col-3">
-                        <input type="text" id="quantity" name="quantity"
-                               class="form-control input-number text-center w-25"
-                               value="1"
-                               min="1" max="100">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row d-flex flex-row">
-                <div class="col-6">
+        <div class="container mt-5">
+            <div class="col-12 row d-flex justify-content-center ">
+                <div class="col-6 d-flex flex-wrap justify-content-center border-dark">
                     <img class="comment-img" src="https://i.pravatar.cc/100" alt="Une image de gâteau.">
-                    <h5 class="baker-name text-start opacity-50 pl-4"> {{ cake.baker.lastname }}
-                        .{{ cake.baker.firstname |slice(0, 1) }} <br> Pâtissier pro</h5>
-
+                    <div class="d-flex flex-column">
+                        <h5 class="baker-name text-start fs-3 pl-4"> {{ cake.baker.lastname }}
+                            .{{ cake.baker.firstname |slice(0, 1) }}</h5>
+                        <h5 class="fs-3">Pâtissier pro</h5>
+                    </div>
                     <p class="text-justify">
                         Description du patissier ...Description du patissier ...Description du patissier ...Description
                         du
@@ -129,69 +126,72 @@
             </div>
         </div>
     </div>
-    <div class="container d-md-none">
-        <div class="row mt-3">
-            <div class="col-3">
-                <p>{{ cake.name }}</p>
+    <!--mobile-->
+    <div class="container-fluid d-md-none">
+        <div class="col-12">
+            <div class="row">
+                <img class="img-fluid" src="{{ asset('build/images/gateau.jpg') }}" alt="ceci est un gâteau">
             </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col-12 d-flex flex-row justify-content-between mt-1">
-                <div>
-                    <p>{{ cake.price }}</p>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <p>{{ cake.name }}</p>
                 </div>
-                <div class="cake-stars d-flex align-items-baseline">
-                    <div class="rating  m-0 p-0">
-                        <a href="#5" title="Give 5 stars">☆</a>
-                        <a href="#4" title="Give 4 stars">☆</a>
-                        <a href="#3" title="Give 3 stars">☆</a>
-                        <a href="#2" title="Give 2 stars">☆</a>
-                        <a href="#1" title="Give 1 star">☆</a>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12 d-flex flex-row justify-content-between mt-1">
+                    <div>
+                        <p>{{ cake.price }}</p>
                     </div>
-                    <p class="cake-reviews m-0">3 avis</p>
+                    <div class="cake-stars d-flex align-items-baseline">
+                        <div class="rating  m-0 p-0">
+                            <a href="#5" title="Give 5 stars">☆</a>
+                            <a href="#4" title="Give 4 stars">☆</a>
+                            <a href="#3" title="Give 3 stars">☆</a>
+                            <a href="#2" title="Give 2 stars">☆</a>
+                            <a href="#1" title="Give 1 star">☆</a>
+                        </div>
+                        <p class="cake-reviews m-0">3 avis</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col-12 col-lg-6">
-                <p>{{ cake.description }}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 d-flex flex-row justify-content-between align-items-baseline">
-                <div class="d-flex align-items-baseline mt-1 p-0">
-                    <img src="{{ asset('build/images/icons/hat.png') }}" class="hat img-fluid w-auto"
-                         alt="ceci est un chapeau">
-                    <h5 class="baker-name text-start opacity-50"> {{ cake.baker.lastname }}
-                        .{{ cake.baker.firstname |slice(0, 1) }} </h5>
+            <div class="row mt-2">
+                <div class="col-12 col-lg-6">
+                    <p>{{ cake.description }}</p>
                 </div>
-                <p>Lyon</p>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="accordion bg-light" id="myAccordion">
-                    <button type="button" class="accordion-button collapsed bg-light p-0" data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne">Ingrédients
-                    </button>
-                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
-                        <div class="card-body border">
+            <div class="row">
+                <div class="col-12 d-flex flex-row justify-content-between align-items-baseline">
+                    <div class="d-flex align-items-baseline mt-1 p-0">
+                        <img src="{{ asset('build/images/icons/hat.png') }}" class="hat img-fluid w-auto"
+                             alt="ceci est un chapeau">
+                        <h5 class="baker-name text-start opacity-50"> {{ cake.baker.lastname }}
+                            .{{ cake.baker.firstname |slice(0, 1) }} </h5>
+                    </div>
+                    <p>Lyon</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="show-btn" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Ingrédients
+                    </h2>
+                    <div class="collapse" id="collapseOne">
+                        <div class="card card-body bg-light border-dark">
                             <p>
                                 bla bla bla bla bla bla bla bla bla bla bla bla
                             </p>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-12">
-                    <div class="accordion bg-light" id="myAccordion">
-                        <button type="button" class="accordion-button collapsed bg-light p-0"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#collapseTwo">Allergènes
-                        </button>
-                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
-                            <div class="card-body border">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="show-btn" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Allergénes
+                        </h2>
+                        <div class="collapse" id="collapseTwo">
+                            <div class="card card-body bg-light border-dark">
                                 <p>
                                     bla bla bla bla bla bla bla bla bla bla bla bla
                                 </p>
@@ -200,45 +200,40 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-12 d-flex flex-row flex-wrap align-items-center justify-content-center">
-                <img class="comment-img" src="https://i.pravatar.cc/100" alt="Une image de gâteau.">
-                <h5 class="baker-name text-start opacity-50 pl-4"> {{ cake.baker.lastname }}
-                    .{{ cake.baker.firstname |slice(0, 1) }} <br> Pâtissier pro</h5>
-
-                <p class="text-justify">
-                    Description du patissier ...Description du patissier ...Description du patissier ...Description du
-                    patissier ...Description du patissier ...Description du patissier ...
-                </p>
-
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 d-flex flex-column align-items-center">
-                <p> livraison </p>
-                <p> click & collect </p>
-                <p> CAP Pâtissier </p>
-            </div>
-        </div>
-        <div class="col-12 mt-3">
-            <div class="row buy">
-                <div class="d-flex flex-row buy-row">
-                    <button class="buy-btn btn btn-primary">Ajouter au panier</button>
-                    <div class="col-3">
-                        <input type="text" id="quantity" name="quantity"
-                               class="form-control input-number text-center w-25"
-                               value="1"
-                               min="1" max="100">
+            <div class="col-12 mt-3">
+                <div class="row buy">
+                    <div class="d-flex flex-row buy-row justify-content-center">
+                        <button class="buy-btn btn btn-primary">Ajouter au panier</button>
+                        <div class="col-3">
+                            <input type="text" id="quantity" name="quantity"
+                                   class="form-control input-number text-center w-50"
+                                   value="1"
+                                   min="1" max="100">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+            <div class="row mt-4">
+                <div class="col-12 d-flex flex-row flex-wrap align-items-center justify-content-center">
+                    <img class="comment-img" src="https://i.pravatar.cc/100" alt="Une image de gâteau.">
+                    <h5 class="baker-name text-start opacity-50 pl-4"> {{ cake.baker.lastname }}
+                        .{{ cake.baker.firstname |slice(0, 1) }} <br> Pâtissier pro</h5>
 
-    <div class="row">
-        <div class="col-12">
-            <p>Vous aimerez aussi</p>
+                    <p class="text-justify">
+                        Description du patissier ...Description du patissier ...Description du patissier ...Description
+                        du
+                        patissier ...Description du patissier ...Description du patissier ...
+                    </p>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 d-flex flex-column align-items-center">
+                    <p> livraison </p>
+                    <p> click & collect </p>
+                    <p> CAP Pâtissier </p>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

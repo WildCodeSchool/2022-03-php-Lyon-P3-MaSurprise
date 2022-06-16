@@ -7,39 +7,38 @@
     <div id="cake-list" class="container-fluid container-lg">
         <div class="row justify-content-center">
             {% for cake in cakes %}
-            <div class="cake-card col-6 col-md-4 d-flex flex-column  p-2 p-lg-4">
-                <div>
-                    <img class="cake-img img-fluid" src="{{ asset('build/images/gateau.jpg') }}">
-                </div>
-                <div class="mt-2">
-                    <h1 class="cake-name m-0">{{ cake.name }}</h1>
-                </div>
-                <div class="cake-stars d-flex align-items-baseline pt-2 pb-2">
-                    <div class="rating  m-0"><!--
-		--><a href="#5" title="Give 5 stars">☆</a><!--
-		--><a href="#4" title="Give 4 stars">☆</a><!--
-		--><a href="#3" title="Give 3 stars">☆</a><!--
-		--><a href="#2" title="Give 2 stars">☆</a><!--
-		--><a href="#1" title="Give 1 star">☆</a>
+                <div class="cake-card col-6 col-md-4 d-flex flex-column  p-2 p-lg-4">
+                    <div>
+                        <img class="cake-img img-fluid" src="{{ asset('build/images/gateau.jpg') }}" alt="cake img">
                     </div>
-                    <p class="cake-reviews m-0">3 avis</p>
-                </div>
-                <div class="cake-city container-fluid p-0 d-flex flex-row justify-content-between m-0 p-0">
-                    <p class="cake-price m-0">{{ cake.price }}€</p>
-                    <P class="m-0">Lyon</P>
-                </div>
-                <div class="cake-price-rev m-0 p-0">
-                    <p class="cake-disponibility m-0">Disponnible dans 10 jours</p>
+                    <div class="mt-2">
+                        <h1 class="cake-name m-0">{{ cake.name }}</h1>
+                    </div>
+                    <div class="cake-stars d-flex align-items-baseline pt-2 pb-2">
+                        <div class="rating  m-0">
+                            <a href="#5" title="Give 5 stars">☆</a>
+                            <a href="#4" title="Give 4 stars">☆</a>
+                            <a href="#3" title="Give 3 stars">☆</a>
+                            <a href="#2" title="Give 2 stars">☆</a>
+                            <a href="#1" title="Give 1 star">☆</a>
+                        </div>
+                        <p class="cake-reviews m-0">3 avis</p>
+                    </div>
+                    <div class="cake-city container-fluid p-0 d-flex flex-row justify-content-between m-0 p-0">
+                        <p class="cake-price m-0">{{ cake.price }}€</p>
+                        <P class="m-0">Lyon</P>
+                    </div>
+                    <div class="cake-price-rev m-0 p-0">
+                        <p class="cake-disponibility m-0">Disponnible dans 10 jours</p>
 
+                    </div>
+                    <div class="d-flex align-items-baseline mt-1 p-0">
+                        <img src="{{ asset('build/images/icons/hat.png') }}" class="hat img-fluid w-auto" alt="cake img">
+                        <h5 class="baker-name text-start opacity-50"> {{ cake.baker.lastname }}
+                            .{{ cake.baker.firstname |slice(0, 1) }} </h5>
+                    </div>
                 </div>
-                <div class="d-flex align-items-baseline mt-1 p-0">
-                    <img src="{{ asset('build/images/icons/hat.png') }}" class="hat img-fluid w-auto">
-                    <h5 class="baker-name text-start opacity-50"> {{ cake.baker.lastname }}
-                        .{{ cake.baker.firstname |slice(0, 1) }} </h5>
-                </div>
-            </div>
             {% endfor %}
         </div>
     </div>
-
 {% endblock %}
