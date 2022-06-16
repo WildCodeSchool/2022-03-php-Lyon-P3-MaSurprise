@@ -22,28 +22,13 @@ class CakeController extends AbstractController
         $searchForm = $this->createForm(SearchCakeFormType::class);
         $searchForm->handleRequest($request);
 
-//        // initializing errors
-//        // TODO: this might have to work differently?
+        // initializing errors
+        // TODO: this might have to work differently?
         $errors = 0;
 
-//        $search = $request->get('search');
-//        var_dump($search);
-
-//        // fetching search from form
-//        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
-//            $search = "";
-//
-//            if (is_array($searchForm->getData())) {
-//                $search = $searchForm->getData()['search'];
-//            }
-//        }
-
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
-            $search = $request->get("search_cake_form['search']");
-//            $search = $search['search'];
-
-            var_dump($search);
-            var_dump($request->get("search_cake_form"));
+            $searchRequest = $request->get('search_cake_form');
+            $search = $searchRequest['search'];
         }
 
         if (!isset($search)) {
