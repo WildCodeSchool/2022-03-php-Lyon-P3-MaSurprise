@@ -25,11 +25,12 @@ class CakeController extends AbstractController
     }
 
     #[Route('/{id}/', name: 'app_cake_show')]
-    public function show(Cake $cake, Baker $baker): Response
+    public function show(Cake $cake): Response
     {
 
+
         return $this->render('cake/show.html.twig', [
-            'cake' => $cake, 'baker' => $baker
+            'cake' => $cake,
         ]);
     }
 
