@@ -8,6 +8,7 @@ $secondary: #E3A7A7;
     --background-dark: #EFEAE4;
     --background-light: #FCF5EE;
     --background-footer-navbar: #EEEEEE;
+    --background-lightblue: #86D1DE;
     --text-title-pink: #B1367E;
     --text-red: #C92A00;
     --text-pink: #ffd9da;
@@ -52,7 +53,7 @@ $secondary: #E3A7A7;
 }
 
 body {
-    padding-top: 210px;
+    padding-top: 160px;
     background-color: #B1367E;
     font-family: "Karla", sans-serif;
 }
@@ -148,25 +149,26 @@ h1, h2, h3, h4 {
     height: 740px;
 }
 
-.header-img form {
-    padding-top: 200px;
+.header-subtext {
+    background-color: rgba(255, 255, 255, 0.27);
+    padding: 20px;
 }
 
-/* ----- navbar ----- */
+/* ----- NAVBAR ----- */
 
 @media (min-width: 0px) and (max-width: 767px) {
     #desktop-nav {
         display: none;
-      }
+    }
     #mobile-nav {
-        display: block;
-      }
-   }
+        display: flex;
+    }
+}
 
-   @media (min-width: 768px) {
+@media (min-width: 768px) {
     #desktop-nav {
-        display: block;
-      }
+        display: flex;
+    }
     #mobile-nav {
         display: none;
       }
@@ -176,9 +178,32 @@ h1, h2, h3, h4 {
     background-color: #EEEEEE;
     }
 
+
+#desktop-nav, #mobile-nav {
+    min-height: 160px;
+}
+
+.navbar-colour {
+    background-color: #EEEEEE;
+}
+
 .logo-picture {
     width: 150px;
     height: 150px;
+}
+
+.nav-icon {
+    width: 43px;
+    height: 43px;
+}
+
+.navbar {
+    box-shadow: var(--box-shadow);
+}
+
+.navbar a {
+    font-family: "Cup Cakes";
+    font-size: 16pt;
 }
 
 /* ----- themes ----- */
@@ -206,7 +231,6 @@ h1, h2, h3, h4 {
 
 .theme-button:hover {
     cursor: pointer;
-    //background-color: var(--text-pink);
     box-shadow: rgba(60, 64, 67, 0.3) 0 0 10px 5px;
 }
 
@@ -233,6 +257,7 @@ h1, h2, h3, h4 {
     width: 300px;
     height: 300px;
     border: 10px solid white;
+    object-fit: cover;
     box-shadow: var(--box-shadow);
 }
 
@@ -335,6 +360,50 @@ h1, h2, h3, h4 {
     height: 80px;
 }
 
+.float1 {
+    animation: float1 6s ease-in-out infinite;
+}
+
+.float2 {
+    animation: float2 6s ease-in-out infinite;
+}
+
+@keyframes float1 {
+    0% {
+        -webkit-filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        transform: translatey(0px);
+    }
+    50% {
+        -webkit-filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
+        transform: translatey(-20px);
+    }
+    100% {
+        -webkit-filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        transform: translatey(0px);
+    }
+}
+
+@keyframes float2 {
+    0% {
+        -webkit-filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
+        transform: translatey(-20px);
+    }
+    50% {
+        -webkit-filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        transform: translatey(0px);
+    }
+    100% {
+        -webkit-filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
+        transform: translatey(-20px);
+    }
+}
+
 /* ---------- FOOTER ---------- */
 footer {
     height: 300px;
@@ -361,4 +430,38 @@ footer ul a {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+}
+
+/* ---------- CONNEXION MODAL ---------- */
+.btn-connection {
+    background-color: var(--background-lightblue);
+    color: white;
+    height: 8vh;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Karla';
+}
+
+.modal-footer {
+    justify-content: space-around;
+    font-family: 'Karla';
+}
+
+.connection-fields {
+    height: 5vh;
+    background-color: white;
+    border: rgba(0, 0, 0, 0.75);
+    font-family: 'Karla';
+}
+
+.forgotten-password, .create-account {
+    color: black;
+    text-decoration: none;
+    font-family: 'Karla';
+    font-size: 12px;
+}
+
+.modal-header, .modal-body, .modal-footer {
+    background-color: var(--background-light);
+    font-family: 'Karla';
 }

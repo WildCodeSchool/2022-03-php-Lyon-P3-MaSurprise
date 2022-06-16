@@ -5,8 +5,12 @@ namespace App\Entity;
 use App\Repository\CakeRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CakeRepository::class)]
+#[Vich\Uploadable]
 class Cake
 {
     #[ORM\Id]
@@ -20,8 +24,17 @@ class Cake
     #[ORM\Column(type: 'string', length: 255)]
     private string $name;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $picture1;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $picture1 = "";
+
+    #[Vich\UploadableField(mapping: 'cake_file', fileNameProperty: 'picture1')]
+    #[Assert\File(
+        maxSize: '1M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+        mimeTypesMessage: 'Ce fichier doit être une image',
+        uploadFormSizeErrorMessage: 'Votre photo ne peut pas dépasser 1M'
+    )]
+    private ?File $picture1File = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string|null $picture2;
@@ -50,6 +63,9 @@ class Cake
     #[ORM\ManyToOne(targetEntity: Baker::class, inversedBy: 'cakes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Baker $baker;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $updateAt;
 
     public function __construct()
     {
@@ -90,11 +106,25 @@ class Cake
         return $this->picture1;
     }
 
-    public function setPicture1(string $picture1): self
+    public function setPicture1(?string $picture1): self
     {
         $this->picture1 = $picture1;
 
         return $this;
+    }
+
+    public function setPicture1File(?File $picture1File = null): void
+    {
+        $this->picture1File = $picture1File;
+
+        if (null !== $picture1File) {
+            $this->getUpdateAt();
+        }
+    }
+
+    public function getPicture1File(): ?File
+    {
+        return $this->picture1File;
     }
 
     public function getPicture2(): ?string
@@ -201,6 +231,18 @@ class Cake
     public function setBaker(?Baker $baker): self
     {
         $this->baker = $baker;
+
+        return $this;
+    }
+
+    public function getUpdateAt(): ?\DateTimeInterface
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(?\DateTimeInterface $updateAt): self
+    {
+        $this->updateAt = $updateAt;
 
         return $this;
     }

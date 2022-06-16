@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CakeController!{% endblock %}
+{% block title %}{{ cake.name }} - {{ parent() }}{% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
     <!--pc-->
     <div class="container d-none d-md-block">
         <div class="row">
@@ -101,6 +102,25 @@
                         </div>
                     </div>
                 </div>
+
+                <p>
+                    <a class="btn btn-outline-secondary text-secondary" data-bs-toggle="collapse"
+                       href="#collapseAllergens"
+                       role="button"
+                       aria-expanded="false" aria-controls="collapseAllergens">
+                        Allergènes
+                    </a>
+                </p>
+                <div class="collapse" id="collapseAllergens">
+                    <div class="container-fluid card card-body bg-light">
+                        <div class="row">
+                            {% for i in 1..10 %}
+                                allergène {{ i }},
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="container mt-5">
@@ -122,6 +142,7 @@
                     <p> livraison </p>
                     <p> click & collect </p>
                     <p> CAP Pâtissier </p>
+
                 </div>
             </div>
         </div>

@@ -39,6 +39,45 @@ class CakeRepository extends ServiceEntityRepository
         }
     }
 
+    // fetching cakes whose names match searched words
+    public function findLikeName(mixed $name): mixed
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->join('c.baker', 'b')
+            ->where('c.name LIKE :name')
+            ->setParameter('name', '%' . $name . '%')
+            ->orderBy('c.name', 'ASC')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
+    // fetching cakes whose descriptions match searched words
+    public function findLikeDescription(mixed $description): mixed
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->join('c.baker', 'b')
+            ->where('c.description LIKE :description')
+            ->setParameter('description', '%' . $description . '%')
+            ->orderBy('c.description', 'ASC')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
+    // fetching cakes whose bakers match searched words (using join)
+    public function findLikeBaker(mixed $bakerName): mixed
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->join('c.baker', 'b')
+            ->where('b.lastname LIKE :baker_name')
+            ->setParameter('baker_name', '%' . $bakerName . '%')
+            ->orderBy('b.lastname', 'ASC')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
 //    /**
 //     * @return Cake[] Returns an array of Cake objects
 //     */

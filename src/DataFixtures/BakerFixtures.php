@@ -12,7 +12,7 @@ class BakerFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $baker = new Baker();
             $baker->setCreated($faker->dateTime);
             $baker->setLastname($faker->lastName());
@@ -22,6 +22,10 @@ class BakerFixtures extends Fixture
             );
             if (is_string($commercialName)) {
                 $baker->setCommercialname($commercialName);
+            }
+            $bakerType = $faker->randomElement(['professionnel', 'amateur']);
+            if (is_string($bakerType)) {
+                $baker->setBakerType($bakerType);
             }
             $baker->setEmail($faker->email());
             $baker->setPassword($faker->password(8, 15));
