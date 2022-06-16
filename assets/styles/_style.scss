@@ -361,6 +361,56 @@ h1, h2, h3, h4 {
     height: 80px;
 }
 
+.float1 {
+    animation: float1 6s ease-in-out infinite;
+}
+
+.float2 {
+    animation: float2 6s ease-in-out infinite;
+}
+
+@keyframes float1 {
+    0% {
+        //box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+        -webkit-filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        transform: translatey(0px);
+    }
+    50% {
+        //box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
+        -webkit-filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
+        transform: translatey(-20px);
+    }
+    100% {
+        //box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+        -webkit-filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        transform: translatey(0px);
+    }
+}
+
+@keyframes float2 {
+    0% {
+        //box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+        -webkit-filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.6));
+        filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.6));
+        transform: translatey(-20px);
+    }
+    50% {
+        //box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
+        -webkit-filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.2));
+        transform: translatey(0px);
+    }
+    100% {
+        //box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+        -webkit-filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.6));
+        filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.6));
+        transform: translatey(-20px);
+    }
+}
+
 /* ---------- FOOTER ---------- */
 footer {
     height: 300px;
@@ -390,7 +440,7 @@ footer ul a {
 }
 
 /* ---------- CONNEXION MODAL ---------- */
-.btn-connection{
+.btn-connection {
     background-color: var(--background-lightblue);
     color: white;
     height: 8vh;
@@ -399,26 +449,26 @@ footer ul a {
     font-family: 'Karla';
 }
 
-.modal-footer{
+.modal-footer {
     justify-content: space-around;
     font-family: 'Karla';
 }
 
-.connection-fields{
+.connection-fields {
     height: 5vh;
     background-color: white;
-    border:rgba(0, 0, 0, 0.75) 1;
+    border: rgba(0, 0, 0, 0.75) 1;
     font-family: 'Karla';
 }
 
-.forgotten-password, .create-account{
+.forgotten-password, .create-account {
     color: black;
     text-decoration: none;
     font-family: 'Karla';
     font-size: 12px;
 }
 
-.modal-header, .modal-body, .modal-footer{
+.modal-header, .modal-body, .modal-footer {
     background-color: var(--background-light);
     font-family: 'Karla';
 }
