@@ -2,62 +2,84 @@
 
 <!-- DESKTOP VERSION HEREUNDER -->
 
-<nav class="navbar navbar-expand-md navbar-colour fixed-top" id="desktop-nav">
-    <div class="navbar-collapse d-flex justify-content-around align-items-center">
+	<nav class="navbar navbar-expand-md navbar-colour fixed-top" id="desktop-nav"> 
+	<div class=" navbar-collapse d-flex justify-content-around">
+		<a class="text-primary nav-link" href="{{ path('app_cake_index') }}">NOS CAKES</a>
+		<a class="text-primary nav-link" href="#">DISPONIBILITÉS</a>
+		<a class="navbar-brand" href="{{ path('app_home') }}"><img class="logo-picture" alt="logo" src="{{ asset('build/images/logo_mycakeevent.png') }}"></a>
+		<a class="text-primary nav-link" href="#">ACCÈS PÂTISSIERS</a>
+		<!-- Button trigger modal -->
+		{% if app.user %}
+    	<a type="button" class="text-primary nav-link" href="{{ path('logout') }}"> DECONNEXION</a>
+		{% else %}
+		<a type="button" class="text-primary nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal" href="{{ path('login') }}"> CONNEXION</a>
+		{% endif %}
+	</div>
+	</nav>
 
-        <a class="text-primary nav-link" href="{{ path('app_cake_index') }}">NOS CAKES</a>
-        <a class="text-primary nav-link" href="#">DISPONIBILITÉS</a>
-        <a class="navbar-brand" href="{{ path('app_home') }}">
-            <img class="logo-picture" alt="logo" src="{{ asset('build/images/logo_mycakeevent.png') }}">
-        </a>
-        <a class="text-primary nav-link" href="#">ACCÈS PÂTISSIERS</a>
-        <a class="text-primary nav-link" href="#">CONNEXION</a>
+	<!-- MOBILE VERSION HEREUNDER -->
 
-    </div>
-</nav>
+	<nav class="navbar navbar-expand-lg navbar-light navbar-colour fixed-top" id="mobile-nav">
+		<div class="container-fluid d-flex justify-content-between">
+			<div class="position-absolute top-50 start-0 translate-middle-y">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+			<div class="position-absolute top-50 start-50 translate-middle">
+				<a class="navbar-brand" href="{{ path('app_home') }}"><img class="logo-picture" alt="logo" src="{{ asset('build/images/logo_mycakeevent.png') }}"></a>
+			</div>
+			<div class="position-absolute top-50 end-0 translate-middle-y">
+				<a href="#"><img class= "nav-icon" alt="recherche" src="{{ asset('build/images/search_navbar.png') }}"></a>
+				<a href="#"><img class= "nav-icon" alt="panier" src="{{ asset('build/images/shopping_navbar.png') }}"></a>
+			</div>
+		</div>
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="{{ path('app_cake_index') }}">NOS CAKES</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="#">DISPONIBILITÉS</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="#">ACCÈS PÂTISSIERS</a>
+				</li>
+				<li class="nav-item">
+<!-- Button trigger modal -->
+                    {% if app.user %}
+                    <a type="button" class="text-primary nav-link" href="{{ path('logout') }}"> DECONNEXION</a>
+                    {% else %}
+                    <a type="button" class="text-primary nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal" href="{{ path('login') }}"> CONNEXION</a>
+                    {% endif %}
+				</li>
+			</ul>
+		</div>
+	</nav>
 
-<!-- MOBILE VERSION HEREUNDER -->
-
-<nav class="navbar navbar-expand-lg navbar-light navbar-colour fixed-top" id="mobile-nav">
-    <div class="container-fluid d-flex justify-content-between">
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ path('app_cake_index') }}">NOS CAKES</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">DISPONIBILITÉS</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">ACCÈS PÂTISSIERS</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">CONNEXION</a>
-                </li>
-            </ul>
-
-        </div>
-
-        <div class="position-absolute top-50 start-50 translate-middle">
-            <a class="navbar-brand" href="{{ path('app_home') }}">
-                <img class="logo-picture" alt="logo"
-                     src="{{ asset('build/images/logo_mycakeevent.png') }}">
-            </a>
-        </div>
-
-        <div class="position-absolute top-50 end-0 translate-middle-y">
-            <a href="{{ path('app_cake_index') }}">
-                <img class="nav-icon" alt="recherche"
-                     src="{{ asset('build/images/search_navbar.png') }}"></a>
-            <a href="#">
-                <img class="nav-icon" alt="panier" src="{{ asset('build/images/shopping_navbar.png') }}"></a>
-        </div>
-
-    </div>
-</nav>
+<!-- Modal -->
+				<div class="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title text-primary" id="exampleModalLabel">Connexion</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body container">
+								<form action="{{ path('login') }}" method="post" class="row">
+									<label for="username"></label>
+									<input type="text" id="username" name="_username" placeholder="Email" class="w-75 mb-3 connection-fields"/>
+									<label for="password"></label>
+									<input type="password" id="password" name="_password" placeholder="Mot de passe" class="w-75 mb-3 connection-fields"/>
+									<input type="hidden" name="_target_path" value="/"/>
+									<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+									<button type="submit" class="btn-connection mt-3">Connexion</button>
+								</form>
+							</div>
+							<div class="modal-footer container d-flex justify-content-around pb-3">
+								<a class="forgotten-password">Mot de passe oublié</a>
+								<a class="create-account" href="{#{{path('app_register')}}#}">Créer un compte</a>
+							</div>
+						</div>
+					</div>
+				</div>
