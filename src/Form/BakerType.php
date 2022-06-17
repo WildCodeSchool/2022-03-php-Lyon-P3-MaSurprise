@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Baker;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -23,12 +22,6 @@ class BakerType extends AbstractType
                 'choices' => ['professionnel' => 'professionnel', 'amateur' => 'amateur'],
                 'expanded' => true,
                 'multiple' => false,
-                ])
-            ->add('services', ChoiceType::class, [
-                'label' => 'Quelle(s) prestation(s) proposez-vous ?*',
-                'choices' => ['pâtissier' => 'pâtissier', 'atelier' => 'atelier', 'formation' => 'formation'],
-                'expanded' => true,
-                'multiple' => true,
                 ])
             ->add('lastname', TextType::class, [
             'label' => 'Nom*',
@@ -78,22 +71,13 @@ class BakerType extends AbstractType
                 ])
             ->add('facebook', TextType::class, [
                 'label' => "Facebook",
+                'required' => false,
                 ])
             ->add('instagram', TextType::class, [
                 'label' => "Instagram",
+                'required' => false,
                 ])
         ;
-        $builder->get('services')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($servicesAsString) {
-                    // transform the string back to an array
-                    return explode(', ', $servicesAsString);
-                },
-                function ($servicesAsArray) {
-                    // transform the array to a string
-                    return implode(', ', $servicesAsArray);
-                },
-            ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
