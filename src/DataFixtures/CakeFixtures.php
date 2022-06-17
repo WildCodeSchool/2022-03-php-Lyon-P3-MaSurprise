@@ -14,12 +14,13 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 317; $i++) {
             $cake = new Cake();
             $cake->setCreated($faker->dateTime);
             $name = $faker->randomElement(
                 ['Gâteau d\'anniversaire', 'Forêt noire', 'Pièce montée', 'Gâteau licorne',
-                'Fraisier', 'Gâteau à étages, crème au beurre', 'Baba au rhum']
+                    'Fraisier', 'Gâteau à étages, crème au beurre', 'Baba au rhum',
+                    'Gâteau au twix, mars et coulis de kinder surprise']
             );
             if (is_string($name)) {
                 $cake->setName($name);
@@ -32,7 +33,7 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
             if (is_string($size)) {
                 $cake->setSize($size);
             }
-            $baker = $this->getReference('baker_' . $faker->numberBetween(1, 9));
+            $baker = $this->getReference('baker_' . $faker->numberBetween(0, 49));
             if ($baker instanceof Baker) {
                 $cake->setBaker($baker);
             }
@@ -42,11 +43,11 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return
-        [
-            BakerFixtures::class,
-        ];
+            [
+                BakerFixtures::class,
+            ];
     }
 }

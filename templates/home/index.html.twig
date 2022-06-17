@@ -1,264 +1,324 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home
-{% endblock %}
+{% block title %}{{ parent() }}{% endblock %}
 
 {% block body %}
 
-	<header class="container-fluid">
-		<div class="row">
-			<div class="header-img d-flex justify-content-center">
-				<form>
-					<div class="input-group input-group-lg mb-3">
-						<input type="search" class="form-control" placeholder="Rechercher" aria-label="Username">
-						<select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-							{% for department in departments %}
-								<option value="{{department.id}}">
-									{{department.number}} - {{department.name}}</option>
-							{% endfor %}
-						</select>
-					</div>
-				</form>
-			</div>
-		</div>
-	</header>
+    <header class="container-fluid">
+        <div class="row">
+            <div class="header-img d-flex justify-content-center">
+                <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+                    <div class="row">
+                        <div
+                            class="col-12 d-flex align-items-center justify-content-center">{{ include('components/_searchform.html.twig') }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="header-subtext col-12 d-flex flex-column align-items-center justify-content-center">
+                            <h1 class="text-primary">Découvrez les gâteaux autour de chez vous</h1>
+                            <h3>Plus de 80 pâtissières dans toute la France</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-	<main class="container-fluid">
-		<section class="row">
-			<div class="main-theme-container d-flex flex-column align-items-center">
-				<h2 class="main-theme-container-title text-primary">Parcourir par thème</h2>
-				<div class="theme-container d-flex flex-column flex-xxl-row">
+    <main class="container-fluid">
+        <section class="row">
+            <div class="main-theme-container d-flex flex-column align-items-center">
+                <h2 class="main-theme-container-title text-primary">Parcourir par thème</h2>
+                <div class="theme-container d-flex flex-column flex-xxl-row">
 
-					<div class="theme-subcontainer d-flex flex-column flex-md-row">
-						<div class="theme-button d-flex flex-column align-items-center justify-content-center text-center border-red">
-							<img class="theme-img" src="{{ asset('build/images/icons/theme_macaroons.png') }}" alt="Une image de gâteau.">
-							<h3 class="text-red">Nos pâtisseries</h3>
-							<p>
-								Succombez à nos mignons, petits et délicieux macarons ! Vanille, chocolat, praliné...
-								                                Il y en a pour tous les goûts et de toutes les couleurs !
-							</p>
-						</div>
-						<div class="theme-button d-flex flex-column align-items-center justify-content-center text-center border-pinkorange">
-							<img class="theme-img" src="{{ asset('build/images/icons/theme_cakes.png') }}" alt="Une image de gâteau.">
-							<h3 class="text-pinkorange">Nos gâteaux</h3>
-							<p>
-								Plus qu'un simple gâteau, votre gâteau !
-								                                Et pour l'occasion mieux vaux compter sur une gourmandise qui vous ressemble, n'est-ce
-								                                pas ?
-							</p>
-						</div>
-					</div>
-					<div class="theme-subcontainer d-flex flex-column flex-md-row">
-						<div class="theme-button d-flex flex-column align-items-center justify-content-center text-center border-orange">
-							<img class="theme-img" src="{{ asset('build/images/icons/theme_cupcakes.png') }}" alt="Une image de gâteau.">
-							<h3 class="text-orange">Nos cupcakes</h3>
-							<p>
-								Plaisirs sucrés, plaisirs mignons. Et décorés de toppings ou de glaçages hauts en
-								                                couleurs !
-								                                Plaisirs sucrés toujours dans le thème !
-							</p>
-						</div>
-						<div class="theme-button d-flex flex-column align-items-center justify-content-center text-center border-lightblue hover-lightblue">
-							<img class="theme-img" src="{{ asset('build/images/icons/theme_sculpted.png') }}" alt="Une image de gâteau.">
-							<h3 class="text-lightblue">Nos gâteaux sculptés</h3>
-							<p>
-								Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-								                                Lorem Ipsum has been the industry's standard dummy text ever.
-							</p>
-						</div>
-					</div>
+                    <div class="theme-subcontainer d-flex flex-column flex-md-row">
+                        <div
+                            class="theme-button d-flex flex-column align-items-center justify-content-center text-center border-red">
+                            <img class="theme-img"
+                                 src="{{ asset('build/images/icons/theme_macaroons.png') }}"
+                                 alt="Une image de gâteau.">
+                            <h3 class="text-red">Nos pâtisseries</h3>
+                            <p>
+                                Succombez à nos mignons, petits et délicieux macarons ! Vanille, chocolat, praliné...
+                                Il y en a pour tous les goûts et de toutes les couleurs !
+                            </p>
+                        </div>
+                        <div
+                            class="theme-button d-flex flex-column align-items-center justify-content-center text-center border-pinkorange">
+                            <img class="theme-img" src="{{ asset('build/images/icons/theme_cakes.png') }}"
+                                 alt="Une image de gâteau.">
+                            <h3 class="text-pinkorange">Nos gâteaux</h3>
+                            <p>
+                                Plus qu'un simple gâteau, votre gâteau !
+                                Et pour l'occasion mieux vaux compter sur une gourmandise qui vous ressemble, n'est-ce
+                                pas ?
+                            </p>
+                        </div>
+                    </div>
+                    <div class="theme-subcontainer d-flex flex-column flex-md-row">
+                        <div
+                            class="theme-button d-flex flex-column align-items-center justify-content-center text-center border-orange">
+                            <img class="theme-img" src="{{ asset('build/images/icons/theme_cupcakes.png') }}"
+                                 alt="Une image de gâteau.">
+                            <h3 class="text-orange">Nos cupcakes</h3>
+                            <p>
+                                Plaisirs sucrés, plaisirs mignons. Et décorés de toppings ou de glaçages hauts en
+                                couleurs !
+                                Plaisirs sucrés toujours dans le thème !
+                            </p>
+                        </div>
+                        <div
+                            class="theme-button d-flex flex-column align-items-center justify-content-center text-center border-lightblue hover-lightblue">
+                            <img class="theme-img" src="{{ asset('build/images/icons/theme_sculpted.png') }}"
+                                 alt="Une image de gâteau.">
+                            <h3 class="text-lightblue">Nos gâteaux sculptés</h3>
+                            <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                Lorem Ipsum has been the industry's standard dummy text ever.
+                            </p>
+                        </div>
+                    </div>
 
-				</div>
-			</div>
-		</section>
+                </div>
+            </div>
+        </section>
 
-		<section class="row">
-			<div class="main-sweet-dream-container d-flex flex-column align-items-center">
-				<h2 class="main-sweet-dream-container-title text-primary">Notre sélection</h2>
+        <section class="row">
+            <div class="main-sweet-dream-container d-flex flex-column align-items-center">
+                <h2 class="main-sweet-dream-container-title text-primary">Notre sélection</h2>
 
-				<div class="sweet-dream-container d-flex flex-column">
+                <div class="sweet-dream-container d-flex flex-column">
 
-					<div class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
-						<div class="carousel-side-text d-flex flex-column align-items-center">
-							<h2 class="text-maroon">Gâteaux</h2>
-							<button type="button" class="btn btn-outline-primary">Voir plus</button>
-						</div>
-						<div class="carousel-container d-flex flex-row">
-							<img class="carousel-img" src="{{ asset('build/images/imported/cake1.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/cake2.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/cake3.png') }}" alt="Une image de gâteau.">
-						</div>
-					</div>
+                    <div
+                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
+                        <div class="carousel-side-text d-flex flex-column align-items-center">
+                            <h2 class="text-maroon">Gâteaux</h2>
+                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
+                        </div>
+                        <div class="carousel-container d-flex flex-row">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/cake1.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/cake2.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/cake3.png') }}"
+                                 alt="Une image de gâteau.">
+                        </div>
+                    </div>
 
-					<div class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-start">
-						<div class="carousel-side-text d-flex flex-column align-items-center side-left">
-							<h2 class="text-pinkred">Pièces montées</h2>
-							<button type="button" class="btn btn-outline-primary">Voir plus</button>
-						</div>
-						<div class="carousel-container d-flex flex-row">
-							<img class="carousel-img" src="{{ asset('build/images/imported/mount1.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/mount2.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/mount3.png') }}" alt="Une image de gâteau.">
-						</div>
-					</div>
+                    <div
+                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-start">
+                        <div class="carousel-side-text d-flex flex-column align-items-center side-left">
+                            <h2 class="text-pinkred">Pièces montées</h2>
+                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
+                        </div>
+                        <div class="carousel-container d-flex flex-row">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/mount1.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/mount2.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/mount3.png') }}"
+                                 alt="Une image de gâteau.">
+                        </div>
+                    </div>
 
-					<div class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
-						<div class="carousel-side-text d-flex flex-column align-items-center">
-							<h2 class="text-red">Pâtisseries</h2>
-							<button type="button" class="btn btn-outline-primary">Voir plus</button>
-						</div>
-						<div class="carousel-container d-flex flex-row">
-							<img class="carousel-img" src="{{ asset('build/images/imported/pastry1.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/pastry2.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/pastry3.png') }}" alt="Une image de gâteau.">
-						</div>
-					</div>
+                    <div
+                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
+                        <div class="carousel-side-text d-flex flex-column align-items-center">
+                            <h2 class="text-red">Pâtisseries</h2>
+                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
+                        </div>
+                        <div class="carousel-container d-flex flex-row">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/pastry1.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/pastry2.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/pastry3.png') }}"
+                                 alt="Une image de gâteau.">
+                        </div>
+                    </div>
 
-					<div class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-start">
-						<div class="carousel-side-text d-flex flex-column align-items-center side-left">
-							<h2 class="text-maroon">Cupcakes</h2>
-							<button type="button" class="btn btn-outline-primary">Voir plus</button>
-						</div>
-						<div class="carousel-container d-flex flex-row">
-							<img class="carousel-img" src="{{ asset('build/images/imported/cupcake1.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/cupcake2.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/cupcake3.png') }}" alt="Une image de gâteau.">
-						</div>
-					</div>
+                    <div
+                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-start">
+                        <div class="carousel-side-text d-flex flex-column align-items-center side-left">
+                            <h2 class="text-maroon">Cupcakes</h2>
+                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
+                        </div>
+                        <div class="carousel-container d-flex flex-row">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/cupcake1.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/cupcake2.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/cupcake3.png') }}"
+                                 alt="Une image de gâteau.">
+                        </div>
+                    </div>
 
-					<div class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
-						<div class="carousel-side-text d-flex flex-column align-items-center">
-							<h2 class="text-pinkorange">Nos gâteaux junior</h2>
-							<button type="button" class="btn btn-outline-primary">Voir plus</button>
-						</div>
-						<div class="carousel-container d-flex flex-row">
-							<img class="carousel-img" src="{{ asset('build/images/imported/junior1.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/junior2.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/junior1.png') }}" alt="Une image de gâteau.">
-						</div>
-					</div>
+                    <div
+                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
+                        <div class="carousel-side-text d-flex flex-column align-items-center">
+                            <h2 class="text-pinkorange">Nos gâteaux junior</h2>
+                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
+                        </div>
+                        <div class="carousel-container d-flex flex-row">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/junior1.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/junior2.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/junior1.png') }}"
+                                 alt="Une image de gâteau.">
+                        </div>
+                    </div>
 
-					<div class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-start">
-						<div class="carousel-side-text d-flex flex-column align-items-center side-left">
-							<h2 class="text-lightblue">Gâteaux sculptés</h2>
-							<button type="button" class="btn btn-outline-primary">Voir plus</button>
-						</div>
-						<div class="carousel-container d-flex flex-row">
-							<img class="carousel-img" src="{{ asset('build/images/imported/sculpt1.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/sculpt2.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/sculpt3.png') }}" alt="Une image de gâteau.">
-						</div>
-					</div>
+                    <div
+                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-start">
+                        <div class="carousel-side-text d-flex flex-column align-items-center side-left">
+                            <h2 class="text-lightblue">Gâteaux sculptés</h2>
+                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
+                        </div>
+                        <div class="carousel-container d-flex flex-row">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/sculpt1.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/sculpt2.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/sculpt3.png') }}"
+                                 alt="Une image de gâteau.">
+                        </div>
+                    </div>
 
-					<div class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
-						<div class="carousel-side-text d-flex flex-column align-items-center">
-							<h2 class="text-darkgreen">Pâtisseries étrangères</h2>
-							<button type="button" class="btn btn-outline-primary">Voir plus</button>
-						</div>
-						<div class="carousel-container d-flex flex-row">
-							<img class="carousel-img" src="{{ asset('build/images/imported/foreign1.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/foreign2.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/foreign3.png') }}" alt="Une image de gâteau.">
-						</div>
-					</div>
+                    <div
+                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
+                        <div class="carousel-side-text d-flex flex-column align-items-center">
+                            <h2 class="text-darkgreen">Pâtisseries étrangères</h2>
+                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
+                        </div>
+                        <div class="carousel-container d-flex flex-row">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/foreign1.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/foreign2.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/foreign3.png') }}"
+                                 alt="Une image de gâteau.">
+                        </div>
+                    </div>
 
-					<div class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-start">
-						<div class="carousel-side-text d-flex flex-column align-items-center side-left">
-							<h2 class="text-purple">Magnum cakes</h2>
-							<button type="button" class="btn btn-outline-primary">Voir plus</button>
-						</div>
-						<div class="carousel-container d-flex flex-row">
-							<img class="carousel-img" src="{{ asset('build/images/imported/magnum1.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/magnum2.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/magnum3.png') }}" alt="Une image de gâteau.">
-						</div>
-					</div>
+                    <div
+                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-start">
+                        <div class="carousel-side-text d-flex flex-column align-items-center side-left">
+                            <h2 class="text-purple">Magnum cakes</h2>
+                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
+                        </div>
+                        <div class="carousel-container d-flex flex-row">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/magnum1.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/magnum2.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/magnum3.png') }}"
+                                 alt="Une image de gâteau.">
+                        </div>
+                    </div>
 
-					<div class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
-						<div class="carousel-side-text d-flex flex-column align-items-center">
-							<h2 class="text-orange">Pop cakes</h2>
-							<button type="button" class="btn btn-outline-primary">Voir plus</button>
-						</div>
-						<div class="carousel-container d-flex flex-row">
-							<img class="carousel-img" src="{{ asset('build/images/imported/pop1.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/pop2.png') }}" alt="Une image de gâteau.">
-							<img class="carousel-img" src="{{ asset('build/images/imported/pop3.png') }}" alt="Une image de gâteau.">
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+                    <div
+                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
+                        <div class="carousel-side-text d-flex flex-column align-items-center">
+                            <h2 class="text-orange">Pop cakes</h2>
+                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
+                        </div>
+                        <div class="carousel-container d-flex flex-row">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/pop1.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/pop2.png') }}"
+                                 alt="Une image de gâteau.">
+                            <img class="carousel-img" src="{{ asset('build/images/imported/pop3.png') }}"
+                                 alt="Une image de gâteau.">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-		<section class="row">
-			<div class="main-how-to-container">
-				<div class="how-to-light-bg">
-					<h2 class="main-how-to-container-title text-primary text-center">Comment ça marche ?</h2>
-					<div class="how-to-container overflow-scroll d-flex flex-row justify-content-around">
+        <section class="row">
+            <div class="main-how-to-container">
+                <div class="how-to-light-bg">
+                    <h2 class="main-how-to-container-title text-primary text-center">Comment ça marche ?</h2>
+                    <div
+                        class="how-to-container overflow-scroll d-flex flex-row justify-content-around">
 
-						<div class="how-to d-flex flex-column align-items-center text-center border-darkgreen">
-							<h3 class="text-darkgreen">Recherchez</h3>
-							<p>Localisez-vous en choisissant votre ville à l'aide de la barre de recherche, afin de
-								                                pouvoir
-								                                trouver les meilleurs pâtissiers proche de chez vous.</p>
-						</div>
-						<div class="how-to d-flex flex-column align-items-center justify-content-center text-center border-red">
-							<h3 class="text-red">Choisissez</h3>
-							<p>Choisissez le gâteau qui vous tente le plus puis ajustez votre commande en sélectionnant
-								                                son
-								                                goût
-								                                ainsi que sa taille.</p>
-						</div>
-						<div class="how-to d-flex flex-column align-items-center justify-content-center text-center border-orange">
-							<h3 class="text-orange">Finalisez</h3>
-							<p>Confirmez votre commande et payez en toute sécurité sur notre plateforme MyCakeEvent.fr.
-								                                Il
-								                                ne
-								                                vous restera qu'à récupérer votre cake le jour J.</p>
-						</div>
+                        <div
+                            class="how-to d-flex flex-column align-items-center text-center border-darkgreen">
+                            <h3 class="text-darkgreen">Recherchez</h3>
+                            <p>Localisez-vous en choisissant votre ville à l'aide de la barre de recherche, afin de
+                                pouvoir
+                                trouver les meilleurs pâtissiers proche de chez vous.</p>
+                        </div>
+                        <div
+                            class="how-to d-flex flex-column align-items-center justify-content-center text-center border-red">
+                            <h3 class="text-red">Choisissez</h3>
+                            <p>Choisissez le gâteau qui vous tente le plus puis ajustez votre commande en sélectionnant
+                                son
+                                goût
+                                ainsi que sa taille.</p>
+                        </div>
+                        <div
+                            class="how-to d-flex flex-column align-items-center justify-content-center text-center border-orange">
+                            <h3 class="text-orange">Finalisez</h3>
+                            <p>Confirmez votre commande et payez en toute sécurité sur notre plateforme MyCakeEvent.fr.
+                                Il
+                                ne
+                                vous restera qu'à récupérer votre cake le jour J.</p>
+                        </div>
 
-					</div>
-				</div>
-			</div>
-		</section>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-		<section class="row">
-			<div class="main-references-container">
-				<h2 class="main-references-container-title text-primary text-center">Ils nous ont fait confiance</h2>
-				<div class="main-ratings-container d-flex overflow-scroll justify-content-center">
+        <section class="row">
+            <div class="main-references-container">
+                <h2 class="main-references-container-title text-primary text-center">Ils nous ont fait confiance</h2>
+                <div class="main-ratings-container d-flex overflow-scroll justify-content-center">
 
-					<div class="ratings-container d-flex flex-column align-items-center justify-content-center text-center">
-						<img class="comment-img" src="https://i.pravatar.cc/200" alt="Une image de gâteau.">
-						<h3>Prénom N.</h3>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-							                            Lorem Ipsum has been the industry's standard dummy text ever.</p>
-					</div>
-					<div class="ratings-container d-flex flex-column align-items-center justify-content-center text-center">
-						<img class="comment-img" src="https://i.pravatar.cc/150" alt="Une image de gâteau.">
-						<h3>Prénom N.</h3>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-							                            Lorem Ipsum has been the industry's standard dummy text ever.</p>
-					</div>
-					<div class="ratings-container d-flex flex-column align-items-center justify-content-center text-center">
-						<img class="comment-img" src="https://i.pravatar.cc/" alt="Une image de gâteau.">
-						<h3>Prénom N.</h3>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-							                            Lorem Ipsum has been the industry's standard dummy text ever.</p>
-					</div>
+                    <div
+                        class="ratings-container d-flex flex-column align-items-center justify-content-center text-center">
+                        <img class="comment-img" src="https://i.pravatar.cc/200" alt="Une image de gâteau.">
+                        <h3>Prénom N.</h3>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever.</p>
+                    </div>
+                    <div
+                        class="ratings-container d-flex flex-column align-items-center justify-content-center text-center">
+                        <img class="comment-img" src="https://i.pravatar.cc/150" alt="Une image de gâteau.">
+                        <h3>Prénom N.</h3>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever.</p>
+                    </div>
+                    <div
+                        class="ratings-container d-flex flex-column align-items-center justify-content-center text-center">
+                        <img class="comment-img" src="https://i.pravatar.cc/" alt="Une image de gâteau.">
+                        <h3>Prénom N.</h3>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever.</p>
+                    </div>
 
-				</div>
+                </div>
 
-				<div class="separator d-flex justify-content-center"></div>
+                <div class="separator d-flex justify-content-center"></div>
 
-				<div class="floating-logos d-flex justify-content-center">
-					<img class="floating-img" src="{{ asset('build/images/brands/apple.png') }}" alt="Une image de gâteau.">
-					<img class="floating-img" src="{{ asset('build/images/brands/auchan.png') }}" alt="Une image de gâteau.">
-					<img class="floating-img" src="{{ asset('build/images/brands/dior.png') }}" alt="Une image de gâteau.">
-					<img class="floating-img" src="{{ asset('build/images/brands/fedex.png') }}" alt="Une image de gâteau.">
-					<img class="floating-img" src="{{ asset('build/images/brands/total.png') }}" alt="Une image de gâteau.">
-					<img class="floating-img" src="{{ asset('build/images/brands/kfc.png') }}" alt="Une image de gâteau.">
-					<img class="floating-img" src="{{ asset('build/images/brands/lv.png') }}" alt="Une image de gâteau.">
-				</div>
-			</div>
-		</section>
-	</main>
+                <div class="floating-logos d-flex justify-content-center">
+                    <img class="floating-img float1" src="{{ asset('build/images/brands/apple.png') }}"
+                         alt="Une image de gâteau.">
+                    <img class="floating-img float2" src="{{ asset('build/images/brands/auchan.png') }}"
+                         alt="Une image de gâteau.">
+                    <img class="floating-img float1" src="{{ asset('build/images/brands/dior.png') }}"
+                         alt="Une image de gâteau.">
+                    <img class="floating-img float2" src="{{ asset('build/images/brands/fedex.png') }}"
+                         alt="Une image de gâteau.">
+                    <img class="floating-img float1" src="{{ asset('build/images/brands/total.png') }}"
+                         alt="Une image de gâteau.">
+                    <img class="floating-img float2" src="{{ asset('build/images/brands/kfc.png') }}"
+                         alt="Une image de gâteau.">
+                    <img class="floating-img float1" src="{{ asset('build/images/brands/lv.png') }}"
+                         alt="Une image de gâteau.">
+                </div>
+            </div>
+        </section>
+    </main>
 {% endblock %}

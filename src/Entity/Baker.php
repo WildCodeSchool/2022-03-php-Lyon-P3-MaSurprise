@@ -9,8 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BakerRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BakerRepository::class)]
+#[Vich\Uploadable]
 class Baker
 {
     #[ORM\Id]
@@ -63,6 +67,56 @@ class Baker
 
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private string $extraInfo;
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $bakerType;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $services;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $siret = "";
+
+    #[Vich\UploadableField(mapping: 'siret_file', fileNameProperty: 'siret')]
+    #[Assert\File(
+        maxSize: '500k',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'],
+        mimeTypesMessage: 'Ce fichier doit être une image ou un fichier pdf',
+        uploadFormSizeErrorMessage: 'Votre photo ne peut pas dépasser 500Ko'
+    )]
+    private ?File $siretFile = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $diploma = "";
+
+    #[Vich\UploadableField(mapping: 'diploma_file', fileNameProperty: 'diploma')]
+    #[Assert\File(
+        maxSize: '1M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'],
+        mimeTypesMessage: 'Ce fichier doit être une image ou un fichier pdf',
+        uploadFormSizeErrorMessage: 'Votre photo ne peut pas dépasser 1Mo'
+    )]
+    private ?File $diplomaFile = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $logo = "";
+
+    #[Vich\UploadableField(mapping: 'logo_file', fileNameProperty: 'logo')]
+    #[Assert\File(
+        maxSize: '500k',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+        mimeTypesMessage: 'Ce fichier doit être une image',
+        uploadFormSizeErrorMessage: 'Votre photo ne peut pas dépasser 500Ko'
+    )]
+    private ?File $logoFile = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $facebook;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $instagram;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $updateAt = null;
 
     public function __construct()
     {
@@ -203,6 +257,16 @@ class Baker
     public function setStreetNumber(?int $streetNumber): self
     {
         $this->streetNumber = $streetNumber;
+    }
+
+    public function getBakerType(): ?string
+    {
+        return $this->bakerType;
+    }
+
+    public function setBakerType(string $bakerType): self
+    {
+        $this->bakerType = $bakerType;
 
         return $this;
     }
@@ -215,6 +279,16 @@ class Baker
     public function setBisTerInfo(?string $bisTerInfo): self
     {
         $this->$bisTerInfo = $bisTerInfo;
+    }
+
+    public function getServices(): ?string
+    {
+        return $this->services;
+    }
+
+    public function setServices(?string $services): self
+    {
+        $this->services = $services;
 
         return $this;
     }
@@ -227,6 +301,16 @@ class Baker
     public function setStreetName(string $streetName): self
     {
         $this->streetName = $streetName;
+    }
+
+    public function getSiret(): ?string
+    {
+        return $this->siret;
+    }
+
+    public function setSiret(?string $siret): self
+    {
+        $this->siret = $siret;
 
         return $this;
     }
@@ -239,6 +323,30 @@ class Baker
     public function setPostcode(int $postcode): self
     {
         $this->postcode = $postcode;
+    }
+
+    public function setSiretFile(?File $siretFile = null): void
+    {
+        $this->siretFile = $siretFile;
+
+        if (null !== $siretFile) {
+            $this->getUpdateAt();
+        }
+    }
+
+    public function getSiretFile(): ?File
+    {
+        return $this->siretFile;
+    }
+
+    public function getDiploma(): ?string
+    {
+        return $this->diploma;
+    }
+
+    public function setDiploma(?string $diploma): self
+    {
+        $this->diploma = $diploma;
 
         return $this;
     }
@@ -251,6 +359,56 @@ class Baker
     public function setCity(string $city): self
     {
         $this->city = $city;
+    }
+
+    public function setDiplomaFile(?File $diplomaFile = null): void
+    {
+        $this->diplomaFile = $diplomaFile;
+
+        if (null !== $diplomaFile) {
+            $this->getUpdateAt();
+        }
+    }
+
+    public function getDiplomaFile(): ?File
+    {
+        return $this->diplomaFile;
+    }
+
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(?string $logo): self
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    public function setLogoFile(?File $logoFile = null): void
+    {
+        $this->logoFile = $logoFile;
+
+        if (null !== $logoFile) {
+            $this->getUpdateAt();
+        }
+    }
+
+    public function getLogoFile(): ?File
+    {
+        return $this->logoFile;
+    }
+
+    public function getFacebook(): ?string
+    {
+        return $this->facebook;
+    }
+
+    public function setFacebook(?string $facebook): self
+    {
+        $this->facebook = $facebook;
 
         return $this;
     }
@@ -263,6 +421,16 @@ class Baker
     public function setDepartment(?Department $department): self
     {
         $this->department = $department;
+    }
+
+    public function getInstagram(): ?string
+    {
+        return $this->instagram;
+    }
+
+    public function setInstagram(?string $instagram): self
+    {
+        $this->instagram = $instagram;
 
         return $this;
     }
@@ -275,6 +443,16 @@ class Baker
     public function setExtraInfo(?string $extraInfo): self
     {
         $this->extraInfo = $extraInfo;
+    }
+    
+    public function getUpdateAt(): ?\DateTimeInterface
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(?\DateTimeInterface $updateAt): self
+    {
+        $this->updateAt = $updateAt;
 
         return $this;
     }

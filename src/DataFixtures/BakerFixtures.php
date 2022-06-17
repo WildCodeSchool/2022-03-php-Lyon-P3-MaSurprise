@@ -24,6 +24,10 @@ class BakerFixtures extends Fixture implements DependentFixtureInterface
             if (is_string($commercialName)) {
                 $baker->setCommercialname($commercialName);
             }
+            $bakerType = $faker->randomElement(['professionnel', 'amateur']);
+            if (is_string($bakerType)) {
+                $baker->setBakerType($bakerType);
+            }
             $baker->setEmail($faker->email());
             $baker->setPassword($faker->password(8, 15));
             $baker->setPhone($faker->phoneNumber());
