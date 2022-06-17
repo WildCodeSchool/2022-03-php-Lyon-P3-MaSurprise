@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/cake', name: 'app_cake_')]
+#[Route('/gateau', name: 'app_cake_')]
 class CakeController extends AbstractController
 {
     #[Route('/', name: 'index')]
@@ -61,15 +61,7 @@ class CakeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/', name: 'show')]
-    public function show(Cake $cake): Response
-    {
-        return $this->render('cake/show.html.twig', [
-            'cake' => $cake,
-        ]);
-    }
-
-    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
+    #[Route('/nouveau', name: 'new', methods: ['GET', 'POST'])]
     public function new(CakeRepository $cakeRepository, Request $request): Response
     {
         $cake = new Cake();
@@ -85,6 +77,14 @@ class CakeController extends AbstractController
         return $this->renderForm('cake/new.html.twig', [
             'cake' => $cake,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/', name: 'show')]
+    public function show(Cake $cake): Response
+    {
+        return $this->render('cake/show.html.twig', [
+            'cake' => $cake,
         ]);
     }
 
