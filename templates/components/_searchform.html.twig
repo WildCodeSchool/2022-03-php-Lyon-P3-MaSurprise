@@ -1,0 +1,19 @@
+{{ form_start(searchForm) }}
+<div class="input-group mb-3">
+    {{ form_widget(searchForm.search, {
+        "attr": {
+            "class": "form-control-lg",
+        }
+    }) }}
+    {#    TODO: put this inside the form #}
+    <select class="form-select">
+        <option selected>Département</option>
+        <option value="1">01 - Ain</option>
+        <option value="2">02 - Aisne</option>
+        <option value="69">69 - Rhône</option>
+        <option>etc.</option>
+    </select>
+
+    <button class="btn btn-secondary text-light">{{ button_label|default('Rechercher') }}</button>
+</div>
+{{ form_end(searchForm) }}

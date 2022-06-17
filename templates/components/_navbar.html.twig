@@ -10,9 +10,9 @@
 		<a class="text-primary nav-link" href="#">ACCÈS PÂTISSIERS</a>
 		<!-- Button trigger modal -->
 		{% if app.user %}
-    	<a type="button" class="text-primary nav-link" href="{{ path('logout') }}"> Se déconnecter</a>
+    	<a type="button" class="text-primary nav-link" href="{{ path('logout') }}"> DECONNEXION</a>
 		{% else %}
-		<a type="button" class="text-primary nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal" href="{{ path('login') }}"> Se connecter</a>
+		<a type="button" class="text-primary nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal" href="{{ path('login') }}"> CONNEXION</a>
 		{% endif %}
 	</div>
 	</nav>
@@ -46,7 +46,12 @@
 					<a class="nav-link active" href="#">ACCÈS PÂTISSIERS</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="{{ path('login') }}">CONNEXION</a>
+<!-- Button trigger modal -->
+                    {% if app.user %}
+                    <a type="button" class="text-primary nav-link" href="{{ path('logout') }}"> DECONNEXION</a>
+                    {% else %}
+                    <a type="button" class="text-primary nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal" href="{{ path('login') }}"> CONNEXION</a>
+                    {% endif %}
 				</li>
 			</ul>
 		</div>

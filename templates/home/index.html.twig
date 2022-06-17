@@ -1,24 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}{{ parent() }}{% endblock %}
 
 {% block body %}
 
     <header class="container-fluid">
         <div class="row">
             <div class="header-img d-flex justify-content-center">
-                <form>
-                    <div class="input-group input-group-lg mb-3">
-                        <input type="search" class="form-control" placeholder="Rechercher" aria-label="Username">
-                        <select class="form-select" id="inputGroupSelect04"
-                                aria-label="Example select with button addon">
-                            <option selected>Localisation</option>
-                            <option value="01">01 - Ain</option>
-                            <option value="02">02 - Aisne</option>
-                            <option value="69">69 - Rhône</option>
-                        </select>
+                <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+                    <div class="row">
+                        <div
+                            class="col-12 d-flex align-items-center justify-content-center">{{ include('components/_searchform.html.twig') }}
+                        </div>
                     </div>
-                </form>
+                    <div class="row">
+                        <div class="header-subtext col-12 d-flex flex-column align-items-center justify-content-center">
+                            <h1 class="text-primary">Découvrez les gâteaux autour de chez vous</h1>
+                            <h3>Plus de 80 pâtissières dans toute la France</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -302,19 +303,19 @@
                 <div class="separator d-flex justify-content-center"></div>
 
                 <div class="floating-logos d-flex justify-content-center">
-                    <img class="floating-img" src="{{ asset('build/images/brands/apple.png') }}"
+                    <img class="floating-img float1" src="{{ asset('build/images/brands/apple.png') }}"
                          alt="Une image de gâteau.">
-                    <img class="floating-img" src="{{ asset('build/images/brands/auchan.png') }}"
+                    <img class="floating-img float2" src="{{ asset('build/images/brands/auchan.png') }}"
                          alt="Une image de gâteau.">
-                    <img class="floating-img" src="{{ asset('build/images/brands/dior.png') }}"
+                    <img class="floating-img float1" src="{{ asset('build/images/brands/dior.png') }}"
                          alt="Une image de gâteau.">
-                    <img class="floating-img" src="{{ asset('build/images/brands/fedex.png') }}"
+                    <img class="floating-img float2" src="{{ asset('build/images/brands/fedex.png') }}"
                          alt="Une image de gâteau.">
-                    <img class="floating-img" src="{{ asset('build/images/brands/total.png') }}"
+                    <img class="floating-img float1" src="{{ asset('build/images/brands/total.png') }}"
                          alt="Une image de gâteau.">
-                    <img class="floating-img" src="{{ asset('build/images/brands/kfc.png') }}"
+                    <img class="floating-img float2" src="{{ asset('build/images/brands/kfc.png') }}"
                          alt="Une image de gâteau.">
-                    <img class="floating-img" src="{{ asset('build/images/brands/lv.png') }}"
+                    <img class="floating-img float1" src="{{ asset('build/images/brands/lv.png') }}"
                          alt="Une image de gâteau.">
                 </div>
             </div>
