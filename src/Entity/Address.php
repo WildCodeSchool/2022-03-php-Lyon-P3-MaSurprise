@@ -13,7 +13,7 @@ class Address
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $streetNumber;
 
     #[ORM\Column(type: 'string', length: 15, nullable: true)]
@@ -36,11 +36,11 @@ class Address
     private $extraInfo;
 
     #[ORM\OneToOne(inversedBy: 'billingAddress', targetEntity: User::class, cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $billingAddress;
 
     #[ORM\OneToOne(inversedBy: 'deliveryAddress', targetEntity: Baker::class, cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $deliveryAddress;
 
     public function getId(): ?int

@@ -2,40 +2,73 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Address;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
-use App\Entity\Department;
-use App\Entity\User;
-use App\Entity\Baker;
+use App\DataFixtures\DepartmentFixtures;
+use App\DataFixtures\UserFixtures;
+use App\DataFixtures\BakerFixtures;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class AddressFixtures extends Fixture
+class AddressFixtures extends Fixture implements DependentFixtureInterface
 {
+    // creating addresses for Users
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        for ($n = 1; $n < 4; $n++) {
+            $faker = Factory::create('fr_FR');
+            // $product = new Product();
+            $address = new Address;
+            // $manager->persist($product);
 
-        // fixtures regarding address information for bakers
-        /*
-        $baker->setStreetNumber($faker->randomNumber(2, true));
-        $baker->setStreetName($faker->streetName());
-        $baker->setPostcode($faker->randomNumber(5, true));
-        $baker->setCity($faker->city());
-        $baker->setDepartment($this // @phpstan-ignore-line
-        ->getReference('department_' . $faker->departmentNumber())); // @phpstan-ignore-line
+            // fixtures regarding address information for addresss
+            $address->setStreetNumber($faker->randomNumber(2, true));
+            $address->setStreetName($faker->streetName());
+            $address->setPostcode($faker->randomNumber(5, true));
+            $address->setCity($faker->city());
+            $address->setDepartment($this // @phpstan-ignore-line
+                ->getReference('department_' . $faker->departmentNumber())); // @phpstan-ignore-line
 
+            //$address->setDeliveryAddress($this->getReference('deliveryAddress_' . $faker->optional()->numberBetween(1, 50)));
+
+            $address->setBillingAddress($this->getReference('billingAddress_' . $n));
+
+            $manager->persist($address);
+        }
+    
+        for ($n = 0; $n < 50; $n++) {
+            $faker = Factory::create('fr_FR');
+            // $product = new Product();
+            $address = new Address;
+            // $manager->persist($product);
+
+            // fixtures regarding address information for addresss
+            $address->setStreetNumber($faker->randomNumber(2, true));
+            $address->setStreetName($faker->streetName());
+            $address->setPostcode($faker->randomNumber(5, true));
+            $address->setCity($faker->city());
+            $address->setDepartment($this // @phpstan-ignore-line
+                ->getReference('department_' . $faker->departmentNumber())); // @phpstan-ignore-line
+
+            $address->setDeliveryAddress($this->getReference('baker_' . $n));
+
+            //$address->setBillingAddress($this->getReference('billingAddress_' . $n));
+
+            $manager->persist($address);
+        }
         $manager->flush();
     }
 
+
+
     public function getDependencies()
     {
-        // Tu retournes ici toutes les classes de fixtures dont BakerFixtures dépend
+        // Tu retournes ici toutes les classes de fixtures dont addressFixtures dépend
         return [
             DepartmentFixtures::class,
+            UserFixtures::class,
+            BakerFixtures::class
         ];
-    }
-    */
     }
 }
