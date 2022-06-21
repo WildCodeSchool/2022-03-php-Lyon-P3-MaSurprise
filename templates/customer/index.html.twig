@@ -5,8 +5,14 @@
 {% block body %}
     <h1 class="text-primary">Mon espace client</h1>
     <ul>
-        <li><a href="{{ path('app_customer_show') }}">Mon profil</a></li>
-        <li><a href="#">Mes commandes</a></li>
-        <li><a href="{{ path('logout') }}">Me déconnecter</a></li>
+        <li>
+            <a href="{{ path('app_customer_show') }}">Mon profil</a>
+        </li>
+        <li>
+            <a href="#">Mes commandes</a>
+        </li>
+        <li>
+            <a href="{{ path('logout') }}">Me déconnecter</a>
+        </li>
     </ul>
 {% endblock %}
