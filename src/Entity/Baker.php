@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use DateTime;
 use App\Entity\Cake;
-use App\Entity\Department;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BakerRepository;
 use Doctrine\Common\Collections\Collection;
@@ -46,27 +45,6 @@ class Baker
     #[ORM\OneToMany(mappedBy: 'baker', targetEntity: Cake::class, orphanRemoval: true)]
     private Collection $cakes;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private int $streetNumber;
-
-    #[ORM\Column(type: 'string', length: 15, nullable: true)]
-    private string $bisTerInfo;
-
-    #[ORM\Column(type: 'string', length: 100)]
-    private string $streetName;
-
-    #[ORM\Column(type: 'integer')]
-    private int $postcode;
-
-    #[ORM\Column(type: 'string', length: 100)]
-    private string $city;
-
-    #[ORM\ManyToOne(targetEntity: Department::class, inversedBy: 'bakers')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Department $department;
-
-    #[ORM\Column(type: 'string', length: 100, nullable: true)]
-    private string $extraInfo;
     #[ORM\Column(type: 'string', length: 255)]
     private string $bakerType;
 
@@ -118,10 +96,14 @@ class Baker
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $updateAt = null;
 
+    #[ORM\OneToOne(mappedBy: 'deliveryAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
+    private $deliveryAddress;
+
     public function __construct()
     {
         $this->cakes = new ArrayCollection();
         $this->created = new DateTime();
+        $this->addresses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -249,16 +231,6 @@ class Baker
         return $this->firstname . ' ' . $this->lastname;
     }
 
-    public function getStreetNumber(): ?int
-    {
-        return $this->streetNumber;
-    }
-
-    public function setStreetNumber(?int $streetNumber): self
-    {
-        $this->streetNumber = $streetNumber;
-    }
-
     public function getBakerType(): ?string
     {
         return $this->bakerType;
@@ -269,16 +241,6 @@ class Baker
         $this->bakerType = $bakerType;
 
         return $this;
-    }
-
-    public function getBisTerInfo(): ?string
-    {
-        return $this->bisTerInfo;
-    }
-
-    public function setBisTerInfo(?string $bisTerInfo): self
-    {
-        $this->$bisTerInfo = $bisTerInfo;
     }
 
     public function getServices(): ?string
@@ -293,16 +255,6 @@ class Baker
         return $this;
     }
 
-    public function getStreetName(): ?string
-    {
-        return $this->streetName;
-    }
-
-    public function setStreetName(string $streetName): self
-    {
-        $this->streetName = $streetName;
-    }
-
     public function getSiret(): ?string
     {
         return $this->siret;
@@ -313,16 +265,6 @@ class Baker
         $this->siret = $siret;
 
         return $this;
-    }
-
-    public function getPostcode(): ?int
-    {
-        return $this->postcode;
-    }
-
-    public function setPostcode(int $postcode): self
-    {
-        $this->postcode = $postcode;
     }
 
     public function setSiretFile(?File $siretFile = null): void
@@ -349,16 +291,6 @@ class Baker
         $this->diploma = $diploma;
 
         return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
     }
 
     public function setDiplomaFile(?File $diplomaFile = null): void
@@ -413,16 +345,6 @@ class Baker
         return $this;
     }
 
-    public function getDepartment(): ?Department
-    {
-        return $this->department;
-    }
-
-    public function setDepartment(?Department $department): self
-    {
-        $this->department = $department;
-    }
-
     public function getInstagram(): ?string
     {
         return $this->instagram;
@@ -434,16 +356,6 @@ class Baker
 
         return $this;
     }
-
-    public function getExtraInfo(): ?string
-    {
-        return $this->extraInfo;
-    }
-
-    public function setExtraInfo(?string $extraInfo): self
-    {
-        $this->extraInfo = $extraInfo;
-    }
     
     public function getUpdateAt(): ?\DateTimeInterface
     {
@@ -453,6 +365,23 @@ class Baker
     public function setUpdateAt(?\DateTimeInterface $updateAt): self
     {
         $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    public function getDeliveryAddress(): ?Address
+    {
+        return $this->deliveryAddress;
+    }
+
+    public function setDeliveryAddress(Address $deliveryAddress): self
+    {
+        // set the owning side of the relation if necessary
+        if ($deliveryAddress->getDeliveryAddress() !== $this) {
+            $deliveryAddress->setDeliveryAddress($this);
+        }
+
+        $this->deliveryAddress = $deliveryAddress;
 
         return $this;
     }
