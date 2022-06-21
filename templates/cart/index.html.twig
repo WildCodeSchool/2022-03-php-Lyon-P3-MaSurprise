@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre panier!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Votre panier</h1>
+
+        <table>
+            <thead>
+            <tr>
+                <th>produit</th>
+                <th>prix</th>
+                <th>quatité</th>
+                <th>total</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        {{ dump() }}
+    </div>
+{% endblock %}
