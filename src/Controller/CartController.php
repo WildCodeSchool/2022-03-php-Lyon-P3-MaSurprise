@@ -54,4 +54,46 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute("cart_index");
     }
+
+    #[Route('/remove/{id}', name: 'remove')]
+    public function remove(int $id, SessionInterface $session): Response
+    {
+
+        //on recupere le panier actuel, si il n'existe pas je crée un tableau vide il vaut soit cart soit tableau vide
+        $cart = $session->get("cart", []);
+        if (!empty($cart[$id])) {
+            if ($cart[$id] > 1) {
+                $cart[$id]--;
+            }
+        } else {
+            //on suprime la ligne si elle tombe a 0
+            unset($cart[$id]);
+        }
+
+        // on safe dans la session
+
+        $session->set("cart", $cart);
+
+        return $this->redirectToRoute("cart_index");
+    }
+
+    #[Route('/delete/{id}', name: 'delete')]
+    public function delete(int $id, SessionInterface $session): Response
+    {
+
+        //on recupere le panier actuel, si il n'existe pas je crée un tableau vide il vaut soit cart soit tableau vide
+        $cart = $session->get("cart", []);
+
+        //on suprime la ligne
+        if (!empty($panier[$id])) {
+            unset($cart[$id]);
+        }
+
+
+        // on safe dans la session
+
+        $session->set("cart", $cart);
+
+        return $this->redirectToRoute("cart_index");
+    }
 }
