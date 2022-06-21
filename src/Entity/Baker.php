@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -23,26 +24,11 @@ class Baker
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $created;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $lastname;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $firstname;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $commercialName;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $email;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $password;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $address;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $phone;
+    private ?string $deliveryAddress;
 
     #[ORM\OneToMany(mappedBy: 'baker', targetEntity: Cake::class, orphanRemoval: true)]
     private Collection $cakes;
@@ -98,6 +84,9 @@ class Baker
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $updateAt = null;
 
+    #[ORM\OneToOne(mappedBy: 'baker', targetEntity: User::class, cascade: ['persist', 'remove'])]
+    private $user;
+
     public function __construct()
     {
         $this->cakes = new ArrayCollection();
@@ -121,30 +110,6 @@ class Baker
         return $this;
     }
 
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    public function setLastname(string $lastname): self
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstname(string $firstname): self
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
     public function getCommercialName(): ?string
     {
         return $this->commercialName;
@@ -157,50 +122,14 @@ class Baker
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getDeliveryAddress(): ?string
     {
-        return $this->email;
+        return $this->deliveryAddress;
     }
 
-    public function setEmail(string $email): self
+    public function setDeliveryAddress(?string $deliveryAddress): self
     {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(?string $address): self
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    public function setPhone(string $phone): self
-    {
-        $this->phone = $phone;
+        $this->adeliveryAddress = $deliveryAddress;
 
         return $this;
     }
@@ -235,11 +164,6 @@ class Baker
         return $this;
     }
 
-    // gets the fullname and displays it inside the form: CakeType
-    public function getFullName(): string
-    {
-        return $this->firstname . ' ' . $this->lastname;
-    }
 
     public function getBakerType(): ?string
     {
@@ -375,6 +299,28 @@ class Baker
     public function setUpdateAt(?\DateTimeInterface $updateAt): self
     {
         $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setBaker(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getBaker() !== $this) {
+            $user->setBaker($this);
+        }
+
+        $this->user = $user;
 
         return $this;
     }
