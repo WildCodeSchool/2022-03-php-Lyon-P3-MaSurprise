@@ -9,3 +9,8 @@
 
     <a href="{{ path('app_cake_index') }}">Retour à la liste</a>
 {% endblock %}
+
+{% block javascripts %}
+        {{ parent() }}
+    {{ encore_entry_script_tags('dropzone') }}
+    {% endblock %}
