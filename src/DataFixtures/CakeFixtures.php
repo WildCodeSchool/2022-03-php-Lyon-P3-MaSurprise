@@ -16,7 +16,7 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create('fr_FR');
         for ($i = 0; $i < 317; $i++) {
             $cake = new Cake();
-            $cake->setCreated($faker->dateTime);
+            $cake->setCreated($faker->dateTimeInInterval('+1 months', '+1 months'));
             $name = $faker->randomElement(
                 ['Gâteau d\'anniversaire', 'Forêt noire', 'Pièce montée', 'Gâteau licorne',
                     'Fraisier', 'Gâteau à étages, crème au beurre', 'Baba au rhum',
