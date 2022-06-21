@@ -44,7 +44,7 @@ class RegistrationController extends AbstractController
             );
                 $entityManager->persist($baker);
                 $entityManager->flush();
-            return $this->redirectToRoute('app_baker_index');
+            return $this->redirectToRoute('app_home');
         }
         return $this->renderForm('baker/new.html.twig', [
             'form' => $form, 'baker' => $baker
@@ -64,12 +64,12 @@ class RegistrationController extends AbstractController
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $form->get('password')->getData()
                 )
             );
                 $entityManager->persist($user);
                 $entityManager->flush();
-            return $this->redirectToRoute('/');
+            return $this->redirectToRoute('app_home');
         }
         return $this->renderForm('user/new.html.twig', [
             'form' => $form, 'user' => $user
