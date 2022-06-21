@@ -6,20 +6,29 @@
     <div class="container">
         <h1>Votre panier</h1>
 
-        <table>
+        <table class="table">
             <thead>
             <tr>
-                <th>produit</th>
-                <th>prix</th>
-                <th>quatité</th>
-                <th>total</th>
-                <th>actions</th>
+                <th scope="col">Produit</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Total</th>
+                <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
-
+            {% for product in datacart %}
+                <tr>
+                <td>{{ product.cake.name }}</td>
+                <td class="text-right">{{ product.cake.price }}</td>
+                <td>{{ product.quantity }}</td>
+                <td class="text-right">{{ product.quantity * product.cake.price }}</td>
+                <td></td>
+                </tr>
+            {% else %}
+                <tr colspan="5" class="text-center">Votre panier est vide.</tr>
+            {% endfor %}
             </tbody>
         </table>
-        {{ dump() }}
     </div>
 {% endblock %}
