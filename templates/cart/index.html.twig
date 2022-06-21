@@ -10,7 +10,7 @@
             <thead>
             <tr>
                 <th scope="col">Produit</th>
-                <th scope="col">Prix</th>
+                <th scope="col">Prix unitaire</th>
                 <th scope="col">Quantité</th>
                 <th scope="col">Total</th>
                 <th scope="col">Actions</th>
@@ -20,29 +20,31 @@
             {% for product in datacart %}
                 <tr>
                     <td>{{ product.cake.name }}</td>
-                    <td class="text-right">{{ product.cake.price }}</td>
-                    <td>{{ product.quantity }}</td>
-                    <td class="text-right">{{ product.quantity * product.cake.price }}</td>
+                    <td class="text-right">{{ product.cake.price }}€</td>
+                    <td class=>{{ product.quantity }}</td>
+                    <td class="text-right">{{ product.quantity * product.cake.price }}€</td>
                     <td>
                         <a href="{{ path("cart_add", {id: product.cake.id}) }}" class="btn btn-success">
-                            <i class="bi bi-cart-plus"></i>
+                            <i class="bi-cart-plus">+</i>
                         </a>
                         <a href="{{ path("cart_remove", {id: product.cake.id}) }}" class="btn btn-warning">
-                            <i class="bi bi-cart-dash"></i>
+                            <i class="bi-cart-dash">-</i>
                         </a>
                         <a href="{{ path("cart_delete", {id: product.cake.id}) }}" class="btn btn-danger">
-                            <i class="bi bi-cart-x"></i>
+                            <i class="bi-cart-x">x</i>
                         </a>
                     </td>
                 </tr>
             {% else %}
-                <tr class="text-center">Votre panier est vide.</tr>
+                <td class="text-center">Votre panier est vide.</td>
             {% endfor %}
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="3">total</td>
-                <td class="text-end">{{ total }}</td>
+                <td colspan=5">total</td>
+                <td class="text-end" colspan="6">
+                    Total {{ total }}€
+                </td>
             </tr>
             </tfoot>
         </table>

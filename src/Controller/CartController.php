@@ -70,6 +70,7 @@ class CartController extends AbstractController
             unset($cart[$id]);
         }
 
+
         // on safe dans la session
 
         $session->set("cart", $cart);
@@ -77,7 +78,8 @@ class CartController extends AbstractController
         return $this->redirectToRoute("cart_index");
     }
 
-    #[Route('/delete/{id}', name: 'delete')]
+    #[
+        Route('/delete/{id}', name: 'delete')]
     public function delete(int $id, SessionInterface $session): Response
     {
 
@@ -85,7 +87,7 @@ class CartController extends AbstractController
         $cart = $session->get("cart", []);
 
         //on suprime la ligne
-        if (!empty($panier[$id])) {
+        if (!empty($cart[$id])) {
             unset($cart[$id]);
         }
 
