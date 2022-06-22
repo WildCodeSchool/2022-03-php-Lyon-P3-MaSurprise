@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter une pâtisserie{% endblock %}
+{% block title %}Ajouter une pâtisserie - {{ parent() }}{% endblock %}
 
 {% block body %}
     <h1>Ajouter une pâtisserie</h1>
@@ -11,6 +11,6 @@
 {% endblock %}
 
 {% block javascripts %}
-        {{ parent() }}
+    {{ parent() }}
     {{ encore_entry_script_tags('dropzone') }}
-    {% endblock %}
+{% endblock %}
