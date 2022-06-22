@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\OrderRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
@@ -15,10 +16,16 @@ class Order
     private int $id;
 
     #[ORM\Column(type: 'datetime')]
-    private \DateTimeInterface $orderedAt;
+    private DateTimeInterface $orderedAt;
+
+    #[ORM\Column(type: 'string', length: 50)]
+    private ?string $orderStatus;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $cakeName;
+
+    #[ORM\Column(type: 'float')]
+    private float $cakePrice;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $cakeSize;
@@ -44,29 +51,23 @@ class Order
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $extraInfo;
 
-    #[ORM\Column(type: 'float')]
-    private float $cakePrice;
-
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?\DateTimeInterface $collectDate;
+    private ?DateTimeInterface $collectDate;
 
     #[ORM\Column(type: 'boolean')]
     private bool $orderValidated;
-
-    #[ORM\Column(type: 'boolean')]
-    private bool $orderFinished;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getOrderedAt(): ?\DateTimeInterface
+    public function getOrderedAt(): ?DateTimeInterface
     {
         return $this->orderedAt;
     }
 
-    public function setOrderedAt(\DateTimeInterface $orderedAt): self
+    public function setOrderedAt(DateTimeInterface $orderedAt): self
     {
         $this->orderedAt = $orderedAt;
 
@@ -193,12 +194,12 @@ class Order
         return $this;
     }
 
-    public function getCollectDate(): ?\DateTimeInterface
+    public function getCollectDate(): ?DateTimeInterface
     {
         return $this->collectDate;
     }
 
-    public function setCollectDate(?\DateTimeInterface $collectDate): self
+    public function setCollectDate(?DateTimeInterface $collectDate): self
     {
         $this->collectDate = $collectDate;
 
@@ -217,14 +218,14 @@ class Order
         return $this;
     }
 
-    public function isOrderFinished(): ?bool
+    public function getOrderStatus(): ?string
     {
-        return $this->orderFinished;
+        return $this->orderStatus;
     }
 
-    public function setOrderFinished(bool $orderFinished): self
+    public function setOrderStatus(string $orderStatus): self
     {
-        $this->orderFinished = $orderFinished;
+        $this->orderStatus = $orderStatus;
 
         return $this;
     }

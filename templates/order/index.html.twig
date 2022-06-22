@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OrderController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+
+            </div>
+            <div class="col-4 order-side-">
+                <div>
+                    <h2>Résumé de la commande</h2>
+                    <ul>
+                        <li>Article 1</li>
+                        <li>Article 2</li>
+                        <li>Article 3</li>
+                        <li>Article 4</li>
+                        <li>Article 5</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Sous-total</h3>
+                    <p>12 €</p>
+                    <h3>Frais de port</h3>
+                    <p>Gratuit</p>
+                    <h3>TVA</h3>
+                    <p>4 €</p>
+                    <h2>TOTAL</h2>
+                    <p>16 €</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

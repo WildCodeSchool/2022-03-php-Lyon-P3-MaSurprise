@@ -16,6 +16,14 @@ class OrderFixtures extends Fixture
         for ($i = 0; $i < 100; $i++) {
             $order = new Order();
             $order->setOrderedAt($faker->dateTimeInInterval('+2 months', '+1 months'));
+            $order->setOrderStatus($faker->randomElement([
+                'Commande créée',
+                'Commande validée',
+                'Commande en préparation',
+                'Commande disponible en retrait',
+                'Commande retirée',
+                'Commande terminée',
+            ]));
             $name = $faker->randomElement([
                 'Gâteau d\'anniversaire',
                 'Forêt noire',
@@ -47,7 +55,6 @@ class OrderFixtures extends Fixture
             $order->setCakePrice($faker->randomFloat(2, 50, 300));
             $order->setCollectDate($faker->dateTimeInInterval('+3 months', '+1 months'));
             $order->setOrderValidated($faker->boolean());
-            $order->setOrderFinished($faker->boolean());
             $manager->persist($order);
         }
         $manager->flush();
