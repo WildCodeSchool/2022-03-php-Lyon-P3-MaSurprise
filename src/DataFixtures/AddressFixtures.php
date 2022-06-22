@@ -19,7 +19,7 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
         for ($n = 1; $n < 4; $n++) {
             $faker = Factory::create('fr_FR');
             // $product = new Product();
-            $address = new Address;
+            $address = new Address();
             // $manager->persist($product);
 
             // fixtures regarding address information for addresss
@@ -30,18 +30,15 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
             $address->setDepartment($this // @phpstan-ignore-line
                 ->getReference('department_' . $faker->departmentNumber())); // @phpstan-ignore-line
 
-            //$address->setDeliveryAddress($this->getReference('deliveryAddress_' . $faker->optional()->numberBetween(1, 50)));
-
             $address->setBillingAddress($this->getReference('billingAddress_' . $n));
 
             $manager->persist($address);
         }
-    
+
         for ($n = 0; $n < 50; $n++) {
             $faker = Factory::create('fr_FR');
             // $product = new Product();
-            $address = new Address;
-            // $manager->persist($product);
+            $address = new Address();
 
             // fixtures regarding address information for addresss
             $address->setStreetNumber($faker->randomNumber(2, true));
@@ -53,8 +50,7 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
 
             $address->setDeliveryAddress($this->getReference('baker_' . $n));
 
-            //$address->setBillingAddress($this->getReference('billingAddress_' . $n));
-
+            // $manager->persist($product);b
             $manager->persist($address);
         }
         $manager->flush();
