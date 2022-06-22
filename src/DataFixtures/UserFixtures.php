@@ -12,7 +12,7 @@ class UserFixtures extends Fixture
     public const USERS = [
         [
             'email' => 'customer@gmail.com',
-            "roles" => ["ROLE_USER"],
+            "roles" => ["ROLE_CUSTOMER"],
             "password" => 'customerpassword',
         ],
         [

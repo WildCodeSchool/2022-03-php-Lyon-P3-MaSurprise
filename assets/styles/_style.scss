@@ -18,6 +18,7 @@ $secondary: #E3A7A7;
     --text-orange: #D67826;
     --text-purple: #6165A0;
     --text-lightblue: #75BDD3;
+    --text-lightblue-hover: #75a4d3;
     --text-darkgreen: #608441;
     --text-maroon: #C4B192;
     --box-shadow: rgba(60, 64, 67, 0.3) 2px 2px 5px 2px;
@@ -25,8 +26,8 @@ $secondary: #E3A7A7;
 
 /* ---------- FONTS ---------- */
 @font-face {
-    font-family: 'Cup Cakes';
-    src: url('../fonts/CupCakes/cup-cakes.otf') format('truetype');
+    font-family: 'Prata';
+    src: url('../fonts/Prata/Prata-Regular.ttf') format('truetype');
 }
 
 @font-face {
@@ -54,9 +55,17 @@ $secondary: #E3A7A7;
 }
 
 body {
-    padding-top: 160px;
+    padding-top: 175px;
     background-color: #B1367E;
     font-family: "Karla", sans-serif;
+}
+
+.main-padding-container {
+    padding-top: 30px;
+}
+
+.antipadding-container {
+    margin-top: -30px;
 }
 
 /* ---------- GLOBAL COLOURS ---------- */
@@ -124,7 +133,7 @@ body {
 /* ---------- HOMEPAGE ---------- */
 /* ----- general ----- */
 h1, h2, h3, h4 {
-    font-family: "Cup Cakes", sans-serif;
+    font-family: "Prata", sans-serif;
     margin: 20px;
 }
 
@@ -198,7 +207,7 @@ h1, h2, h3, h4 {
 }
 
 .navbar a {
-    font-family: "Cup Cakes";
+    font-family: "Prata";
     font-size: 16pt;
 }
 
@@ -429,6 +438,9 @@ footer ul a {
 }
 
 /* ---------- CONNEXION MODAL ---------- */
+$modal-backdrop-bg: white;
+$modal-backdrop-opacity: 0.8;
+
 .btn-connection {
     background-color: var(--background-lightblue);
     color: white;
@@ -436,6 +448,12 @@ footer ul a {
     border: none;
     border-radius: 6px;
     font-family: 'Karla';
+    transition: ease 0.5s;
+}
+
+.btn-connection:hover {
+    background-color: #75a4d3;
+    transition: ease 0.5s;
 }
 
 .modal-footer {
@@ -455,9 +473,14 @@ footer ul a {
     text-decoration: none;
     font-family: 'Karla';
     font-size: 12px;
+    cursor: pointer;
 }
 
 .modal-header, .modal-body, .modal-footer {
     background-color: var(--background-light);
     font-family: 'Karla';
+}
+
+.modal-title {
+    font-family: Prata;
 }

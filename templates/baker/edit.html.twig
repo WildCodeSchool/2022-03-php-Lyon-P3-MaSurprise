@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier Pâtissier{% endblock %}
+{% block title %}Modifier pâtissier - {{ parent() }}{% endblock %}
 
 {% block body %}
 
- <h1 class="text-primary text-center">Compte pâtissier : modifier compte</h1>
+    <h1 class="text-primary text-center">Compte pâtissier : modifier compte</h1>
 
-   
+
     {{ include('baker/_form.html.twig') }}
 
 {% endblock %}

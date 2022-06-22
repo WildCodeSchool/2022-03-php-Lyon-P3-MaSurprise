@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des pâtissiers{% endblock %}
+{% block title %}Liste des pâtissiers - {{ parent() }}{% endblock %}
 
 {% block body %}
     <main class="container-fluid">
@@ -8,9 +8,11 @@
 
         {% for baker in bakers %}
             <div id="baker-card" class="card mb-3">
-                <div class="row m-3 g-{{loop.index0}}">
+                <div class="row m-3 g-{{ loop.index0 }}">
                     <div class="col-md-4">
-                        <img src="https://images.pexels.com/photos/3771812/pexels-photo-3771812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="img-fluid rounded-start" alt="portrait du pâtissier">
+                        <img
+                            src="https://images.pexels.com/photos/3771812/pexels-photo-3771812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                            class="img-fluid rounded-start" alt="portrait du pâtissier">
                     </div>
                     <div class="col-md-8">
                     <div class="card-body">
@@ -30,7 +32,6 @@
                             <a href="{{ path('app_baker_edit', {id:baker.id} ) }}" class="btn btn-secondary text-white m-2">Modifier</a>
                             {{ include('baker/_delete_form.html.twig') }}
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
