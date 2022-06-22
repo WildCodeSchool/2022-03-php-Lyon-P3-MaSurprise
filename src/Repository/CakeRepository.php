@@ -44,6 +44,7 @@ class CakeRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
+            ->addSelect('b')
             ->where('c.name LIKE :name')
             ->setParameter('name', '%' . $name . '%')
             ->orderBy('c.name', 'ASC')
@@ -57,6 +58,7 @@ class CakeRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
+            ->addSelect('b')
             ->where('c.description LIKE :description')
             ->setParameter('description', '%' . $description . '%')
             ->orderBy('c.description', 'ASC')

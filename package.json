@@ -23,5 +23,7 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
-    "dependencies": {}
+    "dependencies": {
+        "dropzone": "^6.0.0-beta.2"
+    }
 }
