@@ -22,10 +22,6 @@ class CakeController extends AbstractController
         $searchForm = $this->createForm(SearchCakeFormType::class);
         $searchForm->handleRequest($request);
 
-        // initializing errors
-        // TODO: this might have to work differently?
-        $errors = 0;
-
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $searchRequest = $request->get('search_cake_form');
             // some bricolage to please phpcs
@@ -48,7 +44,11 @@ class CakeController extends AbstractController
 
             // display a message if nothing matches search AND fetch all cakes
             if ($cakes == null) {
-                $errors = 1;
+                $this->addFlash(
+                    'notice',
+                    "Oh non, aucun gâteau ne correspond à vos critères de recherche...
+                    Laissez - vous tenter par d'autres choix ci-dessous !"
+                );
                 $cakes = $cakeRepository->findAll();
             }
         }
@@ -56,7 +56,6 @@ class CakeController extends AbstractController
         return $this->renderForm('cake/index.html.twig', [
             'cakes' => $cakes,
             'searchForm' => $searchForm,
-            'errors' => $errors,
             'search' => $search,
         ]);
     }

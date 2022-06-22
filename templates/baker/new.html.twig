@@ -1,10 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer un compte Pâtissier{% endblock %}
+{% block title %}Créer un compte pâtissier - {{ parent() }}{% endblock %}
 
 {% block body %}
     <h1 class="text-primary text-center">Compte pâtissier : Créer un compte</h1>
 
     {{ include('baker/_form.html.twig') }}
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('baker_form') }}
 {% endblock %}
