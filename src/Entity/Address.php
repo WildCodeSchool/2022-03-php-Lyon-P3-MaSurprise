@@ -137,7 +137,7 @@ class Address
         return $this->billingAddress;
     }
 
-    public function setBillingAddress(User $billingAddress): self
+    public function setBillingAddress(?User $billingAddress): self
     {
         $this->billingAddress = $billingAddress;
 
@@ -149,7 +149,7 @@ class Address
         return $this->deliveryAddress;
     }
 
-    public function setDeliveryAddress(Baker $deliveryAddress): self
+    public function setDeliveryAddress(?Baker $deliveryAddress): self
     {
         $this->deliveryAddress = $deliveryAddress;
 

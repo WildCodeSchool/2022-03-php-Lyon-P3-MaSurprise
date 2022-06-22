@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\Address;
+use App\Entity\User;
+use App\Entity\Baker;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -29,9 +31,11 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
             $address->setCity($faker->city());
             $address->setDepartment($this // @phpstan-ignore-line
                 ->getReference('department_' . $faker->departmentNumber())); // @phpstan-ignore-line
-
-            $address->setBillingAddress($this->getReference('billingAddress_' . $n));
-
+            
+            $billingAddress = $this->getReference('billingAddress_' . $n);
+            if ($billingAddress instanceof User) {
+                $address->setBillingAddress($billingAddress);
+            }
             $manager->persist($address);
         }
 
@@ -48,8 +52,10 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
             $address->setDepartment($this // @phpstan-ignore-line
                 ->getReference('department_' . $faker->departmentNumber())); // @phpstan-ignore-line
 
-            $address->setDeliveryAddress($this->getReference('baker_' . $n));
-
+            $deliveryAddress = $this->getReference('baker_' . $n);
+            if ($deliveryAddress instanceof Baker) {
+                $address->setDeliveryAddress($deliveryAddress);
+            }
             // $manager->persist($product);b
             $manager->persist($address);
         }
