@@ -5,15 +5,17 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-6">
+            <div class="col-12 d-flex flex-column align-items-center">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <img class="comment-img" src="https://i.pravatar.cc/200" alt="Une image de gâteau.">
                     <h3>Prénom N.</h3>
                     <p>E-mail : {{ app.user.email }}</p>
                     <a href="#">Réinitialiser mon mot de passe</a>
+                    <a href="{{ path('app_customer_index') }}">
+                        <button type="button" class="btn btn-secondary text-white">Retour</button>
+                    </a>
                 {% endif %}
             </div>
-            <a href="{{ path('app_customer_index') }}">Retour</a>
         </div>
     </div>
 {% endblock %}

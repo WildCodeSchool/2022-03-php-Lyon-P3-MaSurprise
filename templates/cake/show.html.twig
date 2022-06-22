@@ -18,15 +18,17 @@
                 <h1 class="cake-title m-0 font-weight-bold">{{ cake.name }}</h1>
                 <p class="fs-3">{{ cake.price|format_currency('EUR', locale='de') }}</p>
                 <div class="d-flex flex-row align-items-center">
-                    {% for i in 1..5 %}
-                        <img src="{{ asset('build/images/icons/Star_15.png') }}">
-                    {% endfor %}
+                    <div class="d-flex flex-row">
+                        {% for i in 1..random(1,5) %}
+                            <img class="img-fluid" src="{{ asset('build/images/icons/Star_15.png') }}">
+                        {% endfor %}
+                    </div>
                     <p class="avis">3 avis</p>
                 </div>
                 <P class="mt-2 cake-description">{{ cake.description }}</P>
                 <div class="d-flex flex-row justify-content-between">
                     <p class="">ville</p>
-                    <p>disponibilité</p>
+                    <p>Disponible sous {{ random(3, 10) }} jours</p>
                 </div>
 
                 <p>

@@ -5,8 +5,11 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 d-flex flex-column align-items-center">
                 <h1 class="text-primary text-center mb-4">Mes commandes</h1>
+                <a href="{{ path('app_customer_index') }}">
+                    <button type="button" class="btn btn-secondary text-white">Retour à mon espace</button>
+                </a>
                 <div class="container">
                     {% for order in orders %}
                         <div class="row d-flex justify-content-center">
