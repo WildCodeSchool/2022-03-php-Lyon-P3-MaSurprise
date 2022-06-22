@@ -4,30 +4,90 @@
 
 {% block body %}
     <div class="container">
-        <div class="row">
-            <div class="col-8">
+        <div class="row gx-3">
+            <div class="col-12">
+                <h1 class="text-primary text-center mb-4">Ma commande</h1>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-8 bg-white p-3 rounded">
 
-            </div>
-            <div class="col-4 order-side-">
-                <div>
-                    <h2>Résumé de la commande</h2>
-                    <ul>
-                        <li>Article 1</li>
-                        <li>Article 2</li>
-                        <li>Article 3</li>
-                        <li>Article 4</li>
-                        <li>Article 5</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Sous-total</h3>
-                    <p>12 €</p>
-                    <h3>Frais de port</h3>
-                    <p>Gratuit</p>
-                    <h3>TVA</h3>
-                    <p>4 €</p>
-                    <h2>TOTAL</h2>
-                    <p>16 €</p>
+                            <div>
+                                <h2>Mes informations</h2>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <h5 class="card-title">Adresse</h5>
+                                        <p class="card-text">1 rue du Plâtre
+                                            75001 Paris</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h5 class="card-title">Numéro de téléphone</h5>
+                                        <p class="card-text">0102030405</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h5 class="card-title">Adresse e-mail</h5>
+                                        <p class="card-text">e.macron69@laposte.net</p>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h2 class="pt-5">Informations de paiement</h2>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                   id="flexRadioDefault1">
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                PayPal
+                                            </label>
+                                        </div>
+
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                   id="flexRadioDefault2">
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                Carte bancaire
+                                            </label>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="col-4 bg-white p-3 rounded">
+                            <div>
+                                <h2>Résumé de la commande</h2>
+                                <ul class="list-group">
+                                    <li class="list-group-item">Article 1</li>
+                                    <li class="list-group-item">Article 2</li>
+                                    <li class="list-group-item">Article 3</li>
+                                    <li class="list-group-item">Article 4</li>
+                                    <li class="list-group-item">Article 5</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3>Sous-total</h3>
+                                <p>12 €</p>
+                                <h3>Frais de port</h3>
+                                <p>Gratuit</p>
+                                <h3>TVA</h3>
+                                <p>4 €</p>
+                                <h2>TOTAL</h2>
+                                <p>16 €</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center mt-5 mb-5">
+                            <a href="{{ path("app_order_processing") }}">
+                                <button type="button" class="btn btn-secondary btn-lg text-white">Valider la commande
+                                </button>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

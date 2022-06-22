@@ -68,6 +68,10 @@ body {
     margin-top: -30px;
 }
 
+.container-height {
+    min-height: 80vh;
+}
+
 /* ---------- GLOBAL COLOURS ---------- */
 .text-red {
     color: var(--text-red);

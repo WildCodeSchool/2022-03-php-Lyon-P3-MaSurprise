@@ -14,4 +14,16 @@ class OrderController extends AbstractController
     {
         return $this->render('order/index.html.twig');
     }
+
+    #[Route('/validation', name: 'processing')]
+    public function orderProcess(): Response
+    {
+        return $this->render('order/processing.html.twig');
+    }
+
+    #[Route('/commande-validee', name: 'placed')]
+    public function orderPlaced(): Response
+    {
+        return $this->render('order/placed.html.twig');
+    }
 }
