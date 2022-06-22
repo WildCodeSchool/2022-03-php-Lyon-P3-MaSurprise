@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\OrderRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,9 +16,16 @@ class CustomerController extends AbstractController
         return $this->render('customer/index.html.twig');
     }
 
-    #[Route('/show', name: 'show')]
+    #[Route('/profil', name: 'show')]
     public function show(): Response
     {
         return $this->render('customer/show.html.twig');
+    }
+
+    #[Route('/commandes', name: 'orders')]
+    public function showOrders(OrderRepository $orderRepository): Response
+    {
+        $orders = $orderRepository->findAll();
+        return $this->render('customer/orders.html.twig', ['orders' => $orders]);
     }
 }

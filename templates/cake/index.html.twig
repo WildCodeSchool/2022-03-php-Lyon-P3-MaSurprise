@@ -81,9 +81,9 @@
                     </div>
                 </div>
             </div>
-            
+
             {% for message in app.flashes('notice') %}
-                <div class="flash-notice">
+                <div class="flash-notice ">
                     <h2 class="text-primary">{{ message }}</h2>
                 </div>
             {% endfor %}
@@ -116,15 +116,15 @@
                                 </div>
                             </div>
                             <div class="cake-price-rev m-0 p-0 d-flex flex-row justify-content-between">
-                                <p class="cake-disponibility m-0">Disponnible dans 10 jours</p>
-                                <p class="cake-price m-0">{{ cake.price }}€</p>
+                                <p class="cake-disponibility m-0">Disponible dans 10 jours</p>
+                                <p class="cake-price m-0">{{ cake.price|format_currency('EUR', locale='de') }}</p>
                             </div>
                             <div class="d-flex align-items-baseline mt-1 p-0 justify-content-between">
                                 <div class="d-flex">
                                     <img src="{{ asset('build/images/icons/hat.png') }}" class="hat img-fluid w-auto"
                                          alt="cake img">
                                     <h5 class="baker-name text-start opacity-50">
-                                        {{ cake.baker.lastname }}.{{ cake.baker.firstname |slice(0, 1) }}
+                                        {{ cake.baker.lastname }}. {{ cake.baker.firstname|slice(0, 1) }}
                                     </h5>
                                 </div>
                                 <div><P class="m-0">Lyon</P>

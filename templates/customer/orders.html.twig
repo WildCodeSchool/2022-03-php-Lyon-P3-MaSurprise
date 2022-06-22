@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-primary text-center mb-4">Mes commandes</h1>
+                <div class="container">
+                    {% for order in orders %}
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-8">
+
+                                <div class="card m-2">
+                                    <h5 class="card-header">Le {{ order.orderedAt|date("d/m/Y") }}
+                                        à {{ order.orderedAt|date("h:m:s") }}</h5>
+                                    <div class="card-body">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-10">
+                                                    <h5 class="card-title">{{ order.cakeName }}</h5>
+                                                    <p class="card-text">{{ order.cakeSize }}</p>
+                                                    <p class="card-text">{{ order.orderStatus }}</p>
+                                                    <p class="card-text">Date de collecte
+                                                        : {{ order.collectDate|date("d/m/Y") }}</p>
+                                                    <a href="#" class="btn btn-secondary text-white">Voir ma
+                                                        commande</a>
+                                                </div>
+                                                <div class="col-2">
+                                                    <p class="card-text">{{ order.cakePrice }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
