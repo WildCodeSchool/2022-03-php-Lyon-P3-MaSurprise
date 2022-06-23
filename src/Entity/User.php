@@ -26,9 +26,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private string $email;
 
-    //#[ORM\Column(type: 'string', length: 255, nullable: true)]
-    //private ?string $address;
-
     #[ORM\Column(type: 'string', length: 255)]
     private string $phone;
 
@@ -93,18 +90,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    //public function getAddress(): ?string
-    //{
-    //    return $this->address;
-    //}
-
-    //public function setAddress(?string $address): self
-    //{
-    //    $this->address = $address;
-
-    //    return $this;
-    //}
 
     public function getPhone(): ?string
     {
