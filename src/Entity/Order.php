@@ -57,6 +57,14 @@ class Order
     #[ORM\Column(type: 'boolean')]
     private bool $orderValidated;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ordersToSellers')]
+    #[ORM\JoinColumn(nullable: false)]
+    private User $buyer;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ordersFromBuyers')]
+    #[ORM\JoinColumn(nullable: false)]
+    private User $seller;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -226,6 +234,30 @@ class Order
     public function setOrderStatus(string $orderStatus): self
     {
         $this->orderStatus = $orderStatus;
+
+        return $this;
+    }
+
+    public function getBuyer(): ?User
+    {
+        return $this->buyer;
+    }
+
+    public function setBuyer(?User $buyer): self
+    {
+        $this->buyer = $buyer;
+
+        return $this;
+    }
+
+    public function getSeller(): ?User
+    {
+        return $this->seller;
+    }
+
+    public function setSeller(?User $seller): self
+    {
+        $this->seller = $seller;
 
         return $this;
     }

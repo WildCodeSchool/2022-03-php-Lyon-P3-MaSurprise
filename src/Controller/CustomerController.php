@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\OrderRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +26,18 @@ class CustomerController extends AbstractController
     #[Route('/commandes', name: 'orders')]
     public function showOrders(OrderRepository $orderRepository): Response
     {
-        $orders = $orderRepository->findAll();
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $orders = [];
+
+        /** @var User $user */
+        $user = $this->getUser();
+        dump($this->getUser());
+
+        $userId = $user->getId();
+        $orders = $orderRepository->findBy(['buyer' => $userId]);
+
+
         return $this->render('customer/orders.html.twig', ['orders' => $orders]);
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Faker\Core\Number;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -10,8 +12,6 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -31,6 +31,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
+
+    #[ORM\OneToMany(mappedBy: 'buyer', targetEntity: Order::class)]
+    private Collection $ordersToSellers;
+
+    #[ORM\OneToMany(mappedBy: 'seller', targetEntity: Order::class)]
+    private Collection $ordersFromBuyers;
+
+    public function __construct()
+    {
+        $this->ordersToSellers = new ArrayCollection();
+        $this->ordersFromBuyers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -56,7 +68,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -117,5 +129,65 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function isIsVerified(): ?bool
     {
         return $this->isVerified;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrdersToSellers(): Collection
+    {
+        return $this->ordersToSellers;
+    }
+
+    public function addOrdersToSeller(Order $ordersToSeller): self
+    {
+        if (!$this->ordersToSellers->contains($ordersToSeller)) {
+            $this->ordersToSellers[] = $ordersToSeller;
+            $ordersToSeller->setBuyer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdersToSeller(Order $ordersToSeller): self
+    {
+        if ($this->ordersToSellers->removeElement($ordersToSeller)) {
+            // set the owning side to null (unless already changed)
+            if ($ordersToSeller->getBuyer() === $this) {
+                $ordersToSeller->setBuyer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrdersFromBuyers(): Collection
+    {
+        return $this->ordersFromBuyers;
+    }
+
+    public function addOrdersFromBuyer(Order $ordersFromBuyer): self
+    {
+        if (!$this->ordersFromBuyers->contains($ordersFromBuyer)) {
+            $this->ordersFromBuyers[] = $ordersFromBuyer;
+            $ordersFromBuyer->setSeller($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdersFromBuyer(Order $ordersFromBuyer): self
+    {
+        if ($this->ordersFromBuyers->removeElement($ordersFromBuyer)) {
+            // set the owning side to null (unless already changed)
+            if ($ordersFromBuyer->getSeller() === $this) {
+                $ordersFromBuyer->setSeller(null);
+            }
+        }
+
+        return $this;
     }
 }

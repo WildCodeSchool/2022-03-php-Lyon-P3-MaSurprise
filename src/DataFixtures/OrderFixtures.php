@@ -3,27 +3,20 @@
 namespace App\DataFixtures;
 
 use App\Entity\Order;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class OrderFixtures extends Fixture
+class OrderFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
             $order = new Order();
-            $order->setOrderedAt($faker->dateTimeInInterval('+2 months', '+1 months'));
-            $order->setOrderStatus($faker->randomElement([
-                'Commande créée',
-                'Commande validée',
-                'Commande en préparation',
-                'Commande disponible en retrait',
-                'Commande retirée',
-                'Commande terminée',
-            ]));
             $name = $faker->randomElement([
                 'Gâteau d\'anniversaire',
                 'Forêt noire',
@@ -45,26 +38,45 @@ class OrderFixtures extends Fixture
             if (is_string($size)) {
                 $order->setCakeSize($size);
             };
-            $order->setStreetNumber($faker->randomNumber(2, true));
-            $order->setStreetName($faker->streetName());
-            $order->setPostcode($faker->randomNumber(5, true));
-            $order->setCity($faker->city());
-            $order->setDepartment(strval($faker->randomNumber(2, true)));
-//        $order->setDepartment($this // @phpstan-ignore-line
-//        ->getReference('department_' . $faker->departmentNumber())); // @phpstan-ignore-line
-            $order->setCakePrice($faker->randomFloat(2, 50, 300));
-            $order->setCollectDate($faker->dateTimeInInterval('+3 months', '+1 months'));
-            $order->setOrderValidated($faker->boolean());
+            $order
+                ->setOrderedAt($faker->dateTimeInInterval('+2 months', '+1 months'))
+                ->setOrderStatus($faker->randomElement([
+                    'Commande créée',
+                    'Commande validée',
+                    'Commande en préparation',
+                    'Commande disponible en retrait',
+                    'Commande retirée',
+                    'Commande terminée',
+                    'Commande annulée',
+                ]))
+                ->setStreetNumber($faker->randomNumber(2, true))
+                ->setStreetName($faker->streetName())
+                ->setPostcode($faker->randomNumber(5, true))
+                ->setCity($faker->city())
+                ->setDepartment(strval($faker->randomNumber(2, true)))
+                ->setCakePrice($faker->randomFloat(2, 50, 300))
+                ->setCollectDate($faker->dateTimeInInterval('+3 months', '+1 months'));
+            $buyer = $this->getReference('buyer_' . $faker->numberBetween(0, 49));
+            if ($buyer instanceof User) {
+                $order->setBuyer($buyer);
+            };
+            $seller = $this->getReference('seller_' . $faker->numberBetween(0, 49));
+            if ($seller instanceof User) {
+                $order->setSeller($seller);
+            };
+            $order
+                ->setOrderValidated($faker->boolean());
+            $this->addReference('order_' . $i, $order);
             $manager->persist($order);
         }
         $manager->flush();
     }
 
-//    public function getDependencies(): array
-//    {
-//        return
-//            [
-//                DepartmentFixtures::class,
-//            ];
-//    }
+    public function getDependencies(): array
+    {
+        return
+            [
+                UserFixtures::class,
+            ];
+    }
 }
