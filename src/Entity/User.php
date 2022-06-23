@@ -6,7 +6,6 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Faker\Core\Number;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -43,6 +42,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->ordersToSellers = new ArrayCollection();
         $this->ordersFromBuyers = new ArrayCollection();
     }
+
+    #[ORM\OneToOne(mappedBy: 'billingAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
+    private ?Address $billingAddress;
 
     public function getId(): ?int
     {
@@ -187,6 +189,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $ordersFromBuyer->setSeller(null);
             }
         }
+    }
+
+    public function getBillingAddress(): ?Address
+    {
+        return $this->billingAddress;
+    }
+
+    public function setBillingAddress(Address $billingAddress): self
+    {
+        // set the owning side of the relation if necessary
+        if ($billingAddress->getBillingAddress() !== $this) {
+            $billingAddress->setBillingAddress($this);
+        }
+
+        $this->billingAddress = $billingAddress;
 
         return $this;
     }

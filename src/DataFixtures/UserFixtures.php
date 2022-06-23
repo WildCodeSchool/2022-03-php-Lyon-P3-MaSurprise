@@ -10,24 +10,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
-    public const USERS = [
-        [
-            'email' => 'customer@gmail.com',
-            "roles" => ["ROLE_CUSTOMER"],
-            "password" => 'customerpassword',
-        ],
-        [
-            'email' => 'baker@gmail.com',
-            'roles' => ['ROLE_BAKER'],
-            'password' => 'bakerpassword',
-        ],
-        [
-            'email' => 'admin@monsite.com',
-            'roles' => ['ROLE_ADMIN'],
-            'password' => 'adminpassword',
-        ],
-    ];
-
     private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
@@ -37,20 +19,17 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        // Création d’un utilisateur de type “contributeur” (= auteur)
-//        foreach (self::USERS as $userName) {
-//            $user = new User();
-//            $user->setEmail($userName['email']);
-//            $user->setRoles($userName['roles']);
-//            $hashedPassword = $this->passwordHasher->hashPassword(
-//                $user,
-//                $userName['password']
-//            );
-//            $user->setPassword($hashedPassword);
-//            $manager->persist($user);
-//        }
-
         $faker = Factory::create('fr_FR');
+
+        $user = new User();
+        $user->setEmail($faker->email());
+        $user->setRoles(['ROLE_ADMIN']);
+        $hashedPassword = $this->passwordHasher->hashPassword(
+            $user,
+            "password"
+        );
+        $user->setPassword($hashedPassword);
+        $manager->persist($user);
 
         for ($i = 0; $i < 50; $i++) {
             $user = new User();
@@ -75,10 +54,10 @@ class UserFixtures extends Fixture
             );
             $user->setPassword($hashedPassword);
             $this->addReference('buyer_' . $j, $user);
+            $this->addReference('billingAddress_' . $j, $user);
             $manager->persist($user);
         }
-
-        // Sauvegarde des 2 nouveaux utilisateurs :
+        // Sauvegarde des 3 nouveaux utilisateurs :
         $manager->flush();
     }
 }
