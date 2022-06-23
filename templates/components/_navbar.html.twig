@@ -94,7 +94,7 @@
 
 <!-- Modal -->
 
-				<div class="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -102,7 +102,7 @@
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class="modal-body container">
-								<form action="{{ path('login') }}" method="post" class="row">
+                                <form action="{{ path('login') }}" method="post" class="row">
 									<label for="username"></label>
 									<input type="text" id="username" name="_username" placeholder="Email" class="w-75 mb-3 connection-fields"/>
 									<label for="password"></label>
@@ -110,6 +110,9 @@
 									<input type="hidden" name="_target_path" value="/"/>
 									<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 									<button type="submit" class="btn-connection mt-3">Connexion</button>
+									{% if error is defined %}
+        							<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    								{% endif %}
 								</form>
 							</div>
 							<div class="modal-footer container d-flex justify-content-around pb-3">
@@ -119,4 +122,3 @@
 						</div>
 					</div>
 				</div>
-
