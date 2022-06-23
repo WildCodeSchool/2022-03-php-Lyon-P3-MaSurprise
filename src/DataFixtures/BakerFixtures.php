@@ -2,11 +2,13 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Address;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use App\Entity\Baker;
+use App\Entity\User;
 
 class BakerFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -27,8 +29,12 @@ class BakerFixtures extends Fixture implements DependentFixtureInterface
                 $baker->setBakerType($bakerType);
             }
             //$baker->setDeliveryAddress($faker->address());
-            $baker->setUser($this->getReference('user_' . $i));
-            $baker->setDeliveryAddress($this->getReference('deliveryAddress_' . $i));
+            if ($this->getReference('user_' . $i) instanceof User) {
+                $baker->setUser($this->getReference('user_' . $i));
+            }
+            if ($this->getReference('deliveryAddress_' . $i) instanceof Address) {
+                $baker->setDeliveryAddress($this->getReference('deliveryAddress_' . $i));
+            }
             $this->addReference('user_' . $i . '_baker_' . $i, $baker);
 
             $manager->persist($baker);
