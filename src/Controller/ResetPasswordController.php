@@ -15,6 +15,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
@@ -46,11 +47,13 @@ class ResetPasswordController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            return $this->processSendingPasswordResetEmail(
-                $form->get('email')->getData(),
-                $mailer,
-                $translator
-            );
+            if (is_string($form->get('email')->getData())) {
+                return $this->processSendingPasswordResetEmail(
+                    $form->get('email')->getData(),
+                    $mailer,
+                    $translator
+                );
+            }
         }
 
         return $this->render('reset_password/request.html.twig', [
@@ -84,6 +87,7 @@ class ResetPasswordController extends AbstractController
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
         TranslatorInterface $translator,
+        PasswordAuthenticatedUserInterface $passAuthUserInterf,
         string $token = null
     ): Response {
         if ($token) {
@@ -120,22 +124,24 @@ class ResetPasswordController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // A password reset token should be used only once, remove it.
-            $this->resetPasswordHelper->removeResetRequest($token);
+            if (is_string($form->get('plainPassword')->getData())) {
+                // A password reset token should be used only once, remove it.
+                $this->resetPasswordHelper->removeResetRequest($token);
 
-            // Encode(hash) the plain password, and set it.
-            $encodedPassword = $userPasswordHasher->hashPassword(
-                $user,
-                $form->get('plainPassword')->getData()
-            );
+                // Encode(hash) the plain password, and set it.
+                $encodedPassword = $userPasswordHasher->hashPassword(
+                    $passAuthUserInterf,
+                    $form->get('plainPassword')->getData()
+                );
 
-            $user->setPassword($encodedPassword);
-            $this->entityManager->flush();
+                $user->setPassword($encodedPassword);
+                $this->entityManager->flush();
 
-            // The session is cleaned up after the password has been changed.
-            $this->cleanSessionAfterReset();
+                // The session is cleaned up after the password has been changed.
+                $this->cleanSessionAfterReset();
 
-            return $this->redirectToRoute('app_home');
+                return $this->redirectToRoute('app_home');
+            }
         }
 
         return $this->render('reset_password/reset.html.twig', [
