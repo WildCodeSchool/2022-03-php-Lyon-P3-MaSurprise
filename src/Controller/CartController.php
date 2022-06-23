@@ -23,7 +23,7 @@ class CartController extends AbstractController
 
 
         foreach ($cart as $id => $quantity) {
-            if (is_int($id)) {
+            if (is_int($id) && is_int($quantity)) {
                 $cake = $cakeRepository->find($id);
                 $dataCart[] = [
                     "cake" => $cake,
