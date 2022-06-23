@@ -9,10 +9,12 @@ class CartService
     public function addCartService(int $id, SessionInterface $session): int
     {
         $cart = $session->get("cart", []);
-        if (!empty($cart[$id])) {
-            $cart[$id]++;
-        } else {
-            $cart[$id] = 1;
+        if (is_array($cart)) {
+            if (!empty($cart[$id])) {
+                $cart[$id]++;
+            } else {
+                $cart[$id] = 1;
+            }
         }
 
         return $session->set("cart", $cart);
@@ -21,11 +23,13 @@ class CartService
     public function removeCartService(int $id, SessionInterface $session): int
     {
         $cart = $session->get("cart", []);
-        if (!empty($cart[$id])) {
-            if ($cart[$id] > 1) {
-                $cart[$id]--;
-            } else {
-                unset($cart[$id]);
+        if (is_array($cart)) {
+            if (!empty($cart[$id])) {
+                if ($cart[$id] > 1) {
+                    $cart[$id]--;
+                } else {
+                    unset($cart[$id]);
+                }
             }
         }
 
