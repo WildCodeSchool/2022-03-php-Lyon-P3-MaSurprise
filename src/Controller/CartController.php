@@ -55,8 +55,10 @@ class CartController extends AbstractController
     public function delete(int $id, SessionInterface $session): Response
     {
         $cart = $session->get("cart", []);
-        if (!empty($cart[$id])) {
-            unset($cart[$id]);
+        if (is_array($cart)) {
+            if (!empty($cart[$id])) {
+                unset($cart[$id]);
+            }
         }
         $session->set("cart", $cart);
 
