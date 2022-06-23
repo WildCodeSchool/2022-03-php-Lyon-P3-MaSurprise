@@ -20,9 +20,8 @@ class CartController extends AbstractController
         $cart = $session->get("cart", []);
         $dataCart = [];
         $total = 0;
-
-        foreach ($cart as $id => $quantity) {
-            if (is_int($id)) {
+        if (is_array($cart)) {
+            foreach ($cart as $id => $quantity) {
                 $cake = $cakeRepository->find($id);
                 $dataCart[] = [
                     "cake" => $cake,
