@@ -9,15 +9,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+use function PHPUnit\Framework\isFalse;
+
 #[Route('/cart', name: 'cart_')]
 class CartController extends AbstractController
 {
     #[Route('/', name: 'index')]
     public function index(SessionInterface $session, CakeRepository $cakeRepository): Response
     {
-        //on recup le panier
         $cart = $session->get("cart", []);
-        // on fabrique les données
         $dataCart = [];
         $total = 0;
         foreach ($cart as $id => $quantity) {
@@ -54,13 +54,10 @@ class CartController extends AbstractController
     #[Route('/delete/{id}', name: 'delete')]
     public function delete(int $id, SessionInterface $session): Response
     {
-        //on recupere le panier actuel, si il n'existe pas je crée un tableau vide il vaut soit cart soit tableau vide
         $cart = $session->get("cart", []);
-        //on suprime la ligne
         if (!empty($cart[$id])) {
             unset($cart[$id]);
         }
-        // on safe dans la session
         $session->set("cart", $cart);
 
         return $this->redirectToRoute("cart_index");

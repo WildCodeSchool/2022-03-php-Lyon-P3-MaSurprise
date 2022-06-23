@@ -5,7 +5,6 @@
 {% block body %}
     <div class="container">
         <h1>Votre panier</h1>
-
         <table class="table">
             <thead>
             <tr>
@@ -17,6 +16,7 @@
             </tr>
             </thead>
             <tbody>
+
             {% for product in datacart %}
                 <tr>
                     <td>{{ product.cake.name }}</td>
@@ -25,13 +25,13 @@
                     <td class="text-right">{{ product.quantity * product.cake.price }}€</td>
                     <td>
                         <a href="{{ path("cart_add", {id: product.cake.id}) }}" class="btn btn-success">
-                            <i class="bi-cart-plus">+</i>
+                            <i class="bi cart-plus">+</i>
                         </a>
                         <a href="{{ path("cart_remove", {id: product.cake.id}) }}" class="btn btn-warning">
-                            <i class="bi-cart-dash">-</i>
+                            <i class="bi bi-cart-dash">-</i>
                         </a>
                         <a href="{{ path("cart_delete", {id: product.cake.id}) }}" class="btn btn-danger">
-                            <i class="bi-cart-x">x</i>
+                            <i class="bi bi-cart-check">X</i>
                         </a>
                     </td>
                 </tr>
@@ -44,6 +44,11 @@
                 <td colspan=5">total</td>
                 <td class="text-end" colspan="6">
                     Total {{ total }}€
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" class="text-end">
+                    <a class="btn btn-primary" href="">Commander</a>
                 </td>
             </tr>
             </tfoot>
