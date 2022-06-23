@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService
 {
-    public function addCartService(int $id, SessionInterface $session): string
+    public function addCartService(int $id, SessionInterface $session): int
     {
         $cart = $session->get("cart", []);
         if (!empty($cart[$id])) {
@@ -18,7 +18,7 @@ class CartService
         return $session->set("cart", $cart);
     }
 
-    public function removeCartService(int $id, SessionInterface $session): string
+    public function removeCartService(int $id, SessionInterface $session): int
     {
         $cart = $session->get("cart", []);
         if (!empty($cart[$id])) {
