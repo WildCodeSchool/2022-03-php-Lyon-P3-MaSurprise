@@ -81,16 +81,19 @@
                     </div>
                 </div>
             </div>
-            {% if errors == 1 %}
-                <h2 class="text-primary">Oh non, aucun gâteau ne correspond à vos critères de recherche... Laissez-vous
-                    tenter par d'autres
-                    choix ci-dessous !</h2>
-            {% endif %}
-            {% if search and errors == 0 %}
+            
+            {% for message in app.flashes('notice') %}
+                <div class="flash-notice">
+                    <h2 class="text-primary">{{ message }}</h2>
+                </div>
+            {% endfor %}
+
+            {% if search and not app.flashes('notice') %}
                 <p>{{ cakes|length }} résultats correspondant à "{{ search }}"</p>
             {% else %}
                 <p>{{ cakes|length }} gâteaux</p>
             {% endif %}
+
             <div id="cake-list" class="container-fluid container-lg">
                 <div class="row justify-content-center">
                     {% for cake in cakes %}

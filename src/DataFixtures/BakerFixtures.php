@@ -31,6 +31,7 @@ class BakerFixtures extends Fixture
             $baker->setPassword($faker->password(8, 15));
             $baker->setPhone($faker->phoneNumber());
             $this->addReference('baker_' . $i, $baker);
+
             $manager->persist($baker);
         }
         $manager->flush();

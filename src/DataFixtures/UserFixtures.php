@@ -9,6 +9,24 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
+    public const USERS = [
+        [
+            'email' => 'customer@gmail.com',
+            "roles" => ["ROLE_CUSTOMER"],
+            "password" => 'customerpassword',
+        ],
+        [
+            'email' => 'baker@gmail.com',
+            'roles' => ['ROLE_BAKER'],
+            'password' => 'bakerpassword',
+        ],
+        [
+            'email' => 'admin@monsite.com',
+            'roles' => ['ROLE_ADMIN'],
+            'password' => 'adminpassword',
+        ],
+    ];
+
     private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
@@ -16,33 +34,25 @@ class UserFixtures extends Fixture
         $this->passwordHasher = $passwordHasher;
     }
 
-
     public function load(ObjectManager $manager): void
     {
-        // Création d’un utilisateur de type “contributeur” (= auteur)
-        $user = new User();
-        $user->setEmail('customer@gmail.com');
-        $user->setRoles(['ROLE_USER']);
-        $hashedPassword = $this->passwordHasher->hashPassword(
-            $user,
-            'customerpassword'
-        );
-
-        $user->setPassword($hashedPassword);
-        $manager->persist($user);
-
-        // Création d’un utilisateur de type “administrateur”
-        $admin = new User();
-        $admin->setEmail('admin@monsite.com');
-        $admin->setRoles(['ROLE_ADMIN']);
-        $hashedPassword = $this->passwordHasher->hashPassword(
-            $admin,
-            'adminpassword'
-        );
-        $admin->setPassword($hashedPassword);
-        $manager->persist($admin);
-
-        // Sauvegarde des 2 nouveaux utilisateurs :
+        $number = 1;
+        // Création d'un utilisateur de type "contributeur" (= auteur)
+        foreach (self::USERS as $userName) {
+            $user = new User();
+            $user->setEmail($userName['email']);
+            $user->setRoles($userName['roles']);
+            $hashedPassword = $this->passwordHasher->hashPassword(
+                $user,
+                $userName['password']
+            );
+            $user->setPassword($hashedPassword);
+            // adds a reference to User to bind it with an Address
+            $this->addReference('billingAddress_' . $number, $user);
+            $manager->persist($user);
+            $number++;
+        }
+        // Sauvegarde des 3 nouveaux utilisateurs :
         $manager->flush();
     }
 }
