@@ -36,7 +36,8 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        // Création d’un utilisateur de type “contributeur” (= auteur)
+        $number = 1;
+        // Création d'un utilisateur de type "contributeur" (= auteur)
         foreach (self::USERS as $userName) {
             $user = new User();
             $user->setEmail($userName['email']);
@@ -46,10 +47,12 @@ class UserFixtures extends Fixture
                 $userName['password']
             );
             $user->setPassword($hashedPassword);
+            // adds a reference to User to bind it with an Address
+            $this->addReference('billingAddress_' . $number, $user);
             $manager->persist($user);
+            $number++;
         }
-
-        // Sauvegarde des 2 nouveaux utilisateurs :
+        // Sauvegarde des 3 nouveaux utilisateurs :
         $manager->flush();
     }
 }
