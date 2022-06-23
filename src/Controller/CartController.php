@@ -23,11 +23,13 @@ class CartController extends AbstractController
 
 
         foreach ($cart as $id => $quantity) {
-            $cake = $cakeRepository->find($id);
-            $dataCart[] = [
-                "cake" => $cake,
-                "quantity" => $quantity,
-            ];
+            if (is_int($id)) {
+                $cake = $cakeRepository->find($id);
+                $dataCart[] = [
+                    "cake" => $cake,
+                    "quantity" => $quantity,
+                ];
+            }
             if (!empty($cake)) {
                 $total += $cake->getPrice() * $quantity;
             }
