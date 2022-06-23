@@ -189,6 +189,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $ordersFromBuyer->setSeller(null);
             }
         }
+
+        return $this;
     }
 
     public function getBillingAddress(): ?Address
