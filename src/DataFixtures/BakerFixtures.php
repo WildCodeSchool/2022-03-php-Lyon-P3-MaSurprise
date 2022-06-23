@@ -13,7 +13,7 @@ class BakerFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
-        for ($i = 1; $i < 50; $i++) {
+        for ($i = 3; $i < 51; $i++) {
             $baker = new Baker();
             $baker->setCreated($faker->dateTime);
             $commercialName = $faker->optional()->randomElement(
@@ -26,9 +26,11 @@ class BakerFixtures extends Fixture implements DependentFixtureInterface
             if (is_string($bakerType)) {
                 $baker->setBakerType($bakerType);
             }
-            $baker->setDeliveryAddress($faker->address());
+            //$baker->setDeliveryAddress($faker->address());
             $baker->setUser($this->getReference('user_' . $i));
-            $this->addReference('baker_' . $i, $baker);
+            $baker->setDeliveryAddress($this->getReference('deliveryAddress_' . $i));
+            $this->addReference('user_' . $i . '_baker_' . $i, $baker);
+
             $manager->persist($baker);
         }
         $manager->flush();
@@ -38,7 +40,7 @@ class BakerFixtures extends Fixture implements DependentFixtureInterface
     {
         return
             [
-                UserFixtures::class,
+                UserFixtures::class, AddressFixtures::class
             ];
     }
 }

@@ -4,14 +4,11 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Faker\Core\Number;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -29,8 +26,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private string $email;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $address;
+    //#[ORM\Column(type: 'string', length: 255, nullable: true)]
+    //private ?string $address;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $phone;
@@ -46,6 +43,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToOne(inversedBy: 'user', targetEntity: Baker::class, cascade: ['persist', 'remove'])]
     private $baker;
+    #[ORM\OneToOne(mappedBy: 'billingAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
+    private $billingAddress;
 
     public function getId(): ?int
     {
@@ -94,17 +93,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
+    //public function getAddress(): ?string
+    //{
+    //    return $this->address;
+    //}
 
-    public function setAddress(?string $address): self
-    {
-        $this->address = $address;
+    //public function setAddress(?string $address): self
+    //{
+    //    $this->address = $address;
 
-        return $this;
-    }
+    //    return $this;
+    //}
 
     public function getPhone(): ?string
     {
@@ -191,6 +190,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBaker(?Baker $baker): self
     {
         $this->baker = $baker;
+
+        return $this;
+    }
+
+    public function getBillingAddress(): ?Address
+    {
+        return $this->billingAddress;
+    }
+
+    public function setBillingAddress(Address $billingAddress): self
+    {
+        // set the owning side of the relation if necessary
+        if ($billingAddress->getBillingAddress() !== $this) {
+            $billingAddress->setBillingAddress($this);
+        }
+
+        $this->billingAddress = $billingAddress;
 
         return $this;
     }

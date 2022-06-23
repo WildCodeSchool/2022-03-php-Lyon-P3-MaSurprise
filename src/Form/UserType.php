@@ -51,7 +51,7 @@ class UserType extends AbstractType
                     'placeholder' => "Mot de passe"
                 ]],
             ])
-            ->add('address', TextareaType::class, [
+            ->add('billingAddress', AddressType::class, [
                 'label' => "Adresse*",
                 'required' => "Le champ Adresse est obligatoire"
                 ])

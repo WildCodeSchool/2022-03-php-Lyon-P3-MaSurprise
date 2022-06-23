@@ -3,12 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Baker;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Department;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -35,7 +38,7 @@ class BakerType extends AbstractType
                 'label' => "Nom de l'entreprise",
                 'required' => false,
                 ])
-            ->add('deliveryAddress', TextareaType::class, [
+            ->add('deliveryAddress', AddressType::class, [
                 'label' => "Adresse de livraison (si différente de l'adresse de facturation)",
                 ])
             ->add('logoFile', VichFileType::class, [

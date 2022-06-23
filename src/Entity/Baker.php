@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\BakerRepository;
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Cake;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BakerRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -26,9 +27,6 @@ class Baker
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $commercialName;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $deliveryAddress;
 
     #[ORM\OneToMany(mappedBy: 'baker', targetEntity: Cake::class, orphanRemoval: true)]
     private Collection $cakes;
@@ -87,10 +85,14 @@ class Baker
     #[ORM\OneToOne(mappedBy: 'baker', targetEntity: User::class, cascade: ['persist', 'remove'])]
     private $user;
 
+    #[ORM\OneToOne(mappedBy: 'deliveryAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
+    private $deliveryAddress;
+
     public function __construct()
     {
         $this->cakes = new ArrayCollection();
         $this->created = new DateTime();
+        $this->addresses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -118,18 +120,6 @@ class Baker
     public function setCommercialName(?string $commercialName): self
     {
         $this->commercialName = $commercialName;
-
-        return $this;
-    }
-
-    public function getDeliveryAddress(): ?string
-    {
-        return $this->deliveryAddress;
-    }
-
-    public function setDeliveryAddress(?string $deliveryAddress): self
-    {
-        $this->adeliveryAddress = $deliveryAddress;
 
         return $this;
     }
@@ -290,7 +280,7 @@ class Baker
 
         return $this;
     }
-
+    
     public function getUpdateAt(): ?\DateTimeInterface
     {
         return $this->updateAt;
@@ -321,6 +311,23 @@ class Baker
         }
 
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDeliveryAddress(): ?Address
+    {
+        return $this->deliveryAddress;
+    }
+
+    public function setDeliveryAddress(Address $deliveryAddress): self
+    {
+        // set the owning side of the relation if necessary
+        if ($deliveryAddress->getDeliveryAddress() !== $this) {
+            $deliveryAddress->setDeliveryAddress($this);
+        }
+
+        $this->deliveryAddress = $deliveryAddress;
 
         return $this;
     }
