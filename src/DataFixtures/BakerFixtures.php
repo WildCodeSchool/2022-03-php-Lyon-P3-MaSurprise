@@ -28,7 +28,6 @@ class BakerFixtures extends Fixture implements DependentFixtureInterface
             if (is_string($bakerType)) {
                 $baker->setBakerType($bakerType);
             }
-            //$baker->setDeliveryAddress($faker->address());
             if ($this->getReference('user_' . $i) instanceof User) {
                 $baker->setUser($this->getReference('user_' . $i));
             }

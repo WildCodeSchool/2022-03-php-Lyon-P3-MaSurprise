@@ -47,7 +47,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setLastname($faker->lastName());
         $user->setFirstname($faker->firstName());
         $user->setEmail('customer@gmail.com');
-        //$user->setAddress($faker->address());
         $user->setPhone($faker->phoneNumber());
         $user->setRoles(['ROLE_USER']);
         $hashedPassword = $this->passwordHasher->hashPassword(
@@ -66,7 +65,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin->setLastname($faker->lastName());
         $admin->setFirstname($faker->firstName());
         $admin->setEmail('admin@monsite.com');
-        //$admin->setAddress($faker->address());
         $admin->setPhone($faker->phoneNumber());
         $admin->setRoles(['ROLE_ADMIN']);
         $hashedPassword = $this->passwordHasher->hashPassword(
@@ -85,7 +83,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setLastname($faker->lastName());
             $user->setFirstname($faker->firstName());
             $user->setEmail($faker->email());
-            //$user->setAddress($faker->address());
             if ($this->getReference('billingAddress_' . $i) instanceof Address) {
                 $user->setBillingAddress($this->getReference('billingAddress_' . $i));
             }
@@ -97,8 +94,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             );
             $user->setPassword($hashedPassword);
             $this->addReference('user_' . $i, $user);
-            // adds a reference to User to bind it with an Address
-            //$this->addReference('billingAddress_' . $i, $user);
             $manager->persist($user);
         }
         // Sauvegarde des 3 nouveaux utilisateurs :

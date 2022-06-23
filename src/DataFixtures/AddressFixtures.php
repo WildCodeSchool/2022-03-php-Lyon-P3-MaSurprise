@@ -45,7 +45,6 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
             $address->setCity($faker->city());
             $address->setDepartment($this // @phpstan-ignore-line
                 ->getReference('department_' . $faker->departmentNumber())); // @phpstan-ignore-line
-            //$address->setDeliveryAddress($this->getReference('user_' . $i . '_baker_' . $i));
             $this->addReference('deliveryAddress_' . $j, $address);
             $manager->persist($address);
         }
@@ -60,8 +59,6 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
         // Tu retournes ici toutes les classes de fixtures dont addressFixtures dépend
         return [
             DepartmentFixtures::class,
-            //UserFixtures::class,
-            //BakerFixtures::class
         ];
     }
 }
