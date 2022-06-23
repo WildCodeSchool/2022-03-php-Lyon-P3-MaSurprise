@@ -133,8 +133,9 @@ class ResetPasswordController extends AbstractController
                     $passAuthUserInterf,
                     $form->get('plainPassword')->getData()
                 );
-
-                $user->setPassword($encodedPassword);
+                if ($user instanceof User) {
+                    $user->setPassword($encodedPassword);
+                }
                 $this->entityManager->flush();
 
                 // The session is cleaned up after the password has been changed.
