@@ -20,9 +20,7 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
     {
         for ($n = 1; $n < 4; $n++) {
             $faker = Factory::create('fr_FR');
-            // $product = new Product();
             $address = new Address();
-            // $manager->persist($product);
 
             // fixtures regarding address information for addresss
             $address->setStreetNumber($faker->randomNumber(2, true));
@@ -40,7 +38,6 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
 
         for ($n = 0; $n < 50; $n++) {
             $faker = Factory::create('fr_FR');
-            // $product = new Product();
             $address = new Address();
 
             // fixtures regarding address information for addresss
@@ -55,7 +52,6 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
             if ($deliveryAddress instanceof Baker) {
                 $address->setDeliveryAddress($deliveryAddress);
             }
-            // $manager->persist($product);b
             $manager->persist($address);
         }
         $manager->flush();
