@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Address;
 use App\Entity\Baker;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -85,7 +86,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setFirstname($faker->firstName());
             $user->setEmail($faker->email());
             //$user->setAddress($faker->address());
-            $user->setBillingAddress($this->getReference('billingAddress_' . $i));
+            if ($this->getReference('billingAddress_' . $i) instanceof Address) {
+                $user->setBillingAddress($this->getReference('billingAddress_' . $i));
+            }
             $user->setPhone($faker->phoneNumber());
             $user->setRoles(['ROLE_USER']);
             $hashedPassword = $this->passwordHasher->hashPassword(
