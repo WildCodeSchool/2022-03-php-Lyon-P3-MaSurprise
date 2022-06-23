@@ -20,13 +20,17 @@ class CartController extends AbstractController
         $cart = $session->get("cart", []);
         $dataCart = [];
         $total = 0;
+
         foreach ($cart as $id => $quantity) {
-            $cake = $cakeRepository->find($id);
-            $dataCart[] = [
-                "cake" => $cake,
-                "quantity" => $quantity,
-            ];
-            $total += $cake->getPrice() * $quantity;
+            if (is_int($id)) {
+                $cake = $cakeRepository->find($id);
+                $dataCart[] = [
+                    "cake" => $cake,
+                    "quantity" => $quantity,
+                ];
+
+                $total += $cake->getPrice() * $quantity;
+            }
         }
 
         return $this->render('cart/index.html.twig', [
