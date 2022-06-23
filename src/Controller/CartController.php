@@ -20,15 +20,18 @@ class CartController extends AbstractController
         $cart = $session->get("cart", []);
         $dataCart = [];
         $total = 0;
+
         if (is_array($cart)) {
             foreach ($cart as $id => $quantity) {
-                $cake = $cakeRepository->find($id);
-                $dataCart[] = [
-                    "cake" => $cake,
-                    "quantity" => $quantity,
-                ];
+                if (is_int($id) && is_int($quantity)) {
+                    $cake = $cakeRepository->find($id);
+                    $dataCart[] = [
+                        "cake" => $cake,
+                        "quantity" => $quantity,
+                    ];
 
-                $total += $cake->getPrice() * $quantity;
+                    $total += $cake->getPrice() * $quantity;
+                }
             }
         }
 
