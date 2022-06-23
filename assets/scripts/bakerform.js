@@ -7,7 +7,7 @@ const logoFile = document.getElementById('logoFile');
 const siretFile = document.getElementById('siretFile');
 const diplomaFile = document.getElementById('diplomaFile');
 
-radio.addEventListener('change', function() {
+radio.addEventListener('change', function () {
     for (const radioBtn of radioBtns) {
         if (radioBtn.checked && radioBtn.value === "professionnel") {
             commercialName.classList.remove('hidden');
