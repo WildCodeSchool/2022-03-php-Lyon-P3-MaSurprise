@@ -36,15 +36,17 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(BakerType::class, $baker);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('user')->get('password')->getData()
-                )
-            );
-                $entityManager->persist($baker);
-                $entityManager->flush();
-            return $this->redirectToRoute('app_home');
+            if (is_string($form->get('user')->get('password')->getData())) {
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('user')->get('password')->getData()
+                    )
+                );
+                    $entityManager->persist($baker);
+                    $entityManager->flush();
+                return $this->redirectToRoute('app_home');
+            }
         }
         return $this->renderForm('baker/new.html.twig', [
             'form' => $form, 'baker' => $baker
@@ -61,15 +63,17 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
-            );
-                $entityManager->persist($user);
-                $entityManager->flush();
-            return $this->redirectToRoute('app_home');
+            if (is_string($form->get('password')->getData())) {
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                );
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+                return $this->redirectToRoute('app_home');
+            }
         }
         return $this->renderForm('user/new.html.twig', [
             'form' => $form, 'user' => $user
