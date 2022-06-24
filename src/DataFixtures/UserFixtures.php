@@ -2,12 +2,16 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Address;
+use App\Entity\Baker;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     public const USERS = [
         [
@@ -36,23 +40,71 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $number = 1;
-        // Création d'un utilisateur de type "contributeur" (= auteur)
-        foreach (self::USERS as $userName) {
+        // Création d’un utilisateur de type “contributeur” (= auteur)
+
+        $faker = Factory::create('fr_FR');
+        $user = new User();
+        $user->setLastname($faker->lastName());
+        $user->setFirstname($faker->firstName());
+        $user->setEmail('customer@gmail.com');
+        $user->setPhone($faker->phoneNumber());
+        $user->setRoles(['ROLE_USER']);
+        $hashedPassword = $this->passwordHasher->hashPassword(
+            $user,
+            'customerpassword'
+        );
+
+        $user->setPassword($hashedPassword);
+        $this->addReference('user_1', $user);
+        $manager->persist($user);
+
+
+        // Création d’un utilisateur de type “administrateur”
+        $faker = Factory::create('fr_FR');
+        $admin = new User();
+        $admin->setLastname($faker->lastName());
+        $admin->setFirstname($faker->firstName());
+        $admin->setEmail('admin@monsite.com');
+        $admin->setPhone($faker->phoneNumber());
+        $admin->setRoles(['ROLE_ADMIN']);
+        $hashedPassword = $this->passwordHasher->hashPassword(
+            $admin,
+            'adminpassword'
+        );
+        $admin->setPassword($hashedPassword);
+        $this->addReference('user_2', $admin);
+        $manager->persist($admin);
+
+
+        // Création d’un utilisateur de type “contributeur” (= auteur)
+        $faker = Factory::create('fr_FR');
+        for ($i = 3; $i < 101; $i++) {
             $user = new User();
-            $user->setEmail($userName['email']);
-            $user->setRoles($userName['roles']);
+            $user->setLastname($faker->lastName());
+            $user->setFirstname($faker->firstName());
+            $user->setEmail($faker->email());
+            if ($this->getReference('billingAddress_' . $i) instanceof Address) {
+                $user->setBillingAddress($this->getReference('billingAddress_' . $i));
+            }
+            $user->setPhone($faker->phoneNumber());
+            $user->setRoles(['ROLE_USER']);
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,
-                $userName['password']
+                $faker->password(8, 15)
             );
             $user->setPassword($hashedPassword);
-            // adds a reference to User to bind it with an Address
-            $this->addReference('billingAddress_' . $number, $user);
+            $this->addReference('user_' . $i, $user);
             $manager->persist($user);
-            $number++;
         }
         // Sauvegarde des 3 nouveaux utilisateurs :
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return
+            [
+                AddressFixtures::class
+            ];
     }
 }
