@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos gâteaux - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container container-card">
+        <div class="row d-flex justify-content-start">
+            <h1 class="title-show text-center col-12">Nos gâteaux</h1>
+            <p>
+                <a class="btn btn-secondary text-light" data-bs-toggle="collapse" href="#collapseFilters" role="button"
+                   aria-expanded="false" aria-controls="collapseFilters">
+                    Filtres
+                </a>
+            </p>
+            <div class="collapse" id="collapseFilters">
+                <div class="container-fluid card card-body bg-light">
+                    <div class="row">
+                        <div class="col-2">
+                            <h4>Rechercher</h4>
+                            {{ include('components/_filterform.html.twig') }}
+                        </div>
+                        {#                        FOR TESTING PURPOSES, WILL BE UPDATED #}
+                        <div class="col-2">
+                            <h4>Département</h4>
+                            <select class="form-select">
+                                <option selected>Choisir...</option>
+                                <option value="1">01 - Ain</option>
+                                <option value="2">02 - Aisne</option>
+                                <option value="69">69 - Rhône</option>
+                                <option>etc.</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <h4>Catégorie</h4>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios"
+                                       value="option1" checked>
+                                <label class="form-check-label" for="exampleRadios">Gâteaux</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios"
+                                       value="option1" checked>
+                                <label class="form-check-label" for="exampleRadios">Pièces montées</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios"
+                                       value="option1" checked>
+                                <label class="form-check-label" for="exampleRadios">Pâtisseries</label>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <h4>Évènement</h4>
+                            <div class="form-check">
+                                <input name="check" class="form-check-input" type="checkbox" value="anniversaire">
+                                <label class="form-check-label" for="check1">Anniversaire</label>
+                            </div>
+                            <div class="form-check">
+                                <input name="check" class="form-check-input" type="checkbox" value="mariage">
+                                <label class="form-check-label" for="check2">Mariage</label>
+                            </div>
+                            <div class="form-check">
+                                <input name="check" class="form-check-input" type="checkbox" value="bapteme">
+                                <label class="form-check-label" for="check3">Baptême</label>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <h4>Thème</h4>
+                            <div class="form-check">
+                                <input name="checkb" class="form-check-input" type="checkbox" value="anniversaire">
+                                <label class="form-check-label" for="check1b">Super-héros</label>
+                            </div>
+                            <div class="form-check">
+                                <input name="checkb" class="form-check-input" type="checkbox" value="anniversaire">
+                                <label class="form-check-label" for="check2b">Animaux</label>
+                            </div>
+                            <div class="form-check">
+                                <input name="checkb" class="form-check-input" type="checkbox" value="anniversaire">
+                                <label class="form-check-label" for="check3b">Poneys</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            {% for message in app.flashes('notice') %}
+                <div class="flash-notice">
+                    <h2 class="text-primary">{{ message }}</h2>
+                </div>
+            {% endfor %}
+
+            {% if search and not app.flashes('notice') %}
+                <p>{{ cakes|length }} résultats correspondant à "{{ search }}"</p>
+            {% else %}
+                <p>{{ cakes|length }} gâteaux</p>
+            {% endif %}
+
+            <div id="cake-list" class="container-fluid container-lg">
+                <div class="row justify-content-center">
+                    {% for cake in cakes %}
+                        <div class="cake-card col-6 col-md-4 d-flex flex-column  p-2 p-lg-4">
+                            <a href="{{ path('app_cake_show', {'id': cake.id}) }}">
+                                <img class="cake-img img-fluid" src="{{ asset('build/images/gateau.jpg') }}"
+                                     alt="cake img">
+                            </a>
+                            <div class="mt-2">
+                                <a class="text-decoration-none" href="{{ path('app_cake_show', {'id': cake.id}) }}">
+                                    <h1 class="cake-name text-dark text-decoration-none m-0">{{ cake.name }}</h1>
+                                </a>
+                            </div>
+                            <div class="cake-stars d-flex align-items-baseline pt-2">
+                                <div class="d-flex flex-row align-items-center">
+                                    {% for i in 1..5 %}
+                                        <img class="img-fluid" src="{{ asset('build/images/icons/Star_15.png') }}">
+                                    {% endfor %}
+                                    <p class="avis m-0">{{ random(2, 36) }} avis</p>
+                                </div>
+                            </div>
+                            <div class="cake-price-rev m-0 p-0 d-flex flex-row justify-content-between">
+                                <p class="cake-disponibility m-0">Disponnible dans 10 jours</p>
+                                <p class="cake-price m-0">{{ cake.price }}€</p>
+                            </div>
+                            <div class="d-flex align-items-baseline mt-1 p-0 justify-content-between">
+                                <div class="d-flex">
+                                    <img src="{{ asset('build/images/icons/hat.png') }}" class="hat img-fluid w-auto"
+                                         alt="cake img">
+                                    <h5 class="baker-name text-start opacity-50">
+                                        {{ cake.baker.lastname }}.{{ cake.baker.firstname |slice(0, 1) }}
+                                    </h5>
+                                </div>
+                                <div><P class="m-0">Lyon</P>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -2,15 +2,25 @@
 
 namespace App\Controller;
 
+use App\Repository\DepartmentRepository;
+use App\Form\SearchCakeFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/', name: 'app_')]
 class HomeController extends AbstractController
 {
-    #[Route('/', name: 'app_home')]
-    public function index(): Response
+    #[Route('/', name: 'home')]
+    public function index(Request $request, DepartmentRepository $departmentRepository): Response
     {
-        return $this->render('home/index.html.twig');
+        // creating form which will redirect to cakes page when submitted
+        $searchForm = $this->createForm(SearchCakeFormType::class);
+        $departments = $departmentRepository->findAll();
+        return $this->renderForm('home/index.html.twig', [
+            'searchForm' => $searchForm,
+            'departments' => $departments,
+        ]);
     }
 }

@@ -1,0 +1,486 @@
+/* ---------- REDEFINING BOOTSTRAP COLOURS ---------- */
+$primary: #B1367E;
+$light: #FCF5EE;
+$secondary: #E3A7A7;
+
+
+/* ---------- VARIABLES ---------- */
+:root {
+    --background-dark: #EFEAE4;
+    --background-light: #FCF5EE;
+    --background-footer-navbar: #EEEEEE;
+    --background-lightblue: #86D1DE;
+    --text-title-pink: #B1367E;
+    --text-red: #C92A00;
+    --text-pink: #ffd9da;
+    --text-pinkred: #C46A88;
+    --text-pinkorange: #FF7C82;
+    --text-orange: #D67826;
+    --text-purple: #6165A0;
+    --text-lightblue: #75BDD3;
+    --text-lightblue-hover: #75a4d3;
+    --text-darkgreen: #608441;
+    --text-maroon: #C4B192;
+    --box-shadow: rgba(60, 64, 67, 0.3) 2px 2px 5px 2px;
+}
+
+/* ---------- FONTS ---------- */
+@font-face {
+    font-family: 'Prata';
+    src: url('../fonts/Prata/Prata-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Cuprum';
+    src: url('../fonts/Cuprum/Cuprum-VariableFont_wght.ttf') format('truetype'),
+    url('../fonts/Cuprum/Cuprum-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Karla';
+    src: url('../fonts/Karla/Karla-VariableFont_wght.ttf') format('truetype'),
+    url('../fonts/Karla/Karla-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins/Poppins-Black.ttf') format('truetype');
+}
+
+/* ---------- GLOBAL POLICIES ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding-top: 175px;
+    background-color: #B1367E;
+    font-family: "Karla", sans-serif;
+}
+
+.main-padding-container {
+    padding-top: 30px;
+}
+
+.antipadding-container {
+    margin-top: -30px;
+}
+
+/* ---------- GLOBAL COLOURS ---------- */
+.text-red {
+    color: var(--text-red);
+}
+
+.text-pink {
+    color: var(--text-pink);
+}
+
+.text-pinkred {
+    color: var(--text-pinkred);
+}
+
+.text-pinkorange {
+    color: var(--text-pinkorange);
+}
+
+.text-orange {
+    color: var(--text-orange);
+}
+
+.text-purple {
+    color: var(--text-purple);
+}
+
+.text-lightblue {
+    color: var(--text-lightblue);
+}
+
+.text-darkgreen {
+    color: var(--text-darkgreen);
+}
+
+.text-maroon {
+    color: var(--text-maroon);
+}
+
+.border-red {
+    border: 1px solid;
+    border-color: var(--text-red);
+}
+
+.border-lightblue {
+    border: 1px solid;
+    border-color: var(--text-lightblue);
+}
+
+.border-darkgreen {
+    border: 1px solid;
+    border-color: var(--text-darkgreen);
+}
+
+.border-pinkorange {
+    border: 1px solid;
+    border-color: var(--text-pinkorange);
+}
+
+.border-orange {
+    border: 1px solid;
+    border-color: var(--text-orange);
+}
+
+/* ---------- HOMEPAGE ---------- */
+/* ----- general ----- */
+h1, h2, h3, h4 {
+    font-family: "Prata", sans-serif;
+    margin: 20px;
+}
+
+.main-theme-container-title,
+.main-how-to-container-title,
+.main-sweet-dream-container-title,
+.main-references-container-title {
+    font-size: 48pt;
+}
+
+.main-theme-container,
+.main-how-to-container,
+.main-sweet-dream-container,
+.main-references-container {
+    padding: 50px;
+}
+
+/* ----- header ----- */
+.header-img {
+    background-image: url("../images/header.jpg");
+    background-position: center center;
+    background-size: cover;
+    height: 740px;
+}
+
+.header-subtext {
+    background-color: rgba(255, 255, 255, 0.27);
+    padding: 20px;
+}
+
+/* ----- NAVBAR ----- */
+
+@media (min-width: 0px) and (max-width: 767px) {
+    #desktop-nav {
+        display: none;
+    }
+    #mobile-nav {
+        display: flex;
+    }
+}
+
+@media (min-width: 768px) {
+    #desktop-nav {
+        display: flex;
+    }
+    #mobile-nav {
+        display: none;
+    }
+}
+
+#desktop-nav, #mobile-nav {
+    min-height: 160px;
+}
+
+.navbar-colour {
+    background-color: #EEEEEE;
+}
+
+.logo-picture {
+    width: 150px;
+    height: 150px;
+}
+
+.nav-icon {
+    width: 43px;
+    height: 43px;
+}
+
+.navbar {
+    box-shadow: var(--box-shadow);
+}
+
+.navbar a {
+    font-family: "Prata";
+    font-size: 16pt;
+}
+
+/* ----- themes ----- */
+.theme-container {
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+.theme-subcontainer {
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+.theme-button {
+    background-color: white;
+    height: 320px;
+    width: 320px;
+    border-radius: 6px;
+    padding: 30px;
+}
+
+.theme-button p {
+    font-size: 11.5pt;
+}
+
+.theme-button:hover {
+    cursor: pointer;
+    box-shadow: rgba(60, 64, 67, 0.3) 0 0 10px 5px;
+}
+
+.theme-img {
+    width: 100px;
+    height: 100px;
+}
+
+/* ----- sweet dream ----- */
+.main-sweet-dream-container {
+    background-color: var(--background-dark);
+}
+
+.sweet-dream-container {
+    row-gap: 10vh;
+    width: 85%;
+}
+
+.carousel-container {
+    column-gap: 15px;
+}
+
+.carousel-img {
+    width: 300px;
+    height: 300px;
+    border: 10px solid white;
+    object-fit: cover;
+    box-shadow: var(--box-shadow);
+}
+
+.carousel-side-text {
+    margin: 0 40px 0 40px;
+    text-align: center;
+}
+
+.carousel-side-text button {
+    margin-bottom: 15px;
+}
+
+.side-left {
+    order: 1;
+}
+
+@media screen and (max-width: 1380px) {
+    .carousel-img {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .carousel-img {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .carousel-img {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .side-left {
+        order: initial;
+    }
+}
+
+/* ----- how to ----- */
+.main-how-to-container {
+    background-color: var(--background-dark);
+}
+
+.how-to-light-bg {
+    background-color: var(--background-light);
+    padding: 40px;
+}
+
+.how-to-container {
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+.how-to {
+    border-radius: 6px;
+    width: 400px;
+    padding: 30px;
+}
+
+/* ----- references ----- */
+.main-ratings-container {
+    column-gap: 20px;
+}
+
+.ratings-container {
+    border: 1px solid #D67826;
+    border-radius: 6px;
+    height: 370px;
+    width: 400px;
+    padding: 30px;
+    background-color: white;
+}
+
+.ratings-container h3 {
+    color: #B1367E;
+}
+
+.comment-img {
+    width: 135px;
+    height: 135px;
+    border-radius: 100%;
+}
+
+.separator {
+    width: 100px;
+    height: 2px;
+    margin: 50px 0 50px 0;
+}
+
+.floating-logos {
+    column-gap: 30px;
+}
+
+.floating-img {
+    height: 80px;
+}
+
+.float1 {
+    animation: float1 6s ease-in-out infinite;
+}
+
+.float2 {
+    animation: float2 6s ease-in-out infinite;
+}
+
+@keyframes float1 {
+    0% {
+        -webkit-filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        transform: translatey(0px);
+    }
+    50% {
+        -webkit-filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
+        transform: translatey(-20px);
+    }
+    100% {
+        -webkit-filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        transform: translatey(0px);
+    }
+}
+
+@keyframes float2 {
+    0% {
+        -webkit-filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
+        transform: translatey(-20px);
+    }
+    50% {
+        -webkit-filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
+        transform: translatey(0px);
+    }
+    100% {
+        -webkit-filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
+        transform: translatey(-20px);
+    }
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+    height: 300px;
+    background-color: var(--background-footer-navbar);
+    padding: 50px;
+}
+
+footer h4 {
+    font-size: 25px;
+}
+
+footer ul {
+    list-style-type: none;
+}
+
+footer ul a {
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+}
+
+.footer-logo {
+    height: 200px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* ---------- CONNEXION MODAL ---------- */
+$modal-backdrop-bg: white;
+$modal-backdrop-opacity: 0.8;
+
+.btn-connection {
+    background-color: var(--background-lightblue);
+    color: white;
+    height: 8vh;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Karla';
+    transition: ease 0.5s;
+}
+
+.btn-connection:hover {
+    background-color: #75a4d3;
+    transition: ease 0.5s;
+}
+
+.modal-footer {
+    justify-content: space-around;
+    font-family: 'Karla';
+}
+
+.connection-fields {
+    height: 5vh;
+    background-color: white;
+    border: rgba(0, 0, 0, 0.75) 1;
+    font-family: 'Karla';
+}
+
+.forgotten-password, .create-account {
+    color: black;
+    text-decoration: none;
+    font-family: 'Karla';
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.modal-header, .modal-body, .modal-footer {
+    background-color: var(--background-light);
+    font-family: 'Karla';
+}
+
+.modal-title {
+    font-family: Prata;
+}

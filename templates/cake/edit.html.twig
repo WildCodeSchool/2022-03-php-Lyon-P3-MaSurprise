@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier votre pâtisserie - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Modifier votre pâtisserie</h1>
+
+    {{ include('cake/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+
+    <a href="{{ path('app_cake_index') }}">Retour à la liste</a>
+
+    {{ include('cake/_delete_form.html.twig') }}
+{% endblock %}
