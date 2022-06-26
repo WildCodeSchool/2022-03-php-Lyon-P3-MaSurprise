@@ -43,6 +43,14 @@ class Address
     #[ORM\JoinColumn(nullable: true)]
     private $deliveryAddress;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $status = true;
+
+    public function __toString()
+    {
+        return $this->department;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -152,6 +160,18 @@ class Address
     public function setDeliveryAddress(?Baker $deliveryAddress): self
     {
         $this->deliveryAddress = $deliveryAddress;
+
+        return $this;
+    }
+
+    public function isStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

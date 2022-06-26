@@ -356,7 +356,7 @@ class Baker
 
         return $this;
     }
-    
+
     public function getUpdateAt(): ?\DateTimeInterface
     {
         return $this->updateAt;

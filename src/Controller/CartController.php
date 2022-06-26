@@ -21,7 +21,6 @@ class CartController extends AbstractController
         $dataCart = [];
         $total = 0;
 
-
         if (is_array($cart)) {
             foreach ($cart as $id => $quantity) {
                 $cake = $cakeRepository->find($id);
@@ -38,7 +37,6 @@ class CartController extends AbstractController
         return $this->render('cart/index.html.twig', ["datacart" => $dataCart,
             "total" => $total,]);
     }
-
 
     #[Route('/add/{id}', name: 'add')]
     public function add(CartService $cartService, int $id, SessionInterface $session): Response
