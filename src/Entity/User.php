@@ -19,8 +19,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private int $id;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $lastname;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $firstname;
+
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private string $email;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $phone;
 
     #[ORM\Column(type: 'json')]
     private array $roles = [];
@@ -37,18 +46,51 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'seller', targetEntity: Order::class)]
     private Collection $ordersFromBuyers;
 
+    #[ORM\OneToOne(mappedBy: 'billingAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
+    private ?Address $billingAddress;
+
+    #[ORM\OneToOne(inversedBy: 'user', targetEntity: Baker::class, cascade: ['persist', 'remove'])]
+    private ?Baker $baker;
+
     public function __construct()
     {
         $this->ordersToSellers = new ArrayCollection();
         $this->ordersFromBuyers = new ArrayCollection();
     }
 
-    #[ORM\OneToOne(mappedBy: 'billingAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
-    private ?Address $billingAddress;
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    // gets the fullname and displays it inside the form: CakeType
+    public function getFullName(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 
     public function getEmail(): ?string
@@ -59,6 +101,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }
@@ -189,6 +243,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $ordersFromBuyer->setSeller(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBaker(): ?Baker
+    {
+        return $this->baker;
+    }
+
+    public function setBaker(?Baker $baker): self
+    {
+        $this->baker = $baker;
 
         return $this;
     }

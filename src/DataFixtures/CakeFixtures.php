@@ -14,7 +14,7 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
-        for ($i = 0; $i < 317; $i++) {
+        for ($i = 1; $i < 317; $i++) {
             $cake = new Cake();
             $cake->setCreated($faker->dateTimeInInterval('+1 months', '+1 months'));
             $name = $faker->randomElement(
@@ -33,7 +33,8 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
             if (is_string($size)) {
                 $cake->setSize($size);
             }
-            $baker = $this->getReference('baker_' . $faker->numberBetween(0, 49));
+            $reference = $faker->numberBetween(0, 49);
+            $baker = $this->getReference('user_' . $reference . '_baker_' . $reference);
             if ($baker instanceof Baker) {
                 $cake->setBaker($baker);
             }

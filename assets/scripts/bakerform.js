@@ -1,16 +1,18 @@
 const radio = document.getElementById('baker_bakerType')
 const radioBtns = document.querySelectorAll('input[name="baker[bakerType]"]');
 const commercialName = document.getElementById('commercialName');
+const deliveryAddress = document.getElementById('deliveryAddress');
 const facebook = document.getElementById('facebook');
 const instagram = document.getElementById('instagram');
 const logoFile = document.getElementById('logoFile');
 const siretFile = document.getElementById('siretFile');
 const diplomaFile = document.getElementById('diplomaFile');
 
-radio.addEventListener('change', function() {
+radio.addEventListener('change', function () {
     for (const radioBtn of radioBtns) {
         if (radioBtn.checked && radioBtn.value === "professionnel") {
             commercialName.classList.remove('hidden');
+            deliveryAddress.classList.remove('hidden');
             facebook.classList.remove('hidden');
             instagram.classList.remove('hidden');
             logoFile.classList.remove('hidden');
@@ -19,6 +21,7 @@ radio.addEventListener('change', function() {
         }
         if (radioBtn.checked && radioBtn.value === "amateur") {
             commercialName.classList.add('hidden');
+            deliveryAddress.classList.add('hidden');
             facebook.classList.add('hidden');
             instagram.classList.add('hidden');
             logoFile.classList.add('hidden');

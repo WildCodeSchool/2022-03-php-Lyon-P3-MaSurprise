@@ -18,8 +18,9 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
     // creating addresses for Users
     public function load(ObjectManager $manager): void
     {
-        for ($n = 1; $n < 4; $n++) {
-            $faker = Factory::create('fr_FR');
+        $faker = Factory::create('fr_FR');
+
+        for ($i = 50; $i < 200; $i++) {
             $address = new Address();
 
             // fixtures regarding address information for addresss
@@ -28,16 +29,13 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
             $address->setPostcode($faker->randomNumber(5, true));
             $address->setCity($faker->city());
             $address->setDepartment($this // @phpstan-ignore-line
-                ->getReference('department_' . $faker->departmentNumber())); // @phpstan-ignore-line
-            $billingAddress = $this->getReference('billingAddress_' . $n);
-            if ($billingAddress instanceof User) {
-                $address->setBillingAddress($billingAddress);
-            }
+            ->getReference('department_' . $faker->departmentNumber())); // @phpstan-ignore-line
+            //$address->setBillingAddress($this->getReference('user_' . $i));
+            $this->addReference('billingAddress_' . $i, $address);
             $manager->persist($address);
         }
 
-        for ($n = 0; $n < 50; $n++) {
-            $faker = Factory::create('fr_FR');
+        for ($j = 0; $j < 100; $j++) {
             $address = new Address();
 
             // fixtures regarding address information for addresss
@@ -46,17 +44,13 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
             $address->setPostcode($faker->randomNumber(5, true));
             $address->setCity($faker->city());
             $address->setDepartment($this // @phpstan-ignore-line
-                ->getReference('department_' . $faker->departmentNumber())); // @phpstan-ignore-line
-
-            $deliveryAddress = $this->getReference('baker_' . $n);
-            if ($deliveryAddress instanceof Baker) {
-                $address->setDeliveryAddress($deliveryAddress);
-            }
+            ->getReference('department_' . $faker->departmentNumber())); // @phpstan-ignore-line
+            $this->addReference('deliveryAddress_' . $j, $address);
             $manager->persist($address);
         }
+
         $manager->flush();
     }
-
 
 
     public function getDependencies()
@@ -64,8 +58,6 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
         // Tu retournes ici toutes les classes de fixtures dont addressFixtures dépend
         return [
             DepartmentFixtures::class,
-            UserFixtures::class,
-            BakerFixtures::class
         ];
     }
 }

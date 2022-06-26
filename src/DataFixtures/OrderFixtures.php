@@ -56,7 +56,7 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
                 ->setDepartment(strval($faker->randomNumber(2, true)))
                 ->setCakePrice($faker->randomFloat(2, 50, 300))
                 ->setCollectDate($faker->dateTimeInInterval('+3 months', '+1 months'));
-            $buyer = $this->getReference('buyer_' . $faker->numberBetween(0, 49));
+            $buyer = $this->getReference('buyer_' . $faker->numberBetween(50, 150));
             if ($buyer instanceof User) {
                 $order->setBuyer($buyer);
             };

@@ -1,0 +1,30 @@
+<!-- Modal -->
+
+<div class="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title text-primary" id="exampleModalLabel">Connexion</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body container">
+                                <form action="" method="post" class="row">
+									<label for="username"></label>
+									<input type="text" id="username" name="_username" placeholder="Email" class="w-75 mb-3 connection-fields"/>
+									<label for="password"></label>
+									<input type="password" id="password" name="_password" placeholder="Mot de passe" class="w-75 mb-3 connection-fields"/>
+									<input type="hidden" name="_target_path" value="/"/>
+									<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+									<button type="submit" class="btn-connection mt-3">Connexion</button>
+									{% if error is defined %}
+        							<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    								{% endif %}
+								</form>
+							</div>
+							<div class="modal-footer container d-flex justify-content-around pb-3">
+								<a class="forgotten-password" href="{{path('app_forgot_password_request')}}">Mot de passe oublié</a>
+								<a class="create-account" href="{{path('app_register_type')}}">Créer un compte</a>
+							</div>
+						</div>
+					</div>
+				</div>

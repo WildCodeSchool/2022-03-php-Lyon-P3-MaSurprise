@@ -2,38 +2,52 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Address;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use App\Entity\Baker;
+use App\Entity\User;
 
-class BakerFixtures extends Fixture
+class BakerFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
         for ($i = 0; $i < 50; $i++) {
             $baker = new Baker();
-            $baker->setCreated($faker->dateTime);
-            $baker->setLastname($faker->lastName());
-            $baker->setFirstname($faker->firstName());
+            $baker->setCreated($faker->dateTimeInInterval('-5 months', '+3 months'));
             $commercialName = $faker->optional()->randomElement(
                 ['La fée des gâteaux', 'Super Cake', 'Maison Truffe', 'Cakery Lina', 'Chef Alex', 'Gâteau sur commande']
             );
             if (is_string($commercialName)) {
                 $baker->setCommercialname($commercialName);
             }
+            $baker->setFacebook("https://www.facebook.com/MyCakeEvent");
+            $baker->setSiret(strval($faker->numberBetween(12345678901234, 98765432109876)));
             $bakerType = $faker->randomElement(['professionnel', 'amateur']);
             if (is_string($bakerType)) {
                 $baker->setBakerType($bakerType);
             }
-            $baker->setEmail($faker->email());
-            $baker->setPassword($faker->password(8, 15));
-            $baker->setPhone($faker->phoneNumber());
-            $this->addReference('baker_' . $i, $baker);
+            if ($this->getReference('user_' . $i) instanceof User) {
+                $baker->setUser($this->getReference('user_' . $i));
+            }
+            if ($this->getReference('deliveryAddress_' . $i) instanceof Address) {
+                $baker->setDeliveryAddress($this->getReference('deliveryAddress_' . $i));
+            }
+            $this->addReference('user_' . $i . '_baker_' . $i, $baker);
 
             $manager->persist($baker);
         }
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return
+            [
+                UserFixtures::class, AddressFixtures::class,
+            ];
     }
 }
