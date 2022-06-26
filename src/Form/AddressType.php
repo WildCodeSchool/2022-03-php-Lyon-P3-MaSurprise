@@ -14,48 +14,24 @@ class AddressType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add(
-                'streetNumber',
-                NumberType::class,
-                [
-                    'label' => 'Numéro de rue',
-                ]
-            )
-            ->add(
-                'bisTerInfo',
-                TextType::class,
-                [
-                    'label' => 'Complément',
-                ]
-            )
-            ->add(
-                'streetName',
-                TextType::class,
-                [
-                    'label' => 'Nom de la rue',
-                ]
-            )
-            ->add(
-                'postcode',
-                NumberType::class,
-                [
-                    'label' => 'Code postal',
-                ]
-            )
-            ->add(
-                'city',
-                TextType::class,
-                [
-                    'label' => 'Ville',
-                ]
-            )
-            ->add(
-                'extraInfo',
-                TextType::class,
-                [
-                    'label' => 'Informations complémentaires',
-                ]
-            );
+            ->add('streetNumber', NumberType::class, [
+                'label' => 'Numéro de rue'
+            ])
+            ->add('bisTerInfo', TextType::class, [
+                'label' => 'Complément de numéro'
+            ])
+            ->add('streetName', TextType::class, [
+                'label' => 'Nom de la rue'
+            ])
+            ->add('postcode', NumberType::class, [
+                'label' => 'Code postal'
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Ville'
+            ])
+            ->add('extraInfo', TextType::class, [
+                'label' => 'Informations supplémentaires'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

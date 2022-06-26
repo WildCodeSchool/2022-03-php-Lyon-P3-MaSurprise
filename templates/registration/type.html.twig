@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un compte{% endblock %}
+
+{% block body %}
+
+        <h1 class="text-primary text-center">Créer un compte</h1>
+    <div class="d-flex flex-column m-5">
+        <div class="d-flex justify-content-center">
+            <a href="{{ path('app_register_baker')}}" class="btn btn-primary mt-4 m-3">Compte pâtissier</a>
+            <a href="{{ path('app_register_user')}}" class="btn btn-primary mt-4 m-3">Compte client</a>
+        </div>
+    </div>
+
+{% endblock %}

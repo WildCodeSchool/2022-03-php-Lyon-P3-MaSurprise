@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/cake', name: 'app_cake_')]
+#[Route('/gateau', name: 'app_cake_')]
 class CakeController extends AbstractController
 {
     #[Route('/', name: 'index')]
@@ -60,7 +60,7 @@ class CakeController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
+    #[Route('/nouveau', name: 'new', methods: ['GET', 'POST'])]
     public function new(CakeRepository $cakeRepository, Request $request): Response
     {
         $cake = new Cake();
