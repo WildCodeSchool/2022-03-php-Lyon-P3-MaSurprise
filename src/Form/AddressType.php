@@ -18,7 +18,7 @@ class AddressType extends AbstractType
                 'label' => 'Numéro de rue'
             ])
             ->add('bisTerInfo', TextType::class, [
-                'label' => 'Bis ou Ter'
+                'label' => 'Complément de numéro'
             ])
             ->add('streetName', TextType::class, [
                 'label' => 'Nom de la rue'
@@ -31,8 +31,7 @@ class AddressType extends AbstractType
             ])
             ->add('extraInfo', TextType::class, [
                 'label' => 'Informations supplémentaires'
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

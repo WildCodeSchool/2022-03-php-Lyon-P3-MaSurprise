@@ -18,6 +18,7 @@ class HomeController extends AbstractController
         // creating form which will redirect to cakes page when submitted
         $searchForm = $this->createForm(SearchCakeFormType::class);
         $departments = $departmentRepository->findAll();
+
         return $this->renderForm('home/index.html.twig', [
             'searchForm' => $searchForm,
             'departments' => $departments,
