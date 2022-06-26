@@ -28,7 +28,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user = new User();
         $user->setLastname($faker->lastName());
         $user->setFirstname($faker->firstName());
-        $user->setEmail($faker->email());
+        $user->setEmail("admin@admin.com");
         $user->setPhone($faker->phoneNumber());
         $user->setRoles(['ROLE_ADMIN']);
         $hashedPassword = $this->passwordHasher->hashPassword(
@@ -42,7 +42,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user = new User();
         $user->setLastname($faker->lastName());
         $user->setFirstname($faker->firstName());
-        $user->setEmail($faker->email());
+        $user->setEmail("baker@baker.com");
         $user->setPhone($faker->phoneNumber());
         $user->setRoles(['ROLE_BAKER']);
         $hashedPassword = $this->passwordHasher->hashPassword(
@@ -76,7 +76,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user = new User();
         $user->setLastname($faker->lastName());
         $user->setFirstname($faker->firstName());
-        $user->setEmail($faker->email());
+        $user->setEmail("customer@customer.com");
         $user->setPhone($faker->phoneNumber());
         if ($this->getReference('billingAddress_50') instanceof Address) {
             $user->setBillingAddress($this->getReference('billingAddress_59'));
@@ -112,7 +112,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 //            $this->addReference('billingAddress_' . $j, $user);
         }
 
-        // Sauvegarde des 3 nouveaux utilisateurs :
+        // Sauvegarde des utilisateurs
         $manager->flush();
     }
 

@@ -19,7 +19,7 @@ class Order
     private DateTimeInterface $orderedAt;
 
     #[ORM\Column(type: 'string', length: 50)]
-    private ?string $orderStatus;
+    private string $orderStatus;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $cakeName;
