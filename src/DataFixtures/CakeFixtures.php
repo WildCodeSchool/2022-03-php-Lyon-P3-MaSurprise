@@ -33,7 +33,7 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
             if (is_string($size)) {
                 $cake->setSize($size);
             }
-            $bakerReference = $faker->numberBetween(3, 51);
+            $bakerReference = $faker->numberBetween(3, 50);
             $baker = $this->getReference('user_' . $bakerReference . '_baker_' . $bakerReference);
             if ($baker instanceof Baker) {
                 $cake->setBaker($baker);

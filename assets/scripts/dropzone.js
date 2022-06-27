@@ -21,17 +21,19 @@ let myDropzone = new Dropzone("form#myDropzone", {
     maxFiles: 5,
     previewsContainer: "#previews",
     previewTemplate: previewTemplate,
-    url: "/cake/uploadedfiles",
+    url: "/gateau/uploadedfiles",
 });
 
 let myForm = document.getElementById('myDropzone');
 
+
 myDropzone.element.querySelector('#dropzoneButton').addEventListener("click", function(e) {
     e.preventDefault();
     const form = new FormData(myForm);
-    fetch('/cake/new', {
+    fetch('/gateau/nouveau', {
         method: 'POST',
-        body: form
+        body: form,
+        redirect: "follow"
     })
         .then(function() {
             myDropzone.processQueue();
@@ -41,10 +43,10 @@ myDropzone.element.querySelector('#dropzoneButton').addEventListener("click", fu
             });
         })
         .then(function() {
-            myDropzone.on("successmultiple", function() {
+            myDropzone.on("successmultiple", function() {  
             });
         })
         .then(function() {
-            window.location.reload();
+            alert('Bravo, votre gâteau a bien été enregistré !')
         });
 });

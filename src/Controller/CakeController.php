@@ -96,7 +96,7 @@ class CakeController extends AbstractController
         RequestStack $requestStack,
         ServiceUploaderHelper $uploaderHelper,
         CakeRepository $cakeRepository
-    ): ?Response {
+    ): Response {
         $session = $requestStack->getSession();
         $currentCakeId = $session->get('cakeId');
 
@@ -113,7 +113,7 @@ class CakeController extends AbstractController
                 $cake->setPicture1($files);
                 $cakeRepository->add($cake, true);
         }
-        return $this->redirectToRoute('app_cake_new');
+        return $this->redirectToRoute('app_cake_index');
     }
 
     #[Route('/{id}/', name: 'show')]

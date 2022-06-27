@@ -27,15 +27,6 @@ class Cake
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $picture1 = "";
 
-    /*#[Vich\UploadableField(mapping: 'cake_file', fileNameProperty: 'picture1')]
-    #[Assert\File(
-        maxSize: '1M',
-        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
-        mimeTypesMessage: 'Ce fichier doit être une image',
-        uploadFormSizeErrorMessage: 'Votre photo ne peut pas dépasser 1M'
-    )]*/
-    private ?File $picture1File = null;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string|null $picture2;
 
