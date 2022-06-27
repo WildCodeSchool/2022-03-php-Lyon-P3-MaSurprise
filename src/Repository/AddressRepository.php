@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Address;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -38,6 +39,21 @@ class AddressRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+//    // fetching addresses whose status match searched status
+//    public function findLikeStatus(User $user, mixed $status): mixed
+//    {
+//        $queryBuilder = $this->createQueryBuilder('a')
+//            ->join('a.user', 'u')
+//            ->addSelect('u')
+//            ->where('a.status LIKE :status')
+//            ->andWhere('a.billingAddress LIKE :user')
+//            ->setParameter('status', $status)
+//            ->setParameter('billingAddress', $user)
+//            ->getQuery();
+//
+//        return $queryBuilder->getResult();
+//    }
 
 //    /**
 //     * @return Address[] Returns an array of Address objects

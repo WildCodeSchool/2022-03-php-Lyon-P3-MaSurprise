@@ -46,16 +46,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'seller', targetEntity: Order::class)]
     private Collection $ordersFromBuyers;
 
-    #[ORM\OneToOne(mappedBy: 'billingAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
-    private ?Address $billingAddress;
-
     #[ORM\OneToOne(inversedBy: 'user', targetEntity: Baker::class, cascade: ['persist', 'remove'])]
     private ?Baker $baker;
+
+    #[ORM\OneToMany(mappedBy: 'billingAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
+    private Collection $billingAddress;
 
     public function __construct()
     {
         $this->ordersToSellers = new ArrayCollection();
         $this->ordersFromBuyers = new ArrayCollection();
+        $this->billingAddress = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -259,19 +260,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getBillingAddress(): ?Address
+    /**
+     * @return Collection<int, Address>
+     */
+    public function getBillingAddress(): Collection
     {
         return $this->billingAddress;
     }
 
-    public function setBillingAddress(Address $billingAddress): self
+    public function addBillingAddress(Address $billingAddress): self
     {
-        // set the owning side of the relation if necessary
-        if ($billingAddress->getBillingAddress() !== $this) {
+        if (!$this->billingAddress->contains($billingAddress)) {
+            $this->billingAddress[] = $billingAddress;
             $billingAddress->setBillingAddress($this);
         }
 
-        $this->billingAddress = $billingAddress;
+        return $this;
+    }
+
+    public function removeBillingAddress(Address $billingAddress): self
+    {
+        if ($this->billingAddress->removeElement($billingAddress)) {
+            // set the owning side to null (unless already changed)
+            if ($billingAddress->getBillingAddress() === $this) {
+                $billingAddress->setBillingAddress(null);
+            }
+        }
 
         return $this;
     }

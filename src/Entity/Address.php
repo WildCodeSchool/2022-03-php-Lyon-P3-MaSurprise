@@ -35,21 +35,15 @@ class Address
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private ?string $extraInfo;
 
-    #[ORM\OneToOne(inversedBy: 'billingAddress', targetEntity: User::class, cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?User $billingAddress;
-
-    #[ORM\OneToOne(inversedBy: 'deliveryAddress', targetEntity: Baker::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'deliveryAddress', targetEntity: Baker::class)]
     #[ORM\JoinColumn(nullable: true)]
     private ?Baker $deliveryAddress;
 
     #[ORM\Column(type: 'boolean')]
     private bool $status = true;
 
-    public function __toString()
-    {
-        return $this->department;
-    }
+    #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist', 'remove'], inversedBy: 'billingAddress')]
+    private ?User $billingAddress;
 
     public function getId(): ?int
     {
@@ -140,18 +134,6 @@ class Address
         return $this;
     }
 
-    public function getBillingAddress(): ?User
-    {
-        return $this->billingAddress;
-    }
-
-    public function setBillingAddress(?User $billingAddress): self
-    {
-        $this->billingAddress = $billingAddress;
-
-        return $this;
-    }
-
     public function getDeliveryAddress(): ?Baker
     {
         return $this->deliveryAddress;
@@ -172,6 +154,18 @@ class Address
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getBillingAddress(): ?User
+    {
+        return $this->billingAddress;
+    }
+
+    public function setBillingAddress(?User $billingAddress): self
+    {
+        $this->billingAddress = $billingAddress;
 
         return $this;
     }

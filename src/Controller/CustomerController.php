@@ -2,15 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Address;
 use App\Entity\User;
+use App\Repository\AddressRepository;
 use App\Repository\OrderRepository;
 use App\Form\AddressType;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 #[Route('/espace-client', name: 'app_customer_')]
 class CustomerController extends AbstractController
@@ -22,9 +24,19 @@ class CustomerController extends AbstractController
     }
 
     #[Route('/profil', name: 'show')]
-    public function show(): Response
+    public function show(AddressRepository $addressRepository): Response
     {
-        return $this->render('customer/show.html.twig');
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $userId = $user->getId();
+        $address = $addressRepository->findOneBy(['billingAddress' => $userId, 'status' => 1]);
+
+        if (!$address) {
+            $address = "Aucune adresse renseignée.";
+        }
+
+        return $this->render('customer/show.html.twig', ['address' => $address]);
     }
 
     #[Route('/commandes', name: 'orders')]
@@ -43,22 +55,28 @@ class CustomerController extends AbstractController
     public function edit(
         Request $request,
         EntityManagerInterface $entityManager,
-        UserRepository $userRepository
+        AddressRepository $addressRepository,
+        #[CurrentUser] ?User $user
     ): Response {
-        $form = $this->createForm(AddressType::class);
+        $address = new Address();
+        $form = $this->createForm(AddressType::class, $address);
         $form->handleRequest($request);
 
-        //        $user = $this->getUser();
-        //        $userId = $user->getId();
+        if ($form->isSubmitted() && $form->isValid()) {
+            // set last used address as inactive
+            $lastAddressStatus = $addressRepository->findOneBy(['billingAddress' => $user, 'status' => true]);
 
-        //        $userToModify = $userRepository->find($userId);
+            $lastAddressStatus?->setStatus(false);
 
-        //        if ($form->isSubmitted() && $form->isValid()) {
-        //            $userToModify->setBillingAddress();
-        //
-        //            $entityManager->persist($user);
-        //            $entityManager->flush();
-        //        }
+            // add new address with user as foreign key
+            $address->setBillingAddress($user);
+            $addressRepository->add($address, true);
+
+            $entityManager->persist($address);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_cake_index', [], Response::HTTP_SEE_OTHER);
+        }
 
         return $this->renderForm("customer/edit.html.twig", ['form' => $form]);
     }

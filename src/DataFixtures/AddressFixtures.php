@@ -23,7 +23,7 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 50; $i < 200; $i++) {
             $address = new Address();
 
-            // fixtures regarding address information for addresss
+            // fixtures regarding address information for address
             $address->setStreetNumber($faker->randomNumber(2, true));
             $address->setStreetName($faker->streetName());
             $address->setPostcode($faker->randomNumber(5, true));
@@ -38,7 +38,7 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
         for ($j = 0; $j < 100; $j++) {
             $address = new Address();
 
-            // fixtures regarding address information for addresss
+            // fixtures regarding address information for address
             $address->setStreetNumber($faker->randomNumber(2, true));
             $address->setStreetName($faker->streetName());
             $address->setPostcode($faker->randomNumber(5, true));
