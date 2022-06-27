@@ -7,25 +7,30 @@
         <div class="row gx-3">
             <div class="col-12">
                 <h1 class="text-primary text-center mb-4">Ma commande</h1>
+
                 <div class="container">
                     <div class="row">
-                        <div class="col-8 bg-white p-3 rounded">
+                        <div class="col-7 m-2 bg-white p-4 rounded">
 
                             <div>
                                 <h2>Mes informations</h2>
                                 <ul class="list-group">
                                     <li class="list-group-item">
+                                        <h5 class="card-title">Nom et prénom</h5>
+                                        <p class="card-text">{{ app.user.lastname }} {{ app.user.firstname }}</p>
+                                    </li>
+                                    <li class="list-group-item">
                                         <h5 class="card-title">Adresse</h5>
-                                        <p class="card-text">1 rue du Plâtre
-                                            75001 Paris</p>
+                                        <p class="card-text">{% if address.streetNumber %}{{ address.streetNumber }}{% endif %} {{ address.streetName }}</p>
+                                        <p class="card-text">{{ address.postcode }} {{ address.city }}</p>
                                     </li>
                                     <li class="list-group-item">
                                         <h5 class="card-title">Numéro de téléphone</h5>
-                                        <p class="card-text">0102030405</p>
+                                        <p class="card-text">{{ app.user.phone }}</p>
                                     </li>
                                     <li class="list-group-item">
                                         <h5 class="card-title">Adresse e-mail</h5>
-                                        <p class="card-text">e.macron69@laposte.net</p>
+                                        <p class="card-text">{{ app.user.email }}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -57,10 +62,15 @@
                             </div>
 
                         </div>
-                        <div class="col-4 bg-white p-3 rounded">
+
+                        <div class="col-4 bg-white m-2 p-4 rounded">
                             <div>
                                 <h2>Résumé de la commande</h2>
                                 <ul class="list-group">
+                                    {% for cake in cart %}
+                                        {{ dump(cart) }}
+                                        {#                                        {{ cake.name }} #}
+                                    {% endfor %}
                                     <li class="list-group-item">Article 1</li>
                                     <li class="list-group-item">Article 2</li>
                                     <li class="list-group-item">Article 3</li>
@@ -76,7 +86,7 @@
                                 <h3>TVA</h3>
                                 <p>4 €</p>
                                 <h2>TOTAL</h2>
-                                <p>16 €</p>
+                                <p>{{ total|format_currency('EUR', locale='de') }}</p>
                             </div>
                         </div>
                     </div>

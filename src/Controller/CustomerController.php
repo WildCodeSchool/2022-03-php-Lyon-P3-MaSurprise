@@ -24,11 +24,10 @@ class CustomerController extends AbstractController
     }
 
     #[Route('/profil', name: 'show')]
-    public function show(AddressRepository $addressRepository): Response
-    {
-        /** @var User $user */
-        $user = $this->getUser();
-
+    public function show(
+        AddressRepository $addressRepository,
+        #[CurrentUser] ?User $user
+    ): Response {
         $userId = $user->getId();
         $address = $addressRepository->findOneBy(['billingAddress' => $userId, 'status' => 1]);
 
@@ -40,11 +39,10 @@ class CustomerController extends AbstractController
     }
 
     #[Route('/commandes', name: 'orders')]
-    public function showOrders(OrderRepository $orderRepository): Response
-    {
-        /** @var User $user */
-        $user = $this->getUser();
-
+    public function showOrders(
+        OrderRepository $orderRepository,
+        #[CurrentUser] ?User $user
+    ): Response {
         $userId = $user->getId();
         $orders = $orderRepository->findBy(['buyer' => $userId]);
 
@@ -65,7 +63,6 @@ class CustomerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // set last used address as inactive
             $lastAddressStatus = $addressRepository->findOneBy(['billingAddress' => $user, 'status' => true]);
-
             $lastAddressStatus?->setStatus(false);
 
             // add new address with user as foreign key

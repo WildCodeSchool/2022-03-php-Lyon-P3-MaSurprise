@@ -9,6 +9,7 @@
                 <div class="container">
                     <div class="row d-flex justify-content-center">
                         <div class="col-6 d-flex flex-column align-items-center card p-5">
+                            <h1 class="text-primary text-center">Mon profil</h1>
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <img class="comment-img" src="https://i.pravatar.cc/200" alt="Une image de gâteau.">
                                 <h3>{{ app.user.firstname }} {{ app.user.lastname }}</h3>
