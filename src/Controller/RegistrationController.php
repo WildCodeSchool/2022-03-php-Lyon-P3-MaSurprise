@@ -32,9 +32,11 @@ class RegistrationController extends AbstractController
     ): Response {
         $baker = new Baker();
         $user = new User();
+
         $baker->setUser($user);
         $form = $this->createForm(BakerType::class, $baker);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             if (is_string($form->get('user')->get('password')->getData())) {
                 $user->setPassword(
@@ -43,13 +45,13 @@ class RegistrationController extends AbstractController
                         $form->get('user')->get('password')->getData()
                     )
                 );
-                    $entityManager->persist($baker);
-                    $entityManager->flush();
+                $entityManager->persist($baker);
+                $entityManager->flush();
                 return $this->redirectToRoute('app_home');
             }
         }
         return $this->renderForm('baker/new.html.twig', [
-            'form' => $form, 'baker' => $baker
+            'form' => $form, 'baker' => $baker,
         ]);
     }
 
@@ -60,8 +62,10 @@ class RegistrationController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response {
         $user = new User();
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             if (is_string($form->get('password')->getData())) {
                 $user->setPassword(
@@ -70,13 +74,13 @@ class RegistrationController extends AbstractController
                         $form->get('password')->getData()
                     )
                 );
-                    $entityManager->persist($user);
-                    $entityManager->flush();
+                $entityManager->persist($user);
+                $entityManager->flush();
                 return $this->redirectToRoute('app_home');
             }
         }
         return $this->renderForm('user/new.html.twig', [
-            'form' => $form, 'user' => $user
+            'form' => $form, 'user' => $user,
         ]);
     }
 }

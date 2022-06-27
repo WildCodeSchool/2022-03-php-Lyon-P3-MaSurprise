@@ -36,6 +36,11 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/espace-client, roles: ROLE_CUSTOMER }
+    role_hierarchy:
+        ROLE_CUSTOMER: ROLE_USER
+        ROLE_BAKER: ROLE_USER
+        ROLE_ADMIN: ROLE_USER, ROLE CUSTOMER, ROLE BAKER
 
 when@test:
     security:
