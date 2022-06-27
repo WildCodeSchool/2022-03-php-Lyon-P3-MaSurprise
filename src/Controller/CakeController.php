@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Serializer\Normalizer\DataUriNormalizer;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
@@ -102,11 +103,13 @@ class CakeController extends AbstractController
 
         $uploadedFiles = $request->files->get('files');
         if ($uploadedFiles) {
-            if (gettype($uploadedFiles) == 'array') {
+            if (is_iterable($uploadedFiles)) {
                 $filesArray = [];
                 foreach ($uploadedFiles as $uploadedFile) {
-                    $newFilename = $uploaderHelper->uploadCakeFiles($uploadedFile);
-                    $filesArray[] = $newFilename;
+                    if ($uploadedFile instanceof UploadedFile) {
+                        $newFilename = $uploaderHelper->uploadCakeFiles($uploadedFile);
+                        $filesArray[] = $newFilename;
+                    }
                 }
                     $files = implode(',', $filesArray);
                     $cake = new Cake();
