@@ -102,16 +102,18 @@ class CakeController extends AbstractController
 
         $uploadedFiles = $request->files->get('files');
         if ($uploadedFiles) {
-            $filesArray = [];
-            foreach ($uploadedFiles as $uploadedFile) {
-                $newFilename = $uploaderHelper->uploadCakeFiles($uploadedFile);
-                $filesArray[] = $newFilename;
+            if (gettype($uploadedFiles) == 'array') {
+                $filesArray = [];
+                foreach ($uploadedFiles as $uploadedFile) {
+                    $newFilename = $uploaderHelper->uploadCakeFiles($uploadedFile);
+                    $filesArray[] = $newFilename;
+                }
+                    $files = implode(',', $filesArray);
+                    $cake = new Cake();
+                    $cake = $cakeRepository->find($currentCakeId);
+                    $cake->setPicture1($files);
+                    $cakeRepository->add($cake, true);
             }
-                $files = implode(',', $filesArray);
-                $cake = new Cake();
-                $cake = $cakeRepository->find($currentCakeId);
-                $cake->setPicture1($files);
-                $cakeRepository->add($cake, true);
         }
         return $this->redirectToRoute('app_cake_index');
     }
