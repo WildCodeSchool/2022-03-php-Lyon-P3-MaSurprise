@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des pâtissiers{% endblock %}
+{% block title %}Liste des pâtissiers - {{ parent() }}{% endblock %}
 
 {% block body %}
     <main class="container-fluid">
@@ -8,29 +8,30 @@
 
         {% for baker in bakers %}
             <div id="baker-card" class="card mb-3">
-                <div class="row m-3 g-{{loop.index0}}">
+                <div class="row m-3 g-{{ loop.index0 }}">
                     <div class="col-md-4">
-                        <img src="https://images.pexels.com/photos/3771812/pexels-photo-3771812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="img-fluid rounded-start" alt="portrait du pâtissier">
+                        <img
+                            src="https://images.pexels.com/photos/3771812/pexels-photo-3771812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                            class="img-fluid rounded-start" alt="portrait du pâtissier">
                     </div>
                     <div class="col-md-8">
                     <div class="card-body">
                         <h2 class="card-title">{% if baker.commercialName is not empty %}
                         {{ baker.commercialName}}
-                            {% else %}{{ baker.firstname }} {{ baker.lastname }}
+                            {% else %}{{ baker.user.firstname }} {{ baker.user.lastname }}
                             {% endif %}
                         </h2>
                         <p class="card-text">{% if baker.commercialName is not empty %}
-                        {{ baker.firstname }} {{ baker.lastname }}
+                        {{ baker.user.firstname }} {{ baker.user.lastname }}
                             {% endif %}
                         </p>
-                        <p class="card-text">Téléphone : {{ baker.phone }}</p>
-                        <p class="card-text">Lieu : 69 - Rhône</p>
+                        <p class="card-text">Téléphone : {{ baker.user.phone }}</p>
+                        <p class="card-text">Lieu : {{ baker.department.number }} - {{ baker.department.name }}</p>
                         <a href="{{ path('app_baker_list', {id:baker.id} ) }}" class="btn btn-primary m-3">Plus de détails</a></br>
                         <div class="d-flex align-items-center">
                             <a href="{{ path('app_baker_edit', {id:baker.id} ) }}" class="btn btn-secondary text-white m-2">Modifier</a>
                             {{ include('baker/_delete_form.html.twig') }}
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>

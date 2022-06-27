@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
+use App\Form\CakeType;
 use App\Form\SearchCakeFormType;
 use Exception;
 use App\Entity\Cake;
-use App\Form\CakeType;
 use App\Repository\CakeRepository;
 use App\Service\UploaderHelper as ServiceUploaderHelper;
 use GrumPHP\Task\Robo;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Serializer\Normalizer\DataUriNormalizer;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
-#[Route('/cake', name: 'app_cake_')]
+#[Route('/gateau', name: 'app_cake_')]
 class CakeController extends AbstractController
 {
     #[Route('/', name: 'index')]
@@ -26,10 +26,6 @@ class CakeController extends AbstractController
         // creating form
         $searchForm = $this->createForm(SearchCakeFormType::class);
         $searchForm->handleRequest($request);
-
-        // initializing errors
-        // TODO: this might have to work differently?
-        $errors = 0;
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $searchRequest = $request->get('search_cake_form');
@@ -53,7 +49,11 @@ class CakeController extends AbstractController
 
             // display a message if nothing matches search AND fetch all cakes
             if ($cakes == null) {
-                $errors = 1;
+                $this->addFlash(
+                    'notice',
+                    "Oh non, aucun gâteau ne correspond à vos critères de recherche...
+                    Laissez - vous tenter par d'autres choix ci-dessous !"
+                );
                 $cakes = $cakeRepository->findAll();
             }
         }
@@ -61,12 +61,11 @@ class CakeController extends AbstractController
         return $this->renderForm('cake/index.html.twig', [
             'cakes' => $cakes,
             'searchForm' => $searchForm,
-            'errors' => $errors,
             'search' => $search,
         ]);
     }
 
-    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
+    #[Route('/nouveau', name: 'new', methods: ['GET', 'POST'])]
     public function new(
         CakeRepository $cakeRepository,
         Request $request,

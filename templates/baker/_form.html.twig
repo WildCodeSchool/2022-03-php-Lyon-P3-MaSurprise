@@ -1,34 +1,10 @@
 {{ form_start(form) }}
 
 <div id="baker-form" class="d-flex flex-column align-items-center m-5">
+        
         <div class="form-row w-50">
             <div class="form-group">
-            {{ form_row(form.firstname) }}
-             </div>
-        </div>
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(form.lastname) }}
-            </div>
-        </div>
-         <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(form.email) }}
-            </div>
-        </div>
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(form.password) }}
-            </div>
-        </div>
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(form.phone)}}
-            </div>
-        </div>
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(form.address)}}
+            {{ form_row(form.user)}}
             </div>
         </div>
         <div class="form-row w-50">
@@ -40,6 +16,11 @@
         <div class="form-row w-50 hidden" id="commercialName">
             <div class="form-group">
             {{ form_row(form.commercialName) }}
+            </div>
+        </div>
+        <div class="form-row w-50 hidden" id="deliveryAddress">
+            <div class="form-group">
+            {{ form_row(form.deliveryAddress) }}
             </div>
         </div>
         <div class="form-row w-50 hidden" id="facebook">

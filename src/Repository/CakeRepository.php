@@ -44,6 +44,7 @@ class CakeRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
+            ->addSelect('b')
             ->where('c.name LIKE :name')
             ->setParameter('name', '%' . $name . '%')
             ->orderBy('c.name', 'ASC')
@@ -57,6 +58,7 @@ class CakeRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
+            ->addSelect('b')
             ->where('c.description LIKE :description')
             ->setParameter('description', '%' . $description . '%')
             ->orderBy('c.description', 'ASC')
@@ -65,14 +67,14 @@ class CakeRepository extends ServiceEntityRepository
         return $queryBuilder->getResult();
     }
 
-    // fetching cakes whose bakers match searched words (using join)
     public function findLikeBaker(mixed $bakerName): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
-            ->where('b.lastname LIKE :baker_name')
+            ->join('b.user', 'u')
+            ->where('u.lastname LIKE :baker_name')
             ->setParameter('baker_name', '%' . $bakerName . '%')
-            ->orderBy('b.lastname', 'ASC')
+            ->orderBy('u.lastname', 'ASC')
             ->getQuery();
 
         return $queryBuilder->getResult();

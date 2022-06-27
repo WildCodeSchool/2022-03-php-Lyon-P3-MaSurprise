@@ -22,11 +22,12 @@
 
 <header>
     {% include 'components/_navbar.html.twig' %}
+    {% include 'components/_connection_modal.html.twig' %}
 </header>
 
-{% block body %}{% endblock %}
-
-{% include "/components/_footer.html.twig" %}
+<div class="main-padding-container">
+    {% block body %}{% endblock %}
+</div>
 
 </body>
 </html>

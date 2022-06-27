@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Baker;
+use App\Entity\User;
 use App\Form\BakerType;
 use App\Repository\BakerRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/patissier', name:'app_baker')]
@@ -22,23 +25,6 @@ class BakerController extends AbstractController
             'bakers' => $bakers,
         ]);
     }
-
-    #[Route('/nouveau', name: '_form')]
-    public function newBaker(Request $request, BakerRepository $bakerRepository): Response
-    {
-        $baker = new Baker();
-        $form = $this->createForm(BakerType::class, $baker);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $bakerRepository->add($baker, true);
-            return $this->redirectToRoute('app_baker_index');
-        }
-
-        return $this->renderForm('baker/new.html.twig', [
-            'form' => $form, 'baker' => $baker
-        ]);
-    }
-
 
     #[Route('/{id}', name: '_list')]
     public function detail(Baker $baker): Response
