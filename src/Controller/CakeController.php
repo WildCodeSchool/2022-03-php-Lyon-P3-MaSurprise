@@ -113,8 +113,8 @@ class CakeController extends AbstractController
                 }
                     $files = implode(',', $filesArray);
                     $cake = new Cake();
-                if ($cake != null) {
                     $cake = $cakeRepository->find($currentCakeId);
+                if ($cake != null) {
                     $cake->setPicture1($files);
                     $cakeRepository->add($cake, true);
                 }
