@@ -29,11 +29,13 @@ class OrderController extends AbstractController
 
         $total = $session->get('total', []);
         $cart = $session->get('cart', []);
+        $datacart = $session->get('datacart');
 
         return $this->render('order/index.html.twig', [
             'address' => $address,
             'total' => $total,
             'cart' => $cart,
+            'datacart' => $datacart,
         ]);
     }
 

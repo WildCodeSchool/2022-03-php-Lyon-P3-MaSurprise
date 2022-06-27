@@ -33,7 +33,10 @@ class CartController extends AbstractController
                 }
             }
         }
+
+        // transmitting info to order page
         $session->set("total", $total);
+        $session->set('datacart', $dataCart);
 
         return $this->render('cart/index.html.twig', ["datacart" => $dataCart,
             "total" => $total,]);

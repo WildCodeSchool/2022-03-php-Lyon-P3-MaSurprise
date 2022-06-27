@@ -22,7 +22,8 @@
                     <td>{{ product.cake.name }}</td>
                     <td class="text-right">{{ product.cake.price|format_currency('EUR', locale='de') }}</td>
                     <td class=>{{ product.quantity }}</td>
-                    <td class="text-right">{{ product.quantity * product.cake.price|format_currency('EUR', locale='de') }}</td>
+                    {#                    TODO : display next value in euros like the others #}
+                    <td class="text-right">{{ product.quantity * product.cake.price }}</td>
                     <td>
                         <a href="{{ path("cart_add", {id: product.cake.id}) }}" class="btn btn-success">
                             <i class="bi cart-plus">+</i>

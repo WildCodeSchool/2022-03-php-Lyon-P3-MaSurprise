@@ -26,8 +26,9 @@ class CustomerController extends AbstractController
     #[Route('/profil', name: 'show')]
     public function show(
         AddressRepository $addressRepository,
-        #[CurrentUser] ?User $user
     ): Response {
+        /** @var User $user */
+        $user = $this->getUser();
         $userId = $user->getId();
         $address = $addressRepository->findOneBy(['billingAddress' => $userId, 'status' => 1]);
 
@@ -41,8 +42,9 @@ class CustomerController extends AbstractController
     #[Route('/commandes', name: 'orders')]
     public function showOrders(
         OrderRepository $orderRepository,
-        #[CurrentUser] ?User $user
     ): Response {
+        /** @var User $user */
+        $user = $this->getUser();
         $userId = $user->getId();
         $orders = $orderRepository->findBy(['buyer' => $userId]);
 

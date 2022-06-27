@@ -21,7 +21,7 @@
                                     </li>
                                     <li class="list-group-item">
                                         <h5 class="card-title">Adresse</h5>
-                                        <p class="card-text">{% if address.streetNumber %}{{ address.streetNumber }}{% endif %} {{ address.streetName }}</p>
+                                        <p class="card-text mb-0">{% if address.streetNumber %}{{ address.streetNumber }}{% endif %} {{ address.streetName }}</p>
                                         <p class="card-text">{{ address.postcode }} {{ address.city }}</p>
                                     </li>
                                     <li class="list-group-item">
@@ -64,29 +64,29 @@
                         </div>
 
                         <div class="col-4 bg-white m-2 p-4 rounded">
-                            <div>
-                                <h2>Résumé de la commande</h2>
-                                <ul class="list-group">
-                                    {% for cake in cart %}
-                                        {{ dump(cart) }}
-                                        {#                                        {{ cake.name }} #}
-                                    {% endfor %}
-                                    <li class="list-group-item">Article 1</li>
-                                    <li class="list-group-item">Article 2</li>
-                                    <li class="list-group-item">Article 3</li>
-                                    <li class="list-group-item">Article 4</li>
-                                    <li class="list-group-item">Article 5</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h3>Sous-total</h3>
-                                <p>12 €</p>
-                                <h3>Frais de port</h3>
-                                <p>Gratuit</p>
-                                <h3>TVA</h3>
-                                <p>4 €</p>
-                                <h2>TOTAL</h2>
-                                <p>{{ total|format_currency('EUR', locale='de') }}</p>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h2 class="mb-4">Résumé de la commande</h2>
+                                        <ul class="list-group">
+                                            {% for data in datacart %}
+                                                <li class="list-group-item">
+                                                    <p class="m-1">{{ data.cake.name }}</p>
+                                                    <p class="m-1">Quantité : {{ data.quantity }}</p>
+                                                    <p class="m-1">Prix : {{ data.cake.price * data.quantity }}</p>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h3 class="mt-5 mb-4">Frais de port</h3>
+                                        <p>Gratuit (Click & Collect)</p>
+                                        <h2 class="mt-5 mb-4">TOTAL</h2>
+                                        <p>{{ total|format_currency('EUR', locale='de') }}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
