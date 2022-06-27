@@ -101,7 +101,7 @@ class CakeController extends AbstractController
         $currentCakeId = $session->get('cakeId');
 
         $uploadedFiles = $request->files->get('files');
-        if (!empty($uploadedFiles)) {
+        if ($uploadedFiles) {
             $filesArray = [];
             foreach ($uploadedFiles as $uploadedFile) {
                 $newFilename = $uploaderHelper->uploadCakeFiles($uploadedFile);
