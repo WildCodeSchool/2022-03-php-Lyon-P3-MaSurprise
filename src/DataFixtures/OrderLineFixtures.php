@@ -14,8 +14,8 @@ class OrderLineFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
 
-        for ($i = 0; $i < 200; $i++) {
-            for ($j = 0; $j < 3; $j++) {
+        for ($i = 0; $i < 400; $i++) {
+            for ($j = 0; $j < rand(1, 3); $j++) {
                 $orderLine = new OrderLine();
                 $name = $faker->randomElement([
                     'Gâteau d\'anniversaire',

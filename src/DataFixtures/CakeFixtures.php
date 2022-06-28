@@ -28,7 +28,7 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
 
             $cake->setPicture1($faker->imageUrl(640, 640, 'photo d\'un gâteau'));
             $cake->setDescription($faker->text(250));
-            $cake->setPrice($faker->randomFloat(2, 50, 300));
+            $cake->setPrice($faker->randomFloat(2, 12, 50));
             $size = $faker->randomElement((['10/12 parts', '14/16 parts', '18/20 parts']));
             if (is_string($size)) {
                 $cake->setSize($size);

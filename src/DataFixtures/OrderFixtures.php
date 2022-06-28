@@ -16,7 +16,7 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
 
-        for ($i = 0; $i < 200; $i++) {
+        for ($i = 0; $i < 400; $i++) {
             $order = new Order();
             $order
                 ->setOrderedAt($faker->dateTimeInInterval('-1 week', '+6 days'))
