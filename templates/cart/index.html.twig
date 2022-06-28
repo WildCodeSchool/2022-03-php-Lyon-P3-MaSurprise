@@ -49,7 +49,12 @@
             </tr>
             <tr>
                 <td colspan="6" class="text-end">
-                    <a class="btn btn-primary" href="">Commander</a>
+                    {% if datacart is empty %}
+                        <a class="btn btn-secondary text-white disabled"
+                           href="{{ path("app_order_index") }}">Commander</a>
+                    {% else %}
+                        <a class="btn btn-primary text-white" href="{{ path("app_order_index") }}">Commander</a>
+                    {% endif %}
                 </td>
             </tr>
             </tfoot>

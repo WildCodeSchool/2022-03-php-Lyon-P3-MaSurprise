@@ -30,7 +30,6 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
             $address->setCity($faker->city());
             $address->setDepartment($this // @phpstan-ignore-line
             ->getReference('department_' . $faker->departmentNumber())); // @phpstan-ignore-line
-            //$address->setBillingAddress($this->getReference('user_' . $i));
             $this->addReference('billingAddress_' . $i, $address);
             $manager->persist($address);
         }
