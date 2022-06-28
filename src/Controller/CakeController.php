@@ -45,7 +45,7 @@ class CakeController extends AbstractController
             // display a message if nothing matches search AND fetch all cakes
             if ($cakes == null) {
                 $this->addFlash(
-                    'notice',
+                    'warning',
                     "Oh non, aucun gâteau ne correspond à vos critères de recherche...
                     Laissez - vous tenter par d'autres choix ci-dessous !"
                 );

@@ -83,10 +83,10 @@ class Baker
     private ?\DateTimeInterface $updateAt = null;
 
     #[ORM\OneToOne(mappedBy: 'baker', targetEntity: User::class, cascade: ['persist', 'remove'])]
-    private $user;
+    private ?User $user;
 
     #[ORM\OneToOne(mappedBy: 'deliveryAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
-    private $deliveryAddress;
+    private ?Address $deliveryAddress;
 
     public function __construct()
     {
@@ -280,7 +280,7 @@ class Baker
 
         return $this;
     }
-    
+
     public function getUpdateAt(): ?\DateTimeInterface
     {
         return $this->updateAt;
