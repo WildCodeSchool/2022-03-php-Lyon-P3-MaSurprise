@@ -27,10 +27,8 @@ class OrderController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(
         AddressRepository $addressRepository,
-        SessionInterface  $session,
-
-    ): Response
-    {
+        SessionInterface $session,
+    ): Response {
         /** @var User $user */
         $user = $this->getUser();
         $userId = $user->getId();
@@ -53,12 +51,11 @@ class OrderController extends AbstractController
     #[Route('/validation', name: 'processing')]
     public function orderProcess(
         EntityManagerInterface $entityManager,
-        SessionInterface       $session,
-        AddressRepository      $addressRepository,
-        BakerRepository        $bakerRepository,
-        UserRepository         $userRepository
-    ): Response
-    {
+        SessionInterface $session,
+        AddressRepository $addressRepository,
+        BakerRepository $bakerRepository,
+        UserRepository $userRepository
+    ): Response {
         $datacart = $session->get('datacart');
 
         /** @var User $user */

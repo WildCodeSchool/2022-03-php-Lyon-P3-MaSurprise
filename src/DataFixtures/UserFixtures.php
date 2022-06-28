@@ -23,7 +23,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
-
         // creating ONE known admin account
         $user = new User();
         $user->setLastname($faker->lastName());
@@ -118,7 +117,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 //            $this->addReference('billingAddress_' . $j, $user);
         }
 
-        // Sauvegarde des utilisateurs
         $manager->flush();
     }
 
