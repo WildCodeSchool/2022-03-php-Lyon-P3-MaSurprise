@@ -1,8 +1,12 @@
 {{ form_start(form, {
         "attr": {
-            "class":"dropzone",
+            "id":"myDropzone",
+            "class": "dropzone"
         }
     }) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+       <div class="dz-message dz-button" data-dz-message><span>Ajouter les photos du gâteau</span></div>
+        <div class="files" id="previews">{% include "cake/_previewdropzone.html.twig" %}</div>
+        
+        <button class="btn" id="dropzoneButton">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
