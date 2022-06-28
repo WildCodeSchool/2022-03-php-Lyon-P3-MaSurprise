@@ -5,13 +5,9 @@ namespace App\Controller;
 use App\Entity\Order;
 use App\Entity\User;
 use App\Repository\AddressRepository;
-use App\Repository\BakerRepository;
 use App\Repository\UserRepository;
-use DateTimeInterface;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Exception\ORMException;
-use Doctrine\ORM\OptimisticLockException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -20,10 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/commande', name: 'app_order_')]
 class OrderController extends AbstractController
 {
-    /**
-     * @throws OptimisticLockException
-     * @throws ORMException
-     */
     #[Route('/', name: 'index')]
     public function index(
         AddressRepository $addressRepository,
@@ -49,31 +41,39 @@ class OrderController extends AbstractController
     }
 
     #[Route('/validation', name: 'processing')]
-    public function orderProcess(
+    public function orderProcess(): Response
+    {
+        return $this->render('order/processing.html.twig');
+    }
+
+    #[Route('/commande-validee', name: 'placed')]
+    public function orderPlaced(
         EntityManagerInterface $entityManager,
         SessionInterface $session,
         AddressRepository $addressRepository,
-        BakerRepository $bakerRepository,
         UserRepository $userRepository
     ): Response {
+        // fetching data from session
         $datacart = $session->get('datacart');
 
+        // fetching user and getting its id
         /** @var User $user */
         $user = $this->getUser();
         $userId = $user->getId();
         $address = $addressRepository->findOneBy(['billingAddress' => $userId, 'status' => 1]);
 
+        // creating an order
         $order = new Order();
 
         foreach ($datacart as $data) {
+            // getting initial data
             $cake = $data['cake'];
             $baker = $cake->getBaker();
             $bakerId = $baker->getId();
-
             $userBaker = $userRepository->findOneBy(['baker' => $bakerId]);
-
             $deliveryAddress = $addressRepository->findOneBy(['deliveryAddress' => $bakerId]);
 
+            // adding data to order
             $order
                 ->setOrderedAt(new DateTime())
                 ->setBuyer($user)
@@ -88,14 +88,9 @@ class OrderController extends AbstractController
 
             $entityManager->persist($order);
         }
+        // saving order
         $entityManager->flush();
 
-        return $this->render('order/processing.html.twig');
-    }
-
-    #[Route('/commande-validee', name: 'placed')]
-    public function orderPlaced(): Response
-    {
         return $this->render('order/placed.html.twig');
     }
 }
