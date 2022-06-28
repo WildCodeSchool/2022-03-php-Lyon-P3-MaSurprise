@@ -23,15 +23,6 @@ class Order
     #[ORM\Column(type: 'string', length: 50)]
     private string $orderStatus = "Commande créée";
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $cakeName;
-
-    #[ORM\Column(type: 'float')]
-    private float $cakePrice;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $cakeSize;
-
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?DateTimeInterface $collectDate;
 
@@ -39,6 +30,7 @@ class Order
     #[ORM\JoinColumn(nullable: false)]
     private User $buyer;
 
+    // TODO : move this from here to OrderLine, somehow
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ordersFromBuyers')]
     #[ORM\JoinColumn(nullable: false)]
     private User $seller;
@@ -47,6 +39,7 @@ class Order
     #[ORM\JoinColumn(nullable: false)]
     private Address $billingAddress;
 
+    // TODO : move this from here to OrderLine, somehow
     #[ORM\ManyToOne(targetEntity: Address::class, inversedBy: 'orderFromSeller')]
     #[ORM\JoinColumn(nullable: false)]
     private Address $deliveryAddress;
@@ -54,7 +47,7 @@ class Order
     #[ORM\Column(type: 'float')]
     private float $total;
 
-    #[ORM\OneToMany(mappedBy: 'orderReference', targetEntity: OrderLine::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'orderReference', targetEntity: OrderLine::class, cascade: ['persist', 'remove'])]
     private Collection $orderLines;
 
     public function __construct()
@@ -75,42 +68,6 @@ class Order
     public function setOrderedAt(DateTimeInterface $orderedAt): self
     {
         $this->orderedAt = $orderedAt;
-
-        return $this;
-    }
-
-    public function getCakeName(): ?string
-    {
-        return $this->cakeName;
-    }
-
-    public function setCakeName(string $cakeName): self
-    {
-        $this->cakeName = $cakeName;
-
-        return $this;
-    }
-
-    public function getCakeSize(): ?string
-    {
-        return $this->cakeSize;
-    }
-
-    public function setCakeSize(string $cakeSize): self
-    {
-        $this->cakeSize = $cakeSize;
-
-        return $this;
-    }
-
-    public function getCakePrice(): ?float
-    {
-        return $this->cakePrice;
-    }
-
-    public function setCakePrice(float $cakePrice): self
-    {
-        $this->cakePrice = $cakePrice;
 
         return $this;
     }

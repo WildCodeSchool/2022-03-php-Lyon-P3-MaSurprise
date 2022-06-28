@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Order;
 use App\Entity\User;
 use App\Repository\AddressRepository;
-use App\Repository\UserRepository;
-use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\OrderService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -48,48 +45,19 @@ class OrderController extends AbstractController
 
     #[Route('/commande-validee', name: 'placed')]
     public function orderPlaced(
-        EntityManagerInterface $entityManager,
-        SessionInterface $session,
-        AddressRepository $addressRepository,
-        UserRepository $userRepository
+        OrderService $orderService,
+        SessionInterface $session
     ): Response {
         // fetching data from session
         $datacart = $session->get('datacart');
 
-        // fetching user and getting its id
+        // getting user
+        // TODO: determine if this should go there or in the service
         /** @var User $user */
         $user = $this->getUser();
-        $userId = $user->getId();
-        $address = $addressRepository->findOneBy(['billingAddress' => $userId, 'status' => 1]);
 
-        // creating an order
-        $order = new Order();
-
-        foreach ($datacart as $data) {
-            // getting initial data
-            $cake = $data['cake'];
-            $baker = $cake->getBaker();
-            $bakerId = $baker->getId();
-            $userBaker = $userRepository->findOneBy(['baker' => $bakerId]);
-            $deliveryAddress = $addressRepository->findOneBy(['deliveryAddress' => $bakerId]);
-
-            // adding data to order
-            $order
-                ->setOrderedAt(new DateTime())
-                ->setBuyer($user)
-                ->setSeller($userBaker)
-                ->setCakeName($cake->getName())
-                ->setCakePrice($cake->getPrice())
-                ->setTotal($cake->getPrice())
-                ->setCakeSize($cake->getSize())
-                ->setBillingAddress($address)
-                ->setDeliveryAddress($deliveryAddress)
-                ->setCollectDate(new DateTime());
-
-            $entityManager->persist($order);
-        }
-        // saving order
-        $entityManager->flush();
+        // calling service to add order
+        $orderService->createOrder($datacart, $session, $user);
 
         return $this->render('order/placed.html.twig');
     }

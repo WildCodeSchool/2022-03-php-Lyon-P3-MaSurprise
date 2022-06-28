@@ -17,6 +17,15 @@ class OrderLine
     #[ORM\JoinColumn(nullable: false)]
     private Order $orderReference;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $cakeName;
+
+    #[ORM\Column(type: 'float')]
+    private float $cakePrice;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $cakeSize;
+
     #[ORM\Column(type: 'integer')]
     private int $quantity;
 
@@ -33,6 +42,42 @@ class OrderLine
     public function setOrderReference(?Order $orderReference): self
     {
         $this->orderReference = $orderReference;
+
+        return $this;
+    }
+
+    public function getCakeName(): ?string
+    {
+        return $this->cakeName;
+    }
+
+    public function setCakeName(string $cakeName): self
+    {
+        $this->cakeName = $cakeName;
+
+        return $this;
+    }
+
+    public function getCakeSize(): ?string
+    {
+        return $this->cakeSize;
+    }
+
+    public function setCakeSize(string $cakeSize): self
+    {
+        $this->cakeSize = $cakeSize;
+
+        return $this;
+    }
+
+    public function getCakePrice(): ?float
+    {
+        return $this->cakePrice;
+    }
+
+    public function setCakePrice(float $cakePrice): self
+    {
+        $this->cakePrice = $cakePrice;
 
         return $this;
     }

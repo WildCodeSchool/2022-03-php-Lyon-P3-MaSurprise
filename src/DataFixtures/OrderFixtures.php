@@ -18,29 +18,8 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i = 0; $i < 200; $i++) {
             $order = new Order();
-            $name = $faker->randomElement([
-                'Gâteau d\'anniversaire',
-                'Forêt noire',
-                'Pièce montée',
-                'Gâteau licorne',
-                'Fraisier',
-                'Gâteau à étages, crème au beurre',
-                'Baba au rhum',
-                'Gâteau au twix, mars et coulis de kinder surprise',
-            ]);
-            if (is_string($name)) {
-                $order->setCakeName($name);
-            };
-            $size = $faker->randomElement(([
-                '10/12 parts',
-                '14/16 parts',
-                '18/20 parts',
-            ]));
-            if (is_string($size)) {
-                $order->setCakeSize($size);
-            };
             $order
-                ->setOrderedAt($faker->dateTimeInInterval('+2 months', '+1 months'))
+                ->setOrderedAt($faker->dateTimeInInterval('-1 week', '+6 days'))
                 ->setOrderStatus($faker->randomElement([
                     'Commande créée',
                     'Commande validée',
@@ -50,12 +29,12 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
                     'Commande terminée',
                     'Commande annulée',
                 ]))
-                ->setCakePrice($faker->randomFloat(2, 50, 300))
                 ->setCollectDate($faker->dateTimeInInterval('+3 months', '+1 months'));
             $buyer = $this->getReference('buyer_' . $faker->numberBetween(50, 150));
             if ($buyer instanceof User) {
                 $order->setBuyer($buyer);
             };
+            $order->setTotal($faker->numberBetween(250, 450));
             if ($this->getReference('billingAddress_' . $i) instanceof Address) {
                 $order->setBillingAddress($this->getReference('billingAddress_' . $i));
             }

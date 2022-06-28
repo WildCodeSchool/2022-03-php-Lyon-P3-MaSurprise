@@ -17,10 +17,10 @@
 
                                 <div class="card m-2">
                                     <div class="card-header">
-                                        <div class="d-flex justify-content-between">
+                                        <div class="d-flex justify-content-between align-items-center">
                                             {% if order.orderStatus == "Commande annulée" %}
                                                 <h5 class="card-text text-red">Le {{ order.orderedAt|date("d/m/Y") }}
-                                                    à {{ order.orderedAt|date("h:i:s") }}</h5>
+                                                    à {{ order.orderedAt|date("H:i:s", "Europe/Paris") }}</h5>
                                                 <h5 class="card-text text-red">{{ order.orderStatus }}</h5>
                                             {% else %}
                                                 <h5 class="card-text">Le {{ order.orderedAt|date("d/m/Y") }}
@@ -31,26 +31,56 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="container">
+
                                             <div class="row">
-                                                <div class="col-10">
-                                                    <p class="card-text">Commande N° 100{{ order.id }}</p>
-                                                    <h5 class="card-title">{{ order.cakeName }}</h5>
-                                                    <p class="card-text">{{ order.cakeSize }}</p>
-                                                    <p class="card-text">Date de collecte :
-                                                        {{ order.collectDate|date("d/m/Y") }}</p>
-                                                    <a href="#" class="btn btn-secondary text-white">Voir ma
-                                                        commande</a>
-                                                </div>
-                                                <div class="col-2">
+                                                <div class="col-12 d-flex justify-content-between">
                                                     <p class="card-text d-flex justify-content-end">
-                                                        {{ order.cakePrice|format_currency('EUR', locale='de') }}
+                                                        Date de collecte :
+                                                        {{ order.collectDate|date("d/m/Y") }}
                                                     </p>
+                                                    {# TODO : create a db version of this #}
+                                                    <p class="card-text d-flex justify-content-end">
+                                                        Commande N°
+                                                        {{ 100000 + order.id }}
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="container mt-4">
+                                                        {% for cakes in order.orderLines %}
+                                                            <div class="row">
+                                                                <div class="col-8">
+
+                                                                    <h5 class="card-title">{{ cakes.cakeName }}</h5>
+                                                                    <p class="card-text">{{ cakes.cakeSize }}</p>
+                                                                </div>
+                                                                <div class="col-2">
+                                                                    <p class="card-text">x{{ cakes.quantity }}</p>
+                                                                </div>
+                                                                <div class="col-2">
+                                                                    <h5 class="card-title text-end">
+                                                                        {{ cakes.cakePrice|format_currency('EUR', locale='de') }}
+                                                                    </h5>
+
+                                                                </div>
+                                                            </div>
+                                                        {% endfor %}
+                                                        <div class="row mt-4">
+                                                            <div class="col-10">
+                                                                <h5 class="card-title text-end">Total : </h5>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <h5 class="card-title text-end">{{ order.total|format_currency('EUR', locale='de') }}</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     {% endfor %}

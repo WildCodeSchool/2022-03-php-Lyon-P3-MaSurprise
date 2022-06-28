@@ -46,7 +46,7 @@ class CustomerController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
         $userId = $user->getId();
-        $orders = $orderRepository->findBy(['buyer' => $userId]);
+        $orders = $orderRepository->findBy(['buyer' => $userId], ['orderedAt' => 'DESC']);
 
         return $this->render('customer/orders.html.twig', ['orders' => $orders]);
     }
