@@ -56,11 +56,13 @@ class CustomerController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         AddressRepository $addressRepository,
-        #[CurrentUser] ?User $user
     ): Response {
         $address = new Address();
         $form = $this->createForm(AddressType::class, $address);
         $form->handleRequest($request);
+
+        /** @var User $user */
+        $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
             // set last used address as inactive
@@ -74,7 +76,7 @@ class CustomerController extends AbstractController
             $entityManager->persist($address);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_cake_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_customer_show', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm("customer/edit.html.twig", ['form' => $form]);

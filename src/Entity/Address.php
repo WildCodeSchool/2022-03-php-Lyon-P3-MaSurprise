@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AddressRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
@@ -44,6 +46,18 @@ class Address
 
     #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist', 'remove'], inversedBy: 'billingAddress')]
     private ?User $billingAddress;
+
+    #[ORM\OneToMany(mappedBy: 'billingAddress', targetEntity: Order::class)]
+    private Collection $orderFromBuyer;
+
+    #[ORM\OneToMany(mappedBy: 'deliveryAddress', targetEntity: Order::class)]
+    private Collection $orderFromSeller;
+
+    public function __construct()
+    {
+        $this->orderFromBuyer = new ArrayCollection();
+        $this->orderFromSeller = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -166,6 +180,66 @@ class Address
     public function setBillingAddress(?User $billingAddress): self
     {
         $this->billingAddress = $billingAddress;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrderFromBuyer(): Collection
+    {
+        return $this->orderFromBuyer;
+    }
+
+    public function addOrderFromBuyer(Order $orderFromBuyer): self
+    {
+        if (!$this->orderFromBuyer->contains($orderFromBuyer)) {
+            $this->orderFromBuyer[] = $orderFromBuyer;
+            $orderFromBuyer->setBillingAddress($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderFromBuyer(Order $orderFromBuyer): self
+    {
+        if ($this->orderFromBuyer->removeElement($orderFromBuyer)) {
+            // set the owning side to null (unless already changed)
+            if ($orderFromBuyer->getBillingAddress() === $this) {
+                $orderFromBuyer->setBillingAddress(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrderFromSeller(): Collection
+    {
+        return $this->orderFromSeller;
+    }
+
+    public function addOrderFromSeller(Order $orderFromSeller): self
+    {
+        if (!$this->orderFromSeller->contains($orderFromSeller)) {
+            $this->orderFromSeller[] = $orderFromSeller;
+            $orderFromSeller->setDeliveryAddress($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderFromSeller(Order $orderFromSeller): self
+    {
+        if ($this->orderFromSeller->removeElement($orderFromSeller)) {
+            // set the owning side to null (unless already changed)
+            if ($orderFromSeller->getDeliveryAddress() === $this) {
+                $orderFromSeller->setDeliveryAddress(null);
+            }
+        }
 
         return $this;
     }

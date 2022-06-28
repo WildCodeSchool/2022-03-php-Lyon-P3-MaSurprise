@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\OrderRepository;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
@@ -19,7 +21,7 @@ class Order
     private DateTimeInterface $orderedAt;
 
     #[ORM\Column(type: 'string', length: 50)]
-    private string $orderStatus;
+    private string $orderStatus = "Commande créée";
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $cakeName;
@@ -30,32 +32,8 @@ class Order
     #[ORM\Column(type: 'string', length: 255)]
     private string $cakeSize;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $streetNumber;
-
-    #[ORM\Column(type: 'string', length: 15, nullable: true)]
-    private ?string $bisTerInfo;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $streetName;
-
-    #[ORM\Column(type: 'integer')]
-    private int $postcode;
-
-    #[ORM\Column(type: 'string', length: 100)]
-    private string $city;
-
-    #[ORM\Column(type: 'string', length: 3)]
-    private string $department;
-
-    #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $extraInfo;
-
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?DateTimeInterface $collectDate;
-
-    #[ORM\Column(type: 'boolean')]
-    private bool $orderValidated;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ordersToSellers')]
     #[ORM\JoinColumn(nullable: false)]
@@ -64,6 +42,25 @@ class Order
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ordersFromBuyers')]
     #[ORM\JoinColumn(nullable: false)]
     private User $seller;
+
+    #[ORM\ManyToOne(targetEntity: Address::class, inversedBy: 'orderFromBuyer')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Address $billingAddress;
+
+    #[ORM\ManyToOne(targetEntity: Address::class, inversedBy: 'orderFromSeller')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Address $deliveryAddress;
+
+    #[ORM\Column(type: 'float')]
+    private float $total;
+
+    #[ORM\OneToMany(mappedBy: 'orderReference', targetEntity: OrderLine::class, orphanRemoval: true)]
+    private Collection $orderLines;
+
+    public function __construct()
+    {
+        $this->orderLines = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -106,90 +103,6 @@ class Order
         return $this;
     }
 
-    public function getStreetNumber(): ?int
-    {
-        return $this->streetNumber;
-    }
-
-    public function setStreetNumber(?int $streetNumber): self
-    {
-        $this->streetNumber = $streetNumber;
-
-        return $this;
-    }
-
-    public function getBisTerInfo(): ?string
-    {
-        return $this->bisTerInfo;
-    }
-
-    public function setBisTerInfo(?string $bisTerInfo): self
-    {
-        $this->bisTerInfo = $bisTerInfo;
-
-        return $this;
-    }
-
-    public function getStreetName(): ?string
-    {
-        return $this->streetName;
-    }
-
-    public function setStreetName(string $streetName): self
-    {
-        $this->streetName = $streetName;
-
-        return $this;
-    }
-
-    public function getPostcode(): ?int
-    {
-        return $this->postcode;
-    }
-
-    public function setPostcode(int $postcode): self
-    {
-        $this->postcode = $postcode;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    public function getDepartment(): ?string
-    {
-        return $this->department;
-    }
-
-    public function setDepartment(string $department): self
-    {
-        $this->department = $department;
-
-        return $this;
-    }
-
-    public function getExtraInfo(): ?string
-    {
-        return $this->extraInfo;
-    }
-
-    public function setExtraInfo(?string $extraInfo): self
-    {
-        $this->extraInfo = $extraInfo;
-
-        return $this;
-    }
-
     public function getCakePrice(): ?float
     {
         return $this->cakePrice;
@@ -210,18 +123,6 @@ class Order
     public function setCollectDate(?DateTimeInterface $collectDate): self
     {
         $this->collectDate = $collectDate;
-
-        return $this;
-    }
-
-    public function isOrderValidated(): ?bool
-    {
-        return $this->orderValidated;
-    }
-
-    public function setOrderValidated(bool $orderValidated): self
-    {
-        $this->orderValidated = $orderValidated;
 
         return $this;
     }
@@ -258,6 +159,72 @@ class Order
     public function setSeller(?User $seller): self
     {
         $this->seller = $seller;
+
+        return $this;
+    }
+
+    public function getBillingAddress(): ?Address
+    {
+        return $this->billingAddress;
+    }
+
+    public function setBillingAddress(?Address $billingAddress): self
+    {
+        $this->billingAddress = $billingAddress;
+
+        return $this;
+    }
+
+    public function getDeliveryAddress(): ?Address
+    {
+        return $this->deliveryAddress;
+    }
+
+    public function setDeliveryAddress(?Address $deliveryAddress): self
+    {
+        $this->deliveryAddress = $deliveryAddress;
+
+        return $this;
+    }
+
+    public function getTotal(): ?float
+    {
+        return $this->total;
+    }
+
+    public function setTotal(float $total): self
+    {
+        $this->total = $total;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrderLine>
+     */
+    public function getOrderLines(): Collection
+    {
+        return $this->orderLines;
+    }
+
+    public function addOrderLine(OrderLine $orderLine): self
+    {
+        if (!$this->orderLines->contains($orderLine)) {
+            $this->orderLines[] = $orderLine;
+            $orderLine->setOrderReference($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderLine(OrderLine $orderLine): self
+    {
+        if ($this->orderLines->removeElement($orderLine)) {
+            // set the owning side to null (unless already changed)
+            if ($orderLine->getOrderReference() === $this) {
+                $orderLine->setOrderReference(null);
+            }
+        }
 
         return $this;
     }

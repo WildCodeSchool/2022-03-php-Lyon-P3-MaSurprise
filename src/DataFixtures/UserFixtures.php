@@ -44,6 +44,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setFirstname($faker->firstName());
         $user->setEmail("baker@baker.com");
         $user->setPhone($faker->phoneNumber());
+        if ($this->getReference('billingAddress_0') instanceof Address) {
+            $user->addBillingAddress($this->getReference('billingAddress_0'));
+        }
         $user->setRoles(['ROLE_BAKER']);
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,
@@ -61,6 +64,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setFirstname($faker->firstName());
             $user->setEmail($faker->email());
             $user->setPhone($faker->phoneNumber());
+            if ($this->getReference('billingAddress_' . $i) instanceof Address) {
+                $user->addBillingAddress($this->getReference('billingAddress_' . $i));
+            }
             $user->setRoles(['ROLE_BAKER']);
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,

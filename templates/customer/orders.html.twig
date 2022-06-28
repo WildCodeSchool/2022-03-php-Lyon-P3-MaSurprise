@@ -20,11 +20,11 @@
                                         <div class="d-flex justify-content-between">
                                             {% if order.orderStatus == "Commande annulée" %}
                                                 <h5 class="card-text text-red">Le {{ order.orderedAt|date("d/m/Y") }}
-                                                    à {{ order.orderedAt|date("h:m:s") }}</h5>
+                                                    à {{ order.orderedAt|date("h:i:s") }}</h5>
                                                 <h5 class="card-text text-red">{{ order.orderStatus }}</h5>
                                             {% else %}
                                                 <h5 class="card-text">Le {{ order.orderedAt|date("d/m/Y") }}
-                                                    à {{ order.orderedAt|date("h:m:s") }}</h5>
+                                                    à {{ order.orderedAt|date("h:i:s") }}</h5>
                                                 <h5 class="card-text">{{ order.orderStatus }}</h5>
                                             {% endif %}
                                         </div>
