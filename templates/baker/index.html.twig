@@ -26,7 +26,7 @@
                             {% endif %}
                         </p>
                         <p class="card-text">Téléphone : {{ baker.user.phone }}</p>
-                        <p class="card-text">Lieu : {{ baker.department.number }} - {{ baker.department.name }}</p>
+                        {#<p class="card-text">Lieu : {{ baker.department.number }} - {{ baker.department.name }}</p>#}
                         <a href="{{ path('app_baker_list', {id:baker.id} ) }}" class="btn btn-primary m-3">Plus de détails</a></br>
                         <div class="d-flex align-items-center">
                             <a href="{{ path('app_baker_edit', {id:baker.id} ) }}" class="btn btn-secondary text-white m-2">Modifier</a>
