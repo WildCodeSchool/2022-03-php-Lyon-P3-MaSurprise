@@ -40,11 +40,13 @@ class OrderService
         // creating an order
         $order = new Order();
 
+        // initializing total
         $total = 0;
 
         foreach ($datacart as $data) {
+            // creating an order line per cake
             $orderLine = new OrderLine();
-            // adding data to order line
+            // adding data to order line from session
             $orderLine
                 ->setCakeName($data['cake']->getName())
                 ->setCakePrice($data['cake']->getPrice())
@@ -53,15 +55,18 @@ class OrderService
 
             $this->entityManager->persist($orderLine);
 
+            // calculating total
             $total += $data['cake']->getPrice() * $data['quantity'];
 
-            // useless, will have to work differently
+            /* TODO: useless, will have to work differently (must take seller and
+            delivery address and put them in OrderLine even if it's really boring */
             $baker = $datacart[0]['cake']->getBaker();
             $bakerId = $baker->getId();
             $userBaker = $this->userRepository->findOneBy(['baker' => $bakerId]);
             $deliveryAddress = $this->addressRepository->findOneBy(['deliveryAddress' => $bakerId]);
 
             // prepping up datetime for date insertion
+            // TODO: set it up for 24h display, currently 12h
             $datetime = new DateTime();
             $timezone = new DateTimeZone('Europe/Paris');
             $datetime->setTimezone($timezone);
@@ -81,5 +86,12 @@ class OrderService
         }
         // saving order
         $this->entityManager->flush();
+
+        // TODO: there's a better way to do this probably
+        unset($_SESSION['_sf2_attributes']['cart']);
+        unset($_SESSION['_sf2_attributes']['datacart']);
+        unset($_SESSION['_sf2_attributes']['total']);
+
+        unset($_SESSION['Products']);
     }
 }
