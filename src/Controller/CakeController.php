@@ -87,7 +87,7 @@ class CakeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modifier', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Cake $cake, CakeRepository $cakeRepository): Response
     {
         $form = $this->createForm(CakeType::class, $cake);
