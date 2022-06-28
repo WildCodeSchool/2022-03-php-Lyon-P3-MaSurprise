@@ -62,11 +62,11 @@ class BakerType extends AbstractType
             ->add('facebook', TextType::class, [
                 'label' => "Facebook",
                 'required' => false,
-                ])
+            ])
             ->add('instagram', TextType::class, [
                 'label' => "Instagram",
                 'required' => false,
-                ])
+            ])
         ;
     }
 
