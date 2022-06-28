@@ -80,6 +80,7 @@ class OrderController extends AbstractController
                 ->setSeller($userBaker)
                 ->setCakeName($cake->getName())
                 ->setCakePrice($cake->getPrice())
+                ->setTotal($cake->getPrice())
                 ->setCakeSize($cake->getSize())
                 ->setBillingAddress($address)
                 ->setDeliveryAddress($deliveryAddress)
