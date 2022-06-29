@@ -17,7 +17,7 @@
         </h1>
         <h2>{{ baker.firstname }} {{ baker.lastname }}</h2>
         <p>Téléphone : {{ baker.phone }}</p>
-        <p>Adresse : {{ baker.address }}</p>
+        <p>Adresse : {{ baker.deliveryAddress.postcode }} {{ baker.deliveryAddress.city }}</p>
         <p>Date d'inscription : {{ baker.created | date("d/m/Y") }}</p>
 
         {% if baker.cakes is not empty %}<h3 class="text-center">Liste des gâteaux proposés par ce

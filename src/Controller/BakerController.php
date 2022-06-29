@@ -39,7 +39,6 @@ class BakerController extends AbstractController
         ]);
     }
 
-
     #[Route('/{id}', name: '_list')]
     public function detail(Baker $baker): Response
     {

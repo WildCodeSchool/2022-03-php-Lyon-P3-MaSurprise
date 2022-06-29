@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BakerProfileController!{% endblock %}
+
+
+{% block body %}
+    <h1>Bonjour {{ app.user.email }}</h1>
+
+    {{ dump(app.user)}}
+{#
+    {% if app.user.baker.cakes is not empty %}<h3 class="text-center">Liste de vos gâteaux</h3>{% endif %}
+        <div class="card-group">
+            {% for cake in app.user.baker.cakes %}
+                <div class="card m-2">
+                    <img src="https://www.myhappybirthdaywishes.com/wp-content/uploads/2022/05/Peppa-the-Pig-Cake-1024x1024.jpg" class="card-img-top"
+                         alt="...">
+                    <div class="card-body">
+                        <h3 class="text-center">Gâteau n°{{ loop.index }} : {{ cake.name }}</h3>
+                        <ul>
+                            <li>Prix : {{ cake.price }} €</li>
+                            <li>Taille : {{ cake.size }}</li>
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <h2>Vous n'avez pas encore ajouté de gâteaux.</h2>
+            {% endfor %}
+        </div>
+#}
+{% endblock %}

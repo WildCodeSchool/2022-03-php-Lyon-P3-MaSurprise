@@ -41,6 +41,9 @@ class CakeController extends AbstractController
             $cakes = $cakeRepository->findLikeName($search);
             $cakes += $cakeRepository->findLikeDescription($search);
             $cakes += $cakeRepository->findLikeBaker($search);
+            // TRY HEREUNDER
+            $cakes += $cakeRepository->findByDepartment($search);
+            // END OF TRY
 
             // display a message if nothing matches search AND fetch all cakes
             if ($cakes == null) {

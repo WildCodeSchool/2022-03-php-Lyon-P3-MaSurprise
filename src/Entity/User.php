@@ -34,6 +34,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'billingAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
     private $billingAddress;
 
+    #[ORM\OneToOne(inversedBy: 'baker', targetEntity: Baker::class, cascade: ['persist', 'remove'])]
+    private $baker;
+
+    #[ORM\OneToOne(inversedBy: 'deliveryAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
+    private $deliveryAddress;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,7 +127,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->billingAddress;
     }
 
-    public function setBillingAddress(Address $billingAddress): self
+    public function setBillingAddress(?Address $billingAddress): self
     {
         // set the owning side of the relation if necessary
         if ($billingAddress->getBillingAddress() !== $this) {
@@ -129,6 +135,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->billingAddress = $billingAddress;
+
+        return $this;
+    }
+
+    public function getBaker(): ?Baker
+    {
+        return $this->baker;
+    }
+
+    public function setBaker(?Baker $baker): self
+    {
+        $this->baker = $baker;
+
+        return $this;
+    }
+
+    public function getDeliveryAddress(): ?Address
+    {
+        return $this->deliveryAddress;
+    }
+
+    public function setDeliveryAddress(?Address $deliveryAddress): self
+    {
+        $this->deliveryAddress = $deliveryAddress;
 
         return $this;
     }

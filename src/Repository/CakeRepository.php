@@ -80,6 +80,14 @@ class CakeRepository extends ServiceEntityRepository
         return $queryBuilder->getResult();
     }
 
+    // fetching cakes whose department matches the filtered department of the form
+    public function findByDepartment(string $department)
+    {
+        /*$queryBuilder = $this->createQueryBuilder('c')
+            ->join('c.baker', 'b')
+            ->where*/
+    }
+
 //    /**
 //     * @return Cake[] Returns an array of Cake objects
 //     */

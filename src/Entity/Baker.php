@@ -99,6 +99,9 @@ class Baker
     #[ORM\OneToOne(mappedBy: 'deliveryAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
     private $deliveryAddress;
 
+    #[ORM\OneToOne(mappedBy: 'baker', targetEntity: User::class, cascade: ['persist', 'remove'])]
+    private $user;
+
     public function __construct()
     {
         $this->cakes = new ArrayCollection();
@@ -382,6 +385,28 @@ class Baker
         }
 
         $this->deliveryAddress = $deliveryAddress;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setBaker(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getBaker() !== $this) {
+            $user->setBaker($this);
+        }
+
+        $this->user = $user;
 
         return $this;
     }
