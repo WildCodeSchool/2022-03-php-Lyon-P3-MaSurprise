@@ -23,7 +23,6 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 400; $i++) {
             $address = new Address();
 
-            // fixtures regarding address information for address
             $address->setStreetNumber($faker->randomNumber(2, true));
             $address->setStreetName($faker->streetName());
             $address->setPostcode($faker->randomNumber(5, true));
@@ -37,7 +36,6 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
         for ($j = 0; $j < 400; $j++) {
             $address = new Address();
 
-            // fixtures regarding address information for address
             $address->setStreetNumber($faker->randomNumber(2, true));
             $address->setStreetName($faker->streetName());
             $address->setPostcode($faker->randomNumber(5, true));
@@ -52,9 +50,8 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
     }
 
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
-        // Tu retournes ici toutes les classes de fixtures dont addressFixtures dépend
         return [
             DepartmentFixtures::class,
         ];
