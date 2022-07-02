@@ -98,14 +98,28 @@
                 <div class="row justify-content-center">
                     {% for cake in cakes %}
                         <div class="cake-card col-6 col-md-4 d-flex flex-column  p-2 p-lg-4">
+                            {% if is_granted("ROLE_ADMIN") %}
+                            <a href="{{ path('app_cake_edit', { 'id': cake.id} ) }}">
+                                <img class="cake-img img-fluid" src="{{ asset('build/images/gateau.jpg') }}"
+                                     alt="cake img">
+                            </a>
+                            {% else %}
                             <a href="{{ path('app_cake_show', {'id': cake.id}) }}">
                                 <img class="cake-img img-fluid" src="{{ asset('build/images/gateau.jpg') }}"
                                      alt="cake img">
                             </a>
+                            {% endif %}
                             <div class="mt-2">
+                                {% if is_granted("ROLE_ADMIN") %}
+                                <a class="text-decoration-none" href="{{ path('app_cake_edit', {'id': cake.id}) }}">
+                                    <h1 class="cake-name text-decoration-none m-0 text-primary">{{ cake.name }}</h1>
+                                </a>
+                                {% else %}
                                 <a class="text-decoration-none" href="{{ path('app_cake_show', {'id': cake.id}) }}">
                                     <h1 class="cake-name text-decoration-none m-0 text-primary">{{ cake.name }}</h1>
                                 </a>
+                                {% endif %}
+                                
                             </div>
                             <div class="cake-stars d-flex align-items-baseline pt-2">
                                 <div class="d-flex flex-row align-items-center">
@@ -116,7 +130,7 @@
                                 </div>
                             </div>
                             <div class="cake-price-rev m-0 p-0 d-flex flex-row justify-content-between">
-                                <p class="cake-disponibility m-0">Disponnible dans 10 jours</p>
+                                <p class="cake-disponibility m-0">Disponible dans 10 jours</p>
                                 <p class="cake-price m-0">{{ cake.price }}€</p>
                             </div>
                             <div class="d-flex align-items-baseline mt-1 p-0 justify-content-between">
