@@ -5,9 +5,7 @@
 {% block body %}
     <h1>Modifier votre pâtisserie</h1>
 
-    {{ include('cake/_form.html.twig', {'button_label': 'Enregistrer les modifications', "attr": {
-            "class": "btn-primary"
-        }}) }}
+    {{ include('cake/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
     <a href="{{ path('app_cake_index') }}">Retour à la liste</a>
 
