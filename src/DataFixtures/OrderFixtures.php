@@ -20,7 +20,7 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
             $order = new Order();
             $order
                 ->setOrderedAt($faker->dateTimeInInterval('-1 week', '+6 days'))
-                ->setOrderStatus($faker->randomElement([
+                ->setOrderStatus((string)$faker->randomElement([
                     'Commande créée',
                     'Commande validée',
                     'Commande en préparation',
