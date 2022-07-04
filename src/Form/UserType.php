@@ -23,20 +23,20 @@ class UserType extends AbstractType
         $builder
             ->add('lastname', TextType::class, [
                 'label' => 'Nom*',
-                'required' => 'Le champ Nom est obligatoire'
-                ])
+                'required' => 'Le champ Nom est obligatoire',
+            ])
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom*',
-                'required' => 'Le champ Prénom est obligatoire'
-                ])
+                'required' => 'Le champ Prénom est obligatoire',
+            ])
             ->add('email', EmailType::class, [
                 'label' => "E-mail*",
-                'required' => "Le champ E-mail est obligatoire"
-                ])
+                'required' => "Le champ E-mail est obligatoire",
+            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'required' => true,
-                'first_options'  => array('label' => 'Password'),
+                'first_options' => array('label' => 'Password'),
                 'second_options' => array('label' => 'Repeat Password'),
                 'constraints' => [
                     new NotBlank(['message' => "Ce champ est obligatoire."]),
@@ -48,18 +48,17 @@ class UserType extends AbstractType
                 'invalid_message' => 'Le mot de passe doit être identique.',
                 'options' => ['attr' => [
                     'class' => 'password-field',
-                    'placeholder' => "Mot de passe"
+                    'placeholder' => "Mot de passe",
                 ]],
             ])
             ->add('billingAddress', AddressType::class, [
                 'label' => "Adresse*",
-                'required' => "Le champ Adresse est obligatoire"
-                ])
+                'required' => "Le champ adresse est obligatoire",
+            ])
             ->add('phone', TextType::class, [
                 'label' => "Téléphone*",
-                'required' => "Le champ Téléphone est obligatoire"
-                ])
-        ;
+                'required' => "Le champ téléphone est obligatoire",
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
