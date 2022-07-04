@@ -15,22 +15,27 @@ class AddressType extends AbstractType
     {
         $builder
             ->add('streetNumber', NumberType::class, [
-                'label' => 'Numéro de rue'
+                'label' => 'Numéro de rue*'
             ])
             ->add('bisTerInfo', TextType::class, [
-                'label' => 'Bis ou Ter'
+                'label' => 'Bis ou Ter',
+                'required' => false
             ])
             ->add('streetName', TextType::class, [
-                'label' => 'Nom de la rue'
+                'label' => 'Nom de la rue*'
             ])
+            ->add('department', null, ['label' => 'Département*', 'choice_label' => function ($department) {
+                return $department->getNumber() . ' - ' . $department->getName();
+            }])
             ->add('postcode', NumberType::class, [
-                'label' => 'Code postal'
+                'label' => 'Code postal*'
             ])
             ->add('city', TextType::class, [
-                'label' => 'Ville'
+                'label' => 'Ville*'
             ])
             ->add('extraInfo', TextType::class, [
-                'label' => 'Informations supplémentaires'
+                'label' => 'Informations supplémentaires',
+                'required' => false
             ])
         ;
     }

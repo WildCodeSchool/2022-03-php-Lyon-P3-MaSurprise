@@ -36,8 +36,8 @@ class UserType extends AbstractType
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'required' => true,
-                'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password'),
+                'first_options'  => array('label' => 'Mot de passe*'),
+                'second_options' => array('label' => 'Confirmez votre mot de passe*'),
                 'constraints' => [
                     new NotBlank(['message' => "Ce champ est obligatoire."]),
                     new Length([
@@ -51,13 +51,13 @@ class UserType extends AbstractType
                     'placeholder' => "Mot de passe"
                 ]],
             ])
-            ->add('billingAddress', AddressType::class, [
-                'label' => "Adresse*",
-                'required' => "Le champ Adresse est obligatoire"
-                ])
             ->add('phone', TextType::class, [
                 'label' => "Téléphone*",
                 'required' => "Le champ Téléphone est obligatoire"
+                ])
+            ->add('billingAddress', AddressType::class, [
+                'label' => "Adresse*",
+                'required' => "Le champ Adresse est obligatoire"
                 ])
         ;
     }
