@@ -5,7 +5,19 @@
 {% block body %}
     <h1>Modifier votre pâtisserie</h1>
 
-    {{ include('cake/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+    {{ form_start(form, {
+    }) }}
+    {{ form_widget(form) }}
+        <p>Photos du gâteau</p>
+        <div class="cake-image container">
+            <div class="row">
+            {% for picture in cake.picture1|split(',') %}
+                <img src="/uploads/cakes/{{ picture }}" class="img-fluid col-3 m-1">
+            {% endfor %}
+            </div>
+        </div>
+        <button class="btn-primary p-2">{{ button_label|default('Enregistrer les modifications') }}</button>
+    {{ form_end(form) }}
 
     <a href="{{ path('app_cake_index') }}">Retour à la liste</a>
 
