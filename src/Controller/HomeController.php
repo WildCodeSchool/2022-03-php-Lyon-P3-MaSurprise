@@ -23,4 +23,10 @@ class HomeController extends AbstractController
             'departments' => $departments,
         ]);
     }
+
+    #[Route('/nos-services', name: 'services')]
+    public function showServices(): Response
+    {
+        return $this->render('services/index.html.twig');
+    }
 }
