@@ -29,9 +29,6 @@ class AddressType extends AbstractType
                 'label' => 'Nom de la rue*',
                 'required' => 'Le nom de la rue est obligatoire',
             ])
-            /*->add('department', null, ['label' => 'Département*', 'choice_label' => function ($department) {
-                return $department->getNumber() . ' - ' . $department->getName();
-            }])*/
             ->add('postcode', NumberType::class, [
                 'label' => 'Code postal*',
                 'required' => 'Le champ code postal est obligatoire',
