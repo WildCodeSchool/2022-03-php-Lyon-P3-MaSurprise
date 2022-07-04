@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ cake.name }} - {{ parent() }}{% endblock %}
+{% block title %}
+    {{ cake.name }}
+    -
+    {{ parent() }}
+{% endblock %}
 
 {% block body %}
 
@@ -9,7 +13,7 @@
             <div class="cake-img container col-6">
                 <div class="row">
                     <div class="cake-image container col-10">
-                        <img src="{{ asset('build/images/gateau.jpg') }}"
+                        <img src="{{ asset('build/images/gateau.jpg') }}" alt="Une image de gâteau."
                              class="cake-img-pres img-fluid w-75">
                     </div>
                 </div>
@@ -18,23 +22,27 @@
                 <h1 class="cake-title m-0 font-weight-bold">{{ cake.name }}</h1>
                 <p class="fs-3">{{ cake.price|format_currency('EUR', locale='de') }}</p>
                 <div class="d-flex flex-row align-items-center">
-                    {% for i in 1..5 %}
-                        <img src="{{ asset('build/images/icons/Star_15.png') }}">
-                    {% endfor %}
+                    <div class="d-flex flex-row">
+                        {% for i in 1..random(1,5) %}
+                            <img class="img-fluid" src="{{ asset('build/images/icons/Star_15.png') }}">
+                        {% endfor %}
+                    </div>
                     <p class="avis">3 avis</p>
                 </div>
                 <P class="mt-2 cake-description">{{ cake.description }}</P>
                 <div class="d-flex flex-row justify-content-between">
                     <p class="">ville</p>
-                    <a class="btn btn-primary" id="addToCart" href="{{ path('cart_add', {'id': cake.id}) }}">Ajouter au panier</a>
+
+                    <a class="btn btn-primary" id="addToCart" href="{{ path('cart_add', {'id': cake.id}) }}">Ajouter au
+                        panier</a>
                     <p>Disponibilité</p>
+
                 </div>
 
                 <p>
                     <a class="btn btn-outline-secondary text-secondary" data-bs-toggle="collapse"
-                       href="#collapseIngredients"
-                       role="button"
-                       aria-expanded="false" aria-controls="collapseIngredients">
+                       href="#collapseIngredients" role="button" aria-expanded="false"
+                       aria-controls="collapseIngredients">
                         Ingrédients et saveurs
                     </a>
                 </p>
@@ -42,7 +50,8 @@
                     <div class="container-fluid card card-body bg-light">
                         <div class="row">
                             {% for i in 1..10 %}
-                                ingrédient {{ i }},
+                                ingrédient
+                                {{ i }},
                             {% endfor %}
                         </div>
                     </div>
@@ -50,9 +59,7 @@
 
                 <p>
                     <a class="btn btn-outline-secondary text-secondary" data-bs-toggle="collapse"
-                       href="#collapseAllergens"
-                       role="button"
-                       aria-expanded="false" aria-controls="collapseAllergens">
+                       href="#collapseAllergens" role="button" aria-expanded="false" aria-controls="collapseAllergens">
                         Allergènes
                     </a>
                 </p>
@@ -60,7 +67,8 @@
                     <div class="container-fluid card card-body bg-light">
                         <div class="row">
                             {% for i in 1..10 %}
-                                allergène {{ i }},
+                                allergène
+                                {{ i }},
                             {% endfor %}
                         </div>
                     </div>
@@ -73,10 +81,12 @@
         <div class="baker-row row d-flex flex-row justify-content-center">
             <div class="col-3 border-end">
                 <div class="d-flex flex-row">
-                    <img class="comment-img" src="https://i.pravatar.cc/">
+                    <img class="comment-img" src="https://i.pravatar.cc/" alt="Un avatar au hasard">
                     <div class="d-flex flex-column justify-content-center">
-                        <p class="text-start font-weight-bold mb-0"> {{ cake.baker.user.lastname }}
-                            .{{ cake.baker.user.firstname |slice(0, 1) }} </p>
+                        <p class="text-start font-weight-bold mb-0">
+                            {{ cake.baker.user.lastname }}
+                            .{{ cake.baker.user.firstname |slice(0, 1) }}
+                        </p>
                         <p class="titre">Patissier professionel</p>
                     </div>
                 </div>

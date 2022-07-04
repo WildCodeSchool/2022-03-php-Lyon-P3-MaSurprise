@@ -50,6 +50,7 @@ class RegistrationController extends AbstractController
                 return $this->redirectToRoute('app_home');
             }
         }
+
         return $this->renderForm('baker/new.html.twig', [
             'form' => $form, 'baker' => $baker,
         ]);
