@@ -22,20 +22,12 @@ class Department
     #[ORM\Column(type: 'string', length: 50)]
     private string $name;
 
-    #[ORM\OneToMany(mappedBy: 'department', targetEntity: Baker::class)]
-    private ?Collection $bakers;
-
-    #[ORM\OneToMany(mappedBy: 'department1', targetEntity: Address::class)]
-    private $addresses;
-
-    #[ORM\OneToMany(mappedBy: 'department2', targetEntity: Address::class)]
-    private $extraInfo2;
+    #[ORM\OneToMany(mappedBy: 'department', targetEntity: Address::class)]
+    private Collection $addresses;
 
     public function __construct()
     {
-        $this->bakers = new ArrayCollection();
         $this->addresses = new ArrayCollection();
-        $this->extraInfo2 = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,36 +65,6 @@ class Department
     }
 
     /**
-     * @return Collection<int, Baker>
-     */
-    public function getBakers(): Collection
-    {
-        return $this->bakers;
-    }
-
-    public function addBaker(Baker $baker): self
-    {
-        if (!$this->bakers->contains($baker)) {
-            $this->bakers[] = $baker;
-            $baker->setDepartment($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBaker(Baker $baker): self
-    {
-        if ($this->bakers->removeElement($baker)) {
-            // set the owning side to null (unless already changed)
-            if ($baker->getDepartment() === $this) {
-                $baker->setDepartment(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Address>
      */
     public function getAddresses(): Collection
@@ -114,7 +76,6 @@ class Department
     {
         if (!$this->addresses->contains($address)) {
             $this->addresses[] = $address;
-            $address->setDepartment1($this);
         }
 
         return $this;
@@ -124,39 +85,6 @@ class Department
     {
         if ($this->addresses->removeElement($address)) {
             // set the owning side to null (unless already changed)
-            if ($address->getDepartment1() === $this) {
-                $address->setDepartment1(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Address>
-     */
-    public function getExtraInfo2(): Collection
-    {
-        return $this->extraInfo2;
-    }
-
-    public function addExtraInfo2(Address $extraInfo2): self
-    {
-        if (!$this->extraInfo2->contains($extraInfo2)) {
-            $this->extraInfo2[] = $extraInfo2;
-            $extraInfo2->setDepartment2($this);
-        }
-
-        return $this;
-    }
-
-    public function removeExtraInfo2(Address $extraInfo2): self
-    {
-        if ($this->extraInfo2->removeElement($extraInfo2)) {
-            // set the owning side to null (unless already changed)
-            if ($extraInfo2->getDepartment2() === $this) {
-                $extraInfo2->setDepartment2(null);
-            }
         }
 
         return $this;

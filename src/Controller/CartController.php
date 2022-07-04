@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use function PHPUnit\Framework\isFalse;
 
-#[Route('/cart', name: 'cart_')]
+#[Route('/panier', name: 'cart_')]
 class CartController extends AbstractController
 {
     #[Route('/', name: 'index')]
@@ -20,7 +20,6 @@ class CartController extends AbstractController
         $cart = $session->get("cart", []);
         $dataCart = [];
         $total = 0;
-
 
         if (is_array($cart)) {
             foreach ($cart as $id => $quantity) {
@@ -35,12 +34,15 @@ class CartController extends AbstractController
             }
         }
 
+        // transmitting info to order page
+        $session->set("total", $total);
+        $session->set('datacart', $dataCart);
+
         return $this->render('cart/index.html.twig', ["datacart" => $dataCart,
             "total" => $total,]);
     }
 
-
-    #[Route('/add/{id}', name: 'add')]
+    #[Route('/ajouter/{id}', name: 'add')]
     public function add(CartService $cartService, int $id, SessionInterface $session): Response
     {
         $cartService->addCartService($id, $session);
@@ -48,7 +50,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute("cart_index");
     }
 
-    #[Route('/remove/{id}', name: 'remove')]
+    #[Route('/enlever/{id}', name: 'remove')]
     public function remove(CartService $cartService, int $id, SessionInterface $session): Response
     {
         $cartService->removeCartService($id, $session);
@@ -56,7 +58,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute("cart_index");
     }
 
-    #[Route('/delete/{id}', name: 'delete')]
+    #[Route('/supprimer/{id}', name: 'delete')]
     public function delete(int $id, SessionInterface $session): Response
     {
         $cart = $session->get("cart", []);

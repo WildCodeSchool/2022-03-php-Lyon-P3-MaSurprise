@@ -13,24 +13,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const USERS = [
-        [
-            'email' => 'customer@gmail.com',
-            "roles" => ["ROLE_CUSTOMER"],
-            "password" => 'customerpassword',
-        ],
-        [
-            'email' => 'baker@gmail.com',
-            'roles' => ['ROLE_BAKER'],
-            'password' => 'bakerpassword',
-        ],
-        [
-            'email' => 'admin@monsite.com',
-            'roles' => ['ROLE_ADMIN'],
-            'password' => 'adminpassword',
-        ],
-    ];
-
     private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
@@ -40,63 +22,100 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        // Création d’un utilisateur de type “contributeur” (= auteur)
-
         $faker = Factory::create('fr_FR');
+        // creating ONE known admin account
         $user = new User();
         $user->setLastname($faker->lastName());
         $user->setFirstname($faker->firstName());
-        $user->setEmail('customer@gmail.com');
+        $user->setEmail("admin@admin.com");
         $user->setPhone($faker->phoneNumber());
-        $user->setRoles(['ROLE_USER']);
+        $user->setRoles(['ROLE_ADMIN']);
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,
-            'customerpassword'
+            "password"
         );
-
         $user->setPassword($hashedPassword);
-        $this->addReference('user_1', $user);
         $manager->persist($user);
 
-
-        // Création d’un utilisateur de type “administrateur”
-        $faker = Factory::create('fr_FR');
-        $admin = new User();
-        $admin->setLastname($faker->lastName());
-        $admin->setFirstname($faker->firstName());
-        $admin->setEmail('admin@monsite.com');
-        $admin->setPhone($faker->phoneNumber());
-        $admin->setRoles(['ROLE_ADMIN']);
+        // creating ONE known baker account (user_0)
+        $user = new User();
+        $user->setLastname($faker->lastName());
+        $user->setFirstname($faker->firstName());
+        $user->setEmail("baker@baker.com");
+        $user->setPhone($faker->phoneNumber());
+        if ($this->getReference('billingAddress_0') instanceof Address) {
+            $user->addBillingAddress($this->getReference('billingAddress_0'));
+        }
+        $user->setRoles(['ROLE_BAKER']);
         $hashedPassword = $this->passwordHasher->hashPassword(
-            $admin,
-            'adminpassword'
+            $user,
+            "password"
         );
-        $admin->setPassword($hashedPassword);
-        $this->addReference('user_2', $admin);
-        $manager->persist($admin);
+        $user->setPassword($hashedPassword);
+        $this->addReference('seller_0', $user);
+        $this->addReference('user_0', $user);
+        $manager->persist($user);
 
-
-        // Création d’un utilisateur de type “contributeur” (= auteur)
-        $faker = Factory::create('fr_FR');
-        for ($i = 3; $i < 101; $i++) {
+        // creating 49 random bakers (user_0 to user_49)
+        for ($i = 1; $i < 50; $i++) {
             $user = new User();
             $user->setLastname($faker->lastName());
             $user->setFirstname($faker->firstName());
             $user->setEmail($faker->email());
-            if ($this->getReference('billingAddress_' . $i) instanceof Address) {
-                $user->setBillingAddress($this->getReference('billingAddress_' . $i));
-            }
             $user->setPhone($faker->phoneNumber());
-            $user->setRoles(['ROLE_USER']);
+            if ($this->getReference('billingAddress_' . $i) instanceof Address) {
+                $user->addBillingAddress($this->getReference('billingAddress_' . $i));
+            }
+            $user->setRoles(['ROLE_BAKER']);
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,
-                $faker->password(8, 15)
+                "password"
             );
             $user->setPassword($hashedPassword);
+            $this->addReference('seller_' . $i, $user);
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);
         }
-        // Sauvegarde des 3 nouveaux utilisateurs :
+
+        // creating ONE known customer account (user_50)
+        $user = new User();
+        $user->setLastname($faker->lastName());
+        $user->setFirstname($faker->firstName());
+        $user->setEmail("customer@customer.com");
+        $user->setPhone($faker->phoneNumber());
+        if ($this->getReference('billingAddress_50') instanceof Address) {
+            $user->addBillingAddress($this->getReference('billingAddress_50'));
+        }
+        $user->setRoles(['ROLE_CUSTOMER']);
+        $hashedPassword = $this->passwordHasher->hashPassword(
+            $user,
+            'password'
+        );
+        $user->setPassword($hashedPassword);
+        $this->addReference('buyer_50', $user);
+        $this->addReference('user_50', $user);
+        $manager->persist($user);
+
+        // creating ~99 random customers (user_51 to user_150)
+        for ($j = 51; $j <= 150; $j++) {
+            $user = new User();
+            $user->setLastname($faker->lastName());
+            $user->setFirstname($faker->firstName());
+            $user->setEmail($faker->email());
+            $user->setPhone($faker->phoneNumber());
+            // billingAddress_0 is already taken by the first customer
+            if ($this->getReference('billingAddress_' . $j) instanceof Address) {
+                $user->addBillingAddress($this->getReference('billingAddress_' . $j));
+            }
+            $user->setRoles(['ROLE_CUSTOMER']);
+            $hashedPassword = $this->passwordHasher->hashPassword(
+                $user,
+                'password'
+            );
+            $user->setPassword($hashedPassword);
+            $this->addReference('buyer_' . $j, $user);
+        }
+
         $manager->flush();
     }
 
@@ -104,7 +123,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     {
         return
             [
-                AddressFixtures::class
+                AddressFixtures::class,
             ];
     }
 }

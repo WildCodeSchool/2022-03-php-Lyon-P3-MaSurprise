@@ -25,7 +25,7 @@ radio.addEventListener('change', function () {
 
 // copy the delivery address if similar to billing adress
 
-const copyAdress = document.getElementById('copyAddress');
+const copyAddress = document.getElementById('copyAddress');
 const copy = document.querySelector("input[name=copy]");
 const streetNumber = document.getElementById('baker_user_billingAddress_streetNumber');
 const deliveryStreetNumber = document.getElementById('baker_deliveryAddress_streetNumber');
@@ -42,7 +42,7 @@ const deliveryCity = document.getElementById('baker_deliveryAddress_city');
 const extraInfo = document.getElementById('baker_user_billingAddress_extraInfo');
 const deliveryExtraInfo = document.getElementById('baker_deliveryAddress_extraInfo');
 
-copyAdress.addEventListener('change', function () {
+copyAddress.addEventListener('change', function () {
     if (copy.checked) {
         deliveryStreetNumber.value = streetNumber.value;
         deliveryBis.value = bis.value;
