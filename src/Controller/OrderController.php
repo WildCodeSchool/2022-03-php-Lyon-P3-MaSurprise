@@ -52,12 +52,14 @@ class OrderController extends AbstractController
         $datacart = $session->get('datacart');
 
         // getting user
-        // TODO: determine if this should go there or in the service
         /** @var User $user */
         $user = $this->getUser();
 
         // calling service to add order
         $orderService->createOrder($datacart, $session, $user);
+
+        // emptying cart
+        $orderService->emptyCart();
 
         return $this->render('order/placed.html.twig');
     }

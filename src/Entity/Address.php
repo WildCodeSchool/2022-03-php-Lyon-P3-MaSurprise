@@ -50,7 +50,7 @@ class Address
     #[ORM\OneToMany(mappedBy: 'billingAddress', targetEntity: Order::class)]
     private Collection $orderFromBuyer;
 
-    #[ORM\OneToMany(mappedBy: 'deliveryAddress', targetEntity: Order::class)]
+    #[ORM\OneToMany(mappedBy: 'deliveryAddress', targetEntity: OrderLine::class)]
     private Collection $orderFromSeller;
 
     public function __construct()
@@ -215,14 +215,14 @@ class Address
     }
 
     /**
-     * @return Collection<int, Order>
+     * @return Collection<int, OrderLine>
      */
     public function getOrderFromSeller(): Collection
     {
         return $this->orderFromSeller;
     }
 
-    public function addOrderFromSeller(Order $orderFromSeller): self
+    public function addOrderFromSeller(OrderLine $orderFromSeller): self
     {
         if (!$this->orderFromSeller->contains($orderFromSeller)) {
             $this->orderFromSeller[] = $orderFromSeller;
@@ -232,7 +232,7 @@ class Address
         return $this;
     }
 
-    public function removeOrderFromSeller(Order $orderFromSeller): self
+    public function removeOrderFromSeller(OrderLine $orderFromSeller): self
     {
         if ($this->orderFromSeller->removeElement($orderFromSeller)) {
             // set the owning side to null (unless already changed)

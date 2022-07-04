@@ -34,17 +34,16 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
             if ($buyer instanceof User) {
                 $order->setBuyer($buyer);
             };
-            $order->setTotal($faker->numberBetween(250, 450));
+            $order->setTotal($faker->randomFloat(2, 12, 50));
+            $order->setNumber(
+                rand(1, 9) .
+                strtoupper(substr($faker->lastName(), 0, 2)) .
+                rand(1000, 9999) .
+                substr(strval(floor(microtime(true) * 1000)), -6)
+            );
             if ($this->getReference('billingAddress_' . $i) instanceof Address) {
                 $order->setBillingAddress($this->getReference('billingAddress_' . $i));
             }
-            if ($this->getReference('deliveryAddress_' . $i) instanceof Address) {
-                $order->setDeliveryAddress($this->getReference('deliveryAddress_' . $i));
-            }
-            $seller = $this->getReference('seller_' . $faker->numberBetween(0, 49));
-            if ($seller instanceof User) {
-                $order->setSeller($seller);
-            };
             $this->addReference('order_' . $i, $order);
             $manager->persist($order);
         }

@@ -13,7 +13,7 @@ class OrderLine
     #[ORM\Column(type: 'integer')]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: 'orderLines')]
+    #[ORM\ManyToOne(targetEntity: Order::class, cascade: ['persist', 'remove'], inversedBy: 'orderLines')]
     #[ORM\JoinColumn(nullable: false)]
     private Order $orderReference;
 
@@ -28,6 +28,14 @@ class OrderLine
 
     #[ORM\Column(type: 'integer')]
     private int $quantity;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ordersFromBuyers')]
+    #[ORM\JoinColumn(nullable: false)]
+    private User $seller;
+
+    #[ORM\ManyToOne(targetEntity: Address::class, inversedBy: 'orderFromSeller')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Address $deliveryAddress;
 
     public function getId(): ?int
     {
@@ -90,6 +98,30 @@ class OrderLine
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getSeller(): ?User
+    {
+        return $this->seller;
+    }
+
+    public function setSeller(?User $seller): self
+    {
+        $this->seller = $seller;
+
+        return $this;
+    }
+
+    public function getDeliveryAddress(): ?Address
+    {
+        return $this->deliveryAddress;
+    }
+
+    public function setDeliveryAddress(?Address $deliveryAddress): self
+    {
+        $this->deliveryAddress = $deliveryAddress;
 
         return $this;
     }

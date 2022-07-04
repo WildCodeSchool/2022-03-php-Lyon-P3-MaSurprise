@@ -33,61 +33,70 @@ class OrderService
         SessionInterface $session,
         User $user
     ): void {
-        // fetching user and getting its id
-        $userId = $user->getId();
-        $address = $this->addressRepository->findOneBy(['billingAddress' => $userId, 'status' => 1]);
-
         // creating an order
         $order = new Order();
-
-        // initializing total
         $total = 0;
 
         foreach ($datacart as $data) {
-            // creating an order line per cake
-            $orderLine = new OrderLine();
-            // adding data to order line from session
-            $orderLine
-                ->setCakeName($data['cake']->getName())
-                ->setCakePrice($data['cake']->getPrice())
-                ->setCakeSize($data['cake']->getSize())
-                ->setQuantity($data['quantity']);
-
-            $this->entityManager->persist($orderLine);
-
-            // calculating total
-            $total += $data['cake']->getPrice() * $data['quantity'];
-
-            /* TODO: useless, will have to work differently (must take seller and
-            delivery address and put them in OrderLine even if it's really boring */
-            $baker = $datacart[0]['cake']->getBaker();
+            // fetching baker and their address
+            $baker = $data['cake']->getBaker();
             $bakerId = $baker->getId();
             $userBaker = $this->userRepository->findOneBy(['baker' => $bakerId]);
             $deliveryAddress = $this->addressRepository->findOneBy(['deliveryAddress' => $bakerId]);
 
-            // prepping up datetime for date insertion
-            // TODO: set it up for 24h display, currently 12h
-            $datetime = new DateTime();
-            $timezone = new DateTimeZone('Europe/Paris');
-            $datetime->setTimezone($timezone);
+            // calculating total
+            $total += $data['cake']->getPrice() * $data['quantity'];
 
-            // adding data to order
-            $order
-                ->setOrderedAt($datetime)
-                ->setBuyer($user)
+            // creating an order line per cake
+            $orderLine = new OrderLine();
+            // adding data to order line from session
+            $orderLine
+                ->setOrderReference($order)
+                ->setCakeName($data['cake']->getName())
+                ->setCakePrice($data['cake']->getPrice())
+                ->setCakeSize($data['cake']->getSize())
+                ->setQuantity($data['quantity'])
                 ->setSeller($userBaker)
-                ->setTotal($total)
-                ->setBillingAddress($address)
-                ->setDeliveryAddress($deliveryAddress)
-                ->setCollectDate($datetime)
-                ->addOrderLine($orderLine);
+                ->setDeliveryAddress($deliveryAddress);
 
-            $this->entityManager->persist($order);
+            $this->entityManager->persist($orderLine);
         }
+
+        // prepping up datetime for date insertion
+        $datetime = new DateTime();
+        $timezone = new DateTimeZone('Europe/Paris');
+        $datetime->setTimezone($timezone);
+
+        // fetching user and getting their id
+        $userId = $user->getId();
+        $address = $this->addressRepository->findOneBy(['billingAddress' => $userId, 'status' => 1]);
+
+        // creating order number
+        $number =
+            rand(1, 9) .
+            strtoupper(substr($user->getLastname(), 0, 2)) .
+            rand(1000, 9999) .
+            substr(strval(floor(microtime(true) * 1000)), -6);
+
+        // adding data to order
+        $order
+            ->setOrderedAt($datetime)
+            ->setNumber($number)
+            ->setBuyer($user)
+            ->setTotal($total)
+            ->setBillingAddress($address)
+            ->setCollectDate($datetime);
+
+        $this->entityManager->persist($order);
+
         // saving order
         $this->entityManager->flush();
+    }
 
+    public function emptyCart(): void
+    {
         // TODO: there's a better way to do this probably
+        // emptying cart when order is complete
         unset($_SESSION['_sf2_attributes']['cart']);
         unset($_SESSION['_sf2_attributes']['datacart']);
         unset($_SESSION['_sf2_attributes']['total']);

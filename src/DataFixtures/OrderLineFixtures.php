@@ -2,7 +2,9 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Address;
 use App\Entity\OrderLine;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -37,6 +39,13 @@ class OrderLineFixtures extends Fixture implements DependentFixtureInterface
                 ]));
                 if (is_string($size)) {
                     $orderLine->setCakeSize($size);
+                };
+                if ($this->getReference('deliveryAddress_' . $i) instanceof Address) {
+                    $orderLine->setDeliveryAddress($this->getReference('deliveryAddress_' . $i));
+                }
+                $seller = $this->getReference('seller_' . $faker->numberBetween(0, 49));
+                if ($seller instanceof User) {
+                    $orderLine->setSeller($seller);
                 };
                 $orderLine
                     ->setCakePrice($faker->randomFloat(2, 50, 200))

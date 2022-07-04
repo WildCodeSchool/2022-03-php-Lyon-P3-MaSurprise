@@ -43,7 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'buyer', targetEntity: Order::class)]
     private Collection $ordersToSellers;
 
-    #[ORM\OneToMany(mappedBy: 'seller', targetEntity: Order::class)]
+    #[ORM\OneToMany(mappedBy: 'seller', targetEntity: OrderLine::class)]
     private Collection $ordersFromBuyers;
 
     #[ORM\OneToOne(inversedBy: 'user', targetEntity: Baker::class, cascade: ['persist', 'remove'])]
@@ -219,14 +219,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Order>
+     * @return Collection<int, OrderLine>
      */
     public function getOrdersFromBuyers(): Collection
     {
         return $this->ordersFromBuyers;
     }
 
-    public function addOrdersFromBuyer(Order $ordersFromBuyer): self
+    public function addOrdersFromBuyer(OrderLine $ordersFromBuyer): self
     {
         if (!$this->ordersFromBuyers->contains($ordersFromBuyer)) {
             $this->ordersFromBuyers[] = $ordersFromBuyer;
@@ -236,7 +236,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeOrdersFromBuyer(Order $ordersFromBuyer): self
+    public function removeOrdersFromBuyer(OrderLine $ordersFromBuyer): self
     {
         if ($this->ordersFromBuyers->removeElement($ordersFromBuyer)) {
             // set the owning side to null (unless already changed)

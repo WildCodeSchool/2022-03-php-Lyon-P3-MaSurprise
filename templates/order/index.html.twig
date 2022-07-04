@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OrderController!{% endblock %}
+{% block title %}Ma commande - {{ parent() }}{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -41,17 +41,7 @@
                                     <li class="list-group-item">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                   id="flexRadioDefault1">
-                                            <label class="form-check-label" for="flexRadioDefault1">
-                                                PayPal
-                                            </label>
-                                        </div>
-
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                   id="flexRadioDefault2">
+                                                   id="flexRadioDefault2" checked>
                                             <label class="form-check-label" for="flexRadioDefault2">
                                                 Carte bancaire
                                             </label>
@@ -71,9 +61,13 @@
                                         <ul class="list-group">
                                             {% for data in datacart %}
                                                 <li class="list-group-item">
-                                                    <p class="m-1">{{ data.cake.name }}</p>
+                                                    <h5 class="m-1 fw-bolder">{{ data.cake.name }}</h5>
+                                                    <p class="m-1">
+                                                        par {{ data.cake.baker.user.firstname }} {{ data.cake.baker.user.lastname|slice(0, 1) }}
+                                                        .</p>
                                                     <p class="m-1">Quantité : {{ data.quantity }}</p>
-                                                    <p class="m-1">Prix : {{ data.cake.price * data.quantity }}</p>
+                                                    <p class="m-1">Prix
+                                                        : {{ (data.cake.price * data.quantity)|format_currency('EUR', locale='de') }}</p>
                                                 </li>
                                             {% endfor %}
                                         </ul>
@@ -84,7 +78,7 @@
                                         <h3 class="mt-5 mb-4">Frais de port</h3>
                                         <p>Gratuit (Click & Collect)</p>
                                         <h2 class="mt-5 mb-4">TOTAL</h2>
-                                        <p>{{ total|format_currency('EUR', locale='de') }}</p>
+                                        <h4>{{ total|format_currency('EUR', locale='de') }}</h4>
                                     </div>
                                 </div>
                             </div>

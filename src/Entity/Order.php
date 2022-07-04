@@ -30,25 +30,18 @@ class Order
     #[ORM\JoinColumn(nullable: false)]
     private User $buyer;
 
-    // TODO : move this from here to OrderLine, somehow
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ordersFromBuyers')]
-    #[ORM\JoinColumn(nullable: false)]
-    private User $seller;
-
     #[ORM\ManyToOne(targetEntity: Address::class, inversedBy: 'orderFromBuyer')]
     #[ORM\JoinColumn(nullable: false)]
     private Address $billingAddress;
-
-    // TODO : move this from here to OrderLine, somehow
-    #[ORM\ManyToOne(targetEntity: Address::class, inversedBy: 'orderFromSeller')]
-    #[ORM\JoinColumn(nullable: false)]
-    private Address $deliveryAddress;
 
     #[ORM\Column(type: 'float')]
     private float $total;
 
     #[ORM\OneToMany(mappedBy: 'orderReference', targetEntity: OrderLine::class, cascade: ['persist', 'remove'])]
     private Collection $orderLines;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $number;
 
     public function __construct()
     {
@@ -108,18 +101,6 @@ class Order
         return $this;
     }
 
-    public function getSeller(): ?User
-    {
-        return $this->seller;
-    }
-
-    public function setSeller(?User $seller): self
-    {
-        $this->seller = $seller;
-
-        return $this;
-    }
-
     public function getBillingAddress(): ?Address
     {
         return $this->billingAddress;
@@ -128,18 +109,6 @@ class Order
     public function setBillingAddress(?Address $billingAddress): self
     {
         $this->billingAddress = $billingAddress;
-
-        return $this;
-    }
-
-    public function getDeliveryAddress(): ?Address
-    {
-        return $this->deliveryAddress;
-    }
-
-    public function setDeliveryAddress(?Address $deliveryAddress): self
-    {
-        $this->deliveryAddress = $deliveryAddress;
 
         return $this;
     }
@@ -182,6 +151,18 @@ class Order
                 $orderLine->setOrderReference(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNumber(): ?string
+    {
+        return $this->number;
+    }
+
+    public function setNumber(string $number): self
+    {
+        $this->number = $number;
 
         return $this;
     }
