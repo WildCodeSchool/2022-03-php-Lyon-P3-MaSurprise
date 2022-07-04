@@ -114,7 +114,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             );
             $user->setPassword($hashedPassword);
             $this->addReference('buyer_' . $j, $user);
-//            $this->addReference('billingAddress_' . $j, $user);
         }
 
         $manager->flush();

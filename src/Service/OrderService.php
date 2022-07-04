@@ -30,7 +30,6 @@ class OrderService
 
     public function createOrder(
         array $datacart,
-        SessionInterface $session,
         User $user
     ): void {
         // creating an order
