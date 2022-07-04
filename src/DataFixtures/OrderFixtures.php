@@ -20,7 +20,7 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
             $order = new Order();
             $order
                 ->setOrderedAt($faker->dateTimeInInterval('-1 week', '+6 days'))
-                ->setOrderStatus((string)$faker->randomElement([
+                ->setOrderStatus(strval($faker->randomElement([
                     'Commande créée',
                     'Commande validée',
                     'Commande en préparation',
@@ -28,7 +28,7 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
                     'Commande retirée',
                     'Commande terminée',
                     'Commande annulée',
-                ]))
+                ])))
                 ->setCollectDate($faker->dateTimeInInterval('+3 months', '+1 months'));
             $buyer = $this->getReference('buyer_' . $faker->numberBetween(50, 150));
             if ($buyer instanceof User) {
