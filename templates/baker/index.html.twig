@@ -9,33 +9,38 @@
         {% for baker in bakers %}
             <div id="baker-card" class="container-fluid card mb-3">
                 <div class="row m-3 g-{{ loop.index0 }}">
-                    <div class="col-md-1">
+                    <div class="col-md-2">
                         <img
                             src="https://images.pexels.com/photos/3771812/pexels-photo-3771812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                             class="img-fluid rounded-start" alt="portrait du pâtissier">
                     </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h2 class="card-title">{% if baker.commercialName is not empty %}
-                            {{ baker.user.firstname }} {{ baker.user.lastname }}
-                                {% endif %}
-                            </h2>
-                            <p class="card-text">{% if baker.commercialName is not empty %}
-                            {{ baker.commercialName}}
-                                {% else %}{{ baker.user.firstname }} {{ baker.user.lastname }}
-                                {% endif %}
-                            </p>
-                            <p>Inscrit le : {{ baker.created | date("d/m/Y") }}</p>
-                            <h2>Contact</h2>
-                            <p class="card-text">Téléphone : {{ baker.user.phone }}</p>
-                            <p class="card-text">Email : {{ baker.user.email }}</p>
-                            <h2>Adresse de facturation</h2>
-                            <p class="card-text">{{ baker.user.billingAddress.streetNumber }}{{ baker.user.billingAddress.bisTerInfo }} {{ baker.user.billingAddress.streetName }}</p>
-                            <p class="card-text">{{ baker.user.billingAddress.postcode }} {{ baker.user.billingAddress.city }}</p>
-                            <h2>Adresse de click&collect</h2>
-                            <p class="card-text">{{ baker.deliveryAddress.streetNumber }}{{ baker.deliveryAddress.bisTerInfo }} {{ baker.deliveryAddress.streetName }}</p>
-                            <p class="card-text">{{ baker.deliveryAddress.postcode }} {{ baker.deliveryAddress.city }}</p>
-                            <a href="{{ path('app_baker_list', {id:baker.id} ) }}" class="btn btn-primary m-3">Plus de détails</a></br>
+                    <div class="col-md-10">
+                        <div class="card-body d-flex">
+                            <div>
+                                <h2 class="card-title">
+                                    {{ baker.user.firstname }} {{ baker.user.lastname }}
+                                </h2>
+                                <p class="card-text">{% if baker.commercialName is not empty %}
+                                    {{ baker.commercialName}}
+                                    {% endif %}
+                                </p>
+                                <p>Inscrit le : {{ baker.created | date("d/m/Y") }}</p>
+                            </div>
+                            <div>
+                                <h2>Contact</h2>
+                                <p class="card-text">{{ baker.user.phone }}</p>
+                                <p class="card-text">{{ baker.user.email }}</p>
+                            </div>
+                            <div>
+                                <h2>Adresse de facturation</h2>
+                                <p class="card-text">{{ baker.user.billingAddress.streetNumber }}{{ baker.user.billingAddress.bisTerInfo }} {{ baker.user.billingAddress.streetName }}</p>
+                                <p class="card-text">{{ baker.user.billingAddress.postcode }} {{ baker.user.billingAddress.city }}</p>
+                            </div>
+                            <div>
+                                <h2>Adresse de click&collect</h2>
+                                <p class="card-text">{{ baker.deliveryAddress.streetNumber }}{{ baker.deliveryAddress.bisTerInfo }} {{ baker.deliveryAddress.streetName }}</p>
+                                <p class="card-text">{{ baker.deliveryAddress.postcode }} {{ baker.deliveryAddress.city }}</p>
+                            </div>
                             <div class="d-flex align-items-center">
                                 <a href="{{ path('app_baker_edit', {id:baker.id} ) }}" class="btn btn-secondary text-white m-2">Modifier</a>
                                 {{ include('baker/_delete_form.html.twig') }}
