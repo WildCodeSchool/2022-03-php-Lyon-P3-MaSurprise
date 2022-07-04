@@ -3,19 +3,5 @@
 {% block title %}Espace Admin - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1 class="text-primary">Espace Admin</h1>
-    <ul>
-        <li>
-            <a href="{{ path('app_baker_index') }}">Les prestataires</a>
-        </li>
-        <li>
-            <a href="{{ path('app_cake_index') }}">Les gâteaux</a>
-        </li>
-        <li>
-            <a href="#">Les commandes</a>
-        </li>
-        <li>
-            <a href="{{ path('logout') }}">Me déconnecter</a>
-        </li>
-    </ul>
+    {% include "components/_adminnav.html.twig" %}
 {% endblock %}
