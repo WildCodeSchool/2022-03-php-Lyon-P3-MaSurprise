@@ -36,7 +36,7 @@ class RegistrationController extends AbstractController
         $baker = new Baker();
         $user = new User();
         $baker->setUser($user);
-        $baker->getUser()->addBillingAddress($billingAddress);
+        $user->addBillingAddress($billingAddress);
         $form = $this->createForm(BakerType::class, $baker);
         $form->handleRequest($request);
 
