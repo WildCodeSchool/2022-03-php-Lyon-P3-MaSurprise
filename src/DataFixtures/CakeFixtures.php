@@ -31,17 +31,19 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
             if (is_string($name)) {
                 $cake->setName($name);
             }
-            $cake->setCategory($faker->randomElement([
-                "Pièce montée",
-                "Cupcake(s)",
-                "Spécialité(s) étrangère(s)",
-                "Mini gâteau",
-                "Patisserie(s)",
-                "Gâteau junior",
-                "Gâteau sculpté",
-                "Magnum cake(s)",
-                "Pop cake(s)",
-            ]));
+            if (is_string($name)) {
+                $cake->setCategory($faker->randomElement([
+                    "Pièce montée",
+                    "Cupcake(s)",
+                    "Spécialité(s) étrangère(s)",
+                    "Mini gâteau",
+                    "Patisserie(s)",
+                    "Gâteau junior",
+                    "Gâteau sculpté",
+                    "Magnum cake(s)",
+                    "Pop cake(s)",
+                ]));
+            }
             $cake->setAllergens("Gâteau diabétique");
             $cake->setPicture1($faker->imageUrl(640, 640, 'photo d\'un gâteau'));
             $cake->setDescription($faker->text(250));
