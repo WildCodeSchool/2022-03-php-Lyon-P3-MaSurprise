@@ -88,6 +88,18 @@ class Baker
     #[ORM\OneToOne(mappedBy: 'deliveryAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
     private ?Address $deliveryAddress;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $profilePicture ="";
+
+    #[Vich\UploadableField(mapping: 'profilePicture_file', fileNameProperty: 'profilePicture')]
+    #[Assert\File(
+        maxSize: '1M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+        mimeTypesMessage: 'Ce fichier doit être une image',
+        uploadFormSizeErrorMessage: 'Votre photo ne peut pas dépasser 1Mo'
+    )]
+    private ?File $profilePictureFile = null;
+
     public function __construct()
     {
         $this->cakes = new ArrayCollection();
@@ -330,5 +342,31 @@ class Baker
         $this->deliveryAddress = $deliveryAddress;
 
         return $this;
+    }
+
+    public function getProfilePicture(): ?string
+    {
+        return $this->profilePicture;
+    }
+
+    public function setProfilePicture(?string $profilePicture): self
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    public function setProfilePictureFile(?File $profilePictureFile = null): void
+    {
+        $this->logoFile = $profilePictureFile;
+
+        if (null !== $profilePictureFile) {
+            $this->getUpdateAt();
+        }
+    }
+
+    public function getProfilePictureFile(): ?File
+    {
+        return $this->profilePictureFile;
     }
 }

@@ -33,7 +33,7 @@ class RegistrationController extends AbstractController
         $baker = new Baker();
         $user = new User();
 
-        $baker->setUser($user);
+        $user->setBaker($baker);
         $form = $this->createForm(BakerType::class, $baker);
         $form->handleRequest($request);
 

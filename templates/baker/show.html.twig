@@ -4,7 +4,7 @@
     {% if baker.commercialName is not empty %}
         {{ baker.commercialName }}
     {% else %}
-        {{ baker.firstname }} {{ baker.lastname }}
+        {{ baker.user.firstname }} {{ baker.user.lastname }}
     {% endif %}
     - {{ parent() }}
 {% endblock %}
@@ -15,31 +15,40 @@
                 {{ baker.commercialName }}
             {% endif %}
         </h1>
-        <h2>{{ baker.firstname }} {{ baker.lastname }}</h2>
-        <p>Téléphone : {{ baker.phone }}</p>
-        <p>Adresse : {{ baker.address }}</p>
+        <h2>{{ baker.user.firstname }} {{ baker.user.lastname }}</h2>
+        <p>Téléphone : {{ baker.user.phone }}</p>
+        <p>Adresse : {{ baker.deliveryAddress.streetNumber }} {{ baker.deliveryAddress.bisTerInfo }} {{ baker.deliveryAddress.streetName }}</p>
+        <p>{{ baker.deliveryAddress.postcode }} {{ baker.deliveryAddress.city }}</p>
+        <p>{{ baker.facebook }}</p>
+        <p>{{ baker.instagram }}</p>
         <p>Date d'inscription : {{ baker.created | date("d/m/Y") }}</p>
 
         {% if baker.cakes is not empty %}<h3 class="text-center">Liste des gâteaux proposés par ce
             pâtissier</h3>{% endif %}
-        <div class="card-group">
-            {% for cake in baker.cakes %}
-                <div class="card m-2">
-                    <img src="https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg" class="card-img-top"
-                         alt="...">
-                    <div class="card-body">
-                        <h3 class="text-center">Gâteau n°{{ loop.index }} : {{ cake.name }}</h3>
-                        <ul>
-                            <li>Prix : {{ cake.price }} €</li>
-                            <li>Taille : {{ cake.size }}</li>
-                        </ul>
+        <div class="card-group container">
+            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4">
+                {% for cake in baker.cakes %}
+                    <div class="card col">
+                        <img src="https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg" class="card-img-top mt-2"
+                            alt="...">
+                        <div class="card-body">
+                            <h3 class="text-center">Gâteau n°{{ loop.index }} : {{ cake.name }}</h3>
+                            <ul>
+                                <li>Prix : {{ cake.price }} €</li>
+                                <li>Taille : {{ cake.size }}</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            {% else %}
-                <h2>Ce pâtissier ne propose aucun gâteau actuellement</h2>
-            {% endfor %}
+                {% else %}
+                    <h2>Ce pâtissier ne propose aucun gâteau actuellement</h2>
+                {% endfor %}
+            </div>
         </div>
-        <a href="{{ path('app_baker_index') }}" class="btn btn-primary center p-2 m-2">Retour à la liste des
-            pâtissiers</a>
+        <div class="d-flex justify-content-center">
+            <a href="{{ path('app_baker_index') }}" class="btn btn-primary center p-2 m-2">Retour à la liste des
+                pâtissiers
+            </a>
+        </div>
+            
     </main>
 {% endblock %}

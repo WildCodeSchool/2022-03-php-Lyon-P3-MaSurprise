@@ -268,6 +268,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->billingAddress;
     }
 
+
     public function addBillingAddress(Address $billingAddress): self
     {
         if (!$this->billingAddress->contains($billingAddress)) {
