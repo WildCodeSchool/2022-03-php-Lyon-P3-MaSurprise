@@ -27,19 +27,19 @@ radio.addEventListener('change', function () {
 
 const copyAddress = document.getElementById('copyAddress');
 const copy = document.querySelector("input[name=copy]");
-const streetNumber = document.getElementById('baker_user_billingAddress_streetNumber');
+const streetNumber = document.getElementById('baker_user_billingAddress_0_streetNumber');
 const deliveryStreetNumber = document.getElementById('baker_deliveryAddress_streetNumber');
-const bis = document.getElementById('baker_user_billingAddress_bisTerInfo');
+const bis = document.getElementById('baker_user_billingAddress_0_bisTerInfo');
 const deliveryBis = document.getElementById('baker_deliveryAddress_bisTerInfo');
-const streetName = document.getElementById('baker_user_billingAddress_streetName');
+const streetName = document.getElementById('baker_user_billingAddress_0_streetName');
 const deliveryStreetName = document.getElementById('baker_deliveryAddress_streetName');
-const department = document.getElementById('baker_user_billingAddress_department');
+const department = document.getElementById('baker_user_billingAddress_0_department');
 const deliveryDepartment = document.getElementById('baker_deliveryAddress_department');
-const postCode = document.getElementById('baker_user_billingAddress_postcode');
+const postCode = document.getElementById('baker_user_billingAddress_0_postcode');
 const deliveryPostCode = document.getElementById('baker_deliveryAddress_postcode');
-const city = document.getElementById('baker_user_billingAddress_city');
+const city = document.getElementById('baker_user_billingAddress_0_city');
 const deliveryCity = document.getElementById('baker_deliveryAddress_city');
-const extraInfo = document.getElementById('baker_user_billingAddress_extraInfo');
+const extraInfo = document.getElementById('baker_user_billingAddress_0_extraInfo');
 const deliveryExtraInfo = document.getElementById('baker_deliveryAddress_extraInfo');
 
 copyAddress.addEventListener('change', function () {
