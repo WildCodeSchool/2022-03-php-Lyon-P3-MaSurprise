@@ -29,4 +29,10 @@ class HomeController extends AbstractController
     {
         return $this->render('services/index.html.twig');
     }
+
+    #[Route('/partenaires', name: 'partners')]
+    public function showPartners(): Response
+    {
+        return $this->render('partners/index.html.twig');
+    }
 }

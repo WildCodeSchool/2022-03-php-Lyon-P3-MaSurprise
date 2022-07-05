@@ -10,7 +10,7 @@
             <img class="logo-picture" alt="logo"
                  src="{{ asset('build/images/logo_mycakeevent.png') }}">
         </a>
-        <a class="text-primary nav-link" href="#">Partenaires</a>
+        <a class="text-primary nav-link" href="{{ path('app_partners') }}">Partenaires</a>
         {% if app.user %}
             {% if is_granted('ROLE_CUSTOMER') %}
                 <a type="button" class="text-primary nav-link"
