@@ -3,11 +3,20 @@
 {% block title %}Ajouter une pâtisserie - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Ajouter une pâtisserie</h1>
+    <h1 class="text-primary text-center">Ajouter une pâtisserie</h1>
 
-    {{ include('cake/_form.html.twig') }}
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-6">
+                {{ include('cake/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
 
-    <a href="{{ path('app_cake_index') }}">Retour à la liste</a>
+
+    <a href="{{ path('app_cake_index') }}">
+        <button class="btn btn-secondary text-white m-4">Retour à la liste</button>
+    </a>
 {% endblock %}
 
 {% block javascripts %}

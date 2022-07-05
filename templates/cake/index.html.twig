@@ -90,7 +90,7 @@
                 </div>
             {% endfor %}
 
-            {% if errorForm != 1 %}
+            {% if errorForm != 1 and search != "" %}
                 <p>{{ cakes|length }}
                     résultats correspondant à "{{ search }}"</p>
             {% else %}
