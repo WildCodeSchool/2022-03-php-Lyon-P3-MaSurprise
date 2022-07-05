@@ -25,6 +25,9 @@ class CakeController extends AbstractController
         $searchForm = $this->createForm(SearchCakeFormType::class);
         $searchForm->handleRequest($request);
 
+        // sending this value to view to display errors
+        $errorForm = 0;
+
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $searchRequest = $request->get('search_cake_form');
             // some bricolage to please phpcs
@@ -36,12 +39,11 @@ class CakeController extends AbstractController
         if (!isset($search)) {
             // if search is empty, display everything
             $cakes = $cakeRepository->findAll();
-            // initialize search to please grump
-            // TODO: this will have to work differently
             $search = "";
         } else {
-            // else, display name-matched, description-matched AND baker-matched results
+            // else, display name-matched, category-matched, description-matched AND baker-matched results
             $cakes = $cakeRepository->findLikeName($search);
+            $cakes += $cakeRepository->findLikeCategory($search);
             $cakes += $cakeRepository->findLikeDescription($search);
             $cakes += $cakeRepository->findLikeBaker($search);
 
@@ -50,8 +52,9 @@ class CakeController extends AbstractController
                 $this->addFlash(
                     'warning',
                     "Oh non, aucun gâteau ne correspond à vos critères de recherche...
-                    Laissez - vous tenter par d'autres choix ci-dessous !"
+                    Laissez-vous tenter par d'autres choix ci-dessous !"
                 );
+                $errorForm = 1;
                 $cakes = $cakeRepository->findAll();
             }
         }
@@ -60,6 +63,7 @@ class CakeController extends AbstractController
             'cakes' => $cakes,
             'searchForm' => $searchForm,
             'search' => $search,
+            'errorForm' => $errorForm,
         ]);
     }
 
@@ -108,9 +112,9 @@ class CakeController extends AbstractController
                         $filesArray[] = $newFilename;
                     }
                 }
-                    $files = implode(',', $filesArray);
-                    $cake = new Cake();
-                    $cake = $cakeRepository->find($currentCakeId);
+                $files = implode(',', $filesArray);
+                $cake = new Cake();
+                $cake = $cakeRepository->find($currentCakeId);
                 if ($cake != null) {
                     $cake->setPicture1($files);
                     $cakeRepository->add($cake, true);

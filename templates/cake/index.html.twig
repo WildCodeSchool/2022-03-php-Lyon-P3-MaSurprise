@@ -86,11 +86,11 @@
 
             {% for message in app.flashes('warning') %}
                 <div class="flash-warning">
-                    <h2 class="text-primary">{{ message }}</h2>
+                    <h3 class="text-primary">{{ message }}</h3>
                 </div>
             {% endfor %}
 
-            {% if search and not app.flashes('notice') %}
+            {% if errorForm != 1 %}
                 <p>{{ cakes|length }}
                     résultats correspondant à "{{ search }}"</p>
             {% else %}
@@ -103,38 +103,30 @@
                     {% for cake in cakes %}
                         <div class="cake-card col-6 col-md-4 d-flex flex-column  p-2 p-lg-4">
                             {% if is_granted("ROLE_ADMIN") %}
-                            <a href="{{ path('app_cake_edit', { 'id': cake.id} ) }}">
-                                <img class="cake-img img-fluid" src="{{ asset('build/images/gateau.jpg') }}"
-                                     alt="cake img">
-                            </a>
+                                <a href="{{ path('app_cake_edit', { 'id': cake.id} ) }}">
+                                    <img class="cake-img img-fluid" src="{{ asset('build/images/gateau.jpg') }}"
+                                         alt="cake img">
+                                </a>
                             {% else %}
-                            <a href="{{ path('app_cake_show', {'id': cake.id}) }}">
-                                <img class="cake-img img-fluid" src="{{ asset('build/images/gateau.jpg') }}"
-                                     alt="cake img">
-                            </a>
+                                <a href="{{ path('app_cake_show', {'id': cake.id}) }}">
+                                    <img class="cake-img img-fluid" src="{{ asset('build/images/gateau.jpg') }}"
+                                         alt="cake img">
+                                </a>
                             {% endif %}
                             <div class="mt-2">
                                 {% if is_granted("ROLE_ADMIN") %}
-                                <a class="text-decoration-none" href="{{ path('app_cake_edit', {'id': cake.id}) }}">
-                                    <h1 class="cake-name text-decoration-none m-0 text-primary">{{ cake.name }}</h1>
-                                </a>
+                                    <a class="text-decoration-none" href="{{ path('app_cake_edit', {'id': cake.id}) }}">
+                                        <h1 class="cake-name text-decoration-none m-0 text-primary">{{ cake.name }}</h1>
+                                    </a>
                                 {% else %}
-                                <a class="text-decoration-none" href="{{ path('app_cake_show', {'id': cake.id}) }}">
-                                    <h1 class="cake-name text-decoration-none m-0 text-primary">{{ cake.name }}</h1>
-                                </a>
+                                    <a class="text-decoration-none" href="{{ path('app_cake_show', {'id': cake.id}) }}">
+                                        <h1 class="cake-name text-decoration-none m-0 text-primary">{{ cake.name }}</h1>
+                                    </a>
                                 {% endif %}
-                                
+
                             </div>
-                            <div class="">
-                                <div class="d-flex flex-col justify-content-between align-items-baseline pt-2">
-                                    <div class="cake-stars d-flex flex-row m-0">
-                                        {% for i in 1..random(1,5) %}
-                                            <img class="img-fluid" src="{{ asset('build/images/icons/Star_15.png') }}">
-                                        {% endfor %}
-                                    </div>
-                                    <p class="avis m-0">{{ random(2, 36) }}
-                                        avis</p>
-                                </div>
+                            <div class="cake-price-rev m-0 p-0 d-flex flex-row justify-content-between">
+                                <p class="m-0">Type : {{ cake.category }}</p>
                             </div>
                             <div class="cake-price-rev m-0 p-0 d-flex flex-row justify-content-between">
                                 <p class="cake-disponibility m-0">Disponible dans
