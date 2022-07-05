@@ -15,6 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Vich\UploaderBundle\Form\Type\VichFileType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class UserType extends AbstractType
 {
@@ -55,9 +56,12 @@ class UserType extends AbstractType
                 'label' => "Téléphone*",
                 'required' => "Le champ Téléphone est obligatoire"
                 ])
-            ->add('billingAddress', AddressType::class, [
+            ->add('billingAddress', CollectionType::class, [
                 'label' => "Adresse*",
-                'required' => "Le champ Adresse est obligatoire"
+                'required' => "Le champ Adresse est obligatoire",
+                'entry_type' => AddressType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
                 ])
         ;
     }

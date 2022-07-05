@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Address;
 use App\Entity\Baker;
 use App\Entity\User;
 use App\Form\BakerType;
@@ -30,9 +31,11 @@ class RegistrationController extends AbstractController
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager
     ): Response {
-        $baker = new Baker();
         $user = new User();
-
+        // need to set an empty address to see the address fields when a client want to create his account
+        $billingAddress = new Address();
+        $user->addBillingAddress($billingAddress);
+        $baker = new Baker();
         $user->setBaker($baker);
         $form = $this->createForm(BakerType::class, $baker);
         $form->handleRequest($request);
@@ -63,6 +66,9 @@ class RegistrationController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response {
         $user = new User();
+        // need to set an empty address to see the address fields when a client want to create his account
+        $billingAddress = new Address();
+        $user->addBillingAddress($billingAddress);
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
