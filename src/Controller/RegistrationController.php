@@ -31,12 +31,12 @@ class RegistrationController extends AbstractController
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager
     ): Response {
-        $user = new User();
         // need to set an empty address to see the address fields when a client want to create his account
         $billingAddress = new Address();
-        $user->addBillingAddress($billingAddress);
         $baker = new Baker();
-        $user->setBaker($baker);
+        $user = new User();
+        $baker->setUser($user);
+        $baker->getUser()->addBillingAddress($billingAddress);
         $form = $this->createForm(BakerType::class, $baker);
         $form->handleRequest($request);
 

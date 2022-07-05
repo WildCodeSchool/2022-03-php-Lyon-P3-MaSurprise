@@ -39,7 +39,7 @@ class Address
 
     #[ORM\OneToOne(inversedBy: 'deliveryAddress', targetEntity: Baker::class)]
     #[ORM\JoinColumn(nullable: true)]
-    private ?Baker $deliveryAddress;
+    private ?Baker $deliveryAddress = null ;
 
     #[ORM\Column(type: 'boolean')]
     private bool $status = true;
