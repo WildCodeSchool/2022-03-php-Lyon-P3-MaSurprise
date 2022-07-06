@@ -35,39 +35,33 @@
                                                 <hr>
                                         {% endfor %}
                                         </div>
-                                        
-
                                         <div class="row">
                                         {% for cakes in order.orderLines %}
                                             {% if loop.index == 1 %} {# this if won't be necessary anymore when the order will have only one baker #}
-                                            <div class="col-4">
-                                                <h5 class="card-title text-center">Pâtissier</h5>
+                                            <div class="col-xs-12 col-md-4">
+                                                <h5 class="card-title text-center pt-1">Pâtissier</h5>
                                                 <p class="card-text text-center">
                                                     {{ cakes.seller.firstname }} {{ cakes.seller.lastname }}
-                                                </p>
-                                                <p class="card-text text-center"> 
+                                                <br>
                                                     {{ cakes.seller.email }}
-                                                </p>
-                                                <p class="card-text text-center"> 
+                                                <br>
                                                     {{ cakes.seller.phone }}
                                                 </p>
                                             </div>
                                             {% endif %}
                                         {% endfor %}
-                                            <div class="col-4">
-                                                <h5 class="card-title text-center">Client</h5>
+                                            <div class="col-xs-12 col-md-4">
+                                                <h5 class="card-title text-center pt-1">Client</h5>
                                                 <p class="card-text text-center">
                                                     {{ order.buyer.firstname }} {{ order.buyer.lastname }}
-                                                </p>
-                                                <p class="card-text text-center"> 
+                                                <br> 
                                                     {{ order.buyer.email }}
-                                                </p>
-                                                <p class="card-text text-center"> 
+                                                <br>
                                                     {{ order.buyer.phone }}
                                                 </p>
                                             </div>
-                                            <div class="col-4">
-                                                <h5 class="card-title text-end">
+                                            <div class="col-xs-12 col-md-4">
+                                                <h5 class="card-title text-end pt-1">
                                                     Total : {{ order.total|format_currency('EUR', locale='de') }}
                                                 </h5>
                                                 <p class="card-text text-end">
@@ -80,7 +74,7 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -88,5 +82,5 @@
                 </div>
             </div>
         </div>
-
+    </div>
 {% endblock %}
