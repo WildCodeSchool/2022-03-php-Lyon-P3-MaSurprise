@@ -25,212 +25,92 @@
     </header>
 
     <main class="container-fluid">
-        <section class="row">
-            <div class="main-theme-container d-flex flex-column align-items-center">
-                <h2 class="main-theme-container-title text-primary">Parcourir par thème</h2>
-                <div class="theme-container d-flex flex-column flex-xxl-row">
-
-                    <div class="theme-subcontainer d-flex flex-column flex-md-row">
-                        <div
-                            class="theme-button d-flex flex-column align-items-center justify-content-center text-center border-red">
-                            <img class="theme-img"
-                                 src="{{ asset('build/images/icons/theme_macaroons.png') }}"
-                                 alt="Une image de gâteau.">
-                            <h3 class="text-red">Nos pâtisseries</h3>
-                            <p>
-                                Succombez à nos mignons, petits et délicieux macarons ! Vanille, chocolat, praliné...
-                                Il y en a pour tous les goûts et de toutes les couleurs !
-                            </p>
-                        </div>
-                        <div
-                            class="theme-button d-flex flex-column align-items-center justify-content-center text-center border-pinkorange">
-                            <img class="theme-img" src="{{ asset('build/images/icons/theme_cakes.png') }}"
-                                 alt="Une image de gâteau.">
-                            <h3 class="text-pinkorange">Nos gâteaux</h3>
-                            <p>
-                                Plus qu'un simple gâteau, votre gâteau !
-                                Et pour l'occasion mieux vaux compter sur une gourmandise qui vous ressemble, n'est-ce
-                                pas ?
-                            </p>
-                        </div>
-                    </div>
-                    <div class="theme-subcontainer d-flex flex-column flex-md-row">
-                        <div
-                            class="theme-button d-flex flex-column align-items-center justify-content-center text-center border-orange">
-                            <img class="theme-img" src="{{ asset('build/images/icons/theme_cupcakes.png') }}"
-                                 alt="Une image de gâteau.">
-                            <h3 class="text-orange">Nos cupcakes</h3>
-                            <p>
-                                Plaisirs sucrés, plaisirs mignons. Et décorés de toppings ou de glaçages hauts en
-                                couleurs !
-                                Plaisirs sucrés toujours dans le thème !
-                            </p>
-                        </div>
-                        <div
-                            class="theme-button d-flex flex-column align-items-center justify-content-center text-center border-lightblue hover-lightblue">
-                            <img class="theme-img" src="{{ asset('build/images/icons/theme_sculpted.png') }}"
-                                 alt="Une image de gâteau.">
-                            <h3 class="text-lightblue">Nos gâteaux sculptés</h3>
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever.
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
 
         <section class="row">
             <div class="main-sweet-dream-container d-flex flex-column align-items-center">
-                <h2 class="main-sweet-dream-container-title text-primary">Notre sélection</h2>
+                <h2 class="main-sweet-dream-container-title text-primary mt-3 mb-5">Notre sélection</h2>
 
                 <div class="sweet-dream-container d-flex flex-column">
+                    {{ include('home/_category.html.twig', {
+                        name: "Gâteaux",
+                        category: "gâteau",
+                        picture: "cake",
+                        color: "maroon",
+                        align: "end",
+                        side: "",
+                    }) }}
 
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
-                        <div class="carousel-side-text d-flex flex-column align-items-center">
-                            <h2 class="text-maroon">Gâteaux</h2>
-                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/cake1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/cake2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/cake3.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
+                    {{ include('home/_category.html.twig', {
+                        name: "Pièces montées",
+                        category: "pièce montée",
+                        picture: "mount",
+                        color: "pinkred",
+                        align: "start",
+                        side: "side-left",
+                    }) }}
 
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-start">
-                        <div class="carousel-side-text d-flex flex-column align-items-center side-left">
-                            <h2 class="text-pinkred">Pièces montées</h2>
-                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/mount1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/mount2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/mount3.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
+                    {{ include('home/_category.html.twig', {
+                        name: "Pâtisseries",
+                        category: "pâtisserie",
+                        picture: "pastry",
+                        color: "red",
+                        align: "end",
+                        side: "",
+                    }) }}
 
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
-                        <div class="carousel-side-text d-flex flex-column align-items-center">
-                            <h2 class="text-red">Pâtisseries</h2>
-                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/pastry1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/pastry2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/pastry3.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
+                    {{ include('home/_category.html.twig', {
+                        name: "Cupcakes",
+                        category: "cupcake(s)",
+                        picture: "cupcake",
+                        color: "maroon",
+                        align: "start",
+                        side: "side-left",
+                    }) }}
 
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-start">
-                        <div class="carousel-side-text d-flex flex-column align-items-center side-left">
-                            <h2 class="text-maroon">Cupcakes</h2>
-                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/cupcake1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/cupcake2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/cupcake3.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
+                    {{ include('home/_category.html.twig', {
+                        name: "Gâteaux junior",
+                        category: "junior",
+                        picture: "junior",
+                        color: "pinkorange",
+                        align: "end",
+                        side: "",
+                    }) }}
 
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
-                        <div class="carousel-side-text d-flex flex-column align-items-center">
-                            <h2 class="text-pinkorange">Nos gâteaux junior</h2>
-                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/junior1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/junior2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/junior1.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
+                    {{ include('home/_category.html.twig', {
+                        name: "Gâteaux sculptés",
+                        category: "gâteau sculpté",
+                        picture: "sculpt",
+                        color: "lightblue",
+                        align: "start",
+                        side: "side-left",
+                    }) }}
 
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-start">
-                        <div class="carousel-side-text d-flex flex-column align-items-center side-left">
-                            <h2 class="text-lightblue">Gâteaux sculptés</h2>
-                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/sculpt1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/sculpt2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/sculpt3.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
+                    {{ include('home/_category.html.twig', {
+                        name: "Pâtisseries étrangères",
+                        category: "spécialité(s) étrangère(s)",
+                        picture: "foreign",
+                        color: "darkgreen",
+                        align: "end",
+                        side: "",
+                    }) }}
 
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
-                        <div class="carousel-side-text d-flex flex-column align-items-center">
-                            <h2 class="text-darkgreen">Pâtisseries étrangères</h2>
-                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/foreign1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/foreign2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/foreign3.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
+                    {{ include('home/_category.html.twig', {
+                        name: "Magnum cakes",
+                        category: "magnum cake",
+                        picture: "magnum",
+                        color: "purple",
+                        align: "start",
+                        side: "side-left",
+                    }) }}
 
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-start">
-                        <div class="carousel-side-text d-flex flex-column align-items-center side-left">
-                            <h2 class="text-purple">Magnum cakes</h2>
-                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/magnum1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/magnum2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/magnum3.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
-
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
-                        <div class="carousel-side-text d-flex flex-column align-items-center">
-                            <h2 class="text-orange">Pop cakes</h2>
-                            <button type="button" class="btn btn-outline-primary">Voir plus</button>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/pop1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/pop2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/pop3.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
+                    {{ include('home/_category.html.twig', {
+                        name: "Pop cakes",
+                        category: "pop cake",
+                        picture: "pop",
+                        color: "orange",
+                        align: "end",
+                        side: "",
+                    }) }}
                 </div>
             </div>
         </section>
