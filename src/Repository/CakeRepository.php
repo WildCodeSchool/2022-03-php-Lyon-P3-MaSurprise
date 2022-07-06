@@ -56,6 +56,19 @@ class CakeRepository extends ServiceEntityRepository
         return $queryBuilder->getResult();
     }
 
+    public function findLikeCategory(mixed $categoryName): mixed
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->join('c.baker', 'b')
+            ->join('b.user', 'u')
+            ->where('c.category LIKE :category_name')
+            ->setParameter('category_name', '%' . $categoryName . '%')
+            ->orderBy('c.category', 'ASC')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
     // fetching cakes whose descriptions match searched words
     public function findLikeDescription(mixed $description, string $department): mixed
     {

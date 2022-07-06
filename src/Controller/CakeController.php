@@ -32,6 +32,9 @@ class CakeController extends AbstractController
         $searchForm = $this->createForm(SearchCakeFormType::class);
         $searchForm->handleRequest($request);
 
+        // sending this value to view to display errors
+        $errorForm = 0;
+
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $searchRequest = $request->get('search_cake_form');
 
@@ -63,6 +66,7 @@ class CakeController extends AbstractController
                     "Oh non, aucun gâteau ne correspond à vos critères de recherche...
                     Laissez-vous tenter par d'autres choix ci-dessous !"
                 );
+                $errorForm = 1;
                 $cakes = $cakeRepository->findAll();
             }
         }
@@ -72,6 +76,7 @@ class CakeController extends AbstractController
             'searchForm' => $searchForm,
             'search' => $search,
             'departments' => $departmentsDisplay,
+            'errorForm' => $errorForm,
         ]);
     }
 
@@ -120,9 +125,9 @@ class CakeController extends AbstractController
                         $filesArray[] = $newFilename;
                     }
                 }
-                    $files = implode(',', $filesArray);
-                    $cake = new Cake();
-                    $cake = $cakeRepository->find($currentCakeId);
+                $files = implode(',', $filesArray);
+                $cake = new Cake();
+                $cake = $cakeRepository->find($currentCakeId);
                 if ($cake != null) {
                     $cake->setPicture1($files);
                     $cakeRepository->add($cake, true);

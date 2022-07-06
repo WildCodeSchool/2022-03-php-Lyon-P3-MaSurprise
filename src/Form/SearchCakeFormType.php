@@ -36,7 +36,9 @@ class SearchCakeFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            //TODO : had to disable this in order to get our links working,
+            //will have to come back some day to finish the work
+            'csrf_protection' => false,
         ]);
     }
 }
