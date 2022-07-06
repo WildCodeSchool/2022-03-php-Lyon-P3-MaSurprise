@@ -26,6 +26,9 @@ class BakerFixtures extends Fixture implements DependentFixtureInterface
             }
             $baker->setFacebook("https://www.facebook.com/MyCakeEvent");
             $baker->setSiret(strval($faker->numberBetween(12345678901234, 98765432109876)));
+            $baker->setProfilePicture('_fixtures_portrait-of-happy-male-chef-dressed-in-uniform.jpg');
+            $baker->setDiploma('_fixtures_diploma.jpg');
+            $baker->setLogo('_fixtures_logo_mycakeevent.png');
             $bakerType = $faker->randomElement(['professionnel', 'amateur']);
             if (is_string($bakerType)) {
                 $baker->setBakerType($bakerType);
