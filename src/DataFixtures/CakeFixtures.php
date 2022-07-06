@@ -26,13 +26,16 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
                 $cake->setName($name);
             }
 
-            $cake->setPicture1($faker->randomElement(
+            $picture1 = $faker->randomElement(
                 ['_fixtures_cake1.png',
                 '_fixtures_cake2.png,_fixtures_cake1.png',
                 '_fixtures_cupcake1.png,_fixtures_cake2.png,_fixtures_cake1.png',
                 '_fixtures_mount3.png, _fixtures_cupcake1.png,_fixtures_cake2.png,_fixtures_cake1.png'
                 ]
-            ));
+            );
+            if (is_string($picture1)) {
+                $cake->setPicture1($picture1);
+            }
             $cake->setDescription($faker->text(250));
             $cake->setPrice($faker->randomFloat(2, 12, 50));
             $size = $faker->randomElement((['10/12 parts', '14/16 parts', '18/20 parts']));
