@@ -79,11 +79,12 @@ class CakeRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
             ->join('b.deliveryAddress', 'a') // department
-            ->where('b.lastname LIKE :baker_name')
+            ->join('b.user', 'u')
+            ->where('u.lastname LIKE :baker_name')
             ->andWhere('a.department = :department') // department
             ->setParameter('baker_name', '%' . $bakerName . '%')
             ->setParameter('department', $department) // department
-            ->orderBy('b.lastname', 'ASC')
+            ->orderBy('u.lastname', 'ASC')
             ->getQuery();
 
         return $queryBuilder->getResult();
@@ -96,9 +97,10 @@ class CakeRepository extends ServiceEntityRepository
         ->join('c.baker', 'b')
         ->join('b.deliveryAddress', 'a') // department
         ->join('a.department', 'd')
+        ->join('b.user', 'u')
         ->where('a.department = :department') // department
         ->setParameter('department', $department) // department
-        ->orderBy('b.lastname', 'ASC')
+        ->orderBy('u.lastname', 'ASC')
         ->getQuery();
 
         return $queryBuilder->getResult();

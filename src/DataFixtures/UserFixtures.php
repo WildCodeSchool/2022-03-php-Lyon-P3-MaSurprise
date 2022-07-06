@@ -4,7 +4,6 @@ namespace App\DataFixtures;
 
 use Faker\Factory;
 use App\Entity\Address;
-use App\Entity\Baker;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -22,7 +21,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-
         $faker = Factory::create('fr_FR');
         // creating ONE known admin account
         $user = new User();
@@ -126,7 +124,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         return
             [
                 AddressFixtures::class,
-                BakerFixtures::class,
             ];
     }
 }
