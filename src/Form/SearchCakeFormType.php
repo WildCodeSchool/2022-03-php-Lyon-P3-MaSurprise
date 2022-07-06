@@ -16,16 +16,18 @@ class SearchCakeFormType extends AbstractType
         // TODO : modify cake/ route, will have to turn this form into a service somehow
         $builder
             ->add('search', SearchType::class, ['required' => false, 'label' => false])
-            ->add('department', EntityType::class, 
-            [
-                'mapped' => true,
-                'label' => false,
-                'placeholder' => 'Choisir un département',
-                'required' => false,
-                'class' => Department::class,
-                'choice_label' => 'displayName'
-            ]
-        )
+            ->add(
+                'department',
+                EntityType::class,
+                [
+                    'mapped' => true,
+                    'label' => false,
+                    'placeholder' => 'Choisir un département',
+                    'required' => false,
+                    'class' => Department::class,
+                    'choice_label' => 'displayName'
+                ]
+            )
             ->setAction('/cake/')
             ->setMethod('POST');
     }

@@ -51,9 +51,6 @@ class Baker
     private string $bakerType;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $services;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $siret = "";
 
     #[Vich\UploadableField(mapping: 'siret_file', fileNameProperty: 'siret')]
@@ -244,18 +241,6 @@ class Baker
     public function setBakerType(string $bakerType): self
     {
         $this->bakerType = $bakerType;
-
-        return $this;
-    }
-
-    public function getServices(): ?string
-    {
-        return $this->services;
-    }
-
-    public function setServices(?string $services): self
-    {
-        $this->services = $services;
 
         return $this;
     }

@@ -90,7 +90,7 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes with the right department (using join)
-    public function findByDepartment(mixed $department)
+    public function findByDepartment(mixed $department): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
         ->join('c.baker', 'b')
@@ -98,7 +98,7 @@ class CakeRepository extends ServiceEntityRepository
         ->join('a.department', 'd')
         ->where('a.department = :department') // department
         ->setParameter('department', $department) // department
-        //->orderBy('b.lastname', 'ASC')
+        ->orderBy('b.lastname', 'ASC')
         ->getQuery();
 
         return $queryBuilder->getResult();

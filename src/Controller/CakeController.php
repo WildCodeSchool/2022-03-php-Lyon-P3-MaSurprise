@@ -17,8 +17,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CakeController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(Request $request, CakeRepository $cakeRepository, DepartmentRepository $departmentRepository): Response
-    {
+    public function index(
+        Request $request,
+        CakeRepository $cakeRepository,
+        DepartmentRepository $departmentRepository
+    ): Response {
         // fetching all departments for the scrolling menu
         $departmentsDisplay = $departmentRepository->findAll();
 
@@ -28,7 +31,7 @@ class CakeController extends AbstractController
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $searchRequest = $request->get('search_cake_form');
-            
+
             // some bricolage to please phpcs
             if (is_array($searchRequest)) {
                 $search = $searchRequest['search'];
@@ -36,21 +39,19 @@ class CakeController extends AbstractController
             }
         }
 
-        if ((!isset($search) || (!isset($department))) || (!isset($search) && (!isset($department)))) {
+        if (!isset($search) || (!isset($department))) {
             // if search is empty, display everything
             $cakes = $cakeRepository->findAll();
-            
+
             // initialize search to please grump
             // TODO: this will have to work differently
             $search = "";
-
         } else {
             // else, display name-matched, description-matched AND baker-matched results
             $cakes = $cakeRepository->findLikeName($search, $department);
             $cakes += $cakeRepository->findLikeDescription($search, $department);
             $cakes += $cakeRepository->findLikeBaker($search, $department);
-            $cakes += $cakeRepository->findByDepartment($search, $department);
-            
+            $cakes += $cakeRepository->findByDepartment($department);
 
             // display a message if nothing matches search AND fetch all cakes
             if ($cakes == null) {
