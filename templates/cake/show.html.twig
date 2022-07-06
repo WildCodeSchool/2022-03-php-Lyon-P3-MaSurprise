@@ -8,35 +8,37 @@
 
 {% block body %}
 
-    <div class="container-fluid cake-presentation p-5">
-        <div class="row d-flex flex-md-row flex-column">
+    <div class="container-fluid cake-presentation">
+        <div class="row d-flex flex-md-row flex-column justify-content-center align-items-center">
 
-            <div class="cake-img container col-6">
-                <div class="row">
-
-                    <div class="cake-image container col-10">
-                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="{{ asset('build/images/gateau.jpg') }}" class="d-block w-100" alt="...">
+            <div class="col-md-6 col-12">
+                <div class="cake-img container">
+                    <div class="row">
+                        <div class="cake-image container col-10">
+                            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="{{ asset('build/images/gateau.jpg') }}" class="d-block w-100"
+                                             alt="...">
+                                    </div>
                                 </div>
-
+                                <button class="carousel-control-prev" type="button"
+                                        data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Précédente</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                        data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Suivante</span>
+                                </button>
                             </div>
-                            <button class="carousel-control-prev" type="button"
-                                    data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Précédente</span>
-                            </button>
-                            <button class="carousel-control-next" type="button"
-                                    data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Suivante</span>
-                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="cake-description col-6 d-flex flex-column justify-content-between">
+
+            <div class="cake-description col-md-6 col-10 m-md-0 m-5 d-flex flex-column justify-content-between">
                 <div>
                     <h1 class="cake-title m-0 mb-4 font-weight-bold text-primary">{{ cake.name }}</h1>
                     <p class="fs-3">{{ cake.price|format_currency('EUR', locale='de') }}</p>
@@ -90,27 +92,24 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid baker-description mb-5">
+    <div class="container-fluid baker-description m-5">
         <div class="baker-row row d-flex flex-row justify-content-center">
-            <div class="col-3 border-end d-flex flex-column align-items-center">
-                <div class="d-flex flex-row">
-                    <img class="comment-img m-4" src="https://i.pravatar.cc/" alt="Un avatar au hasard">
+
+            <div class="col-md-3 col-6 border-end d-flex flex-column align-items-center">
+                {# TODO: is it the best way to do this? probably not #}
+                <a href="/patissier/{{ cake.baker.id }}" style="text-decoration: none;">
+                    <img class="comment-img m-4" src="https://i.pravatar.cc/" alt="L'avatar du pâtissier">
                     <div class="d-flex flex-column justify-content-center">
-                        <p class="text-start font-weight-bold mb-0">
+                        <h3 class="font-weight-bold m-0 text-center text-primary">
                             {{ cake.baker.user.firstname }}
                             {{ cake.baker.user.lastname|slice(0, 1) }}.
-                        </p>
-                        <p class="titre">Pâtissier {{ cake.baker.bakerType }}</p>
+                        </h3>
+                        <p class="titre text-center text-dark">Pâtissier {{ cake.baker.bakerType }}</p>
                     </div>
-                </div>
-                <div>
-                    <p>Nullam finibus enim in justo tincidunt volutpat. Proin a elementum mi. Mauris cursus
-                        blandit risus, in porta ipsum semper vitae. Pellentesque dictum vel sapien ut fringilla.
-                        Interdum et
-                        malesuada fames ac ante ipsum primis in faucibus.</p>
-                </div>
+                </a>
             </div>
-            <div class="col-3 d-flex flex-column justify-content-center">
+
+            <div class="col-md-3 col-6 d-flex flex-column justify-content-center">
                 <p class="mb-1">Livraison</p>
                 <p class="mb-1">Click & collect</p>
                 <p class="mb-1">CAP Pâtissier</p>
