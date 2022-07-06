@@ -1,4 +1,11 @@
-<form method="post" action="{{ path('app_cake_delete', {'id': cake.id}) }}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cette pâtisserie ?');">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cake.id) }}">
-    <button class="btn">Supprimer</button>
-</form>
+<div class="container">
+    <div class="row d-flex justify-content-center m-3">
+        <div class="col-6 d-flex justify-content-center">
+            <form method="post" action="{{ path('app_cake_delete', {'id': cake.id}) }}"
+                  onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cette pâtisserie ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cake.id) }}">
+                <button class="btn btn-secondary text-white">Supprimer</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -7,6 +7,91 @@
     <h1 class="text-primary text-center">Compte pâtissier : modifier compte</h1>
 
 
-    {{ include('baker/_form.html.twig') }}
+    {{ form_start(form) }}
+
+<div id="baker-form" class="d-flex flex-column align-items-center m-5">
+        
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.user.lastname)}}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.user.firstname)}}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.user.phone)}}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.user.billingAddress)}}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.deliveryAddress) }}
+            </div>
+        </div>
+        <div class="form-row w-50" id="facebook">
+            <div class="form-group">
+            {{ form_row(form.facebook) }}
+            </div>
+        </div>
+        <div class="form-row w-50" id="instagram">
+            <div class="form-group">
+            {{ form_row(form.instagram) }}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.profilePictureFile)}}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(form.bakerType)}}
+            </div>
+        </div>
+        
+        <div class="form-row w-50 hidden" id="commercialName">
+            <div class="form-group">
+            {{ form_row(form.commercialName) }}
+            </div>
+        </div>
+        <div class="form-row w-50 hidden" id="logoFile">
+            <div class="form-group">
+            {{ form_row(form.logoFile) }}
+            </div>
+        </div>
+        <div class="form-row w-50 hidden" id="siretFile">
+            <div class="form-group">
+            {{ form_row(form.siretFile) }}
+            </div>
+        </div>
+        <div class="form-row w-50 hidden" id="diplomaFile">
+            <div class="form-group">
+            {{ form_row(form.diplomaFile) }}
+            </div>
+        </div>
+        <div class="form-row w-50 hidden"
+            <div class="form-group">
+            {{ form_row(form.user.email) }}
+            </div>
+        </div>
+        <div class="form-row w-50 hidden">
+            <div class="form-group">
+            {{ form_row(form.user.password) }}
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <input type="submit" class="btn btn-primary mt-4" value="Valider" />
+        </div>
+</div>
+{{ form_end(form) }}
+
 
 {% endblock %}
