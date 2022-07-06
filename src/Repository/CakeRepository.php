@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Cake;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Cake>
@@ -40,13 +40,16 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes whose names match searched words
-    public function findLikeName(mixed $name): mixed
+    public function findLikeName(mixed $name, string $department): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
+            ->join('b.deliveryAddress', 'a') // department
             ->addSelect('b')
             ->where('c.name LIKE :name')
+            ->andWhere('a.department = :department') // department
             ->setParameter('name', '%' . $name . '%')
+            ->setParameter('department', $department) // department
             ->orderBy('c.name', 'ASC')
             ->getQuery();
 
@@ -54,13 +57,16 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes whose descriptions match searched words
-    public function findLikeDescription(mixed $description): mixed
+    public function findLikeDescription(mixed $description, string $department): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
+            ->join('b.deliveryAddress', 'a') // department
             ->addSelect('b')
             ->where('c.description LIKE :description')
+            ->andWhere('a.department = :department') // department
             ->setParameter('description', '%' . $description . '%')
+            ->setParameter('department', $department) // department
             ->orderBy('c.description', 'ASC')
             ->getQuery();
 
@@ -68,24 +74,34 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes whose bakers match searched words (using join)
-    public function findLikeBaker(mixed $bakerName): mixed
+    public function findLikeBaker(mixed $bakerName, string $department): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
+            ->join('b.deliveryAddress', 'a') // department
             ->where('b.lastname LIKE :baker_name')
+            ->andWhere('a.department = :department') // department
             ->setParameter('baker_name', '%' . $bakerName . '%')
+            ->setParameter('department', $department) // department
             ->orderBy('b.lastname', 'ASC')
             ->getQuery();
 
         return $queryBuilder->getResult();
     }
 
-    // fetching cakes whose department matches the filtered department of the form
-    public function findByDepartment(string $department)
+    // fetching cakes with the right department (using join)
+    public function findByDepartment(mixed $department)
     {
-        /*$queryBuilder = $this->createQueryBuilder('c')
-            ->join('c.baker', 'b')
-            ->where*/
+        $queryBuilder = $this->createQueryBuilder('c')
+        ->join('c.baker', 'b')
+        ->join('b.deliveryAddress', 'a') // department
+        ->join('a.department', 'd')
+        ->where('a.department = :department') // department
+        ->setParameter('department', $department) // department
+        //->orderBy('b.lastname', 'ASC')
+        ->getQuery();
+
+        return $queryBuilder->getResult();
     }
 
 //    /**

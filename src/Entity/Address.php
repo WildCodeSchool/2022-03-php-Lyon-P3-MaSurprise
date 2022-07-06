@@ -39,7 +39,7 @@ class Address
     #[ORM\JoinColumn(nullable: true)]
     private $billingAddress;
 
-    #[ORM\OneToOne(inversedBy: 'deliveryAddress', targetEntity: Baker::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy:'deliveryAddress', targetEntity: Baker::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: true)]
     private $deliveryAddress;
 

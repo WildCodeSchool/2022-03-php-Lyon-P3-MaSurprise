@@ -7,6 +7,7 @@ use Exception;
 use App\Entity\Cake;
 use App\Form\CakeType;
 use App\Repository\CakeRepository;
+use App\Repository\DepartmentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,41 +17,47 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CakeController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(Request $request, CakeRepository $cakeRepository): Response
+    public function index(Request $request, CakeRepository $cakeRepository, DepartmentRepository $departmentRepository): Response
     {
+        // fetching all departments for the scrolling menu
+        $departmentsDisplay = $departmentRepository->findAll();
+
         // creating form
         $searchForm = $this->createForm(SearchCakeFormType::class);
         $searchForm->handleRequest($request);
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $searchRequest = $request->get('search_cake_form');
+            
             // some bricolage to please phpcs
             if (is_array($searchRequest)) {
                 $search = $searchRequest['search'];
+                $department = $searchRequest['department'];
             }
         }
 
-        if (!isset($search)) {
+        if ((!isset($search) || (!isset($department))) || (!isset($search) && (!isset($department)))) {
             // if search is empty, display everything
             $cakes = $cakeRepository->findAll();
+            
             // initialize search to please grump
             // TODO: this will have to work differently
             $search = "";
+
         } else {
             // else, display name-matched, description-matched AND baker-matched results
-            $cakes = $cakeRepository->findLikeName($search);
-            $cakes += $cakeRepository->findLikeDescription($search);
-            $cakes += $cakeRepository->findLikeBaker($search);
-            // TRY HEREUNDER
-            $cakes += $cakeRepository->findByDepartment($search);
-            // END OF TRY
+            $cakes = $cakeRepository->findLikeName($search, $department);
+            $cakes += $cakeRepository->findLikeDescription($search, $department);
+            $cakes += $cakeRepository->findLikeBaker($search, $department);
+            $cakes += $cakeRepository->findByDepartment($search, $department);
+            
 
             // display a message if nothing matches search AND fetch all cakes
             if ($cakes == null) {
                 $this->addFlash(
                     'notice',
                     "Oh non, aucun gâteau ne correspond à vos critères de recherche...
-                    Laissez - vous tenter par d'autres choix ci-dessous !"
+                    Laissez-vous tenter par d'autres choix ci-dessous !"
                 );
                 $cakes = $cakeRepository->findAll();
             }
@@ -60,6 +67,7 @@ class CakeController extends AbstractController
             'cakes' => $cakes,
             'searchForm' => $searchForm,
             'search' => $search,
+            'departments' => $departmentsDisplay,
         ]);
     }
 
