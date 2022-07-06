@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-
 use Faker\Factory;
 use App\Entity\Address;
 use App\Entity\Baker;
@@ -14,7 +13,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
-
     private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
@@ -61,7 +59,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         // creating 49 random bakers (user_0 to user_49)
         for ($i = 1; $i < 50; $i++) {
-
             $user = new User();
             $user->setLastname($faker->lastName());
             $user->setFirstname($faker->firstName());
@@ -80,7 +77,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $this->addReference('seller_' . $i, $user);
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);
-
         }
 
         // creating ONE known customer account (user_50)
