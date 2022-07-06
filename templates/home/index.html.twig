@@ -28,191 +28,89 @@
 
         <section class="row">
             <div class="main-sweet-dream-container d-flex flex-column align-items-center">
-                <h2 class="main-sweet-dream-container-title text-primary">Notre sélection</h2>
+                <h2 class="main-sweet-dream-container-title text-primary mt-3 mb-5">Notre sélection</h2>
 
                 <div class="sweet-dream-container d-flex flex-column">
+                    {{ include('home/_category.html.twig', {
+                        name: "Gâteaux",
+                        category: "gâteau",
+                        picture: "cake",
+                        color: "maroon",
+                        align: "end",
+                        side: "",
+                    }) }}
 
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
-                        <div class="carousel-side-text d-flex flex-column align-items-center">
-                            <h2 class="text-maroon">Gâteaux</h2>
-                            <form action="{{ path("app_cake_index") }}" method="post">
-                                <input type="hidden" name="search_cake_form[search]"
-                                       value="gâteau">
-                                <button type="submit" class="btn btn-secondary text-white">Voir plus</button>
-                            </form>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/cake1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/cake2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/cake3.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
+                    {{ include('home/_category.html.twig', {
+                        name: "Pièces montées",
+                        category: "pièce montée",
+                        picture: "mount",
+                        color: "pinkred",
+                        align: "start",
+                        side: "side-left",
+                    }) }}
 
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-start">
-                        <div class="carousel-side-text d-flex flex-column align-items-center side-left">
-                            <h2 class="text-pinkred">Pièces montées</h2>
-                            <form action="{{ path("app_cake_index") }}" method="post">
-                                <input type="hidden" name="search_cake_form[search]"
-                                       value="pièce montée">
-                                <button type="submit" class="btn btn-secondary text-white">Voir plus</button>
-                            </form>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/mount1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/mount2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/mount3.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
+                    {{ include('home/_category.html.twig', {
+                        name: "Pâtisseries",
+                        category: "pâtisserie",
+                        picture: "pastry",
+                        color: "red",
+                        align: "end",
+                        side: "",
+                    }) }}
 
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
-                        <div class="carousel-side-text d-flex flex-column align-items-center">
-                            <h2 class="text-red">Pâtisseries</h2>
-                            <form action="{{ path("app_cake_index") }}" method="post">
-                                <input type="hidden" name="search_cake_form[search]"
-                                       value="pâtisserie">
-                                <button type="submit" class="btn btn-secondary text-white">Voir plus</button>
-                            </form>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/pastry1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/pastry2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/pastry3.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
+                    {{ include('home/_category.html.twig', {
+                        name: "Cupcakes",
+                        category: "cupcake(s)",
+                        picture: "cupcake",
+                        color: "maroon",
+                        align: "start",
+                        side: "side-left",
+                    }) }}
 
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-start">
-                        <div class="carousel-side-text d-flex flex-column align-items-center side-left">
-                            <h2 class="text-maroon">Cupcakes</h2>
-                            <form action="{{ path("app_cake_index") }}" method="post">
-                                <input type="hidden" name="search_cake_form[search]"
-                                       value="cupcake(s)">
-                                <button type="submit" class="btn btn-secondary text-white">Voir plus</button>
-                            </form>
+                    {{ include('home/_category.html.twig', {
+                        name: "Gâteaux junior",
+                        category: "junior",
+                        picture: "junior",
+                        color: "pinkorange",
+                        align: "end",
+                        side: "",
+                    }) }}
 
+                    {{ include('home/_category.html.twig', {
+                        name: "Gâteaux sculptés",
+                        category: "gâteau sculpté",
+                        picture: "sculpt",
+                        color: "lightblue",
+                        align: "start",
+                        side: "side-left",
+                    }) }}
 
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/cupcake1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/cupcake2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/cupcake3.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
+                    {{ include('home/_category.html.twig', {
+                        name: "Pâtisseries étrangères",
+                        category: "spécialité(s) étrangère(s)",
+                        picture: "foreign",
+                        color: "darkgreen",
+                        align: "end",
+                        side: "",
+                    }) }}
 
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
-                        <div class="carousel-side-text d-flex flex-column align-items-center">
-                            <h2 class="text-pinkorange">Nos gâteaux junior</h2>
-                            <form action="{{ path("app_cake_index") }}" method="post">
-                                <input type="hidden" name="search_cake_form[search]"
-                                       value="junior">
-                                <button type="submit" class="btn btn-secondary text-white">Voir plus</button>
-                            </form>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/junior1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/junior2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/junior1.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
+                    {{ include('home/_category.html.twig', {
+                        name: "Magnum cakes",
+                        category: "magnum cake",
+                        picture: "magnum",
+                        color: "purple",
+                        align: "start",
+                        side: "side-left",
+                    }) }}
 
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-start">
-                        <div class="carousel-side-text d-flex flex-column align-items-center side-left">
-                            <h2 class="text-lightblue">Gâteaux sculptés</h2>
-                            <form action="{{ path("app_cake_index") }}" method="post">
-                                <input type="hidden" name="search_cake_form[search]"
-                                       value="gâteau sculpté">
-                                <button type="submit" class="btn btn-secondary text-white">Voir plus</button>
-                            </form>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/sculpt1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/sculpt2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/sculpt3.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
-
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
-                        <div class="carousel-side-text d-flex flex-column align-items-center">
-                            <h2 class="text-darkgreen">Pâtisseries étrangères</h2>
-                            <form action="{{ path("app_cake_index") }}" method="post">
-                                <input type="hidden" name="search_cake_form[search]"
-                                       value="spécialité(s) étrangère(s)">
-                                <button type="submit" class="btn btn-secondary text-white">Voir plus</button>
-                            </form>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/foreign1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/foreign2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/foreign3.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
-
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-start">
-                        <div class="carousel-side-text d-flex flex-column align-items-center side-left">
-                            <h2 class="text-purple">Magnum cakes</h2>
-                            <form action="{{ path("app_cake_index") }}" method="post">
-                                <input type="hidden" name="search_cake_form[search]"
-                                       value="magnum cake">
-                                <button type="submit" class="btn btn-secondary text-white">Voir plus</button>
-                            </form>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/magnum1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/magnum2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/magnum3.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
-
-                    <div
-                        class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-end">
-                        <div class="carousel-side-text d-flex flex-column align-items-center">
-                            <h2 class="text-orange">Pop cakes</h2>
-                            <form action="{{ path("app_cake_index") }}" method="post">
-                                <input type="hidden" name="search_cake_form[search]"
-                                       value="pop cake">
-                                <button type="submit" class="btn btn-secondary text-white">Voir plus</button>
-                            </form>
-                        </div>
-                        <div class="carousel-container d-flex flex-row">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/pop1.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/pop2.png') }}"
-                                 alt="Une image de gâteau.">
-                            <img class="carousel-img" src="{{ asset('build/images/imported/pop3.png') }}"
-                                 alt="Une image de gâteau.">
-                        </div>
-                    </div>
+                    {{ include('home/_category.html.twig', {
+                        name: "Pop cakes",
+                        category: "pop cake",
+                        picture: "pop",
+                        color: "orange",
+                        align: "end",
+                        side: "",
+                    }) }}
                 </div>
             </div>
         </section>
