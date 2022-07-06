@@ -25,74 +25,62 @@
                                             {% endif %}
                                         </div>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-12 d-flex justify-content-between">
-                                                    <p class="card-text d-flex justify-content-end">
-                                                        Date de collecte :
-                                                        {{ order.collectDate|date("d/m/Y") }}
-                                                    </p>
-                                                    {# TODO : create a db version of this #}
-                                                    <p class="card-text d-flex justify-content-end">
-                                                        Commande N°
-                                                        {{ order.number }}
-                                                    </p>
-                                                </div>
+                                    <div class="card-body container">
+                                        <div class="row">
+                                        {% for cakes in order.orderLines %}
+                                                <h5 class="card-title col-6">{{ cakes.cakeName }}</h5>
+                                                <p class="card-text col-2">{{ cakes.cakeSize }}</p>
+                                                <p class="card-text col-2">x{{ cakes.quantity }}</p>
+                                                <p class="card-text col-2 text-end">{{ cakes.cakePrice|format_currency('EUR', locale='de') }}</p>
+                                                <hr>
+                                        {% endfor %}
+                                        </div>
+                                        
+
+                                        <div class="row">
+                                        {% for cakes in order.orderLines %}
+                                            {% if loop.index == 1 %} {# this if won't be necessary anymore when the order will have only one baker #}
+                                            <div class="col-4">
+                                                <h5 class="card-title text-center">Pâtissier</h5>
+                                                <p class="card-text text-center">
+                                                    {{ cakes.seller.firstname }} {{ cakes.seller.lastname }}
+                                                </p>
+                                                <p class="card-text text-center"> 
+                                                    {{ cakes.seller.email }}
+                                                </p>
+                                                <p class="card-text text-center"> 
+                                                    {{ cakes.seller.phone }}
+                                                </p>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="container mt-4">
-                                                        {% for cakes in order.orderLines %}
-                                                            <div class="row mt-3">
-                                                                <div class="col-5">
-                                                                    <h5 class="card-title">{{ cakes.cakeName }}</h5>
-                                                                    <p class="card-text">{{ cakes.cakeSize }}</p>
-                                                                    <p class="card-text">{{ cakes.cakePrice|format_currency('EUR', locale='de') }}</p>
-                                                                </div>
-                                                                <div class="col-1">
-                                                                    <p class="card-text">x{{ cakes.quantity }}</p>
-                                                                </div>
-                                                                <div class="col-3">
-                                                                    <h5>Pâtissier</h5>
-                                                                    <p class="card-text">
-                                                                        {{ cakes.seller.firstname }} {{ cakes.seller.lastname }}
-                                                                    </p>
-                                                                    <p class="card-text"> 
-                                                                        {{ cakes.seller.email }}
-                                                                    </p>
-                                                                    <p class="card-text"> 
-                                                                        {{ cakes.seller.phone }}
-                                                                    </p>
-                                                                </div>
-                                                                <div class="col-3">
-                                                                    <h5 class="card-title">Client</h5>
-                                                                    <p class="card-text">
-                                                                        {{ order.buyer.firstname }} {{ order.buyer.lastname }}
-                                                                    </p>
-                                                                    <p class="card-text"> 
-                                                                        {{ order.buyer.email }}
-                                                                    </p>
-                                                                    <p class="card-text"> 
-                                                                        {{ order.buyer.phone }}
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        {% endfor %}
-                                                        
-                                                        <div class="row mt-4">
-                                                            <div class="col-10">
-                                                                <h5 class="card-title text-end">Total : </h5>
-                                                            </div>
-                                                            <div class="col-2">
-                                                                <h5 class="card-title text-end">{{ order.total|format_currency('EUR', locale='de') }}</h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                            <div class="col-4">
+                                                <h5 class="card-title text-center">Client</h5>
+                                                <p class="card-text text-center">
+                                                    {{ order.buyer.firstname }} {{ order.buyer.lastname }}
+                                                </p>
+                                                <p class="card-text text-center"> 
+                                                    {{ order.buyer.email }}
+                                                </p>
+                                                <p class="card-text text-center"> 
+                                                    {{ order.buyer.phone }}
+                                                </p>
+                                            </div>
+                                            <div class="col-4">
+                                                <h5 class="card-title text-end">
+                                                    Total : {{ order.total|format_currency('EUR', locale='de') }}
+                                                </h5>
+                                                <p class="card-text text-end">
+                                                    Date de collecte :
+                                                    {{ order.collectDate|date("d/m/Y") }}
+                                                </p>
+                                                <p class="card-text text-end">
+                                                    Commande N°
+                                                    {{ order.number }}
+                                                </p>
                                             </div>
                                         </div>
-                                    </div>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -100,5 +88,5 @@
                 </div>
             </div>
         </div>
-    </div>
+
 {% endblock %}
