@@ -32,11 +32,19 @@
             <a type="button" class="text-primary nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal"
                href="{{ path('login') }}">Connexion</a>
         {% endif %}
-    </div>
+    </div class="cart-icon">
     {% if is_granted('ROLE_CUSTOMER') %}
-        <a class="cart-button" href="{{ path("cart_index") }}">
+        <a class="cart-button" href="{{ path("cart_index") }}" style="text-decoration: none">
             <img src="{{ asset("build/images/shopping_navbar.png") }}">
+
         </a>
+        {% if app.session.get('datacart')|length > 0 %}
+            <a class="cart-number-link" href="{{ path("cart_index") }}">
+                <p class="cart-number d-flex justify-content-center align-items-center text-white rounded-pill">
+                    {{ app.session.get('datacart')|length }}
+                </p>
+            </a>
+        {% endif %}
     {% endif %}
 </nav>
 
