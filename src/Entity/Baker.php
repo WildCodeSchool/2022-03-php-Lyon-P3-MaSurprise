@@ -86,10 +86,10 @@ class Baker
     private ?User $user;
 
     #[ORM\OneToOne(mappedBy: 'deliveryAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
-    private ?Address $deliveryAddress;
+    private ?Address $deliveryAddress = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $profilePicture ="";
+    private ?string $profilePicture = "";
 
     #[Vich\UploadableField(mapping: 'profilePicture_file', fileNameProperty: 'profilePicture')]
     #[Assert\File(

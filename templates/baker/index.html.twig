@@ -33,8 +33,12 @@
                             </div>
                             <div>
                                 <h2>Adresse de facturation</h2>
-                                <p class="card-text">{{ baker.user.billingAddress.streetNumber }}{{ baker.user.billingAddress.bisTerInfo }} {{ baker.user.billingAddress.streetName }}</p>
-                                <p class="card-text">{{ baker.user.billingAddress.postcode }} {{ baker.user.billingAddress.city }}</p>
+                                {% for address in baker.user.billingAddress %}
+                                    {% if address.status == 1 %} {# to show the active adress #}
+                                        <p class="card-text">{{ address.streetNumber}} {{ address.bisTerInfo }} {{ address.streetName }}</p>
+                                        <p class="card-text">{{ address.postcode }} {{ address.city }}</p>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                             <div>
                                 <h2>Adresse de click&collect</h2>
