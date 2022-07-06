@@ -5,12 +5,12 @@
 <nav class="navbar navbar-expand-md navbar-colour fixed-top" id="desktop-nav">
     <div class=" navbar-collapse d-flex justify-content-around">
         <a class="text-primary nav-link" href="{{ path('app_cake_index') }}">Nos gâteaux</a>
-        <a class="text-primary nav-link" href="#">Nos services</a>
+        <a class="text-primary nav-link" href="{{ path('app_services') }}">Nos services</a>
         <a class="navbar-brand" href="{{ path('app_home') }}">
             <img class="logo-picture" alt="logo"
                  src="{{ asset('build/images/logo_mycakeevent.png') }}">
         </a>
-        <a class="text-primary nav-link" href="#">Partenaires</a>
+        <a class="text-primary nav-link" href="{{ path('app_partners') }}">Partenaires</a>
         {% if app.user %}
             {% if is_granted('ROLE_CUSTOMER') %}
                 <a type="button" class="text-primary nav-link"
@@ -30,7 +30,7 @@
                     espace
                 </a>
             {% endif %}
-            
+
         {% else %}
             <!-- Button trigger modal -->
             <a type="button" class="text-primary nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal"
@@ -70,10 +70,10 @@
                 <a class="nav-link active" aria-current="page" href="{{ path('app_cake_index') }}">Nos gâteaux</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#">Nos services</a>
+                <a class="nav-link active" href="{{ path('app_services') }}">Nos services</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#">Partenaires</a>
+                <a class="nav-link active" href="{{ path('app_partners') }}">Partenaires</a>
             </li>
             <li class="nav-item">
                 {% if app.user %}
