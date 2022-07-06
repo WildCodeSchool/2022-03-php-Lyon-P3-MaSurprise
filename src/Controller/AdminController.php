@@ -17,6 +17,12 @@ class AdminController extends AbstractController
         return $this->render('admin/index.html.twig');
     }
 
+    #[Route('/gateaux', name: 'cakes')]
+    public function cakesIndex(): Response
+    {
+        return $this->render('admin/cakeslist.html.twig');
+    }
+
     #[Route('/commandes', name: 'orders')]
     public function ordersIndex(OrderRepository $orderRepository): Response
     {
