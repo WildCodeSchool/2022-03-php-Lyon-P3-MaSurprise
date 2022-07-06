@@ -27,18 +27,6 @@ class Cake
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $picture1 = "";
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $picture2;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $picture3;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $picture4;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $picture5;
-
     #[ORM\Column(type: 'text')]
     private ?string $description;
 
@@ -57,6 +45,9 @@ class Cake
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $updateAt = null;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $category;
 
     public function __construct()
     {
@@ -116,54 +107,6 @@ class Cake
     public function getPicture1File(): ?File
     {
         return $this->picture1File;
-    }
-
-    public function getPicture2(): ?string
-    {
-        return $this->picture2;
-    }
-
-    public function setPicture2(?string $picture2): self
-    {
-        $this->picture2 = $picture2;
-
-        return $this;
-    }
-
-    public function getPicture3(): ?string
-    {
-        return $this->picture3;
-    }
-
-    public function setPicture3(?string $picture3): self
-    {
-        $this->picture3 = $picture3;
-
-        return $this;
-    }
-
-    public function getPicture4(): ?string
-    {
-        return $this->picture4;
-    }
-
-    public function setPicture4(?string $picture4): self
-    {
-        $this->picture4 = $picture4;
-
-        return $this;
-    }
-
-    public function getPicture5(): ?string
-    {
-        return $this->picture5;
-    }
-
-    public function setPicture5(?string $picture5): self
-    {
-        $this->picture5 = $picture5;
-
-        return $this;
     }
 
     public function getDescription(): ?string
@@ -234,6 +177,18 @@ class Cake
     public function setUpdateAt(?\DateTimeInterface $updateAt): self
     {
         $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }
