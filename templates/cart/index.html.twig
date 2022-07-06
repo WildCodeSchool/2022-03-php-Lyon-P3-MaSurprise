@@ -50,13 +50,12 @@
             </tr>
             </tfoot>
         </table>
-        <div class="d-flex justify-content-end mb-5">
             {% if datacart is empty %}
                 <a class="btn btn-secondary text-white disabled"
-                   href="{{ path("app_order_index") }}">Commander</a>
+                        href="{{ path("app_order_index") }}">Commander
+                </a>
             {% else %}
                 <a class="btn btn-primary text-white" href="{{ path("app_order_index") }}">Commander</a>
             {% endif %}
-        </div>
     </div>
 {% endblock %}

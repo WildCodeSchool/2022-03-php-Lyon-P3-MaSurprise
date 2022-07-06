@@ -5,10 +5,13 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Repository\AddressRepository;
 use App\Service\OrderService;
+use JetBrains\PhpStorm\NoReturn;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use DateTime;
 
 #[Route('/commande', name: 'app_order_')]
 class OrderController extends AbstractController
@@ -27,8 +30,13 @@ class OrderController extends AbstractController
             $address = 'Aucune adresse renseignée.';
         }
 
+        if (isset($_POST['meeting-time'])) {
+            $session->set('order', $_POST['meeting-time']);
+        }
+
         $total = $session->get('total', []);
         $datacart = $session->get('datacart');
+
 
         return $this->render('order/index.html.twig', [
             'address' => $address,
@@ -38,8 +46,9 @@ class OrderController extends AbstractController
     }
 
     #[Route('/validation', name: 'processing')]
-    public function orderProcess(): Response
+    public function orderProcess(SessionInterface $session): Response
     {
+
         return $this->render('order/processing.html.twig');
     }
 
@@ -50,13 +59,14 @@ class OrderController extends AbstractController
     ): Response {
         // fetching data from session
         $datacart = $session->get('datacart');
+        $orderDate = $session->get('order');
 
         // getting user
         /** @var User $user */
         $user = $this->getUser();
 
         // calling service to add order
-        $orderService->createOrder((array)$datacart, $user);
+        $orderService->createOrder((array)$datacart, $user, $orderDate);
 
         // emptying cart
         $orderService->emptyCart();

@@ -30,7 +30,8 @@ class OrderService
 
     public function createOrder(
         array $datacart,
-        User $user
+        User $user,
+        string $orderDate,
     ): void {
         // creating an order
         $order = new Order();
@@ -62,7 +63,7 @@ class OrderService
         }
 
         // prepping up datetime for date insertion
-        $datetime = new DateTime();
+        $datetime = new DateTime($orderDate);
         $timezone = new DateTimeZone('Europe/Paris');
         $datetime->setTimezone($timezone);
 
