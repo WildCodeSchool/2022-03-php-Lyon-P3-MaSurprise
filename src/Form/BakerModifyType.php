@@ -27,7 +27,7 @@ class BakerModifyType extends AbstractType
                 'required' => false,
                 'allow_delete' => true,
                 'delete_label' => 'Supprimer cette image',
-                'download_uri' => true,
+                'download_label' => 'Télécharger le document',
             ])
             ->add('facebook', TextType::class, [
                 'label' => "Facebook",
@@ -52,7 +52,7 @@ class BakerModifyType extends AbstractType
                 'required' => false,
                 'allow_delete' => true,
                 'delete_label' => 'Supprimer cette image',
-                'download_uri' => true,
+                'download_label' => 'Télécharger le document',
             ])
             ->add('siret', TextType::class, [
                 'label' => 'Siret',
