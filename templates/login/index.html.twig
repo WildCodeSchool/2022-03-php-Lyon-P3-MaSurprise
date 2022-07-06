@@ -1,15 +1,26 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-    <form action="{{ path('login') }}" method="post">
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}"/>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password"/>
-        <input type="hidden" name="_target_path" value="/"/>
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <button type="submit">login</button>
-    </form>
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center">
+            <h1 class="text-primary text-center mb-5">Connexion</h1>
+            <div class="col-6 d-flex flex-column align-items-center">
+                {% if error %}
+                    <div class="alert alert-danger w-75">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
+                <form action="{{ path('login') }}" method="post" class="w-75">
+                    <input type="email" id="username" name="_username" placeholder="Email"
+                           class="mb-3 connection-fields form-control" value="{{ last_username }}"/>
+                    <input type="password" id="password" name="_password" placeholder="Mot de passe"
+                           class="mb-3 connection-fields form-control text-secondary"/>
+                    <input type="hidden" name="_target_path" value="/"/>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <div class="w-100 d-flex justify-content-center">
+                        <button type="submit" class="btn-connection m-5 w-50">Connexion</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

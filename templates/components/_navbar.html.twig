@@ -1,7 +1,6 @@
 {# _navbar.html.twig #}
 
 <!-- DESKTOP VERSION HEREUNDER -->
-
 <nav class="navbar navbar-expand-md navbar-colour fixed-top" id="desktop-nav">
     <div class=" navbar-collapse d-flex justify-content-around">
         <a class="text-primary nav-link" href="{{ path('app_cake_index') }}">Nos gâteaux</a>
@@ -14,20 +13,17 @@
         {% if app.user %}
             {% if is_granted('ROLE_CUSTOMER') %}
                 <a type="button" class="text-primary nav-link"
-                   href="{{ path('app_customer_index') }}">Mon
-                    espace
+                   href="{{ path('app_customer_index') }}">Mon espace
                 </a>
             {% endif %}
             {% if is_granted('ROLE_BAKER') %}
                 <a type="button" class="text-primary nav-link"
-                   href="{{ path('app_baker_index') }}">Mon
-                    espace
+                   href="{{ path('app_baker_index') }}">Mon espace
                 </a>
             {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
                 <a type="button" class="text-primary nav-link"
-                   href="{{ path('app_admin_index') }}">Mon
-                    espace
+                   href="{{ path('app_admin_index') }}">Mon espace
                 </a>
             {% endif %}
 
@@ -45,7 +41,6 @@
 </nav>
 
 <!-- MOBILE VERSION HEREUNDER -->
-
 <nav class="navbar navbar-expand-lg navbar-light navbar-colour fixed-top" id="mobile-nav">
     <div class="container-fluid d-flex justify-content-between">
         <div class="position-absolute top-50 start-0 translate-middle-y">
@@ -84,20 +79,17 @@
                 {% if app.user %}
                     {% if is_granted('ROLE_CUSTOMER') %}
                         <a type="button" class="text-primary nav-link"
-                           href="{{ path('app_customer_index') }}">Mon
-                            espace
+                           href="{{ path('app_customer_index') }}">Mon espace
                         </a>
                     {% endif %}
                     {% if is_granted('ROLE_BAKER') %}
                         <a type="button" class="text-primary nav-link"
-                           href="{{ path('app_baker_index') }}">Mon
-                            espace
+                           href="{{ path('app_baker_index') }}">Mon espace
                         </a>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
                         <a type="button" class="text-primary nav-link"
-                           href="{{ path('app_admin_index') }}">Mon
-                            espace
+                           href="{{ path('app_admin_index') }}">Mon espace
                         </a>
                     {% endif %}
                 {% else %}
@@ -111,34 +103,4 @@
 </nav>
 
 <!-- Modal -->
-
-<div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-primary" id="exampleModalLabel">Connexion</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body container">
-                <form action="{{ path('login') }}" method="post" class="row">
-                    <label for="username"></label>
-                    <input type="text" id="username" name="_username" placeholder="Email"
-                           class="w-75 mb-3 connection-fields"/>
-                    <label for="password"></label>
-                    <input type="password" id="password" name="_password" placeholder="Mot de passe"
-                           class="w-75 mb-3 connection-fields"/>
-                    <input type="hidden" name="_target_path" value="/"/>
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    <button type="submit" class="btn-connection mt-3">Connexion</button>
-                    {% if error is defined %}
-                        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                    {% endif %}
-                </form>
-            </div>
-            <div class="modal-footer container d-flex justify-content-around pb-3">
-                <a class="forgotten-password" href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
-                <a class="create-account" href="{{ path('app_register_type') }}">Créer un compte</a>
-            </div>
-        </div>
-    </div>
-</div>
+{{ include('components/_connection_modal.html.twig') }}
