@@ -27,6 +27,7 @@ class SearchCakeFormType extends AbstractType
             ]
         )
             ->setAction('/cake/')
+            ->setAction('/gateau/')
             ->setMethod('POST');
     }
 

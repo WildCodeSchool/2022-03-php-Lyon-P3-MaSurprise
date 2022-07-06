@@ -6,10 +6,10 @@ vich_uploader:
     mappings:
         cake_file:
             uri_prefix: /uploads/cakes
-            upload_destination: '%kernel.project_dir%/public/uploads/bakers/logos'
+            upload_destination: '%kernel.project_dir%/public/uploads/cakes'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
         logo_file:
-            uri_prefix: /uploads/cakes
+            uri_prefix: /uploads/bakers/logos
             upload_destination: '%kernel.project_dir%/public/uploads/bakers/logos'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
         siret_file:
@@ -19,4 +19,8 @@ vich_uploader:
         diploma_file:
             uri_prefix: /uploads/bakers/diploma
             upload_destination: '%kernel.project_dir%/public/uploads/bakers/diploma'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        profilePicture_file:
+            uri_prefix: /uploads/bakers/profile
+            upload_destination: '%kernel.project_dir%/public/uploads/bakers/profile'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

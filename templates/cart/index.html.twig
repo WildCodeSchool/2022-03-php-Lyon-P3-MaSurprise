@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre panier - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-primary mb-5 text-center">Votre panier</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Produit</th>
+                <th scope="col">Pâtissier</th>
+                <th scope="col">Prix unitaire</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Total</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for product in datacart %}
+                <tr>
+                    <td>{{ product.cake.name }}</td>
+                    <td>{{ product.cake.baker.user.firstname }} {{ product.cake.baker.user.lastname|slice(0, 1) }}.</td>
+                    <td class="text-right">{{ product.cake.price|format_currency('EUR', locale='de') }}</td>
+                    <td class=>{{ product.quantity }}</td>
+                    <td class="text-right">{{ (product.quantity * product.cake.price)|format_currency('EUR', locale='de') }}</td>
+                    <td>
+                        <a href="{{ path("cart_add", {id: product.cake.id}) }}" class="btn btn-secondary">
+                            <p class="bi cart-plus text-white">+</p>
+                        </a>
+                        <a href="{{ path("cart_remove", {id: product.cake.id}) }}" class="btn btn-secondary">
+                            <p class="bi bi-cart-dash text-white">-</p>
+                        </a>
+                        <a href="{{ path("cart_delete", {id: product.cake.id}) }}" class="btn btn-secondary">
+                            <p class="bi bi-cart-check text-white">x</p>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <td class="text-center">Votre panier est vide.</td>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="5">Total</td>
+                <td class="text-end" colspan="6">
+                    {{ total|format_currency('EUR', locale='de') }}
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+        <div class="d-flex justify-content-end mb-5">
+            {% if datacart is empty %}
+                <a class="btn btn-secondary text-white disabled"
+                   href="{{ path("app_order_index") }}">Commander</a>
+            {% else %}
+                <a class="btn btn-primary text-white" href="{{ path("app_order_index") }}">Commander</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

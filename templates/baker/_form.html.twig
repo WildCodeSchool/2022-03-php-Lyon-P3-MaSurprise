@@ -1,64 +1,35 @@
 {{ form_start(form) }}
 
 <div id="baker-form" class="d-flex flex-column align-items-center m-5">
+        
         <div class="form-row w-50">
             <div class="form-group">
-            {{ form_row(form.firstname) }}
-             </div>
-        </div>
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(form.lastname) }}
-            </div>
-        </div>
-         <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(form.email) }}
+            {{ form_row(form.user)}}
             </div>
         </div>
         <div class="form-row w-50">
             <div class="form-group">
-            {{ form_row(form.password) }}
+            {{ form_label(form.deliveryAddress) }}
+                <input class="form-check-input" type="checkbox" name="copy" id="copyAddress">
+                <label class="form-check-label" for="copyAddress">
+                    Copier les champs de l'adresse de facturation
+                </label>
+            {{ form_widget(form.deliveryAddress) }}
+            </div>
+        </div>
+        <div class="form-row w-50" id="facebook">
+            <div class="form-group">
+            {{ form_row(form.facebook) }}
+            </div>
+        </div>
+        <div class="form-row w-50" id="instagram">
+            <div class="form-group">
+            {{ form_row(form.instagram) }}
             </div>
         </div>
         <div class="form-row w-50">
             <div class="form-group">
-            {{ form_row(form.phone)}}
-            </div>
-        </div>
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(form.streetNumber) }}
-            </div>
-        </div>
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(form.bisTerInfo)}}
-            </div>
-        </div>
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(form.streetName)}}
-            </div>
-        </div>
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(form.postcode)}}
-            </div>
-        </div>
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(form.city)}}
-            </div>
-        </div>
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(form.department)}}
-            </div>
-        </div>
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(form.extraInfo)}}
+            {{ form_row(form.profilePictureFile)}}
             </div>
         </div>
         <div class="form-row w-50">
@@ -70,16 +41,6 @@
         <div class="form-row w-50 hidden" id="commercialName">
             <div class="form-group">
             {{ form_row(form.commercialName) }}
-            </div>
-        </div>
-        <div class="form-row w-50 hidden" id="facebook">
-            <div class="form-group">
-            {{ form_row(form.facebook) }}
-            </div>
-        </div>
-        <div class="form-row w-50 hidden" id="instagram">
-            <div class="form-group">
-            {{ form_row(form.instagram) }}
             </div>
         </div>
         <div class="form-row w-50 hidden" id="logoFile">

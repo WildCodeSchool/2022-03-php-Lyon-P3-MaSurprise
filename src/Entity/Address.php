@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AddressRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
@@ -11,37 +13,51 @@ class Address
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $streetNumber;
+    private ?int $streetNumber;
 
     #[ORM\Column(type: 'string', length: 15, nullable: true)]
-    private $bisTerInfo;
+    private ?string $bisTerInfo;
 
     #[ORM\Column(type: 'string', length: 100)]
-    private $streetName;
+    private string $streetName;
 
     #[ORM\Column(type: 'integer')]
-    private $postcode;
+    private int $postcode;
 
     #[ORM\Column(type: 'string', length: 100)]
-    private $city;
+    private string $city;
 
     #[ORM\ManyToOne(targetEntity: Department::class, inversedBy: 'addresses')]
     #[ORM\JoinColumn(nullable: false)]
-    private $department;
+    private Department $department;
 
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
-    private $extraInfo;
+    private ?string $extraInfo;
 
-    #[ORM\OneToOne(inversedBy: 'billingAddress', targetEntity: User::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'deliveryAddress', targetEntity: Baker::class)]
     #[ORM\JoinColumn(nullable: true)]
-    private $billingAddress;
+    private ?Baker $deliveryAddress = null ;
 
-    #[ORM\OneToOne(mappedBy:'deliveryAddress', targetEntity: Baker::class, cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: true)]
-    private $deliveryAddress;
+    #[ORM\Column(type: 'boolean')]
+    private bool $status = true;
+
+    #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist', 'remove'], inversedBy: 'billingAddress')]
+    private ?User $billingAddress;
+
+    #[ORM\OneToMany(mappedBy: 'billingAddress', targetEntity: Order::class)]
+    private Collection $orderFromBuyer;
+
+    #[ORM\OneToMany(mappedBy: 'deliveryAddress', targetEntity: OrderLine::class)]
+    private Collection $orderFromSeller;
+
+    public function __construct()
+    {
+        $this->orderFromBuyer = new ArrayCollection();
+        $this->orderFromSeller = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -132,6 +148,30 @@ class Address
         return $this;
     }
 
+    public function getDeliveryAddress(): ?Baker
+    {
+        return $this->deliveryAddress;
+    }
+
+    public function setDeliveryAddress(?Baker $deliveryAddress): self
+    {
+        $this->deliveryAddress = $deliveryAddress;
+
+        return $this;
+    }
+
+    public function isStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
     public function getBillingAddress(): ?User
     {
         return $this->billingAddress;
@@ -144,14 +184,62 @@ class Address
         return $this;
     }
 
-    public function getDeliveryAddress(): ?Baker
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrderFromBuyer(): Collection
     {
-        return $this->deliveryAddress;
+        return $this->orderFromBuyer;
     }
 
-    public function setDeliveryAddress(?Baker $deliveryAddress): self
+    public function addOrderFromBuyer(Order $orderFromBuyer): self
     {
-        $this->deliveryAddress = $deliveryAddress;
+        if (!$this->orderFromBuyer->contains($orderFromBuyer)) {
+            $this->orderFromBuyer[] = $orderFromBuyer;
+            $orderFromBuyer->setBillingAddress($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderFromBuyer(Order $orderFromBuyer): self
+    {
+        if ($this->orderFromBuyer->removeElement($orderFromBuyer)) {
+            // set the owning side to null (unless already changed)
+            if ($orderFromBuyer->getBillingAddress() === $this) {
+                $orderFromBuyer->setBillingAddress(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrderLine>
+     */
+    public function getOrderFromSeller(): Collection
+    {
+        return $this->orderFromSeller;
+    }
+
+    public function addOrderFromSeller(OrderLine $orderFromSeller): self
+    {
+        if (!$this->orderFromSeller->contains($orderFromSeller)) {
+            $this->orderFromSeller[] = $orderFromSeller;
+            $orderFromSeller->setDeliveryAddress($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderFromSeller(OrderLine $orderFromSeller): self
+    {
+        if ($this->orderFromSeller->removeElement($orderFromSeller)) {
+            // set the owning side to null (unless already changed)
+            if ($orderFromSeller->getDeliveryAddress() === $this) {
+                $orderFromSeller->setDeliveryAddress(null);
+            }
+        }
 
         return $this;
     }

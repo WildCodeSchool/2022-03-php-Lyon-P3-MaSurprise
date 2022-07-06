@@ -5,12 +5,12 @@
 <nav class="navbar navbar-expand-md navbar-colour fixed-top" id="desktop-nav">
     <div class=" navbar-collapse d-flex justify-content-around">
         <a class="text-primary nav-link" href="{{ path('app_cake_index') }}">Nos gâteaux</a>
-        <a class="text-primary nav-link" href="#">Nos services</a>
+        <a class="text-primary nav-link" href="{{ path('app_services') }}">Nos services</a>
         <a class="navbar-brand" href="{{ path('app_home') }}">
             <img class="logo-picture" alt="logo"
                  src="{{ asset('build/images/logo_mycakeevent.png') }}">
         </a>
-        <a class="text-primary nav-link" href="#">Partenaires</a>
+        <a class="text-primary nav-link" href="{{ path('app_partners') }}">Partenaires</a>
         {% if app.user %}
             {% if is_granted('ROLE_CUSTOMER') %}
                 <a type="button" class="text-primary nav-link"
@@ -24,12 +24,24 @@
                     espace
                 </a>
             {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a type="button" class="text-primary nav-link"
+                   href="{{ path('app_admin_index') }}">Mon
+                    espace
+                </a>
+            {% endif %}
+
         {% else %}
             <!-- Button trigger modal -->
             <a type="button" class="text-primary nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal"
-               href="{{ path('login') }}">Mon espace</a>
+               href="{{ path('login') }}">Connexion</a>
         {% endif %}
     </div>
+    {% if is_granted('ROLE_CUSTOMER') %}
+        <a class="cart-button" href="{{ path("cart_index") }}">
+            <img src="{{ asset("build/images/shopping_navbar.png") }}">
+        </a>
+    {% endif %}
 </nav>
 
 <!-- MOBILE VERSION HEREUNDER -->
@@ -63,10 +75,10 @@
                 <a class="nav-link active" aria-current="page" href="{{ path('app_cake_index') }}">Nos gâteaux</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#">Nos services</a>
+                <a class="nav-link active" href="{{ path('app_services') }}">Nos services</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#">Partenaires</a>
+                <a class="nav-link active" href="{{ path('app_partners') }}">Partenaires</a>
             </li>
             <li class="nav-item">
                 {% if app.user %}
@@ -82,6 +94,12 @@
                             espace
                         </a>
                     {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a type="button" class="text-primary nav-link"
+                           href="{{ path('app_admin_index') }}">Mon
+                            espace
+                        </a>
+                    {% endif %}
                 {% else %}
                     <!-- Button trigger modal -->
                     <a type="button" class="text-primary nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal"
@@ -93,6 +111,7 @@
 </nav>
 
 <!-- Modal -->
+
 <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -111,11 +130,14 @@
                     <input type="hidden" name="_target_path" value="/"/>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     <button type="submit" class="btn-connection mt-3">Connexion</button>
+                    {% if error is defined %}
+                        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
                 </form>
             </div>
             <div class="modal-footer container d-flex justify-content-around pb-3">
-                <a class="forgotten-password">Mot de passe oublié</a>
-                <a class="create-account" href="{# {{path('app_register')}} #}">Créer un compte</a>
+                <a class="forgotten-password" href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
+                <a class="create-account" href="{{ path('app_register_type') }}">Créer un compte</a>
             </div>
         </div>
     </div>
