@@ -2,18 +2,21 @@
 
 namespace App\Controller;
 
+use App\Form\CakeType;
 use App\Form\SearchCakeFormType;
 use Exception;
 use App\Entity\Cake;
-use App\Form\CakeType;
 use App\Repository\CakeRepository;
 use App\Repository\DepartmentRepository;
+use App\Service\UploaderHelper as ServiceUploaderHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\RequestStack;
 
-#[Route('/cake', name: 'app_cake_')]
+#[Route('/gateau', name: 'app_cake_')]
 class CakeController extends AbstractController
 {
     #[Route('/', name: 'index')]
@@ -56,7 +59,7 @@ class CakeController extends AbstractController
             // display a message if nothing matches search AND fetch all cakes
             if ($cakes == null) {
                 $this->addFlash(
-                    'notice',
+                    'warning',
                     "Oh non, aucun gâteau ne correspond à vos critères de recherche...
                     Laissez-vous tenter par d'autres choix ci-dessous !"
                 );
@@ -72,23 +75,61 @@ class CakeController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(CakeRepository $cakeRepository, Request $request): Response
-    {
+    #[Route('/nouveau', name: 'new', methods: ['GET', 'POST'])]
+    public function new(
+        CakeRepository $cakeRepository,
+        Request $request,
+        RequestStack $requestStack
+    ): Response {
         $cake = new Cake();
         $form = $this->createForm(CakeType::class, $cake);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $cakeRepository->add($cake, true);
-
-            return $this->redirectToRoute('app_cake_index', [], Response::HTTP_SEE_OTHER);
+            // put the id in session is use to connect url pictures to the right cake
+            $session = $requestStack->getSession();
+            $session->set('cakeId', $cake->getId());
         }
 
         return $this->renderForm('cake/new.html.twig', [
             'cake' => $cake,
             'form' => $form,
         ]);
+    }
+
+    // This route is used while sending the cake form to rename uploaded files (cakes pictures)
+    // and send them to the uploads folder
+    #[Route('/uploadedfiles', name: 'uploadedfiles')]
+    public function uploadCakesFiles(
+        Request $request,
+        RequestStack $requestStack,
+        ServiceUploaderHelper $uploaderHelper,
+        CakeRepository $cakeRepository
+    ): Response {
+        $session = $requestStack->getSession();
+        $currentCakeId = $session->get('cakeId');
+
+        $uploadedFiles = $request->files->get('files');
+        if ($uploadedFiles) {
+            if (is_iterable($uploadedFiles)) {
+                $filesArray = [];
+                foreach ($uploadedFiles as $uploadedFile) {
+                    if ($uploadedFile instanceof UploadedFile) {
+                        $newFilename = $uploaderHelper->uploadCakeFiles($uploadedFile);
+                        $filesArray[] = $newFilename;
+                    }
+                }
+                    $files = implode(',', $filesArray);
+                    $cake = new Cake();
+                    $cake = $cakeRepository->find($currentCakeId);
+                if ($cake != null) {
+                    $cake->setPicture1($files);
+                    $cakeRepository->add($cake, true);
+                }
+            }
+        }
+        return $this->redirectToRoute('app_cake_index');
     }
 
     #[Route('/{id}/', name: 'show')]
@@ -99,7 +140,7 @@ class CakeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modifier', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Cake $cake, CakeRepository $cakeRepository): Response
     {
         $form = $this->createForm(CakeType::class, $cake);

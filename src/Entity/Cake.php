@@ -27,32 +27,23 @@ class Cake
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $picture1 = "";
 
-    #[Vich\UploadableField(mapping: 'cake_file', fileNameProperty: 'picture1')]
-    #[Assert\File(
-        maxSize: '1M',
-        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
-        mimeTypesMessage: 'Ce fichier doit être une image',
-        uploadFormSizeErrorMessage: 'Votre photo ne peut pas dépasser 1M'
-    )]
-    private ?File $picture1File = null;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $picture2;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private string|null $picture2;
+    private ?string $picture3;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private string|null $picture3;
+    private ?string $picture4;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private string|null $picture4;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private string|null $picture5;
+    private ?string $picture5;
 
     #[ORM\Column(type: 'text')]
-    private string $description;
+    private ?string $description;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private string|null $allergens;
+    private ?string $allergens;
 
     #[ORM\Column(type: 'float')]
     private float $price;
@@ -62,10 +53,10 @@ class Cake
 
     #[ORM\ManyToOne(targetEntity: Baker::class, inversedBy: 'cakes')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Baker $baker;
+    private Baker $baker;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?\DateTimeInterface $updateAt;
+    private ?\DateTimeInterface $updateAt = null;
 
     public function __construct()
     {

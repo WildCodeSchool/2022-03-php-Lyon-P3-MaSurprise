@@ -3,16 +3,25 @@
 {% block title %}Mon espace client - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1 class="text-primary">Mon espace client</h1>
-    <ul>
-        <li>
-            <a href="{{ path('app_customer_show') }}">Mon profil</a>
-        </li>
-        <li>
-            <a href="#">Mes commandes</a>
-        </li>
-        <li>
-            <a href="{{ path('logout') }}">Me déconnecter</a>
-        </li>
-    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-6 card p-5">
+                            <h1 class="text-primary text-center">Mon espace client</h1>
+                            <a class="btn btn-secondary btn-lg text-white m-3"
+                               href="{{ path('app_customer_show') }}">Mon
+                                profil</a>
+                            <a class="btn btn-secondary btn-lg text-white m-3" href="{{ path('app_customer_orders') }}">Mes
+                                commandes</a>
+                            <a class="btn btn-secondary btn-lg text-white m-3" href="{{ path('logout') }}">Me
+                                déconnecter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

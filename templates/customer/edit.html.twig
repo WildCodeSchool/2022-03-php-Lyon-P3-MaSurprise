@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mes informations - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-6">
+                <h1 class="text-primary text-center">Modifier mon adresse de facturation</h1>
+                {{ include('customer/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
