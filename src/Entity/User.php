@@ -47,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $ordersFromBuyers;
 
     #[ORM\OneToOne(inversedBy: 'user', targetEntity: Baker::class, cascade: ['persist', 'remove'])]
-    private ?Baker $baker;
+    private ?Baker $baker = null;
 
     #[ORM\OneToMany(mappedBy: 'billingAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
     private Collection $billingAddress;
