@@ -102,7 +102,6 @@
                 <div class="row justify-content-center">
                     {% for cake in cakes %}
                         <div class="cake-card col-6 col-md-4 d-flex flex-column  p-2 p-lg-4">
-<<<<<<< HEAD
                             <a href="{{ path('app_cake_show', {'id': cake.id}) }}">
                                 <img class="cake-img img-fluid" src="{{ asset('build/images/gateau.jpg') }}"
                                      alt="cake img">
@@ -111,30 +110,6 @@
                                 <a class="text-decoration-none" href="{{ path('app_cake_show', {'id': cake.id}) }}">
                                     <h1 class="cake-name text-decoration-none m-0 text-primary">{{ cake.name }}</h1>
                                 </a>   
-=======
-                            {% if is_granted("ROLE_ADMIN") %}
-                                <a href="{{ path('app_cake_edit', { 'id': cake.id} ) }}">
-                                    <img class="cake-img img-fluid" src="{{ asset('build/images/gateau.jpg') }}"
-                                         alt="cake img">
-                                </a>
-                            {% else %}
-                                <a href="{{ path('app_cake_show', {'id': cake.id}) }}">
-                                    <img class="cake-img img-fluid" src="{{ asset('build/images/gateau.jpg') }}"
-                                         alt="cake img">
-                                </a>
-                            {% endif %}
-                            <div class="mt-2">
-                                {% if is_granted("ROLE_ADMIN") %}
-                                    <a class="text-decoration-none" href="{{ path('app_cake_edit', {'id': cake.id}) }}">
-                                        <h1 class="cake-name text-decoration-none m-0 text-primary">{{ cake.name }}</h1>
-                                    </a>
-                                {% else %}
-                                    <a class="text-decoration-none" href="{{ path('app_cake_show', {'id': cake.id}) }}">
-                                        <h1 class="cake-name text-decoration-none m-0 text-primary">{{ cake.name }}</h1>
-                                    </a>
-                                {% endif %}
-
->>>>>>> dev
                             </div>
                             <div class="cake-price-rev m-0 p-0 d-flex flex-row justify-content-between">
                                 <p class="m-0">Type : {{ cake.category }}</p>

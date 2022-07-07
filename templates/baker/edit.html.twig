@@ -4,28 +4,20 @@
 
 {% block body %}
     <h1 class="text-primary text-center">Compte pâtissier : modifier compte</h1>
+    <div class="d-flex flex-column align-items-center m-5">
+    <h2 class="text-center">{{ baker.user.firstname }} {{ baker.user.lastname }}</h2>
+    <h3>{% if baker.commercialName is not empty %} {{ baker.commercialName }}{% endif %}</h3>
+    <p>{{ baker.user.email }} - {{ baker.user.phone }}</p>
+    {% for billingAddress in baker.user.billingAddress %}
+        <p class="text-center">Adresse de facturation : 
+        <br>{{ billingAddress.streetNumber }}{{ billingAddress.bisTerInfo }} {{ billingAddress.streetName }}
+        <br>{{ billingAddress.postcode }} {{ billingAddress.city }}</p>
+    {% endfor %}
+   
+    
+    </div>
 {{ form_start(modifyForm) }}
 <div class="d-flex flex-column align-items-center m-5">
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(modifyForm.user.lastname)}}
-            </div>
-        </div>
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(modifyForm.user.firstname)}}
-            </div>
-        </div>
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(modifyForm.user.phone)}}
-            </div>
-        </div>
-        <div class="form-row w-50">
-            <div class="form-group">
-            {{ form_row(modifyForm.user.billingAddress)}}
-            </div>
-        </div>
         <div class="form-row w-50">
             <div class="form-group">
             {{ form_row(modifyForm.deliveryAddress) }}
@@ -54,6 +46,11 @@
         <div class="form-row w-50" id="commercialName">
             <div class="form-group">
             {{ form_row(modifyForm.commercialName) }}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(modifyForm.siret) }}
             </div>
         </div>
         <div class="form-row w-50" id="logoFile">

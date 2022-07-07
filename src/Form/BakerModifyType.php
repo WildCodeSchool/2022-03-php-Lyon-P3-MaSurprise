@@ -16,10 +16,7 @@ class BakerModifyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('user', UserType::class, [
-                'label' => 'Vos informations'
-            ])
-            /*->add('deliveryAddress', AddressType::class, [
+            ->add('deliveryAddress', AddressType::class, [
                 'label' => "Adresse de livraison*",
                 ])
             ->add('profilePictureFile', VichFileType::class, [
@@ -29,14 +26,6 @@ class BakerModifyType extends AbstractType
                 'delete_label' => 'Supprimer cette image',
                 'download_label' => 'Télécharger le document',
             ])
-            ->add('facebook', TextType::class, [
-                'label' => "Facebook",
-                'required' => false,
-                ])
-            ->add('instagram', TextType::class, [
-                'label' => "Instagram",
-                'required' => false,
-                ])
             ->add('bakerType', ChoiceType::class, [
                 'label' => 'Vous êtes :*',
                 'choices' => ['professionnel' => 'professionnel', 'amateur' => 'amateur'],
@@ -54,6 +43,14 @@ class BakerModifyType extends AbstractType
                 'delete_label' => 'Supprimer cette image',
                 'download_label' => 'Télécharger le document',
             ])
+            ->add('facebook', TextType::class, [
+                'label' => "Facebook",
+                'required' => false,
+                ])
+            ->add('instagram', TextType::class, [
+                'label' => "Instagram",
+                'required' => false,
+                ])
             ->add('siret', TextType::class, [
                 'label' => 'Siret',
                 'required' => false,
@@ -64,7 +61,7 @@ class BakerModifyType extends AbstractType
                 'allow_delete' => true,
                 'delete_label' => 'Supprimer ce document',
                 'download_label' => 'Télécharger le document',
-            ])*/
+            ])
         ;
     }
     public function configureOptions(OptionsResolver $resolver): void
