@@ -6,44 +6,53 @@
     <main class="container-fluid">
         {% include "components/_adminnav.html.twig" %}
 
+        <h1 class="text-primary text-center mb-4">Pâtissiers</h1>
         {% for baker in bakers %}
             <div id="baker-card" class="container-fluid card mb-3">
                 <div class="row m-3 g-{{ loop.index0 }}">
-                    <div class="col-md-2">
+                    <div class="col-lg-2">
                         <img
                             src="https://images.pexels.com/photos/3771812/pexels-photo-3771812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                             class="img-fluid rounded-start" alt="portrait du pâtissier">
                     </div>
-                    <div class="col-md-10">
-                        <div class="card-body d-flex">
+                    <div class="col-lg-10">
+                        <div class="card-body d-flex flex-column flex-sm-column flex-lg-row justify-content-around">
                             <div>
-                                <h2 class="card-title">
+                                <h5 class="card-title">
                                     {{ baker.user.firstname }} {{ baker.user.lastname }}
-                                </h2>
+                                </h5>
                                 <p class="card-text">{% if baker.commercialName is not empty %}
                                     {{ baker.commercialName}}
                                     {% endif %}
                                 </p>
                                 <p>Inscrit le : {{ baker.created | date("d/m/Y") }}</p>
+                                <p>N° de Siret : {{ baker.siret }}</p>
                             </div>
                             <div>
-                                <h2>Contact</h2>
-                                <p class="card-text">{{ baker.user.phone }}</p>
-                                <p class="card-text">{{ baker.user.email }}</p>
+                                <h5 class="card-title">Contact</h5>
+                                <p>{{ baker.user.phone }}
+                                <br>{{ baker.user.email }}
+                                {% if baker.facebook is not empty %}
+                                <br><a href="{{baker.facebook }}">Page Facebook</a>
+                                {% endif %}
+                                {% if baker.instagram is not empty %}
+                                <br><a href="{{baker.instagram }}">Compte Instagram</a>
+                                {% endif %}
+                                </p>
                             </div>
                             <div>
-                                <h2>Adresse de facturation</h2>
+                                <h5 class="card-title">Adresse de facturation</h5>
                                 {% for address in baker.user.billingAddress %}
                                     {% if address.status == 1 %} {# to show the active adress #}
-                                        <p class="card-text">{{ address.streetNumber}} {{ address.bisTerInfo }} {{ address.streetName }}</p>
-                                        <p class="card-text">{{ address.postcode }} {{ address.city }}</p>
+                                        <p>{{ address.streetNumber}} {{ address.bisTerInfo }} {{ address.streetName }}
+                                        <br>{{ address.postcode }} {{ address.city }}</p>
                                     {% endif %}
                                 {% endfor %}
                             </div>
                             <div>
-                                <h2>Adresse de click&collect</h2>
-                                <p class="card-text">{{ baker.deliveryAddress.streetNumber }}{{ baker.deliveryAddress.bisTerInfo }} {{ baker.deliveryAddress.streetName }}</p>
-                                <p class="card-text">{{ baker.deliveryAddress.postcode }} {{ baker.deliveryAddress.city }}</p>
+                                <h5 class="card-title">Adresse de click&collect</h5>
+                                <p>{{ baker.deliveryAddress.streetNumber }}{{ baker.deliveryAddress.bisTerInfo }} {{ baker.deliveryAddress.streetName }}
+                                <br>{{ baker.deliveryAddress.postcode }} {{ baker.deliveryAddress.city }}</p>
                             </div>
                             <div class="d-flex align-items-center">
                                 <a href="{{ path('app_baker_edit', {id:baker.id} ) }}" class="btn btn-secondary text-white m-2">Modifier</a>

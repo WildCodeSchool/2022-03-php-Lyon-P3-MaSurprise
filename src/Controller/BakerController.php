@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Baker;
 use App\Entity\User;
+use App\Form\BakerModifyType;
 use App\Form\BakerType;
 use App\Repository\BakerRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -39,10 +40,10 @@ class BakerController extends AbstractController
     #[Route('/{id}/modifier', name: '_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Baker $baker, BakerRepository $bakerRepository): Response
     {
-        $form = $this->createForm(BakerType::class, $baker);
-        $form->handleRequest($request);
+        $modifyForm = $this->createForm(BakerModifyType::class, $baker);
+        $modifyForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($modifyForm->isSubmitted() && $modifyForm->isValid()) {
             $bakerRepository->add($baker, true);
 
             return $this->redirectToRoute('app_baker_index', [], Response::HTTP_SEE_OTHER);
@@ -50,7 +51,7 @@ class BakerController extends AbstractController
 
         return $this->renderForm('baker/edit.html.twig', [
             'baker' => $baker,
-            'form' => $form,
+            'modifyForm' => $modifyForm,
         ]);
     }
 

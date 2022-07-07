@@ -71,10 +71,8 @@ class OrderController extends AbstractController
             $orderService->createOrder((array)$datacart, $user, $orderDate);
             // emptying cart
             $orderService->emptyCart();
-
             return $this->render('order/placed.html.twig');
         }
-
 
         $this->addFlash('warning', "Veuillez sélectionner une autre date.");
         return $this->redirectToRoute('app_order_index');

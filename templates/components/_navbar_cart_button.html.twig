@@ -1,0 +1,12 @@
+<div class="cart-icon position-relative">
+    <a class="cart-button" href="{{ path("cart_index") }}" style="text-decoration: none">
+        <img src="{{ asset("build/images/shopping_navbar.png") }}">
+    </a>
+    {% if app.session.get('datacart')|length > 0 %}
+        <a class="cart-number-link position-relative" href="{{ path("cart_index") }}">
+            <p class="cart-number d-flex justify-content-center align-items-center text-white rounded-pill">
+                {{ app.session.get('datacart')|length }}
+            </p>
+        </a>
+    {% endif %}
+</div>

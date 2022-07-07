@@ -32,65 +32,18 @@
                                 <option>etc.</option>
                             </select>
                         </div>
-                        <div class="col-2">
-                            <h4>Catégorie</h4>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" value="option1"
-                                       checked>
-                                <label class="form-check-label" for="exampleRadios">Gâteaux</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" value="option1"
-                                       checked>
-                                <label class="form-check-label" for="exampleRadios">Pièces montées</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" value="option1"
-                                       checked>
-                                <label class="form-check-label" for="exampleRadios">Pâtisseries</label>
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <h4>Évènement</h4>
-                            <div class="form-check">
-                                <input name="check" class="form-check-input" type="checkbox" value="anniversaire">
-                                <label class="form-check-label" for="check1">Anniversaire</label>
-                            </div>
-                            <div class="form-check">
-                                <input name="check" class="form-check-input" type="checkbox" value="mariage">
-                                <label class="form-check-label" for="check2">Mariage</label>
-                            </div>
-                            <div class="form-check">
-                                <input name="check" class="form-check-input" type="checkbox" value="bapteme">
-                                <label class="form-check-label" for="check3">Baptême</label>
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <h4>Thème</h4>
-                            <div class="form-check">
-                                <input name="checkb" class="form-check-input" type="checkbox" value="anniversaire">
-                                <label class="form-check-label" for="check1b">Super-héros</label>
-                            </div>
-                            <div class="form-check">
-                                <input name="checkb" class="form-check-input" type="checkbox" value="anniversaire">
-                                <label class="form-check-label" for="check2b">Animaux</label>
-                            </div>
-                            <div class="form-check">
-                                <input name="checkb" class="form-check-input" type="checkbox" value="anniversaire">
-                                <label class="form-check-label" for="check3b">Poneys</label>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
 
             {% for message in app.flashes('warning') %}
                 <div class="flash-warning">
-                    <h2 class="text-primary">{{ message }}</h2>
+                    <h3 class="text-primary">{{ message }}</h3>
                 </div>
             {% endfor %}
 
-            {% if search and not app.flashes('notice') %}
+            {% if errorForm != 1 and search != "" %}
                 <p>{{ cakes|length }}
                     résultats correspondant à "{{ search }}"</p>
             {% else %}
@@ -102,39 +55,17 @@
                 <div class="row justify-content-center">
                     {% for cake in cakes %}
                         <div class="cake-card col-6 col-md-4 d-flex flex-column  p-2 p-lg-4">
-                            {% if is_granted("ROLE_ADMIN") %}
-                            <a href="{{ path('app_cake_edit', { 'id': cake.id} ) }}">
-                                <img class="cake-img img-fluid" src="{{ asset('build/images/gateau.jpg') }}"
-                                     alt="cake img">
-                            </a>
-                            {% else %}
                             <a href="{{ path('app_cake_show', {'id': cake.id}) }}">
                                 <img class="cake-img img-fluid" src="{{ asset('build/images/gateau.jpg') }}"
                                      alt="cake img">
                             </a>
-                            {% endif %}
                             <div class="mt-2">
-                                {% if is_granted("ROLE_ADMIN") %}
-                                <a class="text-decoration-none" href="{{ path('app_cake_edit', {'id': cake.id}) }}">
-                                    <h1 class="cake-name text-decoration-none m-0 text-primary">{{ cake.name }}</h1>
-                                </a>
-                                {% else %}
                                 <a class="text-decoration-none" href="{{ path('app_cake_show', {'id': cake.id}) }}">
                                     <h1 class="cake-name text-decoration-none m-0 text-primary">{{ cake.name }}</h1>
-                                </a>
-                                {% endif %}
-                                
+                                </a>   
                             </div>
-                            <div class="">
-                                <div class="d-flex flex-col justify-content-between align-items-baseline pt-2">
-                                    <div class="cake-stars d-flex flex-row m-0">
-                                        {% for i in 1..random(1,5) %}
-                                            <img class="img-fluid" src="{{ asset('build/images/icons/Star_15.png') }}">
-                                        {% endfor %}
-                                    </div>
-                                    <p class="avis m-0">{{ random(2, 36) }}
-                                        avis</p>
-                                </div>
+                            <div class="cake-price-rev m-0 p-0 d-flex flex-row justify-content-between">
+                                <p class="m-0">Type : {{ cake.category }}</p>
                             </div>
                             <div class="cake-price-rev m-0 p-0 d-flex flex-row justify-content-between">
                                 <p class="cake-disponibility m-0">Disponible dans
@@ -146,12 +77,16 @@
                                 <div class="d-flex gap-2">
                                     <img src="{{ asset('build/images/icons/hat.png') }}" class="hat img-fluid w-auto"
                                          alt="cake img">
-                                    <h5 class="baker-name text-start opacity-50">
-                                        {{ cake.baker.user.lastname }}.{{ cake.baker.user.firstname |slice(0, 1) }}
-                                    </h5>
+                                    {# TODO: is it the best way to do this? probably not #}
+                                    <a href="/patissier/{{ cake.baker.id }}" style="text-decoration: none;">
+                                        <h5 class="baker-name text-start opacity-50">
+                                            {{ cake.baker.user.firstname }} {{ cake.baker.user.lastname|slice(0, 1) }}.
+                                        </h5>
+                                    </a>
                                 </div>
                                 <div>
-                                    <p class="m-0">Lyon</p>
+                                    <p class="m-0">{{ cake.baker.deliveryAddress.city }}
+                                        ({{ cake.baker.deliveryAddress.department.number }})</p>
                                 </div>
                             </div>
                         </div>
