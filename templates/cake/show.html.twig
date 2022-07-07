@@ -17,37 +17,21 @@
                         <div class="cake-image container col-10">
                             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-indicators">
-                                    <button type="button" data-bs-target="#carouselExampleIndicators"
-                                            data-bs-slide-to="0" class="active" aria-current="true"
-                                            aria-label="Slide 1"></button>
-                                    <button type="button" data-bs-target="#carouselExampleIndicators"
-                                            data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                    <button type="button" data-bs-target="#carouselExampleIndicators"
-                                            data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                    {% for i in 1..cake.picture1|split(',')|length %}
+                                        <button type="button" data-bs-target="#carouselExampleIndicators"
+                                                data-bs-slide-to="{{ i-1 }}"
+                                            {% if loop.first %}
+                                                class="active" aria-current="true"
+                                            {% endif %}
+                                                aria-label="Slide {{ i }}"></button>
+                                    {% endfor %}
                                 </div>
                                 <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="{{ asset('build/images/gateau.jpg') }}"
-                                             class="carousel-cake-pic d-block w-100 h-100"
-                                             alt="...">
-                                    </div>
-                                    {# TODO: TEMPORARY TEST #}
-                                    <div class=" carousel-item">
-                                        <img src="{{ asset('build/images/imported/cake3.png') }}"
-                                             class="carousel-cake-pic d-block w-100 h-100"
-                                             alt="...">
-                                    </div>
-                                    <div class=" carousel-item">
-                                        <img src="{{ asset('build/images/imported/pastry2.png') }}"
-                                             class="carousel-cake-pic d-block w-100 h-100"
-                                             alt="...">
-                                    </div>
-                                    {# TODO: this doesn't work yet #}
-                                    {% for pic in cake.picture1 %}
-                                        <div class=" carousel-item">
-                                            <img src="{{ asset('build/images/gateau.jpg') }}"
+                                    {% for picture in cake.picture1|split(',') %}
+                                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                            <img src="/uploads/cakes/{{ picture }}"
                                                  class="carousel-cake-pic d-block w-100 h-100"
-                                                 alt="...">
+                                                 alt="Une photo de {{ cake.name }}">
                                         </div>
                                     {% endfor %}
                                 </div>
@@ -65,6 +49,11 @@
                         </div>
                     </div>
                 </div>
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPic">
+                    Voir les images
+                </button>
+
             </div>
 
             <div class="cake-description col-md-6 col-10 m-md-0 m-5 d-flex flex-column justify-content-between">
@@ -147,4 +136,6 @@
             </div>
         </div>
     </div>
+
+    {% include('cake/_picture_viewer.html.twig') %}
 {% endblock %}

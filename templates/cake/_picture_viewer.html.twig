@@ -1,0 +1,55 @@
+<div class="modal fade" id="modalPic" tabindex="-1" aria-labelledby="picModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Voir les photos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-md-6 col-12">
+                    <div class="cake-img container">
+                        <div class="row">
+                            <div class="cake-image container col-10">
+                                <div id="carouselPicControls" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-indicators">
+                                        {% for i in 1..cake.picture1|split(',')|length %}
+                                            <button type="button" data-bs-target="#carouselPicIndicators"
+                                                    data-bs-slide-to="{{ i-1 }}"
+                                                {% if loop.first %}
+                                                    class="active" aria-current="true"
+                                                {% endif %}
+                                                    aria-label="Slide {{ i }}"></button>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="carousel-inner">
+                                        {% for picture in cake.picture1|split(',') %}
+                                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                                <img src="/uploads/cakes/{{ picture }}"
+                                                     class="carousel-cake-pic d-block w-100 h-100"
+                                                     alt="Une photo de {{ cake.name }}">
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <button class=" carousel-control-prev" type="button"
+                                            data-bs-target="#carouselPicControls" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Précédente</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselPicControls" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Suivante</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
