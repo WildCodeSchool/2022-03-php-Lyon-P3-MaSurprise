@@ -515,8 +515,14 @@ $modal-backdrop-opacity: 0.8;
     text-decoration: none;
 }
 
-.carousel-cake-pic {
+/* CAKE PIC MODAL */
+
+.carousel-cake-main {
     object-fit: cover;
     object-position: center center;
     aspect-ratio: 1 / 1;
+}
+
+.modal-resize {
+    max-width: 95% !important;
 }

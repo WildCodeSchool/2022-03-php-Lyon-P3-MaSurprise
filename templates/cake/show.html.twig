@@ -12,48 +12,15 @@
         <div class="row d-flex flex-md-row flex-column justify-content-center align-items-center">
 
             <div class="col-md-6 col-12">
-                <div class="cake-img container">
-                    <div class="row">
-                        <div class="cake-image container col-10">
-                            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-indicators">
-                                    {% for i in 1..cake.picture1|split(',')|length %}
-                                        <button type="button" data-bs-target="#carouselExampleIndicators"
-                                                data-bs-slide-to="{{ i-1 }}"
-                                            {% if loop.first %}
-                                                class="active" aria-current="true"
-                                            {% endif %}
-                                                aria-label="Slide {{ i }}"></button>
-                                    {% endfor %}
-                                </div>
-                                <div class="carousel-inner">
-                                    {% for picture in cake.picture1|split(',') %}
-                                        <div class="carousel-item {% if loop.first %}active{% endif %}">
-                                            <img src="/uploads/cakes/{{ picture }}"
-                                                 class="carousel-cake-pic d-block w-100 h-100"
-                                                 alt="Une photo de {{ cake.name }}">
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                                <button class=" carousel-control-prev" type="button"
-                                        data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Précédente</span>
-                                </button>
-                                <button class="carousel-control-next" type="button"
-                                        data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Suivante</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                {{ include('cake/_picture_carousel.html.twig', {
+                    place: "main",
+                }) }}
+                <div class="d-flex justify-content-center m-4">
+                    <button type="button" class="btn btn-secondary text-white" data-bs-toggle="modal"
+                            data-bs-target="#modalPic">
+                        Voir les images
+                    </button>
                 </div>
-
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPic">
-                    Voir les images
-                </button>
-
             </div>
 
             <div class="cake-description col-md-6 col-10 m-md-0 m-5 d-flex flex-column justify-content-between">
@@ -76,6 +43,7 @@
                     <div class="collapse mb-3" id="collapseIngredients">
                         <div class="container-fluid card card-body bg-light">
                             <div class="row">
+                                {# TODO: change this #}
                                 {% for i in 1..10 %}
                                     ingrédient
                                     {{ i }},
@@ -94,18 +62,14 @@
                     <div class="collapse mb-3" id="collapseAllergens">
                         <div class="container-fluid card card-body bg-light">
                             <div class="row">
-                                {% for i in 1..10 %}
-                                    allergène
-                                    {{ i }},
-                                {% endfor %}
+                                {{ cake.allergens }}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <a class="btn btn-primary btn-lg" id="addToCart" href="{{ path('cart_add', {'id': cake.id}) }}">Ajouter
-                        au
-                        panier</a>
+                    <a class="btn btn-primary btn-lg" id="addToCart" href="{{ path('cart_add', {'id': cake.id}) }}">
+                        Ajouter au panier</a>
                 </div>
             </div>
         </div>
