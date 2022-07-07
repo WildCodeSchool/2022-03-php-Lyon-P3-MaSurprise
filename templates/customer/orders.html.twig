@@ -35,12 +35,13 @@
                                         <div class="container-fluid">
 
                                             <div class="row">
-                                                <div class="col-12 d-flex justify-content-between">
-                                                    <p class="card-text text-start">
+                                                <div
+                                                    class="col-12 d-flex flex-column flex-sm-row justify-content-between">
+                                                    <p class="card-text text-start mb-0">
                                                         Date de collecte :
                                                         {{ order.collectDate|date("d/m/Y", "Europe/Paris") }}
                                                     </p>
-                                                    <p class="card-text text-end">
+                                                    <p class="card-text text-sm-end">
                                                         Commande N°
                                                         {{ order.number }}
                                                     </p>
@@ -51,24 +52,27 @@
                                                 <div class="col-12">
                                                     <div class="container-fluid p-0 mt-4">
                                                         {% for cakes in order.orderLines %}
-                                                            <div class="row mt-3">
-                                                                <div class="col-8">
+                                                            <div class="row mt-3 d-flex flex-column flex-sm-row">
 
+                                                                <div class="col-sm-8 col-12">
                                                                     <h5 class="card-title">{{ cakes.cakeName }}</h5>
                                                                     <p class="card-text mb-0">créé
                                                                         par {{ cakes.seller.firstname }} {{ cakes.seller.lastname|slice(0,1) }}
                                                                         .</p>
                                                                     <p class="card-text">{{ cakes.cakeSize }}</p>
                                                                 </div>
-                                                                <div class="col-2">
-                                                                    <p class="card-text">x{{ cakes.quantity }}</p>
+
+                                                                <div class="col-sm-2 col-12">
+                                                                    <p class="card-text text-end text-sm-start">
+                                                                        x{{ cakes.quantity }}</p>
                                                                 </div>
-                                                                <div class="col-2">
+
+                                                                <div class="col-sm-2 col-12">
                                                                     <h5 class="card-title text-end">
                                                                         {{ cakes.cakePrice|format_currency('EUR', locale='de') }}
                                                                     </h5>
-
                                                                 </div>
+
                                                             </div>
                                                         {% endfor %}
                                                         <div class="row mt-4">
