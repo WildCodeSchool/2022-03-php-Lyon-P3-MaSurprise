@@ -52,61 +52,71 @@
 <nav class="navbar navbar-expand-lg navbar-light navbar-colour fixed-top" id="mobile-nav">
     <div class="container-fluid d-flex justify-content-between">
         <div class="position-absolute top-50 start-0 translate-middle-y">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                    <li class="dropdown-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('app_cake_index') }}">Nos
+                            gâteaux</a>
+                    </li>
+
+                    <li class="dropdown-item">
+                        <a class="nav-link active" href="{{ path('app_services') }}">Nos services</a>
+                    </li>
+
+                    <li class="dropdown-item">
+                        <a class="nav-link active" href="{{ path('app_partners') }}">Partenaires</a>
+                    </li>
+
+                    <li class="dropdown-item">
+                        {% if app.user %}
+                            {% if is_granted('ROLE_CUSTOMER') %}
+                                <a type="button" class="text-primary nav-link"
+                                   href="{{ path('app_customer_index') }}">Mon espace
+                                </a>
+                            {% endif %}
+                            {% if is_granted('ROLE_BAKER') %}
+                                <a type="button" class="text-primary nav-link"
+                                   href="{{ path('app_baker_index') }}">Mon espace
+                                </a>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a type="button" class="text-primary nav-link"
+                                   href="{{ path('app_admin_index') }}">Mon espace
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            <!-- Button trigger modal -->
+                            <a type="button" class="text-primary nav-link" data-bs-toggle="modal"
+                               data-bs-target="#exampleModal"
+                               href="{{ path('login') }}">Mon espace</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
         </div>
+
         <div class="position-absolute top-50 start-50 translate-middle">
             <a class="navbar-brand" href="{{ path('app_home') }}">
                 <img class="logo-picture" alt="logo"
                      src="{{ asset('build/images/logo_mycakeevent.png') }}">
             </a>
         </div>
+
         <div class="position-absolute top-50 end-0 translate-middle-y">
-            <a href="#">
+            <a href="{{ path("app_cake_index") }}">
                 <img class="nav-icon" alt="recherche" src="{{ asset('build/images/search_navbar.png') }}">
             </a>
-            <a href="#">
+            <a href="{{ path("cart_index") }}">
                 <img class="nav-icon" alt="panier" src="{{ asset('build/images/shopping_navbar.png') }}">
             </a>
         </div>
-    </div>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{ path('app_cake_index') }}">Nos gâteaux</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="{{ path('app_services') }}">Nos services</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="{{ path('app_partners') }}">Partenaires</a>
-            </li>
-            <li class="nav-item">
-                {% if app.user %}
-                    {% if is_granted('ROLE_CUSTOMER') %}
-                        <a type="button" class="text-primary nav-link"
-                           href="{{ path('app_customer_index') }}">Mon espace
-                        </a>
-                    {% endif %}
-                    {% if is_granted('ROLE_BAKER') %}
-                        <a type="button" class="text-primary nav-link"
-                           href="{{ path('app_baker_index') }}">Mon espace
-                        </a>
-                    {% endif %}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a type="button" class="text-primary nav-link"
-                           href="{{ path('app_admin_index') }}">Mon espace
-                        </a>
-                    {% endif %}
-                {% else %}
-                    <!-- Button trigger modal -->
-                    <a type="button" class="text-primary nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                       href="{{ path('login') }}">Mon espace</a>
-                {% endif %}
-            </li>
-        </ul>
+
     </div>
 </nav>
 
