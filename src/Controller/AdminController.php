@@ -37,12 +37,4 @@ class AdminController extends AbstractController
             'orders' => $orders,
         ]);
     }
-
-    #[Route('/{id}', name: '_list')]
-    public function detail(Order $order): Response
-    {
-        return $this->render('admin/ordersdetail.html.twig', [
-            'order' => $order,
-        ]);
-    }
 }
