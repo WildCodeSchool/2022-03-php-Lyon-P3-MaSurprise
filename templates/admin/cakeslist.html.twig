@@ -3,6 +3,57 @@
 {% block title %}Gâteaux - {{ parent() }}{% endblock %}
 
 {% block body %}
-{% include "components/_adminnav.html.twig" %}
+
+<main class="container-fluid">
+    {% include "components/_adminnav.html.twig" %}
+
+    <h1 class="text-primary text-center mb-4">Gâteaux</h1>
+    {% for cake in cakes %}
+        <div class="container-fluid card mb-3">
+            <div class="row m-3 g-{{ loop.index0 }} d-flex flex-lg-row justify-content-around">
+                {% for picture in cake.picture1|split(',') %}
+                {% if loop.index == 1 %} {# show only the first picture #}
+                <div class="col-12 col-md-6 col-lg-2">
+                <img src="/uploads/cakes/{{ picture }}" class="img-fluid rounded" alt="photo principale du gâteau">
+                </div>
+                {% endif %}
+                {% endfor %}
+                <div class="col-12 col-md-6 col-lg-3">
+                    <h5 class="card-title">{{ cake.name }}</h5>
+                    <p class="card-text">
+                        {{ cake.baker.user.firstname }} {{ cake.baker.user.lastname }}
+                    </p>
+                    <p class="card-text">{% if cake.baker.commercialName is not empty %}
+                        {{ cake.baker.commercialName}}
+                        {% endif %}
+                    </p>
+                    <p> {{ cake.baker.deliveryAddress.postcode }} {{ cake.baker.deliveryAddress.city }}</p>
+                </div>
+                <div class="col-12 col-lg-2">
+                    <h5 class="card-title">Description</h5>
+                    <p>{{ cake.description }}</p>
+                </div>
+                <div class="col-12 col-lg-1">
+                    <h5 class="card-title">Allergènes</h5>
+                    <p>{{ cake.allergens }}</p>
+                </div>
+                <div class="col-12 col-lg-1">
+                    <h5 class="card-title">Taille du gâteau</h5>
+                    <p>{{ cake.size }}</p>
+                    <h5 class="card-title">Prix</h5>
+                    <p>{{ cake.price }} €</p>
+                </div>
+                <div class="col-12 col-lg-1">
+                    <h5 class="card-title">Catégories</h5>
+                    <p>{{ cake.category }}</p>
+                </div>
+                <div class="col-12 col-lg-1 d-flex flex-column align-items-center">
+                    <a href="{{ path('app_cake_edit', {id:cake.id} ) }}" class="btn btn-secondary text-white m-1">Modifier</a>
+                    {{ include('cake/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</main>
 
 {% endblock %}
