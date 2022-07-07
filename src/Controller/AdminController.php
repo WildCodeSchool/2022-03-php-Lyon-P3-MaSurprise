@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Order;
+use App\Repository\CakeRepository;
 use App\Repository\OrderRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +19,12 @@ class AdminController extends AbstractController
     }
 
     #[Route('/gateaux', name: 'cakes')]
-    public function cakesIndex(): Response
+    public function cakesIndex(CakeRepository $cakeRepository): Response
     {
-        return $this->render('admin/cakeslist.html.twig');
+        $cakes = $cakeRepository->findAll();
+        return $this->render('admin/cakeslist.html.twig', [
+            'cakes' => $cakes,
+        ]);
     }
 
     #[Route('/commandes', name: 'orders')]
