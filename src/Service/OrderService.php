@@ -10,7 +10,6 @@ use App\Repository\UserRepository;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class OrderService
 {
@@ -31,7 +30,7 @@ class OrderService
     public function createOrder(
         array $datacart,
         User $user,
-        string $orderDate,
+        DateTime $orderDate,
     ): void {
         // creating an order
         $order = new Order();
@@ -63,7 +62,7 @@ class OrderService
         }
 
         // prepping up datetime for date insertion
-        $datetime = new DateTime($orderDate);
+        $datetime = new DateTime();
         $timezone = new DateTimeZone('Europe/Paris');
         $datetime->setTimezone($timezone);
 
@@ -85,7 +84,7 @@ class OrderService
             ->setBuyer($user)
             ->setTotal($total)
             ->setBillingAddress($address)
-            ->setCollectDate($datetime);
+            ->setCollectDate($orderDate);
 
         $this->entityManager->persist($order);
 

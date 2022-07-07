@@ -54,9 +54,16 @@
                                 <div class="col-12">
                                     <form action="" method=POST>
                                         <label for="meeting-time"><h2 class="pt-5">Dâte et heure :</h2></label>
+                                        {% for category, messages in app.flashes %}
+                                            {% for message in messages %}
+                                                <div class="alert alert-{{ category }}">
+                                                    {{ message }}
+                                                </div>
+                                            {% endfor %}
+                                        {% endfor %}
                                         <li class="list-group-item meeting d-flex flex-row justify-content-between">
-                                                <input type="datetime-local" id="meeting-time"
-                                                       name="meeting-time" required="required">
+                                            <input type="datetime-local" id="meeting-time"
+                                                   name="meeting-time" required="required" value="{{ dateorder }}">
                                             <button type="submit" class="btn btn-secondary btn-lg text-white">
                                                 valider
                                             </button>

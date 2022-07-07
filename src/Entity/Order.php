@@ -7,6 +7,7 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: '`order`')]
@@ -23,7 +24,7 @@ class Order
     #[ORM\Column(type: 'string', length: 50)]
     private string $orderStatus = "Commande créée";
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[ORM\Column(type: 'datetime', nullable: false)]
     private ?DateTimeInterface $collectDate;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ordersToSellers')]

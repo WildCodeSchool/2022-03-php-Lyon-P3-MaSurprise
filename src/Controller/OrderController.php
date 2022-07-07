@@ -5,13 +5,10 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Repository\AddressRepository;
 use App\Service\OrderService;
-use JetBrains\PhpStorm\NoReturn;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use DateTime;
 
 #[Route('/commande', name: 'app_order_')]
 class OrderController extends AbstractController
@@ -36,12 +33,13 @@ class OrderController extends AbstractController
 
         $total = $session->get('total', []);
         $datacart = $session->get('datacart');
-
+        $dateorder = $session->get('order');
 
         return $this->render('order/index.html.twig', [
             'address' => $address,
             'total' => $total,
             'datacart' => $datacart,
+            'dateorder' => $dateorder,
         ]);
     }
 
@@ -55,22 +53,30 @@ class OrderController extends AbstractController
     #[Route('/commande-validee', name: 'placed')]
     public function orderPlaced(
         OrderService $orderService,
-        SessionInterface $session
+        SessionInterface $session,
     ): Response {
         // fetching data from session
         $datacart = $session->get('datacart');
         $orderDate = $session->get('order');
 
-        // getting user
-        /** @var User $user */
-        $user = $this->getUser();
+        date_default_timezone_set('Europe/Paris');
+        $orderDate = date_create($orderDate);
+        $now = date_create("now");
 
-        // calling service to add order
-        $orderService->createOrder((array)$datacart, $user, $orderDate);
+        if ($now < $orderDate) {
+            // getting user
+            /** @var User $user */
+            $user = $this->getUser();
+            // calling service to add order
+            $orderService->createOrder((array)$datacart, $user, $orderDate);
+            // emptying cart
+            $orderService->emptyCart();
 
-        // emptying cart
-        $orderService->emptyCart();
+            return $this->render('order/placed.html.twig');
+        }
 
-        return $this->render('order/placed.html.twig');
+
+        $this->addFlash('warning', "Veuillez sélectionner une autre date.");
+        return $this->redirectToRoute('app_order_index');
     }
 }
