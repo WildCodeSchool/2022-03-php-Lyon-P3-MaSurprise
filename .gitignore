@@ -5,7 +5,6 @@ db-data
 ###> pictures from users
 /public/uploads/**/*.*
 !/public/uploads/**/**/_fixtures_*
-!/public/uploads/**/_fixtures_*
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
