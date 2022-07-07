@@ -242,39 +242,6 @@ h1, h2, h3, h4 {
     height: 25px;
 }
 
-/* ----- themes ----- */
-.theme-container {
-    column-gap: 20px;
-    row-gap: 20px;
-}
-
-.theme-subcontainer {
-    column-gap: 20px;
-    row-gap: 20px;
-}
-
-.theme-button {
-    background-color: white;
-    height: 320px;
-    width: 320px;
-    border-radius: 6px;
-    padding: 30px;
-}
-
-.theme-button p {
-    font-size: 11.5pt;
-}
-
-.theme-button:hover {
-    cursor: pointer;
-    box-shadow: rgba(60, 64, 67, 0.3) 0 0 10px 5px;
-}
-
-.theme-img {
-    width: 100px;
-    height: 100px;
-}
-
 /* ----- sweet dream ----- */
 .main-sweet-dream-container {
     background-color: var(--background-dark);
@@ -337,6 +304,14 @@ h1, h2, h3, h4 {
     }
 }
 
+@media screen and (max-width: 500px) {
+    .carousel-img {
+        width: 100px;
+        height: 100px;
+        border: 5px solid white;
+    }
+}
+
 /* ----- how to ----- */
 .main-how-to-container {
     background-color: var(--background-dark);
@@ -391,9 +366,11 @@ h1, h2, h3, h4 {
 .floating-logos {
     column-gap: 30px;
     overflow: scroll;
+    height: 200px;
 }
 
 .floating-img {
+    margin-top: 30px;
     height: 80px;
 }
 
