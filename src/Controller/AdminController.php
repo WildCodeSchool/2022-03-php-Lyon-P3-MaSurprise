@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Order;
+use App\Repository\CakeRepository;
 use App\Repository\OrderRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/espace-admin', name: 'app_admin_')]
+#[IsGranted('ROLE_ADMIN')]
 class AdminController extends AbstractController
 {
     #[Route('/', name: 'index')]
@@ -18,9 +21,12 @@ class AdminController extends AbstractController
     }
 
     #[Route('/gateaux', name: 'cakes')]
-    public function cakesIndex(): Response
+    public function cakesIndex(CakeRepository $cakeRepository): Response
     {
-        return $this->render('admin/cakeslist.html.twig');
+        $cakes = $cakeRepository->findAll();
+        return $this->render('admin/cakeslist.html.twig', [
+            'cakes' => $cakes,
+        ]);
     }
 
     #[Route('/commandes', name: 'orders')]
@@ -29,14 +35,6 @@ class AdminController extends AbstractController
         $orders = $orderRepository->findAll();
         return $this->render('admin/orderslist.html.twig', [
             'orders' => $orders,
-        ]);
-    }
-
-    #[Route('/{id}', name: '_list')]
-    public function detail(Order $order): Response
-    {
-        return $this->render('admin/ordersdetail.html.twig', [
-            'order' => $order,
         ]);
     }
 }
