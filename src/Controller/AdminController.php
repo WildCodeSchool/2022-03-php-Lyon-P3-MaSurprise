@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Order;
 use App\Repository\CakeRepository;
 use App\Repository\OrderRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/espace-admin', name: 'app_admin_')]
+#[IsGranted('ROLE_ADMIN')]
 class AdminController extends AbstractController
 {
     #[Route('/', name: 'index')]
