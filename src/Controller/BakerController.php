@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/patissier', name:'app_baker')]
+#[Route('/patissier', name: 'app_baker')]
 class BakerController extends AbstractController
 {
     #[Route('/', name: '_index')]
@@ -36,7 +36,6 @@ class BakerController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}/modifier', name: '_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Baker $baker, BakerRepository $bakerRepository): Response
     {
@@ -55,6 +54,7 @@ class BakerController extends AbstractController
         ]);
     }
 
+    // TODO: we need to block this route
     #[Route('/{id}', name: '_delete', methods: ['POST'])]
     public function delete(Request $request, Baker $baker, BakerRepository $bakerRepository): Response
     {
@@ -62,7 +62,7 @@ class BakerController extends AbstractController
             if ($this->isCsrfTokenValid('_delete' . $baker->getId(), $request->request->get('_token'))) {
                 $bakerRepository->remove($baker, true);
             } else {
-                throw new Exception(message : 'token should be string or null');
+                throw new Exception(message: 'token should be string or null');
             }
         }
 

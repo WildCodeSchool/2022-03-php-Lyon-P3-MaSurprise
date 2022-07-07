@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page introuvable - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    {{ include('bundles/TwigBundle/Exception/_base.html.twig', {
+        errorNumber : "404",
+        errorType : "Page introuvable",
+        errorMessage : "Il y a clairement un problème avec la page que vous essayez de consulter.
+        Une chose est sûre : elle est introuvable.",
+    }) }}
+
+{% endblock %}

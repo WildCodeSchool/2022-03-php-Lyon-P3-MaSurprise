@@ -514,3 +514,10 @@ $modal-backdrop-opacity: 0.8;
 .cart-number-link {
     text-decoration: none;
 }
+
+/* ERRORS */
+
+.error-cake {
+    border: 10px solid #fafafa;
+    box-shadow: var(--box-shadow);
+}

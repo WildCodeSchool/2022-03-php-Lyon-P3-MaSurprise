@@ -150,6 +150,7 @@ class CakeController extends AbstractController
         ]);
     }
 
+    // TODO: we need to block this route
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Cake $cake, CakeRepository $cakeRepository): Response
     {
