@@ -48,6 +48,7 @@ class RegistrationController extends AbstractController
                         $form->get('user')->get('password')->getData()
                     )
                 );
+                $user->setRoles(['ROLE_BAKER']);
                 $entityManager->persist($baker);
                 $entityManager->flush();
                 return $this->redirectToRoute('app_home');
@@ -81,6 +82,7 @@ class RegistrationController extends AbstractController
                         $form->get('password')->getData()
                     )
                 );
+                $user->setRoles(['ROLE_CUSTOMER']);
                 $entityManager->persist($user);
                 $entityManager->flush();
                 return $this->redirectToRoute('app_home');
