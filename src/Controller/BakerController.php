@@ -19,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/patissier', name:'app_baker')]
 class BakerController extends AbstractController
 {
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/', name: '_index')]
     public function index(BakerRepository $bakerRepository): Response
     {
@@ -55,6 +56,7 @@ class BakerController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}', name: '_delete', methods: ['POST'])]
     public function delete(Request $request, Baker $baker, BakerRepository $bakerRepository): Response
     {

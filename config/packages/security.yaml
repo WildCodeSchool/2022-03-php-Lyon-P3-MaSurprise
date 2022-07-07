@@ -40,7 +40,7 @@ security:
     role_hierarchy:
         ROLE_CUSTOMER: ROLE_USER
         ROLE_BAKER: ROLE_USER
-        ROLE_ADMIN: ROLE_USER, ROLE CUSTOMER, ROLE BAKER
+        ROLE_ADMIN: [ROLE_USER, ROLE CUSTOMER, ROLE BAKER]
 
 when@test:
     security:
