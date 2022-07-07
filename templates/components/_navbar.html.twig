@@ -2,120 +2,73 @@
 
 <!-- DESKTOP VERSION HEREUNDER -->
 <nav class="navbar navbar-expand-md navbar-colour fixed-top" id="desktop-nav">
-    <div class=" navbar-collapse d-flex justify-content-around">
-        <a class="text-primary nav-link" href="{{ path('app_cake_index') }}">Nos gâteaux</a>
-        <a class="text-primary nav-link" href="{{ path('app_services') }}">Nos services</a>
-        <a class="navbar-brand" href="{{ path('app_home') }}">
-            <img class="logo-picture" alt="logo"
-                 src="{{ asset('build/images/logo_mycakeevent.png') }}">
-        </a>
-        <a class="text-primary nav-link" href="{{ path('app_partners') }}">Partenaires</a>
-        {% if app.user %}
-            {% if is_granted('ROLE_CUSTOMER') %}
-                <a type="button" class="text-primary nav-link"
-                   href="{{ path('app_customer_index') }}">Mon espace
-                </a>
-            {% endif %}
-            {% if is_granted('ROLE_BAKER') %}
-                <a type="button" class="text-primary nav-link"
-                   href="{{ path('app_baker_index') }}">Mon espace
-                </a>
-            {% endif %}
-            {% if is_granted('ROLE_ADMIN') %}
-                <a type="button" class="text-primary nav-link"
-                   href="{{ path('app_admin_index') }}">Mon espace
-                </a>
-            {% endif %}
+    <div class="nav-division navbar-collapse d-flex justify-content-around">
 
-        {% else %}
-            <!-- Button trigger modal -->
-            <a type="button" class="text-primary nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal"
-               href="{{ path('login') }}">Connexion</a>
-        {% endif %}
-    </div class="cart-icon">
-    {% if is_granted('ROLE_CUSTOMER') %}
-        <a class="cart-button" href="{{ path("cart_index") }}" style="text-decoration: none">
-            <img src="{{ asset("build/images/shopping_navbar.png") }}">
-
-        </a>
-        {% if app.session.get('datacart')|length > 0 %}
-            <a class="cart-number-link" href="{{ path("cart_index") }}">
-                <p class="cart-number d-flex justify-content-center align-items-center text-white rounded-pill">
-                    {{ app.session.get('datacart')|length }}
-                </p>
+        <div class="nav-left d-flex m-4 justify-content-around w-100">
+            <a class="text-primary nav-link" href="{{ path('app_cake_index') }}">Nos gâteaux
             </a>
-        {% endif %}
-    {% endif %}
-</nav>
-
-<!-- MOBILE VERSION HEREUNDER -->
-<nav class="navbar navbar-expand-lg navbar-light navbar-colour fixed-top" id="mobile-nav">
-    <div class="container-fluid d-flex justify-content-between">
-        <div class="position-absolute top-50 start-0 translate-middle-y">
-
-            <div class="dropdown">
-                <button class="btn btn-secondary" type="button" id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-
-                    <li class="dropdown-item">
-                        <a class="nav-link active" aria-current="page" href="{{ path('app_cake_index') }}">Nos
-                            gâteaux</a>
-                    </li>
-
-                    <li class="dropdown-item">
-                        <a class="nav-link active" href="{{ path('app_services') }}">Nos services</a>
-                    </li>
-
-                    <li class="dropdown-item">
-                        <a class="nav-link active" href="{{ path('app_partners') }}">Partenaires</a>
-                    </li>
-
-                    <li class="dropdown-item">
-                        {% if app.user %}
-                            {% if is_granted('ROLE_CUSTOMER') %}
-                                <a type="button" class="text-primary nav-link"
-                                   href="{{ path('app_customer_index') }}">Mon espace
-                                </a>
-                            {% endif %}
-                            {% if is_granted('ROLE_BAKER') %}
-                                <a type="button" class="text-primary nav-link"
-                                   href="{{ path('app_baker_index') }}">Mon espace
-                                </a>
-                            {% endif %}
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <a type="button" class="text-primary nav-link"
-                                   href="{{ path('app_admin_index') }}">Mon espace
-                                </a>
-                            {% endif %}
-                        {% else %}
-                            <!-- Button trigger modal -->
-                            <a type="button" class="text-primary nav-link" data-bs-toggle="modal"
-                               data-bs-target="#exampleModal"
-                               href="{{ path('login') }}">Mon espace</a>
-                        {% endif %}
-                    </li>
-                </ul>
-            </div>
+            <a class="text-primary nav-link" href="{{ path('app_services') }}">Nos services
+            </a>
         </div>
 
-        <div class="position-absolute top-50 start-50 translate-middle">
+        <div class="nav-center">
             <a class="navbar-brand" href="{{ path('app_home') }}">
                 <img class="logo-picture" alt="logo"
                      src="{{ asset('build/images/logo_mycakeevent.png') }}">
             </a>
         </div>
 
-        <div class="position-absolute top-50 end-0 translate-middle-y">
-            <a href="{{ path("app_cake_index") }}">
-                <img class="nav-icon" alt="recherche" src="{{ asset('build/images/search_navbar.png') }}">
+        <div class="nav-right d-flex m-4 justify-content-around w-100">
+            <a class="text-primary nav-link" href="{{ path('app_partners') }}">Partenaires
             </a>
-            <a href="{{ path("cart_index") }}">
-                <img class="nav-icon" alt="panier" src="{{ asset('build/images/shopping_navbar.png') }}">
-            </a>
+            {{ include('components/_navbar_login_link.html.twig') }}
         </div>
+
+        {{ include('components/_navbar_cart_button.html.twig') }}
+
+    </div>
+</nav>
+
+<!-- MOBILE VERSION HEREUNDER -->
+<nav class="navbar navbar-expand-lg navbar-light navbar-colour fixed-top" id="mobile-nav">
+    <div class="container-fluid d-flex justify-content-between">
+
+        <div class="dropdown">
+            <button class="btn btn-secondary" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                {# TODO: find a way to get this icon in white #}
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                <li class="dropdown-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_cake_index') }}">Nos
+                        gâteaux
+                    </a>
+                </li>
+
+                <li class="dropdown-item">
+                    <a class="nav-link active" href="{{ path('app_services') }}">Nos services
+                    </a>
+                </li>
+
+                <li class="dropdown-item">
+                    <a class="nav-link active" href="{{ path('app_partners') }}">Partenaires
+                    </a>
+                </li>
+
+                <li class="dropdown-item">
+                    {{ include('components/_navbar_login_link.html.twig') }}
+                </li>
+            </ul>
+        </div>
+
+        <a class="navbar-brand" href="{{ path('app_home') }}">
+            <img class="logo-picture" alt="logo"
+                 src="{{ asset('build/images/logo_mycakeevent.png') }}">
+        </a>
+
+        {{ include('components/_navbar_cart_button.html.twig') }}
 
     </div>
 </nav>

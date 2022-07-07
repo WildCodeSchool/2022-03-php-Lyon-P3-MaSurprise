@@ -1,0 +1,22 @@
+{% if app.user %}
+    {% if is_granted('ROLE_CUSTOMER') %}
+        <a type="button" class="text-primary nav-link"
+           href="{{ path('app_customer_index') }}">Mon espace
+        </a>
+    {% endif %}
+    {% if is_granted('ROLE_BAKER') %}
+        <a type="button" class="text-primary nav-link"
+           href="{{ path('app_baker_index') }}">Mon espace
+        </a>
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a type="button" class="text-primary nav-link"
+           href="{{ path('app_admin_index') }}">Mon espace
+        </a>
+    {% endif %}
+{% else %}
+    <!-- Button trigger modal -->
+    <a type="button" class="text-primary nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal"
+       href="{{ path('login') }}">Connexion
+    </a>
+{% endif %}
