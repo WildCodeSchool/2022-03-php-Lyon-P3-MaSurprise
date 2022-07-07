@@ -11,44 +11,63 @@
 
 {% block body %}
     <main class="container-fluid">
-        <h1>{% if baker.commercialName is not empty %}
-                {{ baker.commercialName }}
-            {% endif %}
-        </h1>
-        <h2>{{ baker.user.firstname }} {{ baker.user.lastname }}</h2>
-        <p>Téléphone : {{ baker.user.phone }}</p>
-        <p>Adresse : {{ baker.deliveryAddress.streetNumber }} {{ baker.deliveryAddress.bisTerInfo }} {{ baker.deliveryAddress.streetName }}</p>
-        <p>{{ baker.deliveryAddress.postcode }} {{ baker.deliveryAddress.city }}</p>
-        <p>{{ baker.facebook }}</p>
-        <p>{{ baker.instagram }}</p>
-        <p>Date d'inscription : {{ baker.created | date("d/m/Y") }}</p>
 
-        {% if baker.cakes is not empty %}<h3 class="text-center">Liste des gâteaux proposés par ce
-            pâtissier</h3>{% endif %}
-        <div class="card-group container">
-            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4">
-                {% for cake in baker.cakes %}
-                    <div class="card col">
-                        <img src="https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg" class="card-img-top mt-2"
-                            alt="...">
-                        <div class="card-body">
-                            <h3 class="text-center">Gâteau n°{{ loop.index }} : {{ cake.name }}</h3>
-                            <ul>
-                                <li>Prix : {{ cake.price }} €</li>
-                                <li>Taille : {{ cake.size }}</li>
-                            </ul>
-                        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-10 d-flex flex-column align-items-center">
+
+                <div>
+                    {% if baker.commercialName is not empty %}
+                        <h1 class="m-0 text-center text-primary">{{ baker.commercialName }}</h1>
+                    {% endif %}
+                    <h2 class="m-0 text-center text-secondary">
+                        {{ baker.user.firstname }} {{ baker.user.lastname|slice(0,1) }}.
+                    </h2>
+                </div>
+
+                <div class="d-flex flex-column justify-content-center">
+                    <h3 class="text-center mt-5 mb-3">Informations</h3>
+                    <p>Téléphone : {{ baker.user.phone }}</p>
+                    <p class="mb-0">Adresse
+                        : {{ baker.deliveryAddress.streetNumber }} {{ baker.deliveryAddress.bisTerInfo }} {{ baker.deliveryAddress.streetName }}</p>
+                    <p>{{ baker.deliveryAddress.postcode }} {{ baker.deliveryAddress.city }}</p>
+                    {% if baker.facebook %}
+                        <p>
+                            <a href="{{ baker.facebook }}">Facebook</a>
+                        </p>
+                    {% endif %}
+                    {% if baker.instagram %}
+                        <p>
+                            <a href="{{ baker.instagram }}">Instagram</a>
+                        </p>
+                    {% endif %}
+                    <p>Date d'inscription : {{ baker.created | date("d/m/Y") }}</p>
+                </div>
+
+                <h3 class="text-center mt-5">Gâteaux créés par ce pâtissier</h3>
+                <div class="card-group container">
+                    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4">
+                        {% for cake in baker.cakes %}
+                            <div class="card col">
+                                <img src="https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg"
+                                     class="card-img-top mt-2"
+                                     alt="...">
+                                <div class="card-body">
+                                    <h4 class="text-center">{{ cake.name }}</h4>
+                                    <p>{{ cake.price|format_currency('EUR', locale='de') }}</p>
+                                    <p>Taille : {{ cake.size }}</p>
+                                </div>
+                            </div>
+                        {% else %}
+                            <h2>Ce pâtissier ne propose aucun gâteau actuellement. Revenez plus tard !</h2>
+                        {% endfor %}
                     </div>
-                {% else %}
-                    <h2>Ce pâtissier ne propose aucun gâteau actuellement</h2>
-                {% endfor %}
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href="{{ path('app_baker_index') }}" class="btn btn-primary center p-2 m-2">Retour à la liste des
+                        pâtissiers
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center">
-            <a href="{{ path('app_baker_index') }}" class="btn btn-primary center p-2 m-2">Retour à la liste des
-                pâtissiers
-            </a>
-        </div>
-            
     </main>
 {% endblock %}

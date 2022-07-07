@@ -55,8 +55,10 @@ class OrderController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
 
-        // calling service to add order
-        $orderService->createOrder((array)$datacart, $user);
+        // calling service to add order IF there's something in the cart
+        if ($datacart) {
+            $orderService->createOrder((array)$datacart, $user);
+        }
 
         // emptying cart
         $orderService->emptyCart();

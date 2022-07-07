@@ -3,7 +3,7 @@
 {% block title %}Mes commandes - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container mb-5">
         <div class="row">
             <div class="col-12 d-flex flex-column align-items-center">
                 <h1 class="text-primary text-center mb-4">Mes commandes</h1>
@@ -13,33 +13,35 @@
                 <div class="container">
                     {% for order in orders %}
                         <div class="row d-flex justify-content-center">
-                            <div class="col-8">
+                            <div class="col-12 col-lg-8">
 
                                 <div class="card m-2">
                                     <div class="card-header">
                                         <div class="d-flex justify-content-between align-items-center">
                                             {% if order.orderStatus == "Commande annulée" %}
-                                                <h5 class="card-text text-red">Le {{ order.orderedAt|date("d/m/Y") }}
+                                                {# TODO : dates still displayed incorrectly #}
+                                                <h5 class="card-text text-red mb-0">
+                                                    Le {{ order.orderedAt|date("d/m/Y") }}
                                                     à {{ order.orderedAt|date("H:i:s", "Europe/Paris") }}</h5>
                                                 <h5 class="card-text text-red">{{ order.orderStatus }}</h5>
                                             {% else %}
-                                                <h5 class="card-text">Le {{ order.orderedAt|date("d/m/Y") }}
-                                                    à {{ order.orderedAt|date("h:i:s") }}</h5>
+                                                <h5 class="card-text mb-0">Le {{ order.orderedAt|date("d/m/Y") }}
+                                                    à {{ order.orderedAt|date("h:i:s", "Europe/Paris") }}</h5>
                                                 <h5 class="card-text">{{ order.orderStatus }}</h5>
                                             {% endif %}
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <div class="container">
+                                        <div class="container-fluid">
 
                                             <div class="row">
-                                                <div class="col-12 d-flex justify-content-between">
-                                                    <p class="card-text d-flex justify-content-end">
+                                                <div
+                                                    class="col-12 d-flex flex-column flex-sm-row justify-content-between">
+                                                    <p class="card-text text-start mb-0">
                                                         Date de collecte :
-                                                        {{ order.collectDate|date("d/m/Y") }}
+                                                        {{ order.collectDate|date("d/m/Y", "Europe/Paris") }}
                                                     </p>
-                                                    {# TODO : create a db version of this #}
-                                                    <p class="card-text d-flex justify-content-end">
+                                                    <p class="card-text text-sm-end">
                                                         Commande N°
                                                         {{ order.number }}
                                                     </p>
@@ -48,34 +50,35 @@
 
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <div class="container mt-4">
+                                                    <div class="container-fluid p-0 mt-4">
                                                         {% for cakes in order.orderLines %}
-                                                            <div class="row mt-3">
-                                                                <div class="col-8">
+                                                            <div class="row mt-3 d-flex flex-column flex-sm-row">
 
+                                                                <div class="col-sm-8 col-12">
                                                                     <h5 class="card-title">{{ cakes.cakeName }}</h5>
                                                                     <p class="card-text mb-0">créé
                                                                         par {{ cakes.seller.firstname }} {{ cakes.seller.lastname|slice(0,1) }}
                                                                         .</p>
                                                                     <p class="card-text">{{ cakes.cakeSize }}</p>
                                                                 </div>
-                                                                <div class="col-2">
-                                                                    <p class="card-text">x{{ cakes.quantity }}</p>
+
+                                                                <div class="col-sm-2 col-12">
+                                                                    <p class="card-text text-end text-sm-start">
+                                                                        x{{ cakes.quantity }}</p>
                                                                 </div>
-                                                                <div class="col-2">
+
+                                                                <div class="col-sm-2 col-12">
                                                                     <h5 class="card-title text-end">
                                                                         {{ cakes.cakePrice|format_currency('EUR', locale='de') }}
                                                                     </h5>
-
                                                                 </div>
+
                                                             </div>
                                                         {% endfor %}
                                                         <div class="row mt-4">
-                                                            <div class="col-10">
-                                                                <h5 class="card-title text-end">Total : </h5>
-                                                            </div>
-                                                            <div class="col-2">
-                                                                <h5 class="card-title text-end">{{ order.total|format_currency('EUR', locale='de') }}</h5>
+                                                            <div class="col-12">
+                                                                <h5 class="card-title text-end">Total
+                                                                    : {{ order.total|format_currency('EUR', locale='de') }}</h5>
                                                             </div>
                                                         </div>
                                                     </div>
