@@ -3,7 +3,6 @@ $primary: #B1367E;
 $light: #FCF5EE;
 $secondary: #E3A7A7;
 
-
 /* ---------- VARIABLES ---------- */
 :root {
     --background-dark: #EFEAE4;
@@ -368,6 +367,7 @@ h1, h2, h3, h4 {
 
 .floating-logos {
     column-gap: 30px;
+    overflow: scroll;
 }
 
 .floating-img {
@@ -472,8 +472,6 @@ $modal-backdrop-opacity: 0.8;
 
 .connection-fields {
     height: 5vh;
-    background-color: white;
-    border: rgba(0, 0, 0, 0.75) 1;
     font-family: 'Karla';
 }
 
@@ -498,4 +496,21 @@ $modal-backdrop-opacity: 0.8;
 .btnNavAdmin:hover {
     background-color: white;
     color: black;
+}
+
+
+/* CART ICON */
+.cart-icon {
+    position: relative;
+}
+
+.cart-number {
+    background-color: var(--bs-primary);
+    width: 25px;
+    height: 25px;
+    position: relative;
+}
+
+.cart-number-link {
+    text-decoration: none;
 }
