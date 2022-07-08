@@ -8,7 +8,6 @@ use Exception;
 use App\Entity\Cake;
 use App\Repository\CakeRepository;
 use App\Service\UploaderHelper as ServiceUploaderHelper;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -153,6 +152,7 @@ class CakeController extends AbstractController
         ]);
     }
 
+    // TODO: we need to block this route
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Cake $cake, CakeRepository $cakeRepository): Response
     {

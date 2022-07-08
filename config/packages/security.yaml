@@ -34,9 +34,15 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/espace-client, roles: ROLE_CUSTOMER }
+        - { path: ^/espace-client, roles: [ ROLE_CUSTOMER, ROLE_ADMIN ] }
+        - { path: ^/commande, roles: [ ROLE_CUSTOMER, ROLE_ADMIN ] }
+        - { path: ^/patissier/*/modifier, roles: [ ROLE_BAKER, ROLE_ADMIN ] }
+        - { path: ^/gateau/nouveau, roles: [ ROLE_BAKER, ROLE_ADMIN ] }
+        - { path: ^/gateau/*/modifier, roles: [ ROLE_BAKER, ROLE_ADMIN ] }
+        # TODO: not sure about the next one
+        - { path: ^/uploadedfiles, roles: [ ROLE_BAKER, ROLE_ADMIN ] }
+        - { path: ^/espace-client, roles: [ ROLE_CUSTOMER, ROLE_ADMIN ] }
+        - { path: ^/espace-admin, roles: ROLE_ADMIN }
     role_hierarchy:
         ROLE_CUSTOMER: ROLE_USER
         ROLE_BAKER: ROLE_USER

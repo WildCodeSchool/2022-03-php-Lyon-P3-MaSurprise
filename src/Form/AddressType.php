@@ -3,8 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Address;
-use App\Entity\Department;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -31,7 +29,7 @@ class AddressType extends AbstractType
             ])
             ->add('department', null, ['label' => 'Département*', 'choice_label' => function ($department) {
                 return $department->getNumber() . ' - ' . $department->getName();
-            }
+            },
             ])
             ->add('postcode', NumberType::class, [
                 'label' => 'Code postal*',
