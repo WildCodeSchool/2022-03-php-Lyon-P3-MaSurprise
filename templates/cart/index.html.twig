@@ -6,50 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-
-<<<<<<< HEAD
-            {% for product in datacart %}
-                <tr>
-                    <td>{{ product.cake.name }}</td>
-                    <td>{{ product.cake.baker.user.firstname }} {{ product.cake.baker.user.lastname|slice(0, 1) }}.</td>
-                    <td class="text-right">{{ product.cake.price|format_currency('EUR', locale='de') }}</td>
-                    <td class=>{{ product.quantity }}</td>
-                    <td class="text-right">{{ (product.quantity * product.cake.price)|format_currency('EUR', locale='de') }}</td>
-                    <td>
-                        <a href="{{ path("cart_add", {id: product.cake.id}) }}" class="btn btn-secondary">
-                            <p class="bi cart-plus text-white">+</p>
-                        </a>
-                        <a href="{{ path("cart_remove", {id: product.cake.id}) }}" class="btn btn-secondary">
-                            <p class="bi bi-cart-dash text-white">-</p>
-                        </a>
-                        <a href="{{ path("cart_delete", {id: product.cake.id}) }}" class="btn btn-secondary">
-                            <p class="bi bi-cart-check text-white">x</p>
-                        </a>
-                    </td>
-                </tr>
-            {% else %}
-                <td class="text-center">Votre panier est vide.</td>
-            {% endfor %}
-            </tbody>
-            <tfoot>
-            <tr>
-                <td colspan="5">Total</td>
-                <td class="text-end" colspan="6">
-                    {{ total|format_currency('EUR', locale='de') }}
-                </td>
-            </tr>
-            </tfoot>
-        </table>
-            {% if datacart is empty %}
-                <a class="btn btn-secondary text-white disabled"
-                        href="{{ path("app_order_index") }}">Commander
-                </a>
-            {% else %}
-                <a class="btn btn-primary text-white" href="{{ path("app_order_index") }}">Commander</a>
-            {% endif %}
-=======
                 <h1 class="text-primary mb-5 text-center">Mon panier</h1>
-
                 <table class="table">
                     <thead>
                     <tr>
@@ -62,7 +19,6 @@
                     </tr>
                     </thead>
                     <tbody>
-
                     {% for product in datacart %}
                         <tr>
                             <td>{{ product.cake.name }}</td>
@@ -108,6 +64,5 @@
                 </div>
             </div>
         </div>
->>>>>>> 8812a7198063a8e31c8e45e2244f290501f1aae9
     </div>
 {% endblock %}
