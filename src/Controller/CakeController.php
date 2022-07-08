@@ -8,6 +8,7 @@ use Exception;
 use App\Entity\Cake;
 use App\Repository\CakeRepository;
 use App\Repository\DepartmentRepository;
+use App\Service\CakeSearchService;
 use App\Service\UploaderHelper as ServiceUploaderHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,48 +21,30 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class CakeController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(
-        Request $request,
-        CakeRepository $cakeRepository,
-        DepartmentRepository $departmentRepository
-    ): Response {
-        // fetching all departments for the scrolling menu
-        $departmentsDisplay = $departmentRepository->findAll();
-        // creating form
-        $searchForm = $this->createForm(SearchCakeFormType::class);
-        $searchForm->handleRequest($request);
-        // initialize search & department variables to please grump
-            $search = "";
-            $cakes = "";
+    public function index(Request $request, CakeSearchService $cakeSearchService, DepartmentRepository $departmentRepository): Response
+    {
+         // fetching all departments for the scrolling menu
+         $departmentsDisplay = $departmentRepository->findAll();
+         // creating form
+         $searchForm = $this->createForm(SearchCakeFormType::class);
+         $searchForm->handleRequest($request);
+        // initializing search and department variables before the form is set
+         $search = "";
+         $department = "";
 
-        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
-            $searchRequest = $request->get('search_cake_form');
+         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+             $searchRequest = $request->get('search_cake_form');
+ 
+             // some bricolage to please phpcs
+             if (is_array($searchRequest)) {
+                 $search = $searchRequest['search'];
+                 $department = $searchRequest['department'];
+             }
+        }
+        // calling the CakeSearchService
+        
+        $cakes = $cakeSearchService->cakeSearch($search, $department);
 
-            // some bricolage to please phpcs
-            if (is_array($searchRequest)) {
-                $search = $searchRequest['search'];
-                $department = $searchRequest['department'];
-            }
-        }
-        // if KEYWORD is set and DEPARTMENT is not
-        if (isset($search) && (empty($department))) {
-            $cakes = $cakeRepository->findLikeName($search);
-            $cakes += $cakeRepository->findLikeDescription($search);
-            $cakes += $cakeRepository->findLikeBaker($search);
-            // if DEPARTMENT is set and KEYWORD is not
-        } elseif (isset($department) && (empty($search))) {
-            $cakes = $cakeRepository->findByDepartment($department);
-            // if both DEPARTMENT and KEYWORD are set
-        } elseif (isset($search) && (isset($department))) {
-            $cakes = $cakeRepository->findLikeNameWithLocation($search, $department);
-            $cakes += $cakeRepository->findLikeDescriptionWithLocation($search, $department);
-            $cakes += $cakeRepository->findLikeBakerWithLocation($search, $department);
-            // if neither KEYWORD nor DEPARTMENT are set
-        } elseif (empty($search) && (empty($department))) {
-            // if search is empty, display everything
-            $cakes = $cakeRepository->findAll();
-            
-        }
         return $this->renderForm('cake/index.html.twig', [
             'cakes' => $cakes,
             'searchForm' => $searchForm,
@@ -69,6 +52,7 @@ class CakeController extends AbstractController
             'departments' => $departmentsDisplay,
         ]);
     }
+    
 
     #[Route('/nouveau', name: 'new', methods: ['GET', 'POST'])]
     public function new(
