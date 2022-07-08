@@ -3,10 +3,68 @@
 {% block title %}Modifier pâtissier - {{ parent() }}{% endblock %}
 
 {% block body %}
-
     <h1 class="text-primary text-center">Compte pâtissier : modifier compte</h1>
-
-
-    {{ include('baker/_form.html.twig') }}
-
+    <div class="d-flex flex-column align-items-center m-5">
+    <h2 class="text-center">{{ baker.user.firstname }} {{ baker.user.lastname }}</h2>
+    <h3>{% if baker.commercialName is not empty %} {{ baker.commercialName }}{% endif %}</h3>
+    <p>{{ baker.user.email }} - {{ baker.user.phone }}</p>
+    {% for billingAddress in baker.user.billingAddress %}
+        <p class="text-center">Adresse de facturation : 
+        <br>{{ billingAddress.streetNumber }}{{ billingAddress.bisTerInfo }} {{ billingAddress.streetName }}
+        <br>{{ billingAddress.postcode }} {{ billingAddress.city }}</p>
+    {% endfor %}
+   
+    
+    </div>
+{{ form_start(modifyForm) }}
+<div class="d-flex flex-column align-items-center m-5">
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(modifyForm.deliveryAddress) }}
+            </div>
+        </div>
+        <div class="form-row w-50" id="facebook">
+            <div class="form-group">
+            {{ form_row(modifyForm.facebook) }}
+            </div>
+        </div>
+        <div class="form-row w-50" id="instagram">
+            <div class="form-group">
+            {{ form_row(modifyForm.instagram) }}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(modifyForm.profilePictureFile)}}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(modifyForm.bakerType)}}
+            </div>
+        </div>
+        <div class="form-row w-50" id="commercialName">
+            <div class="form-group">
+            {{ form_row(modifyForm.commercialName) }}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(modifyForm.siret) }}
+            </div>
+        </div>
+        <div class="form-row w-50" id="logoFile">
+            <div class="form-group">
+            {{ form_row(modifyForm.logoFile) }}
+            </div>
+        </div>
+        <div class="form-row w-50">
+            <div class="form-group">
+            {{ form_row(modifyForm.diplomaFile) }}
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <input type="submit" class="btn btn-primary mt-4" value="Valider les modifications" />
+        </div>
+{{ form_end(modifyForm) }}
 {% endblock %}

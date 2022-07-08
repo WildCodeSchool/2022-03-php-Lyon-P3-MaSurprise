@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma commande - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row gx-3">
+            <div class="col-12">
+                <h1 class="text-primary text-center mb-4">Ma commande</h1>
+
+                <div class="container-fluid">
+                    <div class="row d-flex flex-lg-row flex-column justify-content-center">
+
+                        <div class="col-lg-7 col-12 m-2 bg-white p-4 rounded">
+                            <div>
+                                <h2>Mes informations</h2>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <h5 class="card-title">Nom et prénom</h5>
+                                        <p class="card-text">{{ app.user.lastname }} {{ app.user.firstname }}</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h5 class="card-title">Adresse</h5>
+                                        <p class="card-text mb-0">{% if address.streetNumber %}{{ address.streetNumber }}{% endif %} {{ address.streetName }}</p>
+                                        <p class="card-text">{{ address.postcode }} {{ address.city }}</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h5 class="card-title">Numéro de téléphone</h5>
+                                        <p class="card-text">{{ app.user.phone }}</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h5 class="card-title">Adresse e-mail</h5>
+                                        <p class="card-text">{{ app.user.email }}</p>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h2 class="pt-5">Informations de paiement</h2>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                   id="flexRadioDefault2" checked>
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                Carte bancaire
+                                            </label>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-12 bg-white m-2 p-4 rounded">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h2 class="mb-4">Résumé de la commande</h2>
+                                        <ul class="list-group">
+                                            {% for data in datacart %}
+                                                <li class="list-group-item">
+                                                    <h5 class="m-1 fw-bolder">{{ data.cake.name }}</h5>
+                                                    <p class="m-1">
+                                                        par {{ data.cake.baker.user.firstname }} {{ data.cake.baker.user.lastname|slice(0, 1) }}
+                                                        .</p>
+                                                    <p class="m-1">Quantité : {{ data.quantity }}</p>
+                                                    <p class="m-1">Prix
+                                                        : {{ (data.cake.price * data.quantity)|format_currency('EUR', locale='de') }}</p>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h3 class="mt-5 mb-4">Frais de port</h3>
+                                        <p>Gratuit (Click & Collect)</p>
+                                        <h2 class="mt-5 mb-4">TOTAL</h2>
+                                        <h4>{{ total|format_currency('EUR', locale='de') }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div
+                            class="col-12 d-flex flex-column-reverse justify-content-center align-items-center mt-5 mb-5 gap-3">
+                            <a href="{{ path("cart_index") }}">
+                                <button type="button" class="btn btn-secondary text-white">Retour au panier
+                                </button>
+                            </a>
+                            <a href="{{ path("app_order_processing") }}">
+                                <button type="button" class="btn btn-secondary btn-lg text-white">Valider la commande
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

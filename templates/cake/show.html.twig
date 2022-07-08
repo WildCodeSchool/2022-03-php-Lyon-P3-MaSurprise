@@ -1,96 +1,105 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ cake.name }} - {{ parent() }}{% endblock %}
+{% block title %}
+    {{ cake.name }}
+    -
+    {{ parent() }}
+{% endblock %}
 
 {% block body %}
 
-    <div class="container-fluid cake-presentation p-5">
-        <div class="row d-flex flex-row">
-            <div class="cake-img container col-6">
-                <div class="row">
-                    <div class="cake-image container col-10">
-                        <img src="{{ asset('build/images/gateau.jpg') }}"
-                             class="cake-img-pres img-fluid w-75">
-                    </div>
+    <div class="container-fluid cake-presentation">
+        <div class="row d-flex flex-md-row flex-column justify-content-center align-items-center">
+
+            <div class="col-md-6 col-12">
+                {{ include('cake/_picture_carousel.html.twig', {
+                    place: "main",
+                }) }}
+                <div class="d-flex justify-content-center m-4">
+                    <button type="button" class="btn btn-secondary text-white" data-bs-toggle="modal"
+                            data-bs-target="#modalPic">
+                        Voir les images
+                    </button>
                 </div>
             </div>
-            <div class="cake-description d-flex flex-column justify-content-between container col-6">
-                <h1 class="cake-title m-0 font-weight-bold">{{ cake.name }}</h1>
-                <p class="fs-3">{{ cake.price|format_currency('EUR', locale='de') }}</p>
-                <div class="d-flex flex-row align-items-center">
-                    {% for i in 1..5 %}
-                        <img src="{{ asset('build/images/icons/Star_15.png') }}">
-                    {% endfor %}
-                    <p class="avis">3 avis</p>
-                </div>
-                <P class="mt-2 cake-description">{{ cake.description }}</P>
-                <div class="d-flex flex-row justify-content-between">
-                    <p class="">ville</p>
-                    <a class="btn btn-primary" id="addToCart" href="{{ path('cart_add', {'id': cake.id}) }}">Add to cart</a>
-                    <p>disponibilité</p>
-                </div>
 
-                <p>
-                    <a class="btn btn-outline-secondary text-secondary" data-bs-toggle="collapse"
-                       href="#collapseIngredients"
-                       role="button"
-                       aria-expanded="false" aria-controls="collapseIngredients">
-                        Ingrédients et saveurs
-                    </a>
-                </p>
-                <div class="collapse" id="collapseIngredients">
-                    <div class="container-fluid card card-body bg-light">
-                        <div class="row">
-                            {% for i in 1..10 %}
-                                ingrédient {{ i }},
-                            {% endfor %}
+            <div class="cake-description col-md-6 col-10 m-md-0 m-5 d-flex flex-column justify-content-between">
+                <div>
+                    <h1 class="cake-title m-0 mb-4 font-weight-bold text-primary">{{ cake.name }}</h1>
+                    <p class="fs-3">{{ cake.price|format_currency('EUR', locale='de') }}</p>
+                    <p class="mt-2 cake-description">{{ cake.description }}</p>
+                    <p class="">{{ cake.baker.deliveryAddress.city }}
+                        ({{ cake.baker.deliveryAddress.department.number }})</p>
+
+                    <p>PLACEHOLDER : Disponibilité</p>
+
+                    <p>
+                        <a class="btn btn-secondary text-white" data-bs-toggle="collapse"
+                           href="#collapseIngredients" role="button" aria-expanded="false"
+                           aria-controls="collapseIngredients">
+                            Ingrédients et saveurs
+                        </a>
+                    </p>
+                    <div class="collapse mb-3" id="collapseIngredients">
+                        <div class="container-fluid card card-body bg-light">
+                            <div class="row">
+                                {# TODO: change this #}
+                                {% for i in 1..10 %}
+                                    ingrédient
+                                    {{ i }},
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <p>
-                    <a class="btn btn-outline-secondary text-secondary" data-bs-toggle="collapse"
-                       href="#collapseAllergens"
-                       role="button"
-                       aria-expanded="false" aria-controls="collapseAllergens">
-                        Allergènes
-                    </a>
-                </p>
-                <div class="collapse" id="collapseAllergens">
-                    <div class="container-fluid card card-body bg-light">
-                        <div class="row">
-                            {% for i in 1..10 %}
-                                allergène {{ i }},
-                            {% endfor %}
+                    <p>
+                        <a class="btn btn-secondary text-white" data-bs-toggle="collapse"
+                           href="#collapseAllergens" role="button" aria-expanded="false"
+                           aria-controls="collapseAllergens">
+                            Allergènes
+                        </a>
+                    </p>
+                    <div class="collapse mb-3" id="collapseAllergens">
+                        <div class="container-fluid card card-body bg-light">
+                            <div class="row">
+                                {{ cake.allergens }}
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid baker-description mb-5">
-        <div class="baker-row row d-flex flex-row justify-content-center">
-            <div class="col-3 border-end">
-                <div class="d-flex flex-row">
-                    <img class="comment-img" src="https://i.pravatar.cc/">
-                    <div class="d-flex flex-column justify-content-center">
-                        <p class="text-start font-weight-bold mb-0"> {{ cake.baker.lastname }}
-                            .{{ cake.baker.firstname |slice(0, 1) }} </p>
-                        <p class="titre">Patissier professionel</p>
                     </div>
                 </div>
                 <div>
-                    Nullam finibus enim in justo tincidunt volutpat. Proin a elementum mi. Mauris cursus
-                    blandit risus, in porta ipsum semper vitae. Pellentesque dictum vel sapien ut fringilla. Interdum et
-                    malesuada fames ac ante ipsum primis in faucibus.
+                    <a class="btn btn-primary btn-lg" id="addToCart" href="{{ path('cart_add', {'id': cake.id}) }}">
+                        Ajouter au panier</a>
                 </div>
-            </div>
-            <div class="col-3 d-flex flex-column justify-content-center">
-                <p class="mb-1">Livraison</p>
-                <p class="mb-1">Click & collect</p>
-                <p class="mb-1">CAP Pâtissier</p>
             </div>
         </div>
     </div>
+    <div class="container-fluid baker-description m-5">
+        <div class="baker-row row d-flex flex-row justify-content-center">
+
+            <div class="col-md-3 col-6 border-end d-flex flex-column align-items-center">
+                {# TODO: is it the best way to do this? probably not #}
+                <a href="/patissier/{{ cake.baker.id }}" style="text-decoration: none;">
+                    <img class="comment-img m-4" src="https://i.pravatar.cc/" alt="L'avatar du pâtissier">
+                    <div class="d-flex flex-column justify-content-center">
+                        <h3 class="font-weight-bold m-0 text-center text-primary">
+                            {{ cake.baker.user.firstname }}
+                            {{ cake.baker.user.lastname|slice(0, 1) }}.
+                        </h3>
+                        <p class="titre text-center text-dark">Pâtissier {{ cake.baker.bakerType }}</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-6 d-flex flex-column justify-content-center">
+                <p class="mb-1">Livraison</p>
+                <p class="mb-1">Click & collect</p>
+                <p class="mb-1">CAP Pâtissier</p>
+                <p class="mt-3 mb-1"><a href="{{ cake.baker.facebook }}">Facebook</a></p>
+                <p class="mb-1"><a href="{{ cake.baker.instagram }}">Instagram</a></p>
+            </div>
+        </div>
+    </div>
+
+    {% include('cake/_picture_viewer.html.twig') %}
 {% endblock %}

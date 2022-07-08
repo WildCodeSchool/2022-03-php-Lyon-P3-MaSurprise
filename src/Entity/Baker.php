@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use DateTime;
-use App\Entity\Cake;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BakerRepository;
 use Doctrine\Common\Collections\Collection;
@@ -24,23 +23,8 @@ class Baker
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $created;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $lastname;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $firstname;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $commercialName;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $email;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $password;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $phone;
 
     #[ORM\OneToMany(mappedBy: 'baker', targetEntity: Cake::class, orphanRemoval: true)]
     private Collection $cakes;
@@ -96,8 +80,23 @@ class Baker
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $updateAt = null;
 
+    #[ORM\OneToOne(mappedBy: 'baker', targetEntity: User::class, cascade: ['persist', 'remove'])]
+    private ?User $user;
+
     #[ORM\OneToOne(mappedBy: 'deliveryAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
-    private $deliveryAddress;
+    private ?Address $deliveryAddress = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $profilePicture = "";
+
+    #[Vich\UploadableField(mapping: 'profilePicture_file', fileNameProperty: 'profilePicture')]
+    #[Assert\File(
+        maxSize: '1M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+        mimeTypesMessage: 'Ce fichier doit être une image',
+        uploadFormSizeErrorMessage: 'Votre photo ne peut pas dépasser 1Mo'
+    )]
+    private ?File $profilePictureFile = null;
 
     public function __construct()
     {
@@ -123,30 +122,6 @@ class Baker
         return $this;
     }
 
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    public function setLastname(string $lastname): self
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstname(string $firstname): self
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
     public function getCommercialName(): ?string
     {
         return $this->commercialName;
@@ -155,42 +130,6 @@ class Baker
     public function setCommercialName(?string $commercialName): self
     {
         $this->commercialName = $commercialName;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    public function setPhone(string $phone): self
-    {
-        $this->phone = $phone;
 
         return $this;
     }
@@ -225,11 +164,6 @@ class Baker
         return $this;
     }
 
-    // gets the fullname and displays it inside the form: CakeType
-    public function getFullName(): string
-    {
-        return $this->firstname . ' ' . $this->lastname;
-    }
 
     public function getBakerType(): ?string
     {
@@ -356,7 +290,7 @@ class Baker
 
         return $this;
     }
-    
+
     public function getUpdateAt(): ?\DateTimeInterface
     {
         return $this->updateAt;
@@ -365,6 +299,28 @@ class Baker
     public function setUpdateAt(?\DateTimeInterface $updateAt): self
     {
         $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setBaker(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getBaker() !== $this) {
+            $user->setBaker($this);
+        }
+
+        $this->user = $user;
 
         return $this;
     }
@@ -384,5 +340,31 @@ class Baker
         $this->deliveryAddress = $deliveryAddress;
 
         return $this;
+    }
+
+    public function getProfilePicture(): ?string
+    {
+        return $this->profilePicture;
+    }
+
+    public function setProfilePicture(?string $profilePicture): self
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    public function setProfilePictureFile(?File $profilePictureFile = null): void
+    {
+        $this->logoFile = $profilePictureFile;
+
+        if (null !== $profilePictureFile) {
+            $this->getUpdateAt();
+        }
+    }
+
+    public function getProfilePictureFile(): ?File
+    {
+        return $this->profilePictureFile;
     }
 }

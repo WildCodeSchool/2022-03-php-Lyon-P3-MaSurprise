@@ -3,17 +3,30 @@
 {% block title %}Mon profil - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container mb-5">
         <div class="row">
-            <div class="col-6">
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <img class="comment-img" src="https://i.pravatar.cc/200" alt="Une image de gâteau.">
-                    <h3>Prénom N.</h3>
-                    <p>E-mail : {{ app.user.email }}</p>
-                    <a href="#">Réinitialiser mon mot de passe</a>
-                {% endif %}
+            <div class="col-12 d-flex justify-content-center">
+                <div class="d-flex flex-column align-items-center card p-5">
+                    <h1 class="text-primary text-center">Mon profil</h1>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <img class="comment-img m-4" src="https://i.pravatar.cc/200" alt="Une image de gâteau.">
+                        <h3>{{ app.user.firstname }} {{ app.user.lastname }}</h3>
+                        <p class="mb-2">E-mail : {{ app.user.email }}</p>
+                        <a href="{{ path('app_forgot_password_request') }}">
+                            <button class="btn btn-secondary text-white">Réinitialiser mon mot de passe</button>
+                        </a>
+                        <p class="mt-4 mb-0">Adresse :</p>
+                        <p class="mb-0">{% if address.streetNumber %}{{ address.streetNumber }}{% endif %} {{ address.streetName }}</p>
+                        <p class="mb-2">{{ address.postcode }} {{ address.city }}</p>
+                        <a href="{{ path("app_customer_edit") }}">
+                            <button class="btn btn-secondary text-white">Modifier mon adresse</button>
+                        </a>
+                        <a href="{{ path('app_customer_index') }}">
+                            <button type="button" class="btn btn-secondary text-white mt-5">Retour</button>
+                        </a>
+                    {% endif %}
+                </div>
             </div>
-            <a href="{{ path('app_customer_index') }}">Retour</a>
         </div>
     </div>
 {% endblock %}

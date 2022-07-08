@@ -3,14 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -19,8 +19,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private int $id;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $lastname;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $firstname;
+
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private string $email;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $phone;
 
     #[ORM\Column(type: 'json')]
     private array $roles = [];
@@ -31,12 +40,58 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
 
-    #[ORM\OneToOne(mappedBy: 'billingAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
-    private $billingAddress;
+    #[ORM\OneToMany(mappedBy: 'buyer', targetEntity: Order::class)]
+    private Collection $ordersToSellers;
 
-    public function getId(): ?int
+    #[ORM\OneToMany(mappedBy: 'seller', targetEntity: OrderLine::class)]
+    private Collection $ordersFromBuyers;
+
+    #[ORM\OneToOne(inversedBy: 'user', targetEntity: Baker::class, cascade: ['persist', 'remove'])]
+    private ?Baker $baker = null;
+
+    #[ORM\OneToMany(mappedBy: 'billingAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
+    private Collection $billingAddress;
+
+    public function __construct()
+    {
+        $this->ordersToSellers = new ArrayCollection();
+        $this->ordersFromBuyers = new ArrayCollection();
+        $this->billingAddress = new ArrayCollection();
+    }
+
+    public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getLastname(): string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getFirstname(): string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    // gets the fullname and displays it inside the form: CakeType
+    public function getFullName(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 
     public function getEmail(): ?string
@@ -51,6 +106,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
     /**
      * A visual identifier that represents this user.
      *
@@ -58,7 +125,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -116,19 +183,110 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getBillingAddress(): ?Address
+    public function isIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrdersToSellers(): Collection
+    {
+        return $this->ordersToSellers;
+    }
+
+    public function addOrdersToSeller(Order $ordersToSeller): self
+    {
+        if (!$this->ordersToSellers->contains($ordersToSeller)) {
+            $this->ordersToSellers[] = $ordersToSeller;
+            $ordersToSeller->setBuyer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdersToSeller(Order $ordersToSeller): self
+    {
+        if ($this->ordersToSellers->removeElement($ordersToSeller)) {
+            // set the owning side to null (unless already changed)
+            if ($ordersToSeller->getBuyer() === $this) {
+                $ordersToSeller->setBuyer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrderLine>
+     */
+    public function getOrdersFromBuyers(): Collection
+    {
+        return $this->ordersFromBuyers;
+    }
+
+    public function addOrdersFromBuyer(OrderLine $ordersFromBuyer): self
+    {
+        if (!$this->ordersFromBuyers->contains($ordersFromBuyer)) {
+            $this->ordersFromBuyers[] = $ordersFromBuyer;
+            $ordersFromBuyer->setSeller($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdersFromBuyer(OrderLine $ordersFromBuyer): self
+    {
+        if ($this->ordersFromBuyers->removeElement($ordersFromBuyer)) {
+            // set the owning side to null (unless already changed)
+            if ($ordersFromBuyer->getSeller() === $this) {
+                $ordersFromBuyer->setSeller(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getBaker(): ?Baker
+    {
+        return $this->baker;
+    }
+
+    public function setBaker(?Baker $baker): self
+    {
+        $this->baker = $baker;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Address>
+     */
+    public function getBillingAddress(): Collection
     {
         return $this->billingAddress;
     }
 
-    public function setBillingAddress(Address $billingAddress): self
+
+    public function addBillingAddress(Address $billingAddress): self
     {
-        // set the owning side of the relation if necessary
-        if ($billingAddress->getBillingAddress() !== $this) {
+        if (!$this->billingAddress->contains($billingAddress)) {
+            $this->billingAddress[] = $billingAddress;
             $billingAddress->setBillingAddress($this);
         }
 
-        $this->billingAddress = $billingAddress;
+        return $this;
+    }
+
+    public function removeBillingAddress(Address $billingAddress): self
+    {
+        if ($this->billingAddress->removeElement($billingAddress)) {
+            // set the owning side to null (unless already changed)
+            if ($billingAddress->getBillingAddress() === $this) {
+                $billingAddress->setBillingAddress(null);
+            }
+        }
 
         return $this;
     }
