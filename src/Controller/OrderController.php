@@ -61,7 +61,7 @@ class OrderController extends AbstractController
 
         $orderDate = strval($orderDate);
         date_default_timezone_set('Europe/Paris');
-        $orderDate = date_create("$orderDate");
+        $orderDate = date_create($orderDate);
         $now = date_create("now");
 
         if ($now < $orderDate) {
