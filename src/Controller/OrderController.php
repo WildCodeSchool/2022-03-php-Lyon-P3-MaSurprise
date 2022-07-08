@@ -16,8 +16,9 @@ class OrderController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(
         AddressRepository $addressRepository,
-        SessionInterface $session,
-    ): Response {
+        SessionInterface  $session,
+    ): Response
+    {
         /** @var User $user */
         $user = $this->getUser();
         $userId = $user->getId();
@@ -52,9 +53,10 @@ class OrderController extends AbstractController
 
     #[Route('/commande-validee', name: 'placed')]
     public function orderPlaced(
-        OrderService $orderService,
+        OrderService     $orderService,
         SessionInterface $session,
-    ): Response {
+    ): Response
+    {
         // fetching data from session
         $datacart = $session->get('datacart');
         $orderDate = $session->get('order');
@@ -64,8 +66,7 @@ class OrderController extends AbstractController
         $orderDate = date_create($orderDate);
         $now = date_create("now");
 
-        if($now < $orderDate && $orderDate !== false) {
-
+        if ($now < $orderDate && $orderDate != false) {
             // getting user
             /** @var User $user */
             $user = $this->getUser();
