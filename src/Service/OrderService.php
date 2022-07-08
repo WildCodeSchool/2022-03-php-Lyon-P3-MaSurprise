@@ -30,7 +30,7 @@ class OrderService
     public function createOrder(
         array $datacart,
         User $user,
-        DateTime|false $orderDate,
+        DateTime $orderDate,
     ): void {
         // creating an order
         $order = new Order();

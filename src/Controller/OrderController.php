@@ -64,7 +64,8 @@ class OrderController extends AbstractController
         $orderDate = date_create($orderDate);
         $now = date_create("now");
 
-        if ($now < $orderDate) {
+        if($now < $orderDate && $orderDate !== false) {
+
             // getting user
             /** @var User $user */
             $user = $this->getUser();
