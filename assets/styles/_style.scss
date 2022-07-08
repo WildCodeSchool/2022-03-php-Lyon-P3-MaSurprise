@@ -33,13 +33,13 @@ $dropdown-link-hover-bg: #FCF5EE;
 @font-face {
     font-family: 'Cuprum';
     src: url('../fonts/Cuprum/Cuprum-VariableFont_wght.ttf') format('truetype'),
-    url('../fonts/Cuprum/Cuprum-Italic-VariableFont_wght.ttf') format('truetype');
+        url('../fonts/Cuprum/Cuprum-Italic-VariableFont_wght.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Karla';
     src: url('../fonts/Karla/Karla-VariableFont_wght.ttf') format('truetype'),
-    url('../fonts/Karla/Karla-Italic-VariableFont_wght.ttf') format('truetype');
+        url('../fonts/Karla/Karla-Italic-VariableFont_wght.ttf') format('truetype');
 }
 
 @font-face {
@@ -136,7 +136,10 @@ body {
 
 /* ---------- HOMEPAGE ---------- */
 /* ----- general ----- */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-family: "Prata", sans-serif;
     margin: 20px;
 }
@@ -190,7 +193,8 @@ h1, h2, h3, h4 {
     }
 }
 
-#desktop-nav, #mobile-nav {
+#desktop-nav,
+#mobile-nav {
     min-height: 160px;
 }
 
@@ -388,11 +392,13 @@ h1, h2, h3, h4 {
         filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
         transform: translatey(0px);
     }
+
     50% {
         -webkit-filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
         filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
         transform: translatey(-20px);
     }
+
     100% {
         -webkit-filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
         filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
@@ -406,11 +412,13 @@ h1, h2, h3, h4 {
         filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
         transform: translatey(-20px);
     }
+
     50% {
         -webkit-filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
         filter: drop-shadow(0px 25px 15px rgba(0, 0, 0, 0.6));
         transform: translatey(0px);
     }
+
     100% {
         -webkit-filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
         filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.2));
@@ -475,7 +483,8 @@ $modal-backdrop-opacity: 0.8;
     font-family: 'Karla';
 }
 
-.forgotten-password, .create-account {
+.forgotten-password,
+.create-account {
     color: black;
     text-decoration: none;
     font-family: 'Karla';
@@ -483,7 +492,9 @@ $modal-backdrop-opacity: 0.8;
     cursor: pointer;
 }
 
-.modal-header, .modal-body, .modal-footer {
+.modal-header,
+.modal-body,
+.modal-footer {
     background-color: var(--background-light);
     font-family: 'Karla';
 }
@@ -508,7 +519,9 @@ $modal-backdrop-opacity: 0.8;
 }
 
 /* ---------- CAKE LIST ---------- */
-#cake-list h1, h5, p {
+#cake-list h1,
+h5,
+p {
     font-family: "Karla", sans-serif;
 }
 
@@ -516,7 +529,11 @@ $modal-backdrop-opacity: 0.8;
     font-size: 1.125em;
 }
 
-#cake-list .cake-reviews, .cake-city, .cake-disponibility, .cake-img-pres, .baker-name {
+#cake-list .cake-reviews,
+.cake-city,
+.cake-disponibility,
+.cake-img-pres,
+.baker-name {
     font-size: 0.94em;
 }
 
@@ -535,7 +552,11 @@ $modal-backdrop-opacity: 0.8;
         line-height: 1em;
     }
 
-    #cake-list .cake-reviews, .cake-city, .cake-disponibility, .cake-price, .baker-name {
+    #cake-list .cake-reviews,
+    .cake-city,
+    .cake-disponibility,
+    .cake-price,
+    .baker-name {
         font-size: 1em;
     }
 
@@ -550,4 +571,16 @@ $modal-backdrop-opacity: 0.8;
 .error-cake {
     border: 10px solid #fafafa;
     box-shadow: var(--box-shadow);
+}
+
+/* CAKE PIC MODAL */
+
+.carousel-cake-main {
+    object-fit: cover;
+    object-position: center center;
+    aspect-ratio: 1 / 1;
+}
+
+.modal-resize {
+    max-width: 95% !important;
 }

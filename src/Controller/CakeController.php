@@ -8,6 +8,7 @@ use Exception;
 use App\Entity\Cake;
 use App\Repository\CakeRepository;
 use App\Service\UploaderHelper as ServiceUploaderHelper;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -67,6 +68,7 @@ class CakeController extends AbstractController
         ]);
     }
 
+    #[Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_BAKER')")]
     #[Route('/nouveau', name: 'new', methods: ['GET', 'POST'])]
     public function new(
         CakeRepository $cakeRepository,

@@ -3,22 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Baker;
-use App\Entity\User;
 use App\Form\BakerModifyType;
-use App\Form\BakerType;
 use App\Repository\BakerRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/patissier', name: 'app_baker')]
 class BakerController extends AbstractController
 {
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/', name: '_index')]
     public function index(BakerRepository $bakerRepository): Response
     {
@@ -54,7 +51,8 @@ class BakerController extends AbstractController
         ]);
     }
 
-    // TODO: we need to block this route
+    // TODO: do we keep this here or do we move it in secutiry.yaml?
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}', name: '_delete', methods: ['POST'])]
     public function delete(Request $request, Baker $baker, BakerRepository $bakerRepository): Response
     {
