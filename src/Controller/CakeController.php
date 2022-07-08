@@ -27,10 +27,12 @@ class CakeController extends AbstractController
     ): Response {
         // fetching all departments for the scrolling menu
         $departmentsDisplay = $departmentRepository->findAll();
-
         // creating form
         $searchForm = $this->createForm(SearchCakeFormType::class);
         $searchForm->handleRequest($request);
+        // initialize search & department variables to please grump
+            $search = "";
+            $cakes = "";
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $searchRequest = $request->get('search_cake_form');
@@ -41,32 +43,25 @@ class CakeController extends AbstractController
                 $department = $searchRequest['department'];
             }
         }
-
-        if (!isset($search) || (!isset($department))) {
+        // if KEYWORD is set and DEPARTMENT is not
+        if (isset($search) && (empty($department))) {
+            $cakes = $cakeRepository->findLikeName($search);
+            $cakes += $cakeRepository->findLikeDescription($search);
+            $cakes += $cakeRepository->findLikeBaker($search);
+            // if DEPARTMENT is set and KEYWORD is not
+        } elseif (isset($department) && (empty($search))) {
+            $cakes = $cakeRepository->findByDepartment($department);
+            // if both DEPARTMENT and KEYWORD are set
+        } elseif (isset($search) && (isset($department))) {
+            $cakes = $cakeRepository->findLikeNameWithLocation($search, $department);
+            $cakes += $cakeRepository->findLikeDescriptionWithLocation($search, $department);
+            $cakes += $cakeRepository->findLikeBakerWithLocation($search, $department);
+            // if neither KEYWORD nor DEPARTMENT are set
+        } elseif (empty($search) && (empty($department))) {
             // if search is empty, display everything
             $cakes = $cakeRepository->findAll();
-
-            // initialize search to please grump
-            // TODO: this will have to work differently
-            $search = "";
-        } else {
-            // else, display name-matched, description-matched AND baker-matched results
-            $cakes = $cakeRepository->findLikeName($search, $department);
-            $cakes += $cakeRepository->findLikeDescription($search, $department);
-            $cakes += $cakeRepository->findLikeBaker($search, $department);
-            $cakes += $cakeRepository->findByDepartment($department);
-
-            // display a message if nothing matches search AND fetch all cakes
-            if ($cakes == null) {
-                $this->addFlash(
-                    'warning',
-                    "Oh non, aucun gâteau ne correspond à vos critères de recherche...
-                    Laissez-vous tenter par d'autres choix ci-dessous !"
-                );
-                $cakes = $cakeRepository->findAll();
-            }
+            
         }
-
         return $this->renderForm('cake/index.html.twig', [
             'cakes' => $cakes,
             'searchForm' => $searchForm,
@@ -120,9 +115,9 @@ class CakeController extends AbstractController
                         $filesArray[] = $newFilename;
                     }
                 }
-                    $files = implode(',', $filesArray);
-                    $cake = new Cake();
-                    $cake = $cakeRepository->find($currentCakeId);
+                $files = implode(',', $filesArray);
+                $cake = new Cake();
+                $cake = $cakeRepository->find($currentCakeId);
                 if ($cake != null) {
                     $cake->setPicture1($files);
                     $cakeRepository->add($cake, true);

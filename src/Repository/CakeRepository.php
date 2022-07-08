@@ -40,7 +40,66 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes whose names match searched words
-    public function findLikeName(mixed $name, string $department): mixed
+    public function findLikeName(mixed $name): mixed
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->join('c.baker', 'b')
+            ->addSelect('b')
+            ->where('c.name LIKE :name')
+            ->setParameter('name', '%' . $name . '%')
+            ->orderBy('c.name', 'ASC')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
+    // fetching cakes whose descriptions match searched words
+    public function findLikeDescription(mixed $description): mixed
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->join('c.baker', 'b')
+            ->addSelect('b')
+            ->where('c.description LIKE :description')
+            ->setParameter('description', '%' . $description . '%')
+            ->orderBy('c.description', 'ASC')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
+    // fetching cakes whose bakers match searched words (using join)
+    public function findLikeBaker(mixed $bakerName): mixed
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->join('c.baker', 'b')
+            ->join('b.user', 'u')
+            ->addSelect('b')
+            ->where('u.lastname LIKE :baker_name')
+            ->setParameter('baker_name', '%' . $bakerName . '%')
+            ->orderBy('u.lastname', 'ASC')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
+    // fetching cakes with the right department (using join)
+    public function findByDepartment(string $department): mixed
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+        ->join('c.baker', 'b')
+        ->join('b.deliveryAddress', 'a') // department
+        ->join('a.department', 'd') // department
+        ->join('b.user', 'u')
+        ->where('a.department = :department') // department
+        ->setParameter('department', $department) // department
+        ->orderBy('a.department', 'ASC')
+        ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
+    // fetching cakes whose names match searched words
+    public function findLikeNameWithLocation(mixed $name, string $department): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
@@ -57,7 +116,7 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes whose descriptions match searched words
-    public function findLikeDescription(mixed $description, string $department): mixed
+    public function findLikeDescriptionWithLocation(mixed $description, mixed $department): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
@@ -74,34 +133,19 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes whose bakers match searched words (using join)
-    public function findLikeBaker(mixed $bakerName, string $department): mixed
+    public function findLikeBakerWithLocation(mixed $bakerName, mixed $department): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
             ->join('b.deliveryAddress', 'a') // department
             ->join('b.user', 'u')
+            ->addSelect('b')
             ->where('u.lastname LIKE :baker_name')
             ->andWhere('a.department = :department') // department
             ->setParameter('baker_name', '%' . $bakerName . '%')
             ->setParameter('department', $department) // department
             ->orderBy('u.lastname', 'ASC')
             ->getQuery();
-
-        return $queryBuilder->getResult();
-    }
-
-    // fetching cakes with the right department (using join)
-    public function findByDepartment(mixed $department): mixed
-    {
-        $queryBuilder = $this->createQueryBuilder('c')
-        ->join('c.baker', 'b')
-        ->join('b.deliveryAddress', 'a') // department
-        ->join('a.department', 'd')
-        ->join('b.user', 'u')
-        ->where('a.department = :department') // department
-        ->setParameter('department', $department) // department
-        ->orderBy('u.lastname', 'ASC')
-        ->getQuery();
 
         return $queryBuilder->getResult();
     }
