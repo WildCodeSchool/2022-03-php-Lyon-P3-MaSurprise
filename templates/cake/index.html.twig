@@ -56,13 +56,16 @@
                     {% for cake in cakes %}
                         <div class="cake-card col-6 col-md-4 d-flex flex-column  p-2 p-lg-4">
                             <a href="{{ path('app_cake_show', {'id': cake.id}) }}">
-                                <img class="cake-img img-fluid" src="{{ asset('build/images/gateau.jpg') }}"
-                                     alt="cake img">
+                                <img class="cake-img img-fluid cake-index-pics"
+                                    {% for picture in cake.picture1|split(',')|slice(0,1) %}
+                                        src="/uploads/cakes/{{ picture }}"
+                                    {% endfor %}
+                                     alt="{{ cake.name }}">
                             </a>
                             <div class="mt-2">
                                 <a class="text-decoration-none" href="{{ path('app_cake_show', {'id': cake.id}) }}">
                                     <h1 class="cake-name text-decoration-none m-0 text-primary">{{ cake.name }}</h1>
-                                </a>   
+                                </a>
                             </div>
                             <div class="cake-price-rev m-0 p-0 d-flex flex-row justify-content-between">
                                 <p class="m-0">Type : {{ cake.category }}</p>
