@@ -8,6 +8,9 @@
     {% include "components/_adminnav.html.twig" %}
 
     <h1 class="text-primary text-center mb-4">Gâteaux</h1>
+    <button class="btn btn-secondary text-white p-2 m-2">
+        <a href="{{ path('app_cake_new') }}">Ajouter un nouveau gâteau</a>
+    </button>
     {% for cake in cakes %}
         <div class="container-fluid card mb-3">
             <div class="row m-3 g-{{ loop.index0 }} d-flex flex-lg-row justify-content-around">
