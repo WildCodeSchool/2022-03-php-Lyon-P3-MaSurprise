@@ -58,9 +58,8 @@ class OrderController extends AbstractController
         // fetching data from session
         $datacart = $session->get('datacart');
         $orderDate = $session->get('order');
-
         date_default_timezone_set('Europe/Paris');
-        $orderDate = date_create($orderDate);
+        $orderDate = date_create("$orderDate");
         $now = date_create("now");
 
         if ($now < $orderDate) {
