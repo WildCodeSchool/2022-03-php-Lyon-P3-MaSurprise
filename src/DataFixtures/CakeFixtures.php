@@ -33,10 +33,11 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
             }
 
             $picture1 = $faker->randomElement(
-                ['_fixtures_cake1.png',
-                '_fixtures_cake2.png,_fixtures_cake1.png',
-                '_fixtures_cupcake1.png,_fixtures_cake2.png,_fixtures_cake1.png',
-                '_fixtures_mount3.png, _fixtures_cupcake1.png,_fixtures_cake2.png,_fixtures_cake1.png'
+                [
+                    '_fixtures_cake1.png',
+                    '_fixtures_cake2.png,_fixtures_cake1.png',
+                    '_fixtures_cupcake1.png,_fixtures_cake2.png,_fixtures_cake1.png',
+                    '_fixtures_mount3.png,_fixtures_cupcake1.png,_fixtures_cake2.png,_fixtures_cake1.png',
                 ]
             );
             if (is_string($picture1)) {

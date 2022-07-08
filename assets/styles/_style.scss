@@ -544,3 +544,15 @@ $modal-backdrop-opacity: 0.8;
         width: 20em;
     }
 }
+
+/* CAKE PIC MODAL */
+
+.carousel-cake-main {
+    object-fit: cover;
+    object-position: center center;
+    aspect-ratio: 1 / 1;
+}
+
+.modal-resize {
+    max-width: 95% !important;
+}
