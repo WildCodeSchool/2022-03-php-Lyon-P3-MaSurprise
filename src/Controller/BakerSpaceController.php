@@ -35,7 +35,7 @@ class BakerSpaceController extends AbstractController
             $address = 'Aucune adresse renseignée.';
         }
 
-        return $this->render('baker_space/show.html.twig', ['address' => $address]);
+        return $this->render('customer/show.html.twig', ['address' => $address]);
     }
 
     #[Route('/gateaux', name: 'cakes')]
