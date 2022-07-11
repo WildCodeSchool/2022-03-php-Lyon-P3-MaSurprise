@@ -48,5 +48,8 @@ myDropzone.element.querySelector('#dropzoneButton').addEventListener("click", fu
         })
         .then(function() {
             alert('Bravo, votre gâteau a bien été enregistré !')
+        })
+        .then(function() {
+            window.location.href = '/gateau/nouveau';
         });
 });
