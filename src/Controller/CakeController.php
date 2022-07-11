@@ -163,8 +163,8 @@ class CakeController extends AbstractController
                 $files = implode(',', $filesArray);
                 $cake = new Cake();
                 $cake = $cakeRepository->find($updatedCakeId);
-                $previousPictures = $cake->getPicture1();
                 if ($cake != null) {
+                    $previousPictures = $cake->getPicture1();
                     $cake->setPicture1($previousPictures . ',' . $files);
                     $cakeRepository->add($cake, true);
                 }
