@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
 use App\Entity\User;
 use App\Repository\AddressRepository;
 use App\Repository\CakeRepository;
@@ -56,23 +57,61 @@ class BakerSpaceController extends AbstractController
         ]);
     }
 
-//    #[Route('/commandes', name: 'orders')]
-//    public function ordersIndex(
-//        OrderRepository     $orderRepository,
-//        UserRepository      $userRepository,
-//        OrderLineRepository $orderLineRepository
-//    ): Response
-//    {
-//        /** @var User $user */
-//        $user = $this->getUser();
-//        $userId = $user->getId();
-//
-//        $user = $userRepository->findOneBy(['id' => $userId]);
-//
-//        $orderLines = $orderLineRepository->findBy(['seller' => $user->getId()]);
-//
-//        return $this->render('admin/orderslist.html.twig', [
-//            'orders' => $orders,
-//        ]);
-//    }
+    #[Route('/commandes', name: 'orders')]
+    public function ordersIndex(OrderLineRepository $orderLineRepository,): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $userId = $user->getId();
+
+        // TODO: check if this work when we have coherent, realistic data
+        $orderLines = $orderLineRepository->findBy(['seller' => $userId], ['orderReference' => "ASC"]);
+
+        $orders = [];
+
+        // getting orders from orderLines references
+        foreach ($orderLines as $orderLine) {
+            $key = $orderLine->getOrderReference()->getId();
+
+            if (!array_key_exists($key, $orders)) {
+                $orders[$key] = $orderLine->getOrderReference();
+            }
+        }
+
+        return $this->render('admin/orderslist.html.twig', [
+            'orders' => $orders,
+        ]);
+    }
+
+    #[Route('/{id}/validation-patissier', name: 'order_validation')]
+    public function bakerOrderValidation(Order $order, OrderRepository $orderRepository): Response
+    {
+        switch ($_POST['status']) {
+            case 1:
+                $order->setOrderStatus('Commande créée');
+                break;
+            case 2:
+                $order->setOrderStatus('Commande validée');
+                break;
+            case 3:
+                $order->setOrderStatus('Commande en préparation');
+                break;
+            case 4:
+                $order->setOrderStatus('Commande disponible en retrait');
+                break;
+            case 5:
+                $order->setOrderStatus('Commande retirée');
+                break;
+            case 6:
+                $order->setOrderStatus('Commande terminée');
+                break;
+            case 7:
+                $order->setOrderStatus('Commande annulée');
+                break;
+        }
+        $orderRepository->add($order, true);
+        $this->addFlash('success', 'Le changement de statut a bien été pris en compte.');
+
+        return $this->redirectToRoute('app_bakerspace_orders');
+    }
 }

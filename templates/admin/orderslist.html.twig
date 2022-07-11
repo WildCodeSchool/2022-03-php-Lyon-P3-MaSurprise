@@ -3,69 +3,121 @@
 {% block title %}Commandes - {{ parent() }}{% endblock %}
 
 {% block body %}
-{% include "components/_adminnav.html.twig" %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% include "components/_adminnav.html.twig" %}
+    {% endif %}
     <div class="container">
         <div class="row">
             <div class="col-12 d-flex flex-column align-items-center">
                 <h1 class="text-primary text-center mb-4">Commandes</h1>
                 <div class="container">
+                    <a
+                        {% if is_granted('ROLE_ADMIN') %}
+                            href="{{ path('app_bakerspace_index') }}"
+                        {% else %}
+                            href="{{ path('app_bakerspace_index') }}"
+                        {% endif %}
+                    >
+                        <button class="btn btn-secondary text-white m-3">Retour</button>
+                    </a>
+                </div>
+                <div class="container">
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                     {% for order in orders %}
                         <div class="row d-flex justify-content-center">
                             <div class="col-12">
                                 <div class="card m-2">
                                     <div class="card-header">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            {% if order.orderStatus == "Commande annulée" %}
-                                                <h5 class="card-text text-red">Le {{ order.orderedAt|date("d/m/Y") }}
-                                                    à {{ order.orderedAt|date("H:i:s", "Europe/Paris") }}</h5>
-                                                <h5 class="card-text text-red">{{ order.orderStatus }}</h5>
-                                            {% else %}
-                                                <h5 class="card-text">Le {{ order.orderedAt|date("d/m/Y") }}
-                                                    à {{ order.orderedAt|date("h:i:s") }}</h5>
-                                                <h5 class="card-text">{{ order.orderStatus }}</h5>
-                                            {% endif %}
+                                            <h5 class="card-text {% if order.orderStatus == "Commande annulée" %}text-red{% endif %}">
+                                                Le {{ order.orderedAt|date("d/m/Y") }}
+                                                à {{ order.orderedAt|date("H:i:s", "Europe/Paris") }}
+                                            </h5>
+                                            <h5 class="card-text {% if order.orderStatus == "Commande annulée" %}text-red{% endif %}">
+                                                {{ order.orderStatus }}
+                                            </h5>
                                         </div>
                                     </div>
                                     <div class="card-body container">
+
+                                        <div class="row d-flex align-items-center justify-content-end">
+                                            <div class="col-3">
+                                                <p class="card-text">Changer le statut de la commande : </p>
+                                            </div>
+                                            <div class="col-4">
+                                                <form
+                                                    action="{{ path("app_bakerspace_order_validation", {
+                                                        id: order.id
+                                                    }) }}"
+                                                    method="post"
+                                                    class="input-group">
+                                                    <select
+                                                        name="status"
+                                                        class="form-select"
+                                                        aria-label="Status selector">
+                                                        <option selected>Statut...</option>
+                                                        <option value="1">Commande créée</option>
+                                                        <option value="2">Commande validée</option>
+                                                        <option value="3">Commande en préparation</option>
+                                                        <option value="4">Commande disponible en retrait</option>
+                                                        <option value="5">Commande retirée</option>
+                                                        <option value="6">Commande terminée</option>
+                                                        <option value="7">Commande annulée</option>
+                                                    </select>
+                                                    <button type="submit" class="btn btn-secondary text-white">Valider
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <hr class="mt-3">
+                                        </div>
+
                                         <div class="row">
-                                        {% for cakes in order.orderLines %}
+                                            {% for cakes in order.orderLines %}
                                                 <h5 class="card-title col-6">{{ cakes.cakeName }}</h5>
                                                 <p class="card-text col-2">{{ cakes.cakeSize }}</p>
                                                 <p class="card-text col-2">x{{ cakes.quantity }}</p>
                                                 <p class="card-text col-2 text-end">{{ cakes.cakePrice|format_currency('EUR', locale='de') }}</p>
                                                 <hr>
-                                        {% endfor %}
+                                            {% endfor %}
                                         </div>
-                                        <div class="row">
-                                        {% for cakes in order.orderLines %}
-                                            {% if loop.index == 1 %} {# this if won't be necessary anymore when the order will have only one baker #}
-                                            <div class="col-xs-12 col-md-4">
-                                                <h5 class="card-title text-center pt-1">Pâtissier</h5>
-                                                <p class="card-text text-center">
-                                                    {{ cakes.seller.firstname }} {{ cakes.seller.lastname }}
-                                                <br>
-                                                    {{ cakes.seller.email }}
-                                                <br>
-                                                    {{ cakes.seller.phone }}
-                                                </p>
-                                            </div>
+
+                                        <div class="row d-flex justify-content-between">
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                {% for cakes in order.orderLines %}
+                                                    {% if loop.index == 1 %} {# this if won't be necessary anymore when the order will have only one baker #}
+                                                        <div class="col-xs-12 col-md-4">
+                                                            <h5 class="card-title text-center pt-1">Pâtissier</h5>
+                                                            <p class="card-text text-center">
+                                                                {{ cakes.seller.firstname }} {{ cakes.seller.lastname }}
+                                                                <br>
+                                                                {{ cakes.seller.email }}
+                                                                <br>
+                                                                {{ cakes.seller.phone }}
+                                                            </p>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}
                                             {% endif %}
-                                        {% endfor %}
                                             <div class="col-xs-12 col-md-4">
                                                 <h5 class="card-title text-center pt-1">Client</h5>
                                                 <p class="card-text text-center">
                                                     {{ order.buyer.firstname }} {{ order.buyer.lastname }}
-                                                <br> 
+                                                    <br>
                                                     {{ order.buyer.email }}
-                                                <br>
+                                                    <br>
                                                     {{ order.buyer.phone }}
                                                 </p>
                                             </div>
                                             <div class="col-xs-12 col-md-4">
                                                 <h5 class="card-title text-end pt-1">
-                                                    Total : {{ order.total|format_currency('EUR', locale='de') }}
+                                                    Total
+                                                    : {{ order.total|format_currency('EUR', locale='de') }}
                                                 </h5>
-                                                <p class="card-text text-end">
+                                                <p class="card-text text-end mb-0">
                                                     Date de collecte :
                                                     {{ order.collectDate|date("d/m/Y") }}
                                                 </p>

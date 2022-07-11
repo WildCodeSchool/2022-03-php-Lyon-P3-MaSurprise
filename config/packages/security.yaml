@@ -43,10 +43,11 @@ security:
         - { path: ^/uploadedfiles, roles: [ ROLE_BAKER, ROLE_ADMIN ] }
         - { path: ^/espace-client, roles: [ ROLE_CUSTOMER, ROLE_ADMIN ] }
         - { path: ^/espace-admin, roles: ROLE_ADMIN }
+        - { path: ^/espace-patissier, roles: [ ROLE_BAKER, ROLE_ADMIN ] }
     role_hierarchy:
         ROLE_CUSTOMER: ROLE_USER
         ROLE_BAKER: ROLE_USER
-        ROLE_ADMIN: [ROLE_USER, ROLE CUSTOMER, ROLE BAKER]
+        ROLE_ADMIN: [ ROLE_USER, ROLE CUSTOMER, ROLE BAKER ]
 
 when@test:
     security:
