@@ -41,6 +41,7 @@ class CakeRepository extends ServiceEntityRepository
 
     public function findLikeAll(mixed $search): array
     {
+        $cakes = [];
         $cakes = $this->findLikeName($search);
         $cakes += $this->findLikeCategory($search);
         $cakes += $this->findLikeBaker($search);
@@ -51,6 +52,7 @@ class CakeRepository extends ServiceEntityRepository
 
     public function findLikeAllWithLocation(mixed $search, mixed $department): array
     {
+        $cakes = [];
         $cakes = $this->findLikeNameWithLocation($search, $department);
         $cakes += $this->findLikeCategoryWithLocation($search, $department);
         $cakes += $this->findLikeBakerWithLocation($search, $department);
