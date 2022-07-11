@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Baker;
 use App\Entity\Cake;
 use App\Repository\CakeRepository;
 use App\Service\CartService;
@@ -44,20 +43,24 @@ class CartController extends AbstractController
     public function add(CartService $cartService, int $id, SessionInterface $session, Cake $cake): Response
     {
         $datacart = $session->get("datacart");
-        $cakeIn = $datacart[0]['cake']->getBaker()->getId();
-        if ($cake->getBaker()->getId() !== null) {
-            if (!$cakeIn) {
-                $this->addFlash(
-                    'warning',
-                    "Vous ne pouvez pas commander chez deux pâtissiers en même temps, veuillez finaliser votre
-                commande pour en passer un autre."
-                );
-            }
-        } else {
+        if (empty($datacart)) {
             $cartService->addCartService($id, $session);
+            return $this->redirectToRoute("cart_index");
         }
 
-        return $this->redirectToRoute("cart_index");
+        $cakeAdd = $cake->getBaker()->getId();
+        $cakeIn = $datacart[0]['cake']->getBaker()->getId();
+        if ($cakeIn === $cakeAdd) {
+            $cartService->addCartService($id, $session);
+            return $this->redirectToRoute("cart_index");
+        } else {
+            $this->addFlash(
+                'warning',
+                "Vous ne pouvez pas commander chez deux pâtissiers en même temps, veuillez finaliser votre
+                commande pour en passer un autre."
+            );
+        }
+        return $this->redirectToRoute('cart_index');
     }
 
     #[Route('/enlever/{id}', name: 'remove')]
