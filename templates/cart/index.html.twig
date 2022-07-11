@@ -19,6 +19,13 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% for category, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
                     {% for product in datacart %}
                         <tr>
                             <td>{{ product.cake.name }}</td>

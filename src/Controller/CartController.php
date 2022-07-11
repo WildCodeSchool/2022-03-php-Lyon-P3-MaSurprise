@@ -2,14 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Baker;
+use App\Entity\Cake;
 use App\Repository\CakeRepository;
 use App\Service\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-
-use function PHPUnit\Framework\isFalse;
 
 #[Route('/panier', name: 'cart_')]
 class CartController extends AbstractController
@@ -20,7 +20,6 @@ class CartController extends AbstractController
         $cart = $session->get("cart", []);
         $dataCart = [];
         $total = 0;
-
         if (is_array($cart)) {
             foreach ($cart as $id => $quantity) {
                 $cake = $cakeRepository->find($id);
@@ -33,7 +32,6 @@ class CartController extends AbstractController
                 }
             }
         }
-
         // transmitting info to order page
         $session->set("total", $total);
         $session->set('datacart', $dataCart);
@@ -43,9 +41,20 @@ class CartController extends AbstractController
     }
 
     #[Route('/ajouter/{id}', name: 'add')]
-    public function add(CartService $cartService, int $id, SessionInterface $session): Response
+    public function add(CartService $cartService, int $id, SessionInterface $session, Cake $cake): Response
     {
-        $cartService->addCartService($id, $session);
+        $datacart = $session->get("datacart");
+        $cakeAdd = $cake->getBaker()->getId();
+        $cakeIn = $datacart[0]['cake']->getBaker()->getId();
+        if ($cakeIn != $cakeAdd) {
+            $this->addFlash(
+                'warning',
+                "Vous ne pouvez pas commander chez deux pâtissiers en même temps, veuillez finaliser votre
+                commande pour en passer un autre."
+            );
+        } else {
+            $cartService->addCartService($id, $session);
+        }
 
         return $this->redirectToRoute("cart_index");
     }
