@@ -44,15 +44,15 @@ class CartController extends AbstractController
     public function add(CartService $cartService, int $id, SessionInterface $session, Cake $cake): Response
     {
         $datacart = $session->get("datacart");
-        $cakeAdd = $cake->getBaker()->getId();
         $cakeIn = $datacart[0]['cake']->getBaker()->getId();
-
-        if (is_int($cakeAdd) != false && $cakeIn != $cakeAdd) {
-            $this->addFlash(
-                'warning',
-                "Vous ne pouvez pas commander chez deux pâtissiers en même temps, veuillez finaliser votre
+        if ($cake->getBaker()->getId() !== null) {
+            if (!$cakeIn) {
+                $this->addFlash(
+                    'warning',
+                    "Vous ne pouvez pas commander chez deux pâtissiers en même temps, veuillez finaliser votre
                 commande pour en passer un autre."
-            );
+                );
+            }
         } else {
             $cartService->addCartService($id, $session);
         }
