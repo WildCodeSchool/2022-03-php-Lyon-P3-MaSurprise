@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Baker;
+use App\Form\BakerType;
 use App\Form\BakerModifyType;
 use App\Repository\BakerRepository;
 use Exception;
