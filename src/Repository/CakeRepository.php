@@ -45,8 +45,8 @@ class CakeRepository extends ServiceEntityRepository
         $cakes = $this->findLikeName($search);
         $cakes += $this->findLikeCategory($search);
         $cakes += $this->findLikeBaker($search);
-        $cakes += $this->findLikeDescription($search);  
-        
+        $cakes += $this->findLikeDescription($search);
+                
         return $cakes;
     }
 
