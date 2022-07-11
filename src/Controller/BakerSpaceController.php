@@ -44,14 +44,24 @@ class BakerSpaceController extends AbstractController
         CakeRepository $cakeRepository,
         UserRepository $userRepository
     ): Response {
+        // I hate to do this
+        // initializing baker only to pass validation scripts
+        $baker = "";
+        $cakes = [];
+
         /** @var User $user */
         $user = $this->getUser();
         $userId = $user->getId();
 
         $user = $userRepository->findOneBy(['id' => $userId]);
-        $baker = $user->getBaker();
+        if ($user) {
+            $baker = $user->getBaker();
+        }
 
-        $cakes = $cakeRepository->findBy(['baker' => $baker->getId()]);
+        if ($baker) {
+            $cakes = $cakeRepository->findBy(['baker' => $baker->getId()]);
+        }
+
         return $this->render('admin/cakeslist.html.twig', [
             'cakes' => $cakes,
         ]);
@@ -69,12 +79,14 @@ class BakerSpaceController extends AbstractController
 
         $orders = [];
 
-        // getting orders from orderLines references
-        foreach ($orderLines as $orderLine) {
-            $key = $orderLine->getOrderReference()->getId();
+        if ($orderLines) {
+            // getting orders from orderLines references
+            foreach ($orderLines as $orderLine) {
+                $key = $orderLine->getOrderReference()->getId();
 
-            if (!array_key_exists($key, $orders)) {
-                $orders[$key] = $orderLine->getOrderReference();
+                if (!array_key_exists($key, $orders)) {
+                    $orders[$key] = $orderLine->getOrderReference();
+                }
             }
         }
 
