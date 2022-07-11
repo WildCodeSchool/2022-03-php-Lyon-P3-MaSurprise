@@ -43,4 +43,7 @@ dropzoneUpdate.element.querySelector('#updateButton').addEventListener("click", 
         .then(function() {
             alert('Bravo, votre gâteau a bien été mis à jour !')
         })
+        .then(function() {
+            window.location.href = '/gateau/' + id + '/modifier';
+        });
 });

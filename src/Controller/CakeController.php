@@ -117,9 +117,9 @@ class CakeController extends AbstractController
 
     #[Route('/{id}/modifier', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(
+        Cake $cake,
         Request $request,
         RequestStack $requestStack,
-        Cake $cake,
         CakeRepository $cakeRepository
     ): Response {
         $form = $this->createForm(CakeType::class, $cake);
@@ -129,8 +129,6 @@ class CakeController extends AbstractController
              // put the id in session is use to connect url pictures to the right cake
              $session = $requestStack->getSession();
              $session->set('updatedCakeId', $cake->getId());
-
-            return $this->redirectToRoute('app_cake_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('cake/edit.html.twig', [
