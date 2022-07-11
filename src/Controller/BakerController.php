@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Baker;
+use App\Form\BakerType;
 use App\Form\BakerModifyType;
 use App\Repository\BakerRepository;
 use Exception;
@@ -22,6 +23,22 @@ class BakerController extends AbstractController
         $bakers = $bakerRepository->findAll();
         return $this->render('baker/index.html.twig', [
             'bakers' => $bakers,
+        ]);
+    }
+
+    #[Route('/nouveau', name: '_form')]
+    public function newBaker(Request $request, BakerRepository $bakerRepository): Response
+    {
+        $baker = new Baker();
+        $form = $this->createForm(BakerType::class, $baker);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $bakerRepository->add($baker, true);
+            return $this->redirectToRoute('app_baker_index');
+        }
+
+        return $this->renderForm('baker/new.html.twig', [
+            'form' => $form, 'baker' => $baker
         ]);
     }
 

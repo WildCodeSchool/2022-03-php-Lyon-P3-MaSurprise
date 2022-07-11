@@ -29,7 +29,8 @@ class OrderService
 
     public function createOrder(
         array $datacart,
-        User $user
+        User $user,
+        DateTime $orderDate,
     ): void {
         // creating an order
         $order = new Order();
@@ -83,7 +84,7 @@ class OrderService
             ->setBuyer($user)
             ->setTotal($total)
             ->setBillingAddress($address)
-            ->setCollectDate($datetime);
+            ->setCollectDate($orderDate);
 
         $this->entityManager->persist($order);
 
