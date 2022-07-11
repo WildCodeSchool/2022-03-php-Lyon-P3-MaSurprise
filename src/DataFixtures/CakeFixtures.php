@@ -17,19 +17,43 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 1; $i < 317; $i++) {
             $cake = new Cake();
             $cake->setCreated($faker->dateTimeInInterval('+1 months', '+1 months'));
-            $name = $faker->randomElement(
-                ['Gâteau d\'anniversaire', 'Forêt noire', 'Pièce montée', 'Gâteau licorne',
-                    'Fraisier', 'Gâteau à étages, crème au beurre', 'Baba au rhum',
-                    'Gâteau au twix, mars et coulis de kinder surprise']
-            );
+            $name = $faker->randomElement([
+                'Gâteau d\'anniversaire',
+                'Forêt noire',
+                'Pièce montée au caramel et fruits rouges',
+                'Gâteau licorne',
+                'Gâteau d\'anniversaire Peppa Pig',
+                'Fraisier',
+                'Gâteau à étages, crème au beurre',
+                'Baba au rhum',
+                'Gâteau au twix, mars et coulis de kinder surprise',
+            ]);
             if (is_string($name)) {
                 $cake->setName($name);
             }
-
+            $category = $faker->randomElement([
+                'Pièce montée',
+                'Cupcake(s)',
+                'Spécialité(s) étrangère(s)',
+                'Mini gâteau',
+                'Patisserie(s)',
+                'Gâteau junior',
+                'Gâteau sculpté',
+                'Magnum cake(s)',
+                'Pop cake(s)',
+            ]);
+            if (is_string($category)) {
+                $cake->setCategory($category);
+            }
+            $cake->setAllergens("Gâteau diabétique");
             $cake->setPicture1($faker->imageUrl(640, 640, 'photo d\'un gâteau'));
             $cake->setDescription($faker->text(250));
             $cake->setPrice($faker->randomFloat(2, 12, 50));
-            $size = $faker->randomElement((['10/12 parts', '14/16 parts', '18/20 parts']));
+            $size = $faker->randomElement(([
+                '10/12 parts',
+                '14/16 parts',
+                '18/20 parts',
+            ]));
             if (is_string($size)) {
                 $cake->setSize($size);
             }

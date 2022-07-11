@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
+use App\Repository\OrderRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,5 +15,22 @@ class AdminController extends AbstractController
     public function index(): Response
     {
         return $this->render('admin/index.html.twig');
+    }
+
+    #[Route('/commandes', name: 'orders')]
+    public function ordersIndex(OrderRepository $orderRepository): Response
+    {
+        $orders = $orderRepository->findAll();
+        return $this->render('admin/orderslist.html.twig', [
+            'orders' => $orders,
+        ]);
+    }
+
+    #[Route('/{id}', name: '_list')]
+    public function detail(Order $order): Response
+    {
+        return $this->render('admin/ordersdetail.html.twig', [
+            'order' => $order,
+        ]);
     }
 }

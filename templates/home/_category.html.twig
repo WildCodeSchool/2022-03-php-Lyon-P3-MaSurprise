@@ -1,0 +1,18 @@
+<div
+    class="main-carousel-container d-flex flex-column flex-md-row align-items-center align-self-md-{{ align }}">
+    <div class="carousel-side-text d-flex flex-column align-items-center {{ side }}">
+        <h2 class="text-{{ color }}">{{ name }}</h2>
+        <form action="{{ path("app_cake_index") }}" method="post">
+            <input type="hidden" name="search_cake_form[search]"
+                   value="{{ category }}">
+            <button type="submit" class="btn btn-secondary text-white">Voir plus</button>
+        </form>
+    </div>
+    <div class="carousel-container d-flex flex-row">
+        {% for i in 1..3 %}
+            <img class="carousel-img"
+                 src="{{ asset('build/images/imported/' ~ picture ~ i ~ '.png') }}"
+                 alt="Une image de {{ category }}.">
+        {% endfor %}
+    </div>
+</div>

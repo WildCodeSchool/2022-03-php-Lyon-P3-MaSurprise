@@ -39,8 +39,28 @@ class CakeRepository extends ServiceEntityRepository
         }
     }
 
+    public function findLikeAll(mixed $search): array
+    {
+        $cakes = $this->findLikeName($search);
+        $cakes += $this->findLikeCategory($search);
+        $cakes += $this->findLikeBaker($search);
+        $cakes += $this->findLikeDescription($search);  
+        
+        return $cakes;
+    }
+
+    public function findLikeAllWithLocation(mixed $search, mixed $department): array
+    {
+        $cakes = $this->findLikeNameWithLocation($search, $department);
+        $cakes += $this->findLikeCategoryWithLocation($search, $department);
+        $cakes += $this->findLikeBakerWithLocation($search, $department);
+        $cakes += $this->findLikeDescriptionWithLocation($search, $department);
+
+        return $cakes;
+    }
+
     // fetching cakes whose names match searched words
-    public function findLikeName(mixed $name): mixed
+    private function findLikeName(mixed $name): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
@@ -53,8 +73,21 @@ class CakeRepository extends ServiceEntityRepository
         return $queryBuilder->getResult();
     }
 
+    private function findLikeCategory(mixed $categoryName): mixed
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->join('c.baker', 'b')
+            ->join('b.user', 'u')
+            ->where('c.category LIKE :category_name')
+            ->setParameter('category_name', '%' . $categoryName . '%')
+            ->orderBy('c.category', 'ASC')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
     // fetching cakes whose descriptions match searched words
-    public function findLikeDescription(mixed $description): mixed
+    private function findLikeDescription(mixed $description): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
@@ -68,7 +101,7 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes whose bakers match searched words (using join)
-    public function findLikeBaker(mixed $bakerName): mixed
+    private function findLikeBaker(mixed $bakerName): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
@@ -99,7 +132,7 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes whose names match searched words
-    public function findLikeNameWithLocation(mixed $name, string $department): mixed
+    private function findLikeNameWithLocation(mixed $name, string $department): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
@@ -116,7 +149,7 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes whose descriptions match searched words
-    public function findLikeDescriptionWithLocation(mixed $description, mixed $department): mixed
+    private function findLikeDescriptionWithLocation(mixed $description, mixed $department): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
@@ -132,8 +165,24 @@ class CakeRepository extends ServiceEntityRepository
         return $queryBuilder->getResult();
     }
 
+    private function findLikeCategoryWithLocation(mixed $categoryName, mixed $department): mixed
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->join('c.baker', 'b')
+            ->join('b.user', 'u')
+            ->join('b.deliveryAddress', 'a') // department
+            ->where('c.category LIKE :category_name')
+            ->andWhere('a.department = :department') // department
+            ->setParameter('category_name', '%' . $categoryName . '%')
+            ->setParameter('department', $department) // department
+            ->orderBy('c.category', 'ASC')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
     // fetching cakes whose bakers match searched words (using join)
-    public function findLikeBakerWithLocation(mixed $bakerName, mixed $department): mixed
+    private function findLikeBakerWithLocation(mixed $bakerName, mixed $department): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
@@ -149,29 +198,4 @@ class CakeRepository extends ServiceEntityRepository
 
         return $queryBuilder->getResult();
     }
-
-//    /**
-//     * @return Cake[] Returns an array of Cake objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Cake
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

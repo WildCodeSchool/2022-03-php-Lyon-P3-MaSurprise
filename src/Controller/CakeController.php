@@ -21,28 +21,31 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class CakeController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(Request $request, CakeSearchService $cakeSearchService, DepartmentRepository $departmentRepository): Response
-    {
-         // fetching all departments for the scrolling menu
-         $departmentsDisplay = $departmentRepository->findAll();
-         // creating form
-         $searchForm = $this->createForm(SearchCakeFormType::class);
-         $searchForm->handleRequest($request);
+    public function index(
+        Request $request,
+        CakeSearchService $cakeSearchService,
+        DepartmentRepository $departmentRepository
+    ): Response {
+        // fetching all departments for the scrolling menu
+        $departmentsDisplay = $departmentRepository->findAll();
+        // creating form
+        $searchForm = $this->createForm(SearchCakeFormType::class);
+        $searchForm->handleRequest($request);
         // initializing search and department variables before the form is set
-         $search = "";
-         $department = "";
+        $search = "";
+        $department = "";
 
-         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
-             $searchRequest = $request->get('search_cake_form');
- 
-             // some bricolage to please phpcs
-             if (is_array($searchRequest)) {
-                 $search = $searchRequest['search'];
-                 $department = $searchRequest['department'];
-             }
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $searchRequest = $request->get('search_cake_form');
+
+            // some bricolage to please phpcs
+            if (is_array($searchRequest)) {
+                $search = $searchRequest['search'];
+                $department = $searchRequest['department'];
+            }
         }
         // calling the CakeSearchService
-        
+
         $cakes = $cakeSearchService->cakeSearch($search, $department);
 
         return $this->renderForm('cake/index.html.twig', [
@@ -50,9 +53,10 @@ class CakeController extends AbstractController
             'searchForm' => $searchForm,
             'search' => $search,
             'departments' => $departmentsDisplay,
+            //'errorForm' => $errorForm,
         ]);
     }
-    
+
 
     #[Route('/nouveau', name: 'new', methods: ['GET', 'POST'])]
     public function new(
