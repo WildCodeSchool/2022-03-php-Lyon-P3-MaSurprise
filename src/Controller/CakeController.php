@@ -54,7 +54,6 @@ class CakeController extends AbstractController
             'searchForm' => $searchForm,
             'search' => $search,
             'departments' => $departmentsDisplay,
-            //'errorForm' => $errorForm,
         ]);
     }
 

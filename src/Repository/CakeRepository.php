@@ -48,7 +48,7 @@ class CakeRepository extends ServiceEntityRepository
         return $cakes;
     }
 
-    public function findLikeAllWithLocation(mixed $search, mixed $department): mixed
+    public function findLikeAllWithLocation(mixed $search, string $department): mixed
     {
         $cakes = $this->findLikeNameWithLocation($search, $department);
         $cakes += $this->findLikeCategoryWithLocation($search, $department);
