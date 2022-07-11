@@ -17,7 +17,7 @@ class CakeSearchService
         $this->cakeRepository = $cakeRepository;
     }
 
-    public function cakeSearch(string $search, string $department): array
+    public function cakeSearch(mixed $search, mixed $department): mixed
     {
         // initilizing cakes
         $cakes = [];
