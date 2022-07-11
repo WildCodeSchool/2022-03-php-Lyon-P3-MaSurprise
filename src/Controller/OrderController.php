@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
 use App\Entity\User;
 use App\Repository\AddressRepository;
+use App\Repository\OrderRepository;
 use App\Service\OrderService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -77,5 +79,36 @@ class OrderController extends AbstractController
 
         $this->addFlash('warning', "Veuillez sélectionner une autre date.");
         return $this->redirectToRoute('app_order_index');
+    }
+
+    #[Route('{id}/validation-patissier', name: 'baker_validation')]
+    public function bakerOrderValidation(Order $order, OrderRepository $orderRepository): Response
+    {
+
+        switch ($order->getOrderStatus()) {
+            case 'Commande validée':
+                $order->setOrderStatus('Commande validée');
+                break;
+            case 'Commande en préparation':
+                $order->setOrderStatus('Commande en préparation');
+                break;
+            case 'Commande disponible en retrait':
+                $order->setOrderStatus('Commande disponible en retrait');
+                break;
+            case 'Commande retirée':
+                $order->setOrderStatus('Commande retirée');
+                break;
+            case 'Commande terminée':
+                $order->setOrderStatus('Commande terminée');
+                break;
+            case 'Commande annulée':
+                $order->setOrderStatus('Commande annulée');
+                break;
+        }
+        $orderRepository->add($order, true);
+        $this->addFlash('success', "Le changement de statut a bien été pris en compte.");
+
+        //TODO : complete the real template
+        return $this->redirectToRoute('baker_space/**.html.twig');
     }
 }
