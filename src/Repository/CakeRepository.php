@@ -115,7 +115,7 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes with the right department (using join)
-    public function findByDepartment(string $department): mixed
+    public function findByDepartment(mixed $department): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
         ->join('c.baker', 'b')
@@ -131,7 +131,7 @@ class CakeRepository extends ServiceEntityRepository
     }
 
     // fetching cakes whose names match searched words
-    private function findLikeNameWithLocation(mixed $name, string $department): mixed
+    private function findLikeNameWithLocation(mixed $name, mixed $department): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
             ->join('c.baker', 'b')
