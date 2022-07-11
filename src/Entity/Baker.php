@@ -3,15 +3,11 @@
 namespace App\Entity;
 
 use DateTime;
-use App\Entity\Cake;
-use App\Entity\User;
-use App\Entity\Address;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BakerRepository;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 

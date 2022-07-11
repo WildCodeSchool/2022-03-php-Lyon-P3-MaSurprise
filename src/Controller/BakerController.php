@@ -3,21 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Baker;
-use App\Entity\User;
-use App\Form\BakerType;
+use App\Form\BakerModifyType;
 use App\Repository\BakerRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/patissier', name:'app_baker')]
+#[Route('/patissier', name: 'app_baker')]
 class BakerController extends AbstractController
 {
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/', name: '_index')]
     public function index(BakerRepository $bakerRepository): Response
     {
@@ -51,14 +49,13 @@ class BakerController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}/modifier', name: '_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Baker $baker, BakerRepository $bakerRepository): Response
     {
-        $form = $this->createForm(BakerType::class, $baker);
-        $form->handleRequest($request);
+        $modifyForm = $this->createForm(BakerModifyType::class, $baker);
+        $modifyForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($modifyForm->isSubmitted() && $modifyForm->isValid()) {
             $bakerRepository->add($baker, true);
 
             return $this->redirectToRoute('app_baker_index', [], Response::HTTP_SEE_OTHER);
@@ -66,10 +63,12 @@ class BakerController extends AbstractController
 
         return $this->renderForm('baker/edit.html.twig', [
             'baker' => $baker,
-            'form' => $form,
+            'modifyForm' => $modifyForm,
         ]);
     }
 
+    // TODO: do we keep this here or do we move it in secutiry.yaml?
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}', name: '_delete', methods: ['POST'])]
     public function delete(Request $request, Baker $baker, BakerRepository $bakerRepository): Response
     {
@@ -77,7 +76,7 @@ class BakerController extends AbstractController
             if ($this->isCsrfTokenValid('_delete' . $baker->getId(), $request->request->get('_token'))) {
                 $bakerRepository->remove($baker, true);
             } else {
-                throw new Exception(message : 'token should be string or null');
+                throw new Exception(message: 'token should be string or null');
             }
         }
 

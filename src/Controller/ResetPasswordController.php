@@ -171,19 +171,20 @@ class ResetPasswordController extends AbstractController
             // the lines below and change the redirect to 'app_forgot_password_request'.
             // Caution: This may reveal if a user is registered or not.
             //
-             $this->addFlash('reset_password_error', sprintf(
-                 '%s - %s',
-                 $translator->trans(
-                     ResetPasswordExceptionInterface::MESSAGE_PROBLEM_HANDLE,
-                     [],
-                     'ResetPasswordBundle'
-                 ),
-                 $translator->trans($e->getReason(), [], 'ResetPasswordBundle')
-             ));
-                return $this->redirectToRoute('app_forgot_password_request');
+            $this->addFlash('reset_password_error', sprintf(
+                '%s - %s',
+                $translator->trans(
+                    ResetPasswordExceptionInterface::MESSAGE_PROBLEM_HANDLE,
+                    [],
+                    'ResetPasswordBundle'
+                ),
+                $translator->trans($e->getReason(), [], 'ResetPasswordBundle')
+            ));
+            return $this->redirectToRoute('app_forgot_password_request');
             //return $this->redirectToRoute('app_check_email');
         }
 
+        // TODO: change sender email
         if (is_string($user->getEmail())) {
             $email = (new TemplatedEmail())
                 ->from(new Address('wilder@wildcodeschool.fr', 'My Cake Event'))

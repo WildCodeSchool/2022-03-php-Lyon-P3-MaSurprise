@@ -3,15 +3,13 @@
 {% block title %}Ma commande - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container-fluid">
         <div class="row gx-3">
             <div class="col-12">
                 <h1 class="text-primary text-center mb-4">Ma commande</h1>
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-7 m-2 bg-white p-4 rounded">
-
+                <div class="container-fluid">
+                    <div class="row d-flex flex-lg-row flex-column justify-content-center">
+                        <div class="col-lg-7 col-12 m-2 bg-white p-4 rounded">
                             <div>
                                 <h2>Mes informations</h2>
                                 <ul class="list-group">
@@ -34,7 +32,6 @@
                                     </li>
                                 </ul>
                             </div>
-
                             <div>
                                 <h2 class="pt-5">Informations de paiement</h2>
                                 <ul class="list-group">
@@ -46,14 +43,32 @@
                                                 Carte bancaire
                                             </label>
                                         </div>
-
                                     </li>
                                 </ul>
                             </div>
-
+                            <div class="row">
+                                <div class="col-12">
+                                    <form action="" method=POST>
+                                        <label for="meeting-time"><h2 class="pt-5">Dâte et heure :</h2></label>
+                                        {% for category, messages in app.flashes %}
+                                            {% for message in messages %}
+                                                <div class="alert alert-{{ category }}">
+                                                    {{ message }}
+                                                </div>
+                                            {% endfor %}
+                                        {% endfor %}
+                                        <li class="list-group-item meeting d-flex flex-row justify-content-between">
+                                            <input type="datetime-local" id="meeting-time"
+                                                   name="meeting-time" required="required" value="{{ dateorder }}">
+                                            <button type="submit" class="btn btn-secondary btn-lg text-white">
+                                                valider
+                                            </button>
+                                        </li>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="col-4 bg-white m-2 p-4 rounded">
+                        <div class="col-lg-4 col-12 bg-white m-2 p-4 rounded">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-12">

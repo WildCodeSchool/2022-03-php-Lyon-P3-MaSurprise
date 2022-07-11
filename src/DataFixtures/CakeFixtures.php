@@ -31,6 +31,18 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
             if (is_string($name)) {
                 $cake->setName($name);
             }
+
+            $picture1 = $faker->randomElement(
+                [
+                    '_fixtures_cake1.png',
+                    '_fixtures_cake2.png,_fixtures_cake1.png',
+                    '_fixtures_cupcake1.png,_fixtures_cake2.png,_fixtures_cake1.png',
+                    '_fixtures_mount3.png,_fixtures_cupcake1.png,_fixtures_cake2.png,_fixtures_cake1.png',
+                ]
+            );
+            if (is_string($picture1)) {
+                $cake->setPicture1($picture1);
+            }
             $category = $faker->randomElement([
                 'Pièce montée',
                 'Cupcake(s)',
@@ -46,7 +58,6 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
                 $cake->setCategory($category);
             }
             $cake->setAllergens("Gâteau diabétique");
-            $cake->setPicture1($faker->imageUrl(640, 640, 'photo d\'un gâteau'));
             $cake->setDescription($faker->text(250));
             $cake->setPrice($faker->randomFloat(2, 12, 50));
             $size = $faker->randomElement(([

@@ -10,6 +10,7 @@ use App\Repository\CakeRepository;
 use App\Repository\DepartmentRepository;
 use App\Service\CakeSearchService;
 use App\Service\UploaderHelper as ServiceUploaderHelper;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -57,7 +58,7 @@ class CakeController extends AbstractController
         ]);
     }
 
-
+    #[Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_BAKER')")]
     #[Route('/nouveau', name: 'new', methods: ['GET', 'POST'])]
     public function new(
         CakeRepository $cakeRepository,
@@ -141,6 +142,7 @@ class CakeController extends AbstractController
         ]);
     }
 
+    // TODO: we need to block this route
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Cake $cake, CakeRepository $cakeRepository): Response
     {
