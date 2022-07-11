@@ -91,8 +91,10 @@ class BakerSpaceController extends AbstractController
                     $key = $orderReference->getId();
                 }
 
-                if (!array_key_exists($key, $orders)) {
-                    $orders[$key] = $orderLine->getOrderReference();
+                if (is_int($key)) {
+                    if (!array_key_exists($key, $orders)) {
+                        $orders[$key] = $orderLine->getOrderReference();
+                    }
                 }
             }
         }
