@@ -39,20 +39,20 @@ class CakeRepository extends ServiceEntityRepository
         }
     }
 
-    public function findLikeAll(mixed $search): array
+    public function findLikeAll(mixed $search): mixed
     {
         $cakes = [];
-        $cakes = $this->findLikeName($search);
+        $cakes += $this->findLikeName($search);
         $cakes += $this->findLikeCategory($search);
         $cakes += $this->findLikeBaker($search);
         $cakes += $this->findLikeDescription($search);
         return $cakes;
     }
 
-    public function findLikeAllWithLocation(mixed $search, mixed $department): array
+    public function findLikeAllWithLocation(mixed $search, mixed $department): mixed
     {
         $cakes = [];
-        $cakes = $this->findLikeNameWithLocation($search, $department);
+        $cakes += $this->findLikeNameWithLocation($search, $department);
         $cakes += $this->findLikeCategoryWithLocation($search, $department);
         $cakes += $this->findLikeBakerWithLocation($search, $department);
         $cakes += $this->findLikeDescriptionWithLocation($search, $department);
