@@ -5,30 +5,52 @@
 {% block body %}
 
     <main class="container-fluid">
-        {# displaying admin bar only if admin (for use on baker space) #}
-        {% if is_granted('ROLE_ADMIN') %}
-            {% include "components/_adminnav.html.twig" %}
-        {% endif %}
+        <div class="row">
+            {# displaying admin bar only if admin (for use on baker space) #}
+            {% if is_granted('ROLE_ADMIN') %}
+                {% include "components/_adminnav.html.twig" %}
+            {% endif %}
 
-        <h1 class="text-primary text-center mb-4">Gâteaux</h1>
+            {% if is_granted('ROLE_ADMIN') %}
+                <h1 class="text-primary text-center mb-4">Liste des gâteaux</h1>
+            {% else %}
+                <h1 class="text-primary text-center mb-4">Mes gâteaux</h1>
+            {% endif %}
+        </div>
 
-        <a href="{{ path('app_cake_new') }}">
-            <button class="btn btn-secondary text-white p-2 m-2">Ajouter un nouveau gâteau</button>
-        </a>
+        <div class="d-flex justify-content-between">
+
+            <a
+                {% if is_granted('ROLE_ADMIN') %}
+                    href="{{ path('app_bakerspace_index') }}"
+                {% else %}
+                    href="{{ path('app_bakerspace_index') }}"
+                {% endif %}
+            >
+                <button class="btn btn-secondary text-white m-3">Retour</button>
+            </a>
+
+            <a href="{{ path('app_cake_new') }}">
+                <button class="btn btn-secondary text-white m-3">Ajouter un nouveau gâteau</button>
+            </a>
+        </div>
 
         {% for cake in cakes %}
-            <div class="container-fluid card mb-3">
-                <div class="row m-3 g-{{ loop.index0 }} d-flex flex-lg-row justify-content-around">
-                    {% for picture in cake.picture1|split(',') %}
-                        {% if loop.index == 1 %} {# show only the first picture #}
-                            <div class="col-12 col-md-6 col-lg-2">
-                                <img src="/uploads/cakes/{{ picture }}" class="img-fluid rounded"
-                                     alt="photo principale du gâteau">
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <h5 class="card-title">{{ cake.name }}</h5>
+            <div class="container-fluid card shadow mb-3">
+                <div class="row m-3 d-flex flex-lg-row justify-content-around">
+
+                    <div class="col-12 col-md-6 col-lg-2">
+                        <img class="img-fluid rounded cakes-list-admin"
+                            {% for picture in cake.picture1|split(',') %}
+                                {% if loop.index == 1 %} {# show only the first picture #}
+                                    src="/uploads/cakes/{{ picture }}"
+                                {% endif %}
+                            {% endfor %}
+                             alt="photo principale du gâteau">
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-5">
+                        <h4 class="card-title m-0 mb-3">{{ cake.name }}</h4>
                         {# displaying baker info only if admin (for use on baker space) #}
                         {% if is_granted('ROLE_ADMIN') %}
                             <p class="card-text">
@@ -41,27 +63,27 @@
                             </p>
                             <p> {{ cake.baker.deliveryAddress.postcode }} {{ cake.baker.deliveryAddress.city }}</p>
                         {% endif %}
-                    </div>
-                    <div class="col-12 col-lg-2">
                         <h5 class="card-title">Description</h5>
                         <p>{{ cake.description }}</p>
                     </div>
-                    <div class="col-12 col-lg-1">
+
+                    <div class="col-12 col-lg-2">
                         <h5 class="card-title">Allergènes</h5>
                         <p>{{ cake.allergens }}</p>
                     </div>
-                    <div class="col-12 col-lg-1">
-                        <h5 class="card-title">Taille du gâteau</h5>
+
+                    <div class="col-12 col-lg-2">
+                        <h5 class="card-title">Taille</h5>
                         <p>{{ cake.size }}</p>
                         <h5 class="card-title">Prix</h5>
-                        <p>{{ cake.price }} €</p>
-                    </div>
-                    <div class="col-12 col-lg-1">
-                        <h5 class="card-title">Catégories</h5>
+                        <p>{{ cake.price|format_currency('EUR', locale='de') }}</p>
+                        <h5 class="card-title">Type</h5>
                         <p>{{ cake.category }}</p>
                     </div>
-                    <div class="col-12 col-lg-1 d-flex flex-column align-items-center">
-                        <a href="{{ path('app_cake_edit', {id:cake.id} ) }}" class="btn btn-secondary text-white m-1">Modifier</a>
+
+                    <div class="col-12 col-lg-1 d-flex flex-column justify-content-center align-items-center">
+                        <a href="{{ path('app_cake_edit', {id:cake.id} ) }}"
+                           class="btn btn-secondary text-white m-1 w-100">Modifier</a>
                         {{ include('cake/_delete_form.html.twig') }}
                     </div>
                 </div>
