@@ -1,55 +1,44 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Nos gâteaux -
-    {{ parent() }}
+	{{ parent() }}
 {% endblock %}
 
 {% block body %}
-    <div class="container container-card">
-        <div class="row d-flex justify-content-start">
-            <h1 class="title-show text-center col-12 text-primary">Nos gâteaux</h1>
-            <p>
-                <a class="btn btn-secondary text-light" data-bs-toggle="collapse" href="#collapseFilters" role="button"
-                   aria-expanded="false" aria-controls="collapseFilters">
-                    Filtres
-                </a>
-            </p>
-            <div class="collapse" id="collapseFilters">
-                <div class="container-fluid card card-body bg-light">
-                    <div class="row">
-                        <div class="col-2">
-                            <h4>Rechercher</h4>
-                            {{ include('components/_filterform.html.twig') }}
-                        </div>
-                        {#                        FOR TESTING PURPOSES, WILL BE UPDATED #}
-                        <div class="col-2">
-                            <h4>Département</h4>
-                            <select class="form-select">
-                                <option selected>Choisir...</option>
-                                <option value="1">01 - Ain</option>
-                                <option value="2">02 - Aisne</option>
-                                <option value="69">69 - Rhône</option>
-                                <option>etc.</option>
-                            </select>
-                        </div>
+	<div class="container container-card">
+		<div class="row d-flex justify-content-start">
+			<h1 class="title-show text-center col-12">Nos gâteaux</h1>
+			<p>
+				<a class="btn btn-secondary text-light" data-bs-toggle="collapse" href="#collapseFilters" role="button" aria-expanded="false" aria-controls="collapseFilters">
+					Filtres
+				</a>
+			</p>
+			<div class="collapse" id="collapseFilters">
+				<div class="container-fluid card card-body bg-light">
+					<div class="row d-flex justify-content-between">
+						<div>
+							<h4>Rechercher</h4>
+							{{ include('components/_filterform.html.twig') }}
+						</div>
+						
+						</div>
+					</div>
+				</div>
+			</div>
 
-                    </div>
-                </div>
-            </div>
+			{% for message in app.flashes('notice') %}
+				<div class="flash-notice">
+					<h2 class="text-primary">{{ message }}</h2>
+				</div>
+			{% endfor %}
 
-            {% for message in app.flashes('warning') %}
-                <div class="flash-warning">
-                    <h3 class="text-primary">{{ message }}</h3>
-                </div>
-            {% endfor %}
-
-            {% if errorForm != 1 and search != "" %}
-                <p>{{ cakes|length }}
-                    résultats correspondant à "{{ search }}"</p>
-            {% else %}
-                <p>{{ cakes|length }}
-                    gâteaux</p>
-            {% endif %}
+			{% if search and not app.flashes('notice') %}
+				<p>{{ cakes|length }}
+					résultats correspondant à "{{ search }}"</p>
+			{% else %}
+				<p>{{ cakes|length }}
+					gâteaux</p>
+			{% endif %}
 
             <div id="cake-list" class="container-fluid container-lg">
                 <div class="row justify-content-center">

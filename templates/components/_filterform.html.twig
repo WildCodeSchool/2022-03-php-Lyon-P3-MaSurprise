@@ -1,11 +1,21 @@
 {{ form_start(searchForm) }}
-<div class="input-group">
-    {{ form_widget(searchForm.search, {
+<div class="d-flex justify-content-around">
+	<div class="input-group">
+		{{ form_widget(searchForm.search, {
         "attr": {
             "class": "form-control",
         }
     }) }}
-
-    <button class="btn btn-secondary text-light">{{ button_label|default('Rechercher') }}</button>
+	</div>
+	<div class="input-group">
+		{{ form_widget(searchForm.department, {
+        "attr": {
+            "class": "department",
+        }
+    }) }}
+	</div>
+	<div class="input-group">
+		<button class="btn btn-secondary text-light">{{ button_label|default('Rechercher') }}</button>
+	</div>
 </div>
 {{ form_end(searchForm) }}

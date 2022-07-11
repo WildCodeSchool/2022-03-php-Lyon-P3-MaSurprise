@@ -7,6 +7,8 @@ use App\Form\SearchCakeFormType;
 use Exception;
 use App\Entity\Cake;
 use App\Repository\CakeRepository;
+use App\Repository\DepartmentRepository;
+use App\Service\CakeSearchService;
 use App\Service\UploaderHelper as ServiceUploaderHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,51 +22,38 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class CakeController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(Request $request, CakeRepository $cakeRepository): Response
-    {
+    public function index(
+        Request $request,
+        CakeSearchService $cakeSearchService,
+        DepartmentRepository $departmentRepository
+    ): Response {
+        // fetching all departments for the scrolling menu
+        $departmentsDisplay = $departmentRepository->findAll();
         // creating form
         $searchForm = $this->createForm(SearchCakeFormType::class);
         $searchForm->handleRequest($request);
-
-        // sending this value to view to display errors
-        $errorForm = 0;
+        // initializing search and department variables before the form is set
+        $search = "";
+        $department = "";
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $searchRequest = $request->get('search_cake_form');
+
             // some bricolage to please phpcs
             if (is_array($searchRequest)) {
                 $search = $searchRequest['search'];
+                $department = $searchRequest['department'];
             }
         }
+        // calling the CakeSearchService
 
-        if (!isset($search)) {
-            // if search is empty, display everything
-            $cakes = $cakeRepository->findAll();
-            $search = "";
-        } else {
-            // else, display name-matched, category-matched, description-matched AND baker-matched results
-            $cakes = $cakeRepository->findLikeName($search);
-            $cakes += $cakeRepository->findLikeCategory($search);
-            $cakes += $cakeRepository->findLikeDescription($search);
-            $cakes += $cakeRepository->findLikeBaker($search);
-
-            // display a message if nothing matches search AND fetch all cakes
-            if ($cakes == null) {
-                $this->addFlash(
-                    'warning',
-                    "Oh non, aucun gâteau ne correspond à vos critères de recherche...
-                    Laissez-vous tenter par d'autres choix ci-dessous !"
-                );
-                $errorForm = 1;
-                $cakes = $cakeRepository->findAll();
-            }
-        }
+        $cakes = $cakeSearchService->cakeSearch($search, $department);
 
         return $this->renderForm('cake/index.html.twig', [
             'cakes' => $cakes,
             'searchForm' => $searchForm,
             'search' => $search,
-            'errorForm' => $errorForm,
+            'departments' => $departmentsDisplay,
         ]);
     }
 
