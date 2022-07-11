@@ -77,12 +77,19 @@ class BakerSpaceController extends AbstractController
         // TODO: check if this work when we have coherent, realistic data
         $orderLines = $orderLineRepository->findBy(['seller' => $userId], ['orderReference' => "ASC"]);
 
+        // adding bits of code for good laughs
+        // initializing values to pass validation
         $orders = [];
+        $key = "";
 
+        // creating many ifs to pass validation
         if ($orderLines) {
             // getting orders from orderLines references
             foreach ($orderLines as $orderLine) {
-                $key = $orderLine->getOrderReference()->getId();
+                $orderReference = $orderLine->getOrderReference();
+                if ($orderReference) {
+                    $key = $orderReference->getId();
+                }
 
                 if (!array_key_exists($key, $orders)) {
                     $orders[$key] = $orderLine->getOrderReference();
