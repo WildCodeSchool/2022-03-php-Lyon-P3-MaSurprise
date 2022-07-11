@@ -47,7 +47,7 @@ class CartController extends AbstractController
         $cakeAdd = $cake->getBaker()->getId();
         $cakeIn = $datacart[0]['cake']->getBaker()->getId();
 
-        if (is_int($cakeAdd) && $cakeIn != $cakeAdd) {
+        if (is_int($cakeAdd) != false && $cakeIn != $cakeAdd) {
             $this->addFlash(
                 'warning',
                 "Vous ne pouvez pas commander chez deux pâtissiers en même temps, veuillez finaliser votre
