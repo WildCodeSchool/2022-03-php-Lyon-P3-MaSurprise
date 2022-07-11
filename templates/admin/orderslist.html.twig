@@ -91,11 +91,13 @@
                                                     {% if loop.index == 1 %} {# this if won't be necessary anymore when the order will have only one baker #}
                                                         <div class="col-xs-12 col-md-4">
                                                             <h5 class="card-title text-center pt-1">Pâtissier</h5>
-                                                            <p class="card-text text-center">
+                                                            <p class="card-text text-center mb-0">
                                                                 {{ cakes.seller.firstname }} {{ cakes.seller.lastname }}
-                                                                <br>
+                                                            </p>
+                                                            <p class="card-text text-center mb-0">
                                                                 {{ cakes.seller.email }}
-                                                                <br>
+                                                            </p>
+                                                            <p class="card-text text-center">
                                                                 {{ cakes.seller.phone }}
                                                             </p>
                                                         </div>
@@ -104,11 +106,13 @@
                                             {% endif %}
                                             <div class="col-xs-12 col-md-4">
                                                 <h5 class="card-title text-center pt-1">Client</h5>
-                                                <p class="card-text text-center">
+                                                <p class="card-text text-center mb-0">
                                                     {{ order.buyer.firstname }} {{ order.buyer.lastname }}
-                                                    <br>
+                                                </p>
+                                                <p class="card-text text-center mb-0">
                                                     {{ order.buyer.email }}
-                                                    <br>
+                                                </p>
+                                                <p class="card-text text-center">
                                                     {{ order.buyer.phone }}
                                                 </p>
                                             </div>
