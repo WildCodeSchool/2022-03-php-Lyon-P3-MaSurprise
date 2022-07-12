@@ -50,6 +50,9 @@ class Cake
 
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $ingredients;
+    
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $availability = "NR";
 
     public function __construct()
     {
@@ -200,9 +203,19 @@ class Cake
         return $this->ingredients;
     }
 
-    public function setIngredients(?string $ingredients): self
+    public function setIngredients(?string $ingredients): void
     {
         $this->ingredients = $ingredients;
+    }
+
+    public function getAvailability(): ?string
+    {
+        return $this->availability;
+    }
+
+    public function setAvailability(string $availability): self
+    {
+        $this->availability = $availability;
 
         return $this;
     }
