@@ -18,9 +18,26 @@ let dropzoneUpdate = new Dropzone("form#dropzoneUpdate", {
     url: "/gateau/updated-files",
 });
 
+
+let deleteBtn = document.getElementById('deleteBtn');
+let path = deleteBtn.value;
+
+
+function ajaxPost(url) {
+    let req = new XMLHttpRequest();
+    req.open("GET", url);
+    req.send();
+}
+
+let deleteUrl = 'gateau/' + id + path + '/delete-files';
+
+deleteBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    e.ajaxPost(deleteUrl);
+});
+
 let updateForm = document.getElementById('dropzoneUpdate');
 let id = document.getElementById('cakeId').innerHTML;
-
 
 dropzoneUpdate.element.querySelector('#updateButton').addEventListener("click", function(e) {
     e.preventDefault();

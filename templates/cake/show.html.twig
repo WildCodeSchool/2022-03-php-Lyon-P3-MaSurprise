@@ -30,7 +30,7 @@
                 <div class="d-flex gap-4 mt-3 mb-4 align-items-center">
                     <p class="fs-3 mb-0">{{ cake.price|format_currency('EUR', locale='de') }}</p>
                     <a id="addToCart"
-                       href="{{ path('cart_add', {'id': cake.id}) }}">
+                       href="{{ path('cart_add', {'id': cake.id, 'baker': cake.baker.id}) }}">
                         <button class="btn btn-primary btn-lg">
                             Ajouter au panier
                         </button>
@@ -78,7 +78,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid baker-description m-5">
+    <div class="container baker-description m-5">
         <div class="baker-row row d-flex flex-row justify-content-center">
 
             <div class="col-md-3 col-6 border-end d-flex flex-column align-items-center">

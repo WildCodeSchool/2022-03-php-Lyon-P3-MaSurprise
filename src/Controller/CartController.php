@@ -2,14 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Cake;
 use App\Repository\CakeRepository;
 use App\Service\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-
-use function PHPUnit\Framework\isFalse;
 
 #[Route('/panier', name: 'cart_')]
 class CartController extends AbstractController
@@ -20,7 +19,6 @@ class CartController extends AbstractController
         $cart = $session->get("cart", []);
         $dataCart = [];
         $total = 0;
-
         if (is_array($cart)) {
             foreach ($cart as $id => $quantity) {
                 $cake = $cakeRepository->find($id);
@@ -33,7 +31,6 @@ class CartController extends AbstractController
                 }
             }
         }
-
         // transmitting info to order page
         $session->set("total", $total);
         $session->set('datacart', $dataCart);
@@ -42,12 +39,54 @@ class CartController extends AbstractController
             "total" => $total,]);
     }
 
-    #[Route('/ajouter/{id}', name: 'add')]
-    public function add(CartService $cartService, int $id, SessionInterface $session): Response
-    {
-        $cartService->addCartService($id, $session);
+    #[Route('/ajouter/{id}/{baker}', name: 'add')]
+    public function add(
+        CartService $cartService,
+        int $id,
+        int $baker,
+        SessionInterface $session,
+    ): Response {
 
-        return $this->redirectToRoute("cart_index");
+        $datacart = $session->get("datacart");
+        if (empty($datacart)) {
+            $cartService->addCartService($id, $session);
+            return $this->redirectToRoute("cart_index");
+        }
+
+        if (!(is_array($datacart) && isset($datacart[0]))) {
+            return $this->redirectToRoute('cart_index');
+        }
+
+        $data = $datacart[0];
+
+        if (!$data['cake'] instanceof Cake) {
+            return $this->redirectToRoute('cart_index');
+        }
+
+        $bakerData = $data['cake']->getBaker();
+
+        if ($bakerData === null) {
+            return $this->redirectToRoute('cart_index');
+        }
+
+        $bakerIn = $bakerData->getId();
+
+        if ($bakerIn === null) {
+            return $this->redirectToRoute('cart_index');
+        }
+
+        if ($bakerIn === $baker) {
+            $cartService->addCartService($id, $session);
+            return $this->redirectToRoute("cart_index");
+        }
+
+        $this->addFlash(
+            'warning',
+            "Vous ne pouvez pas commander chez deux pâtissiers en même temps,
+             veuillez finaliser votre commande pour en passer un autre."
+        );
+
+        return $this->redirectToRoute('cart_index');
     }
 
     #[Route('/enlever/{id}', name: 'remove')]

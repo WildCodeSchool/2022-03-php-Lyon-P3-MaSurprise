@@ -31,45 +31,46 @@
 
 <!-- MOBILE VERSION HEREUNDER -->
 <nav class="navbar navbar-expand-lg navbar-light navbar-colour fixed-top" id="mobile-nav">
-    <div class="container-fluid d-flex justify-content-between">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center w-100">
 
-        <div class="dropdown">
-            <button class="btn btn-secondary" type="button" id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                {# TODO: find a way to get this icon in white #}
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <div class="dropdown">
+                <button class="btn btn-secondary" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    {# TODO: find a way to get this icon in white #}
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                <li class="dropdown-item">
-                    <a class="nav-link active" aria-current="page" href="{{ path('app_cake_index') }}">Nos
-                        gâteaux
-                    </a>
-                </li>
+                    <li class="dropdown-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('app_cake_index') }}">Nos
+                            gâteaux
+                        </a>
+                    </li>
 
-                <li class="dropdown-item">
-                    <a class="nav-link active" href="{{ path('app_services') }}">Nos services
-                    </a>
-                </li>
+                    <li class="dropdown-item">
+                        <a class="nav-link active" href="{{ path('app_services') }}">Nos services
+                        </a>
+                    </li>
 
-                <li class="dropdown-item">
-                    <a class="nav-link active" href="{{ path('app_partners') }}">Partenaires
-                    </a>
-                </li>
+                    <li class="dropdown-item">
+                        <a class="nav-link active" href="{{ path('app_partners') }}">Partenaires
+                        </a>
+                    </li>
 
-                <li class="dropdown-item">
-                    {{ include('components/_navbar_login_link.html.twig') }}
-                </li>
-            </ul>
+                    <li class="dropdown-item">
+                        {{ include('components/_navbar_login_link.html.twig') }}
+                    </li>
+                </ul>
+            </div>
+
+            <a class="navbar-brand" href="{{ path('app_home') }}">
+                <img class="logo-picture" alt="logo"
+                     src="{{ asset('build/images/logo_mycakeevent.png') }}">
+            </a>
+
+            {{ include('components/_navbar_cart_button.html.twig') }}
         </div>
-
-        <a class="navbar-brand" href="{{ path('app_home') }}">
-            <img class="logo-picture" alt="logo"
-                 src="{{ asset('build/images/logo_mycakeevent.png') }}">
-        </a>
-
-        {{ include('components/_navbar_cart_button.html.twig') }}
-
     </div>
 </nav>
 
