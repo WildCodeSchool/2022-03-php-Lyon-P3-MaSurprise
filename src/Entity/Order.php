@@ -23,7 +23,7 @@ class Order
     #[ORM\Column(type: 'string', length: 50)]
     private string $orderStatus = "Commande créée";
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[ORM\Column(type: 'datetime', nullable: false)]
     private ?DateTimeInterface $collectDate;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ordersToSellers')]

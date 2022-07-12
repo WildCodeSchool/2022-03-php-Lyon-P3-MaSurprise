@@ -5,17 +5,12 @@
             "class": "form-control-lg",
         }
     }) }}
-    {# TODO: put this inside the form #}
-    <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-        <option>Département...</option>
-        {% for department in departments %}
-            <option value="{{ department.id }}">
-                {{ department.number }}
-                -
-                {{ department.name }}</option>
-        {% endfor %}
-    </select>
 
-    <button class="btn btn-secondary text-light">{{ button_label|default('Rechercher') }}</button>
+{{ form_widget(searchForm.department, {
+        "attr": {
+            "class": "department",
+        }
+    }) }}
+	<button class="btn btn-secondary text-light">{{ button_label|default('Rechercher') }}</button>
 </div>
 {{ form_end(searchForm) }}

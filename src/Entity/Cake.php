@@ -48,6 +48,9 @@ class Cake
     #[ORM\Column(type: 'string', length: 255)]
     private string $category;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $availability = "NR";
+
     public function __construct()
     {
         $this->created = new DateTime();
@@ -188,6 +191,18 @@ class Cake
     public function setCategory(string $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getAvailability(): ?string
+    {
+        return $this->availability;
+    }
+
+    public function setAvailability(string $availability): self
+    {
+        $this->availability = $availability;
 
         return $this;
     }

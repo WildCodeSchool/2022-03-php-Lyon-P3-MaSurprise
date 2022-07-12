@@ -2,13 +2,12 @@
 
 namespace App\DataFixtures;
 
+use Faker\Factory;
 use App\Entity\Address;
-use App\Entity\Baker;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
@@ -72,6 +71,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 "password"
             );
             $user->setPassword($hashedPassword);
+
             $this->addReference('seller_' . $i, $user);
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);

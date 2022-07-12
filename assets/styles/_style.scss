@@ -33,13 +33,13 @@ $dropdown-link-hover-bg: #FCF5EE;
 @font-face {
     font-family: 'Cuprum';
     src: url('../fonts/Cuprum/Cuprum-VariableFont_wght.ttf') format('truetype'),
-        url('../fonts/Cuprum/Cuprum-Italic-VariableFont_wght.ttf') format('truetype');
+    url('../fonts/Cuprum/Cuprum-Italic-VariableFont_wght.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Karla';
     src: url('../fonts/Karla/Karla-VariableFont_wght.ttf') format('truetype'),
-        url('../fonts/Karla/Karla-Italic-VariableFont_wght.ttf') format('truetype');
+    url('../fonts/Karla/Karla-Italic-VariableFont_wght.ttf') format('truetype');
 }
 
 @font-face {
@@ -575,9 +575,16 @@ p {
 
 /* CAKE PIC MODAL */
 
-.carousel-cake-main {
+.carousel-cake-main,
+.cake-index-pics,
+.cakes-list-admin {
     object-fit: cover;
     object-position: center center;
+    aspect-ratio: 1 / 1;
+}
+
+.cakes-list-admin {
+    min-height: 100%;
     aspect-ratio: 1 / 1;
 }
 

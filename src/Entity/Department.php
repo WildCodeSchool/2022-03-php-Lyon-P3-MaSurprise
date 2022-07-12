@@ -22,6 +22,7 @@ class Department
     private string $name;
 
     #[ORM\OneToMany(mappedBy: 'department', targetEntity: Address::class)]
+
     private Collection $addresses;
 
     public function __construct()
