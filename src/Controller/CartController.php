@@ -5,12 +5,11 @@ namespace App\Controller;
 use App\Entity\Cake;
 use App\Repository\CakeRepository;
 use App\Service\CartService;
+use mysql_xdevapi\Warning;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-
-use function PHPUnit\Framework\isInstanceOf;
 
 #[Route('/panier', name: 'cart_')]
 class CartController extends AbstractController
@@ -41,12 +40,12 @@ class CartController extends AbstractController
             "total" => $total,]);
     }
 
-    #[Route('/ajouter/{id}', name: 'add')]
+    #[Route('/ajouter/{id}/{baker}', name: 'add')]
     public function add(
         CartService $cartService,
         int $id,
+        int $baker,
         SessionInterface $session,
-        CakeRepository $cakeRepo
     ): Response {
 
         $datacart = $session->get("datacart");
@@ -55,36 +54,41 @@ class CartController extends AbstractController
             return $this->redirectToRoute("cart_index");
         }
 
-        if ($datacart[0] && is_array($datacart) !==  null) {
-            $data = $datacart[0];
-            if ($data['cake'] instanceof Cake) {
-                $bakerData = $data['cake']->getBaker();
-                if ($bakerData !== null) {
-                    $bakerIn = $bakerData->getId();
-                    $cakeAdd = $cakeRepo->find($id);
-                    if ($cakeAdd !== null) {
-                        $getBaker = $cakeAdd->getBaker();
-                        if ($getBaker !== null) {
-                            $bakerAdd = $getBaker->getId();
-                            if ($bakerIn === $bakerAdd) {
-                                $cartService->addCartService($id, $session);
-                                return $this->redirectToRoute("cart_index");
-                            } else {
-                                $this->addFlash(
-                                    'warning',
-                                    "Vous ne pouvez pas commander chez deux pâtissiers en même temps,
-                                    veuillez finaliser votre commande pour en passer un autre."
-                                );
-                            }
-                        }
-                    }
-                }
-            }
+        if (!(is_array($datacart) && isset($datacart[0]))) {
+            return $this->redirectToRoute('cart_index');
         }
+
+        $data = $datacart[0];
+
+        if (!$data['cake'] instanceof Cake) {
+            return $this->redirectToRoute('cart_index');
+        }
+
+        $bakerData = $data['cake']->getBaker();
+
+        if ($bakerData === null) {
+            return $this->redirectToRoute('cart_index');
+        }
+
+        $bakerIn = $bakerData->getId();
+
+        if ($bakerIn === null) {
+            return $this->redirectToRoute('cart_index');
+        }
+
+        if ($bakerIn === $baker) {
+            $cartService->addCartService($id, $session);
+            return $this->redirectToRoute("cart_index");
+        }
+
+        $this->addFlash(
+            'warning',
+            "Vous ne pouvez pas commander chez deux pâtissiers en même temps,
+             veuillez finaliser votre commande pour en passer un autre."
+        );
 
         return $this->redirectToRoute('cart_index');
     }
-
 
     #[
         Route('/enlever/{id}', name: 'remove')]
