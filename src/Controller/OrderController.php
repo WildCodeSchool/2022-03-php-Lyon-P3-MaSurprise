@@ -46,7 +46,6 @@ class OrderController extends AbstractController
     #[Route('/validation', name: 'processing')]
     public function orderProcess(SessionInterface $session): Response
     {
-
         return $this->render('order/processing.html.twig');
     }
 
@@ -64,6 +63,7 @@ class OrderController extends AbstractController
         $orderDate = date_create($orderDate);
         $now = date_create("now");
 
+        // TODO: could we maybe move this to index?
         if ($now < $orderDate && $orderDate != false) {
             // getting user
             /** @var User $user */
@@ -75,7 +75,7 @@ class OrderController extends AbstractController
             return $this->render('order/placed.html.twig');
         }
 
-        $this->addFlash('warning', "Veuillez sélectionner une autre date.");
+        $this->addFlash('danger', "Veuillez sélectionner une autre date.");
         return $this->redirectToRoute('app_order_index');
     }
 }
