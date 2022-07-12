@@ -35,6 +35,7 @@ class CakeType extends AbstractType
                     'Pop cake(s)' => 'Pop cake(s)',
                 ],
             ])
+            ->add('availability', TextType::class, ['label' => 'Disponibilité'])
             ->add('baker', null, ['label' => 'Pâtissier', 'choice_label' => function ($baker) {
                 return $baker->getUser()->getFirstname() . ' ' . $baker->getUser()->getLastname();
             },
