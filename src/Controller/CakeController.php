@@ -15,8 +15,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\EventListener\ResponseListener;
 
 #[Route('/gateau', name: 'app_cake_')]
 class CakeController extends AbstractController
@@ -113,6 +116,30 @@ class CakeController extends AbstractController
             }
         }
         return $this->redirectToRoute('app_cake_index');
+    }
+
+    // this route is used to delete pictures in edit cake form
+    #[Route('/{id}/{path}/delete-files', name: 'deletefiles')]
+    public function deleteFiles(Cake $cake, string $path, CakeRepository $cakeRepository): Response
+    {
+        $cakeUrls = $cake->getPicture1();
+        $cakeUrlsArray = explode(',', $cakeUrls);
+        $key = 0;
+        if ($key == array_search($path, $cakeUrlsArray)) {
+            unset($cakeUrlsArray[$key]);
+            $cakeUrls = implode(',', $cakeUrlsArray);
+            $cake->setPicture1($cakeUrls);
+            $cakeRepository->add($cake, true);
+        };
+        $finder = new Finder();
+        $finder->files()->in('../public/uploads/cakes');
+        $filesystem = new Filesystem();
+        foreach ($finder as $file) {
+            if ($file->getFilename() == $path) {
+                $filesystem->remove($file);
+            }
+        }
+        return $this->redirectToRoute('app_cake_edit', array('id' => $cake->getId()));
     }
 
     #[Route('/{id}/modifier', name: 'edit', methods: ['GET', 'POST'])]
