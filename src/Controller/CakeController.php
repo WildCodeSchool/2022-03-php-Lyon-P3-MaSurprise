@@ -115,29 +115,69 @@ class CakeController extends AbstractController
         return $this->redirectToRoute('app_cake_index');
     }
 
-    #[Route('/{id}/', name: 'show')]
-    public function show(Cake $cake): Response
-    {
-        return $this->render('cake/show.html.twig', [
-            'cake' => $cake,
-        ]);
-    }
-
     #[Route('/{id}/modifier', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Cake $cake, CakeRepository $cakeRepository): Response
-    {
+    public function edit(
+        Cake $cake,
+        Request $request,
+        RequestStack $requestStack,
+        CakeRepository $cakeRepository
+    ): Response {
         $form = $this->createForm(CakeType::class, $cake);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $cakeRepository->add($cake, true);
-
-            return $this->redirectToRoute('app_cake_index', [], Response::HTTP_SEE_OTHER);
+             // put the id in session is use to connect url pictures to the right cake
+             $session = $requestStack->getSession();
+             $session->set('updatedCakeId', $cake->getId());
         }
 
         return $this->renderForm('cake/edit.html.twig', [
             'cake' => $cake,
             'form' => $form,
+        ]);
+    }
+
+    // this route is used to update files in edit cake form
+    // and remove not longer needed pictures
+    #[Route('/updated-files', name: 'updatedfiles')]
+    public function updateCakesFiles(
+        Request $request,
+        ServiceUploaderHelper $uploaderHelper,
+        RequestStack $requestStack,
+        CakeRepository $cakeRepository
+    ): Response {
+
+        $session = $requestStack->getSession();
+        $updatedCakeId = $session->get('updatedCakeId');
+
+        $uploadedFiles = $request->files->get('files');
+        if ($uploadedFiles) {
+            if (is_iterable($uploadedFiles)) {
+                $filesArray = [];
+                foreach ($uploadedFiles as $uploadedFile) {
+                    if ($uploadedFile instanceof UploadedFile) {
+                        $newFilename = $uploaderHelper->uploadCakeFiles($uploadedFile);
+                        $filesArray[] = $newFilename;
+                    }
+                }
+                $files = implode(',', $filesArray);
+                $cake = new Cake();
+                $cake = $cakeRepository->find($updatedCakeId);
+                if ($cake != null) {
+                    $previousPictures = $cake->getPicture1();
+                    $cake->setPicture1($previousPictures . ',' . $files);
+                    $cakeRepository->add($cake, true);
+                }
+            }
+        }
+        return $this->redirectToRoute('app_cake_index');
+    }
+
+    #[Route('/{id}/', name: 'show')]
+    public function show(Cake $cake): Response
+    {
+        return $this->render('cake/show.html.twig', [
+            'cake' => $cake,
         ]);
     }
 
