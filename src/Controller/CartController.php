@@ -41,8 +41,12 @@ class CartController extends AbstractController
     }
 
     #[Route('/ajouter/{id}', name: 'add')]
-    public function add(CartService $cartService, int $id, SessionInterface $session, CakeRepository $cakeRepository): Response
-    {
+    public function add(
+        CartService $cartService,
+        int $id,
+        SessionInterface $session,
+        CakeRepository $cakeRepo
+    ): Response {
 
         $datacart = $session->get("datacart");
         if (empty($datacart)) {
@@ -51,7 +55,7 @@ class CartController extends AbstractController
         }
 
         $bakerIn = $datacart[0]['cake']->getBaker()->getId();
-        $cakeAdd = $cakeRepository->find($id);
+        $cakeAdd = $cakeRepo->find($id);
         if ($cakeAdd != false) {
             $getBaker = $cakeAdd->getBaker();
             if ($getBaker != false) {
