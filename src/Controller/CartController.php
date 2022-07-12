@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Baker;
-use App\Entity\Cake;
 use App\Repository\CakeRepository;
 use App\Service\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -53,22 +51,26 @@ class CartController extends AbstractController
             $cartService->addCartService($id, $session);
             return $this->redirectToRoute("cart_index");
         }
-
-        $bakerIn = $datacart[0]['cake']->getBaker()->getId();
-        $cakeAdd = $cakeRepo->find($id);
-        if ($cakeAdd != false) {
-            $getBaker = $cakeAdd->getBaker();
-            if ($getBaker != false) {
-                $bakerAdd = $getBaker->getId();
-                if ($bakerIn === $bakerAdd && $bakerAdd != false) {
-                    $cartService->addCartService($id, $session);
-                    return $this->redirectToRoute("cart_index");
-                } else {
-                    $this->addFlash(
-                        'warning',
-                        "Vous ne pouvez pas commander chez deux pâtissiers en même temps, veuillez finaliser votre
+        if (
+            isset($datacart[0]['cake']) && $datacart[0]['cake']->getBaker() !== null &&
+            $datacart[0]['cake']->getBaker()->getId() !== null
+        ) {
+            $bakerIn = $datacart[0]['cake']->getBaker()->getId();
+            $cakeAdd = $cakeRepo->find($id);
+            if ($cakeAdd != false) {
+                $getBaker = $cakeAdd->getBaker();
+                if ($getBaker != false) {
+                    $bakerAdd = $getBaker->getId();
+                    if ($bakerIn === $bakerAdd && $bakerAdd != false) {
+                        $cartService->addCartService($id, $session);
+                        return $this->redirectToRoute("cart_index");
+                    } else {
+                        $this->addFlash(
+                            'warning',
+                            "Vous ne pouvez pas commander chez deux pâtissiers en même temps, veuillez finaliser votre
                 commande pour en passer un autre."
-                    );
+                        );
+                    }
                 }
             }
         }
