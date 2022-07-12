@@ -68,7 +68,7 @@ class BakerController extends AbstractController
         ]);
     }
 
-    // TODO: do we keep this here or do we move it in secutiry.yaml?
+    // TODO: do we keep this here or do we move it in security.yaml?
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}', name: '_delete', methods: ['POST'])]
     public function delete(Request $request, Baker $baker, BakerRepository $bakerRepository): Response

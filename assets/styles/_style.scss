@@ -576,9 +576,15 @@ p {
 /* CAKE PIC MODAL */
 
 .carousel-cake-main,
-.cake-index-pics {
+.cake-index-pics,
+.cakes-list-admin {
     object-fit: cover;
     object-position: center center;
+    aspect-ratio: 1 / 1;
+}
+
+.cakes-list-admin {
+    min-height: 100%;
     aspect-ratio: 1 / 1;
 }
 

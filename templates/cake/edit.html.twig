@@ -1,16 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier votre pâtisserie - {{ parent() }}{% endblock %}
+{% block title %}Modifier votre pâtisserie -
+    {{ parent() }}
+{% endblock %}
 
 {% block body %}
-    <h1 class="text-primary text-center">Modifier votre pâtisserie</h1>
-
     <div class="container">
         <div>
             {{ form_start(form, {
             "attr": {
                 "id":"dropzoneUpdate",
-                "class": ""
             }
         }) }}
             {{ form_widget(form) }}
@@ -18,8 +17,8 @@
                 
                 {% for picture in cake.picture1|split(',') %}
                 <div class="row justify-content-center align-items-center">
-                    <img src="/uploads/cakes/{{ picture }}" class="col-1 img-fluid m-1">
-                    <button class="col-1 btn btn-primary" id="deleteBtn" value="{{ picture }}">
+                    <img src="/uploads/cakes/{{ picture }}" class="col-2 img-fluid m-1">
+                    <button class="col-1 btn btn-primary text-white" id="deleteBtn" value="{{ picture }}">
                         <a href="{{ path('app_cake_deletefiles', {'id':cake.id, 'path':picture}) }}">
                         Supprimer</a>
                     </button>
@@ -28,10 +27,10 @@
                 
             </div>
             <div class="d-flex flex-column mt-4 align-items-center">
+                <div class="files" id="previews">{% include "cake/_previewdropzone.html.twig" %}</div>
                 <div class="dz-message dz-button btn btn-secondary text-white" data-dz-message>
                     <span>Ajouter de nouvelles photos</span>
                 </div>
-                <div class="files" id="previews">{% include "cake/_previewdropzone.html.twig" %}</div>
             </div>
 
             <div class="d-flex flex-column justify-content-center">
@@ -39,15 +38,15 @@
                     {{ button_label|default('Modifier l\'anonce') }}
                 </button>
                 {{ include('cake/_delete_form.html.twig') }}
-                <button class="btn btn-secondary text-white p-2">
+                <a
                     {% if is_granted("ROLE_ADMIN") %}
-                        <a href="{{ path('app_admin_cakes') }}">
+                        href="{{ path('app_admin_cakes') }}"
+                    {% else %}
+                        href="{{ path('app_bakerspace_cakes') }}"
                     {% endif %}
-                    {% if is_granted("ROLE_BAKER") %} {# modify the route when the baker space will be done #}
-                        <a href="{{ path('app_cake_index') }}">
-                    {% endif %}
-                    Retour à la liste des gâteaux</a>
-                </button>
+                >
+                    <button class="btn btn-secondary text-white p-2 m-3">Retour à la liste des gâteaux</button>
+                </a>
             </div>
             {# the cakeId is necessary in the dropezoneupdate.js file to find the right route in the controller #}
             <p class="d-none" name="id" id="cakeId">{{ cake.id }}</p>
