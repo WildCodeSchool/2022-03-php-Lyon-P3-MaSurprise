@@ -19,7 +19,6 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
             $cake = new Cake();
             $cake->setCreated($faker->dateTimeInInterval('+1 months', '+1 months'));
             $name = $faker->randomElement([
-                'Gâteau d\'anniversaire',
                 'Forêt noire',
                 'Pièce montée au caramel et fruits rouges',
                 'Gâteau licorne',
@@ -27,13 +26,11 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
                 'Entremets aux fruits',
                 'Saint-Pothin',
                 'Tarte aux framboises',
-                'Fraisier',
                 'Mille-feuilles à la crème pâtissière',
             ]);
             if (is_string($name)) {
                 $cake->setName($name);
             }
-
             $picture1 = $faker->randomElement(
                 [
                     '_fixtures_cake1.png',
@@ -62,15 +59,11 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
             $cake->setAllergens($faker->optional(0.9)->randomElement([
                 'cacahuète, noisette',
                 'kiwi, fraise',
-                'lait, gluten, noisette',
                 'fruits à coque, lait, gluten',
                 'lait, arachide'
             ]));
             $cake->setIngredients($faker->optional(0.9)->randomElement([
-                'caramel, crème pâtissière',
-                'chocolat au lait, crème anglaise',
-                'poire, pomme, fraise',
-                'pistache, chocolat, caramel',
+                'pâte à choux, caramel, crème pâtissière',
                 'caramel au beurre salé, crème chantilly, noisettes',
                 'génoise, crème pâtissière, fruit de la passion',
                 'pâte feuilletée, crème pâtissière, chocolat au lait'
@@ -81,9 +74,7 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
                 où est située l’église Saint-Pothin.",
                 "Un mille-feuille, ou millefeuille, est une pièce de pâtisserie faite de trois 
                 couches de pâte feuilletée et deux couches de crème pâtissière. Le dessus est glacé 
-                avec du sucre glace ou du fondant. On peut y ajouter de la confiture ou des fruits.
-                Il aurait été créé par François Pierre de La Varenne, qui le décrit dans son 
-                Cuisinier françois en 1651.",
+                avec du sucre glace ou du fondant. On peut y ajouter de la confiture ou des fruits.",
                 "La forêt-noire, en allemand Schwarzwälder Kirschtorte, littéralement « gâteau 
                 à la cerise de la Forêt-Noire », est une pâtisserie allemande constituée 
                 de génoise au cacao imbibée de kirsch puis fourrée de crème chantilly et de cerises. 
@@ -118,7 +109,6 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
             }
             $manager->persist($cake);
         }
-
         $manager->flush();
     }
 
