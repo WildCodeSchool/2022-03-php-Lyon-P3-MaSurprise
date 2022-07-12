@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Cake;
 use App\Repository\CakeRepository;
 use App\Service\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+
+use function PHPUnit\Framework\isInstanceOf;
 
 #[Route('/panier', name: 'cart_')]
 class CartController extends AbstractController
@@ -52,10 +55,10 @@ class CartController extends AbstractController
             return $this->redirectToRoute("cart_index");
         }
 
-        if (is_array($datacart[0]['cake']) !== null) {
-            $getBaker = $datacart[0]['cake']->getBaker();
-            if ($getBaker !== null) {
-                $bakerIn = $datacart[0]['cake']->getBaker()->getId();
+        if (is_array($datacart) && isset($datacart[0])) {
+            $data = $datacart[0];
+            if (isset($data['cake']) && $data['cake'] instanceof Cake) {
+                $bakerIn = $data['cake']->getBaker()->getId();
                 if ($bakerIn !== null) {
                     $cakeAdd = $cakeRepo->find($id);
                     if ($cakeAdd !== null) {
