@@ -15,8 +15,8 @@
                     </div>
                     <div class="row">
                         <div class="header-subtext col-12 d-flex flex-column align-items-center justify-content-center">
-                            <h1 class="text-primary">Découvrez les gâteaux autour de chez vous</h1>
-                            <h3>Plus de 80 pâtissières dans toute la France</h3>
+                            <h1 class="text-primary text-center">Découvrez les gâteaux autour de chez vous</h1>
+                            <h3 class="text-center">Plus de 80 pâtissières dans toute la France</h3>
                         </div>
                     </div>
                 </div>
@@ -120,30 +120,25 @@
                 <div class="how-to-light-bg">
                     <h2 class="main-how-to-container-title text-primary text-center">Comment ça marche ?</h2>
                     <div
-                        class="how-to-container overflow-scroll d-flex flex-row justify-content-around">
+                        class="how-to-container d-flex flex-md-row flex-column justify-content-around align-items-center align-items-md-stretch">
 
                         <div
-                            class="how-to d-flex flex-column align-items-center text-center border-darkgreen">
+                            class="how-to d-flex flex-column align-items-center text-center justify-content-center border-darkgreen">
                             <h3 class="text-darkgreen">Recherchez</h3>
                             <p>Localisez-vous en choisissant votre ville à l'aide de la barre de recherche, afin de
-                                pouvoir
-                                trouver les meilleurs pâtissiers proche de chez vous.</p>
+                                pouvoir trouver les meilleurs pâtissiers proche de chez vous.</p>
                         </div>
                         <div
                             class="how-to d-flex flex-column align-items-center justify-content-center text-center border-red">
                             <h3 class="text-red">Choisissez</h3>
                             <p>Choisissez le gâteau qui vous tente le plus puis ajustez votre commande en sélectionnant
-                                son
-                                goût
-                                ainsi que sa taille.</p>
+                                son goût ainsi que sa taille.</p>
                         </div>
                         <div
                             class="how-to d-flex flex-column align-items-center justify-content-center text-center border-orange">
                             <h3 class="text-orange">Finalisez</h3>
                             <p>Confirmez votre commande et payez en toute sécurité sur notre plateforme MyCakeEvent.fr.
-                                Il
-                                ne
-                                vous restera qu'à récupérer votre cake le jour J.</p>
+                                Il ne vous restera qu'à récupérer votre cake le jour J.</p>
                         </div>
 
                     </div>
@@ -154,28 +149,33 @@
         <section class="row">
             <div class="main-references-container">
                 <h2 class="main-references-container-title text-primary text-center">Ils nous ont fait confiance</h2>
-                <div class="main-ratings-container d-flex overflow-scroll justify-content-center">
+                <div
+                    class="main-ratings-container d-flex flex-column flex-lg-row justify-content-center align-items-center gap-2">
 
+                    {# THESE OPINIONS ARE FAKE AND SHOULD BE MODIFIED ASAP #}
                     <div
                         class="ratings-container d-flex flex-column align-items-center justify-content-center text-center">
-                        <img class="comment-img" src="https://i.pravatar.cc/200" alt="Une image de gâteau.">
-                        <h3>Prénom N.</h3>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum has been the industry's standard dummy text ever.</p>
+                        <img class="comment-img" src="{{ asset("build/images/raters/aichak.png") }}"
+                             alt="Une image de gâteau.">
+                        <h3 class="mt-3">Aïcha K.</h3>
+                        <p>J'ai commandé un gâteau Peppa Pig pour l'anniversaire de ma fille et le résultat était
+                            vraiment incroyable. Elle était ravie et le gâteau a régalé toute la famille !</p>
                     </div>
                     <div
                         class="ratings-container d-flex flex-column align-items-center justify-content-center text-center">
-                        <img class="comment-img" src="https://i.pravatar.cc/150" alt="Une image de gâteau.">
-                        <h3>Prénom N.</h3>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum has been the industry's standard dummy text ever.</p>
+                        <img class="comment-img" src="{{ asset("build/images/raters/anniem.png") }}"
+                             alt="Une image de gâteau.">
+                        <h3 class="mt-3">Annie M.</h3>
+                        <p>Je suis pas très gâteaux à la base, mais là j'ai été conquise. Je recommande vraiment et j'ai
+                            hâte de goûter le prochain.</p>
                     </div>
                     <div
                         class="ratings-container d-flex flex-column align-items-center justify-content-center text-center">
-                        <img class="comment-img" src="https://i.pravatar.cc/" alt="Une image de gâteau.">
-                        <h3>Prénom N.</h3>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum has been the industry's standard dummy text ever.</p>
+                        <img class="comment-img" src="{{ asset("build/images/raters/vind.png") }}"
+                             alt="Une image de gâteau.">
+                        <h3 class="mt-3">Dominique T.</h3>
+                        <p>Super content de mon gâteau en forme de Dodge Charger R/T 2ème génération ! On l'a servi au
+                            barbecue en famille, super expérience.</p>
                     </div>
 
                 </div>
@@ -183,20 +183,21 @@
                 <div class="separator d-flex justify-content-center"></div>
 
                 <div class="floating-logos d-flex justify-content-center">
-                    <img class="floating-img float1" src="{{ asset('build/images/brands/apple.png') }}"
-                         alt="Une image de gâteau.">
-                    <img class="floating-img float2" src="{{ asset('build/images/brands/auchan.png') }}"
-                         alt="Une image de gâteau.">
-                    <img class="floating-img float1" src="{{ asset('build/images/brands/dior.png') }}"
-                         alt="Une image de gâteau.">
-                    <img class="floating-img float2" src="{{ asset('build/images/brands/fedex.png') }}"
-                         alt="Une image de gâteau.">
-                    <img class="floating-img float1" src="{{ asset('build/images/brands/total.png') }}"
-                         alt="Une image de gâteau.">
-                    <img class="floating-img float2" src="{{ asset('build/images/brands/kfc.png') }}"
-                         alt="Une image de gâteau.">
-                    <img class="floating-img float1" src="{{ asset('build/images/brands/lv.png') }}"
-                         alt="Une image de gâteau.">
+                    {# ADD CONTENT HERE / UNCOMMENT WHEN NEEDED -> logos will float like crazy let me tell you #}
+                    {# <img class="floating-img float1" src="{{ asset('build/images/brands/apple.png') }}" #}
+                    {#      alt="Une image de gâteau."> #}
+                    {# <img class="floating-img float2" src="{{ asset('build/images/brands/auchan.png') }}" #}
+                    {#      alt="Une image de gâteau."> #}
+                    {# <img class="floating-img float1" src="{{ asset('build/images/brands/dior.png') }}" #}
+                    {#      alt="Une image de gâteau."> #}
+                    {# <img class="floating-img float2" src="{{ asset('build/images/brands/fedex.png') }}" #}
+                    {#      alt="Une image de gâteau."> #}
+                    {# <img class="floating-img float1" src="{{ asset('build/images/brands/total.png') }}" #}
+                    {#      alt="Une image de gâteau."> #}
+                    {# <img class="floating-img float2" src="{{ asset('build/images/brands/kfc.png') }}" #}
+                    {#      alt="Une image de gâteau."> #}
+                    {# <img class="floating-img float1" src="{{ asset('build/images/brands/lv.png') }}" #}
+                    {#      alt="Une image de gâteau."> #}
                 </div>
             </div>
         </section>
