@@ -124,13 +124,15 @@ class CakeController extends AbstractController
     public function deleteFiles(Cake $cake, string $path, CakeRepository $cakeRepository): Response
     {
         $cakeUrls = $cake->getPicture1();
-        $cakeUrlsArray = explode(',', $cakeUrls);
-        $key = array_search($path, $cakeUrlsArray);
-        if ($key != false) {
-            unset($cakeUrlsArray[$key]);
-            $cakeUrls = implode(',', $cakeUrlsArray);
-            $cake->setPicture1($cakeUrls);
-            $cakeRepository->add($cake, true);
+        if (is_string($cakeUrls)) {
+            $cakeUrlsArray = explode(',', $cakeUrls);
+            $key = array_search($path, $cakeUrlsArray);
+            if ($key != false) {
+                unset($cakeUrlsArray[$key]);
+                $cakeUrls = implode(',', $cakeUrlsArray);
+                $cake->setPicture1($cakeUrls);
+                $cakeRepository->add($cake, true);
+            }
         };
         $finder = new Finder();
         $finder->files()->in('../public/uploads/cakes');
