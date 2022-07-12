@@ -80,7 +80,7 @@ class Baker
     #[ORM\OneToOne(mappedBy: 'baker', targetEntity: User::class, cascade: ['persist', 'remove'])]
     private ?User $user;
 
-    #[ORM\OneToOne(inversedBy: 'deliveryAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'deliveryAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
     private ?Address $deliveryAddress = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]

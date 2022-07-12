@@ -107,7 +107,7 @@
                                                 </div>
                                             {% endif %}
                                         {% endif %}
-
+                                        
                                         <div class="row">
                                             {% for cakes in order.orderLines %}
                                                 <h5 class="card-title col-6">{{ cakes.cakeName }}</h5>
@@ -127,7 +127,7 @@
                                                             <p class="card-text text-center mb-0">
                                                                 {% if is_granted('ROLE_ADMIN') %}
                                                                     {{ cakes.seller.firstname }} {{ cakes.seller.lastname }}
-                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" %}
+                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" %}
                                                                     {{ cakes.seller.firstname }} {{ cakes.seller.lastname }}
                                                                 {% else %}
                                                                     Les coordonnées du pâtissier
@@ -136,7 +136,7 @@
                                                             <p class="card-text text-center mb-0">
                                                                 {% if is_granted('ROLE_ADMIN') %}
                                                                     {{ cakes.seller.email }}
-                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" %}
+                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" %}
                                                                     {{ cakes.seller.email }}
                                                                 {% else %}
                                                                     apparaîtront ici après
@@ -145,7 +145,7 @@
                                                             <p class="card-text text-center">
                                                                 {% if is_granted('ROLE_ADMIN') %}
                                                                     {{ cakes.seller.phone }}
-                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" %}
+                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" %}
                                                                     {{ cakes.seller.phone }}
                                                                 {% else %}
                                                                     validation de votre commande.
