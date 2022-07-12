@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Baker;
-use App\Entity\Cake;
 use App\Repository\CakeRepository;
 use App\Service\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
