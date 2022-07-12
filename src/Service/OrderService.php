@@ -99,6 +99,8 @@ class OrderService
         unset($_SESSION['_sf2_attributes']['cart']);
         unset($_SESSION['_sf2_attributes']['datacart']);
         unset($_SESSION['_sf2_attributes']['total']);
+        unset($_SESSION['_sf2_attributes']['meeting-time']);
+        unset($_SESSION['_sf2_attributes']['order']);
 
         unset($_SESSION['Products']);
     }

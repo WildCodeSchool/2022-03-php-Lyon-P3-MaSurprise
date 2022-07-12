@@ -68,6 +68,13 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
             if (is_string($size)) {
                 $cake->setSize($size);
             }
+            $cake->setAvailability($faker->randomElement([
+                '3 jours',
+                '7 jours',
+                '10 jours',
+                '1 jour',
+                'NR',
+            ]));
             $reference = $faker->numberBetween(0, 49);
             $baker = $this->getReference('user_' . $reference . '_baker_' . $reference);
             if ($baker instanceof Baker) {
