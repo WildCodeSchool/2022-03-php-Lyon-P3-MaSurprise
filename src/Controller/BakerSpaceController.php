@@ -106,8 +106,11 @@ class BakerSpaceController extends AbstractController
     }
 
     #[Route('/{id}/validation-patissier', name: 'order_validation')]
-    public function bakerOrderValidation(Order $order, OrderRepository $orderRepository, Request $request): Response
-    {
+    public function bakerOrderValidation(
+        Order $order,
+        OrderRepository $orderRepository,
+        Request $request
+    ): Response {
         $statusRequest = $request->get('status');
 
         switch ($statusRequest) {

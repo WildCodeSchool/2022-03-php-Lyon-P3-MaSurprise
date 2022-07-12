@@ -57,6 +57,7 @@ class CakeController extends AbstractController
         ]);
     }
 
+    // TODO: move this to security.yaml ?
     #[Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_BAKER')")]
     #[Route('/nouveau', name: 'new', methods: ['GET', 'POST'])]
     public function new(
