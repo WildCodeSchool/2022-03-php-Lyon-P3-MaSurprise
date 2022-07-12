@@ -27,10 +27,10 @@ class Cake
     private ?string $picture1 = "";
 
     #[ORM\Column(type: 'text')]
-    private string $description;
+    private ?string $description;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private string $allergens;
+    private ?string $allergens;
 
     #[ORM\Column(type: 'float')]
     private float $price;
@@ -49,10 +49,10 @@ class Cake
     private string $category;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private string $ingredients;
+    private ?string $ingredients;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private string $availability = "NR";
+    private ?string $availability = "NR";
 
     public function __construct()
     {
@@ -119,7 +119,7 @@ class Cake
         return $this->description;
     }
 
-    public function setDescription(mixed $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
@@ -131,7 +131,7 @@ class Cake
         return $this->allergens;
     }
 
-    public function setAllergens(mixed $allergens): self
+    public function setAllergens(?string $allergens): self
     {
         $this->allergens = $allergens;
 
@@ -203,7 +203,7 @@ class Cake
         return $this->ingredients;
     }
 
-    public function setIngredients(mixed $ingredients): void
+    public function setIngredients(?string $ingredients): void
     {
         $this->ingredients = $ingredients;
     }
@@ -213,7 +213,7 @@ class Cake
         return $this->availability;
     }
 
-    public function setAvailability(mixed $availability): self
+    public function setAvailability(?string $availability): self
     {
         $this->availability = $availability;
 
