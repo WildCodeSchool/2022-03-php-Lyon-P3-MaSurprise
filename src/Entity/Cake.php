@@ -131,7 +131,7 @@ class Cake
         return $this->allergens;
     }
 
-    public function setAllergens(?string $allergens): self
+    public function setAllergens(string $allergens): self
     {
         $this->allergens = $allergens;
 
@@ -203,7 +203,7 @@ class Cake
         return $this->ingredients;
     }
 
-    public function setIngredients(?string $ingredients): void
+    public function setIngredients(string $ingredients): void
     {
         $this->ingredients = $ingredients;
     }
