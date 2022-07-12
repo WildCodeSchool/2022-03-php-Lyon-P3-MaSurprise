@@ -27,10 +27,10 @@ class Cake
     private ?string $picture1 = "";
 
     #[ORM\Column(type: 'text')]
-    private ?string $description;
+    private string $description;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $allergens;
+    private string $allergens;
 
     #[ORM\Column(type: 'float')]
     private float $price;
@@ -49,7 +49,7 @@ class Cake
     private string $category;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $ingredients;
+    private string $ingredients;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $availability = "NR";
