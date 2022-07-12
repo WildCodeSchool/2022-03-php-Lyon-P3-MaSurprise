@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Address;
+use App\Entity\Order;
 use App\Entity\User;
 use App\Repository\AddressRepository;
 use App\Repository\OrderRepository;
@@ -47,7 +48,7 @@ class CustomerController extends AbstractController
         $userId = $user->getId();
         $orders = $orderRepository->findBy(['buyer' => $userId], ['orderedAt' => 'DESC']);
 
-        return $this->render('customer/orders.html.twig', ['orders' => $orders]);
+        return $this->render('admin/orderslist.html.twig', ['orders' => $orders]);
     }
 
     #[Route('/modifier-mes-infos', name: 'edit')]
@@ -79,5 +80,21 @@ class CustomerController extends AbstractController
         }
 
         return $this->renderForm("customer/edit.html.twig", ['form' => $form]);
+    }
+
+    #[Route('/{id}/annuler-commande', name: 'cancel')]
+    public function cancelOrder(Order $order, OrderRepository $orderRepository, Request $request): Response
+    {
+        $statusRequest = $request->get('status');
+
+        if ($statusRequest == 1) {
+            $order->setOrderStatus('Commande annulée');
+            $orderRepository->add($order, true);
+            $this->addFlash('success', 'Votre commande a bien été annulée.');
+        } else {
+            $this->addFlash('error', 'Vous ne pouvez pas annuler cette commande.');
+        }
+
+        return $this->redirectToRoute('app_customer_orders');
     }
 }
