@@ -57,7 +57,7 @@ class CartController extends AbstractController
 
         if (is_array($datacart) && isset($datacart[0])) {
             $data = $datacart[0];
-            if (isset($data['cake']) && $data['cake'] instanceof Cake) {
+            if ($data['cake'] instanceof Cake) {
                 $bakerIn = $data['cake']->getBaker()->getId();
                 if ($bakerIn !== null) {
                     $cakeAdd = $cakeRepo->find($id);
@@ -65,7 +65,7 @@ class CartController extends AbstractController
                         $getBaker = $cakeAdd->getBaker();
                         if ($getBaker !== null) {
                             $bakerAdd = $getBaker->getId();
-                            if ($bakerIn === $bakerAdd && $bakerAdd != false) {
+                            if ($bakerIn === $bakerAdd) {
                                 $cartService->addCartService($id, $session);
                                 return $this->redirectToRoute("cart_index");
                             } else {
