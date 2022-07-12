@@ -27,10 +27,10 @@ class Cake
     private ?string $picture1 = "";
 
     #[ORM\Column(type: 'text')]
-    private ?string $description;
+    private mixed $description;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $allergens;
+    private mixed $allergens;
 
     #[ORM\Column(type: 'float')]
     private float $price;
@@ -49,7 +49,7 @@ class Cake
     private string $category;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $ingredients;
+    private mixed $ingredients;
 
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $availability = "NR";
@@ -114,24 +114,24 @@ class Cake
         return $this->picture1File;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): mixed
     {
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(mixed $description): self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getAllergens(): ?string
+    public function getAllergens(): mixed
     {
         return $this->allergens;
     }
 
-    public function setAllergens(?string $allergens): self
+    public function setAllergens(mixed $allergens): self
     {
         $this->allergens = $allergens;
 
@@ -198,12 +198,12 @@ class Cake
         return $this;
     }
 
-    public function getIngredients(): ?string
+    public function getIngredients(): mixed
     {
         return $this->ingredients;
     }
 
-    public function setIngredients(?string $ingredients): void
+    public function setIngredients(mixed $ingredients): void
     {
         $this->ingredients = $ingredients;
     }
