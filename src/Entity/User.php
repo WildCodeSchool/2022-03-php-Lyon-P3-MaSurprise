@@ -53,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Baker $baker = null;
 
     #[ORM\OneToMany(mappedBy: 'billingAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
-    private Address $billingAddress;
+    private Collection $billingAddress;
 
     public function __construct()
     {
