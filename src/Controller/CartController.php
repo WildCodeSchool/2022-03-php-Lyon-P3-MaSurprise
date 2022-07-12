@@ -55,11 +55,12 @@ class CartController extends AbstractController
             return $this->redirectToRoute("cart_index");
         }
 
-        if (is_array($datacart) && isset($datacart[0])) {
+        if (isset($datacart[0])) {
             $data = $datacart[0];
             if ($data['cake'] instanceof Cake) {
-                $bakerIn = $data['cake']->getBaker()->getId();
-                if ($bakerIn !== null) {
+                $bakerData = $data['cake']->getBaker();
+                if ($bakerData !== null) {
+                    $bakerIn = $bakerData->getId();
                     $cakeAdd = $cakeRepo->find($id);
                     if ($cakeAdd !== null) {
                         $getBaker = $cakeAdd->getBaker();
