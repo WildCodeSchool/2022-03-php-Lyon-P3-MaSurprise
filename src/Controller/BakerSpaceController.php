@@ -8,6 +8,7 @@ use App\Repository\AddressRepository;
 use App\Repository\CakeRepository;
 use App\Repository\OrderLineRepository;
 use App\Repository\OrderRepository;
+use Symfony\Component\HttpFoundation\Request;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -105,9 +106,11 @@ class BakerSpaceController extends AbstractController
     }
 
     #[Route('/{id}/validation-patissier', name: 'order_validation')]
-    public function bakerOrderValidation(Order $order, OrderRepository $orderRepository): Response
+    public function bakerOrderValidation(Order $order, OrderRepository $orderRepository, Request $request): Response
     {
-        switch ($_POST['status']) {
+        $statusRequest = $request->get('status');
+
+        switch ($statusRequest) {
             case 1:
                 $order->setOrderStatus('Commande créée');
                 break;
