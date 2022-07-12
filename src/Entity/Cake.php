@@ -119,7 +119,7 @@ class Cake
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(mixed $description): self
     {
         $this->description = $description;
 
