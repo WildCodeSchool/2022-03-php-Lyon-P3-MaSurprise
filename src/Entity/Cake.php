@@ -50,6 +50,7 @@ class Cake
 
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $ingredients;
+
     #[ORM\Column(type: 'string', length: 255)]
     private string $availability = "NR";
 
