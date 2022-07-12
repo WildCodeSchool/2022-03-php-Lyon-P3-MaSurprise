@@ -41,26 +41,32 @@ class CartController extends AbstractController
     }
 
     #[Route('/ajouter/{id}', name: 'add')]
-    public function add(CartService $cartService, int $id, SessionInterface $session, Cake $cake): Response
+    public function add(CartService $cartService, int $id, SessionInterface $session, CakeRepository $cakeRepository): Response
     {
+
         $datacart = $session->get("datacart");
         if (empty($datacart)) {
             $cartService->addCartService($id, $session);
             return $this->redirectToRoute("cart_index");
         }
 
-
-        $cakeAdd = $cake->getBaker()->getId();
-        $cakeIn = $datacart[0]['cake']->getBaker()->getId();
-        if ($cakeIn === $cakeAdd && $cakeAdd != false) {
-            $cartService->addCartService($id, $session);
-            return $this->redirectToRoute("cart_index");
-        } else {
-            $this->addFlash(
-                'warning',
-                "Vous ne pouvez pas commander chez deux pâtissiers en même temps, veuillez finaliser votre
+        $bakerIn = $datacart[0]['cake']->getBaker()->getId();
+        $cakeAdd = $cakeRepository->find($id);
+        if ($cakeAdd != false) {
+            $getBaker = $cakeAdd->getBaker();
+            if ($getBaker != false) {
+                $bakerAdd = $getBaker->getId();
+                if ($bakerIn === $bakerAdd && $bakerAdd != false) {
+                    $cartService->addCartService($id, $session);
+                    return $this->redirectToRoute("cart_index");
+                } else {
+                    $this->addFlash(
+                        'warning',
+                        "Vous ne pouvez pas commander chez deux pâtissiers en même temps, veuillez finaliser votre
                 commande pour en passer un autre."
-            );
+                    );
+                }
+            }
         }
         return $this->redirectToRoute('cart_index');
     }
