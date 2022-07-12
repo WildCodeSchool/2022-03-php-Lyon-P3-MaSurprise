@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Cake;
 use App\Repository\CakeRepository;
 use App\Service\CartService;
-use mysql_xdevapi\Warning;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -90,8 +89,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute('cart_index');
     }
 
-    #[
-        Route('/enlever/{id}', name: 'remove')]
+    #[Route('/enlever/{id}', name: 'remove')]
     public function remove(CartService $cartService, int $id, SessionInterface $session): Response
     {
         $cartService->removeCartService($id, $session);
