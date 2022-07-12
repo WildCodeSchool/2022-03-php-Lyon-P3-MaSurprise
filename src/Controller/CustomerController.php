@@ -47,7 +47,7 @@ class CustomerController extends AbstractController
         $userId = $user->getId();
         $orders = $orderRepository->findBy(['buyer' => $userId], ['orderedAt' => 'DESC']);
 
-        return $this->render('customer/orders.html.twig', ['orders' => $orders]);
+        return $this->render('admin/orderslist.html.twig', ['orders' => $orders]);
     }
 
     #[Route('/modifier-mes-infos', name: 'edit')]
