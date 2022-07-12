@@ -44,11 +44,7 @@
                     <div class="collapse mb-3" id="collapseIngredients">
                         <div class="container-fluid card card-body bg-light">
                             <div class="row">
-                                {# TODO: change this #}
-                                {% for i in 1..10 %}
-                                    ingrédient
-                                    {{ i }},
-                                {% endfor %}
+                                {{ cake.ingredients }}
                             </div>
                         </div>
                     </div>

@@ -48,6 +48,9 @@ class Cake
     #[ORM\Column(type: 'string', length: 255)]
     private string $category;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $ingredients;
+
     public function __construct()
     {
         $this->created = new DateTime();
@@ -188,6 +191,18 @@ class Cake
     public function setCategory(string $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getIngredients(): ?string
+    {
+        return $this->ingredients;
+    }
+
+    public function setIngredients(?string $ingredients): self
+    {
+        $this->ingredients = $ingredients;
 
         return $this;
     }
