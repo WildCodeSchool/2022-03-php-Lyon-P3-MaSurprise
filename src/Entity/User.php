@@ -53,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Baker $baker = null;
 
     #[ORM\OneToMany(mappedBy: 'billingAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
-    private ?Collection $billingAddress;
+    private Collection $billingAddress;
 
     public function __construct()
     {
@@ -259,7 +259,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->billingAddress;
     }
 
-    public function addBillingAddress(?Address $billingAddress): self
+    public function addBillingAddress(object $billingAddress): self
     {
         if (!$this->billingAddress->contains($billingAddress)) {
             $this->billingAddress[] = $billingAddress;
