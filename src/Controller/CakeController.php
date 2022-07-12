@@ -124,8 +124,8 @@ class CakeController extends AbstractController
     {
         $cakeUrls = $cake->getPicture1();
         $cakeUrlsArray = explode(',', $cakeUrls);
-        $key = 0;
-        if ($key == array_search($path, $cakeUrlsArray)) {
+        $key = array_search($path, $cakeUrlsArray);
+        if ($key != false) {
             unset($cakeUrlsArray[$key]);
             $cakeUrls = implode(',', $cakeUrlsArray);
             $cake->setPicture1($cakeUrls);
