@@ -7,7 +7,7 @@
 {% block body %}
     <div class="container container-card">
         <div class="row d-flex justify-content-start">
-            <h1 class="title-show text-center col-12 text-primary">Nos gâteaux</h1>
+            <h1 class="title-show text-center col-12">Nos gâteaux</h1>
             <p>
                 <a class="btn btn-secondary text-light" data-bs-toggle="collapse" href="#collapseFilters" role="button"
                    aria-expanded="false" aria-controls="collapseFilters">
@@ -16,86 +16,74 @@
             </p>
             <div class="collapse" id="collapseFilters">
                 <div class="container-fluid card card-body bg-light">
-                    <div class="row">
-                        <div class="col-2">
+                    <div class="row d-flex justify-content-between">
+                        <div>
                             <h4>Rechercher</h4>
                             {{ include('components/_filterform.html.twig') }}
-                        </div>
-                        {#                        FOR TESTING PURPOSES, WILL BE UPDATED #}
-                        <div class="col-2">
-                            <h4>Département</h4>
-                            <select class="form-select">
-                                <option selected>Choisir...</option>
-                                <option value="1">01 - Ain</option>
-                                <option value="2">02 - Aisne</option>
-                                <option value="69">69 - Rhône</option>
-                                <option>etc.</option>
-                            </select>
                         </div>
 
                     </div>
                 </div>
             </div>
+        </div>
 
-            {% for message in app.flashes('warning') %}
-                <div class="flash-warning">
-                    <h3 class="text-primary">{{ message }}</h3>
-                </div>
-            {% endfor %}
+        {% for message in app.flashes('notice') %}
+            <div class="flash-notice">
+                <h2 class="text-primary">{{ message }}</h2>
+            </div>
+        {% endfor %}
 
-            {% if errorForm != 1 and search != "" %}
-                <p>{{ cakes|length }}
-                    résultats correspondant à "{{ search }}"</p>
-            {% else %}
-                <p>{{ cakes|length }}
-                    gâteaux</p>
-            {% endif %}
+        {% if search and not app.flashes('notice') %}
+            <p>{{ cakes|length }}
+                résultats correspondant à "{{ search }}"</p>
+        {% else %}
+            <p>{{ cakes|length }}
+                gâteaux</p>
+        {% endif %}
 
-            <div id="cake-list" class="container-fluid container-lg">
-                <div class="row justify-content-center">
-                    {% for cake in cakes %}
-                        <div class="cake-card col-6 col-md-4 d-flex flex-column  p-2 p-lg-4">
-                            <a href="{{ path('app_cake_show', {'id': cake.id}) }}">
-                                <img class="cake-img img-fluid cake-index-pics"
-                                    {% for picture in cake.picture1|split(',')|slice(0,1) %}
-                                        src="/uploads/cakes/{{ picture }}"
-                                    {% endfor %}
-                                     alt="{{ cake.name }}">
+        <div id="cake-list" class="container-fluid container-lg">
+            <div class="row justify-content-center">
+                {% for cake in cakes %}
+                    <div class="cake-card col-6 col-md-4 d-flex flex-column  p-2 p-lg-4">
+                        <a href="{{ path('app_cake_show', {'id': cake.id}) }}">
+                            <img class="cake-img img-fluid cake-index-pics"
+                                {% for picture in cake.picture1|split(',')|slice(0,1) %}
+                                    src="/uploads/cakes/{{ picture }}"
+                                {% endfor %}
+                                 alt="{{ cake.name }}">
+                        </a>
+                        <div class="mt-2">
+                            <a class="text-decoration-none" href="{{ path('app_cake_show', {'id': cake.id}) }}">
+                                <h1 class="cake-name text-decoration-none m-0 text-primary">{{ cake.name }}</h1>
                             </a>
-                            <div class="mt-2">
-                                <a class="text-decoration-none" href="{{ path('app_cake_show', {'id': cake.id}) }}">
-                                    <h1 class="cake-name text-decoration-none m-0 text-primary">{{ cake.name }}</h1>
+                        </div>
+                        <div class="cake-price-rev m-0 p-0 d-flex flex-row justify-content-between">
+                            <p class="m-0">Type : {{ cake.category }}</p>
+                        </div>
+                        <div class="cake-price-rev m-0 p-0 d-flex flex-row justify-content-between">
+                            <p class="cake-disponibility m-0">Disponible dans {{ cake.availability }}</p>
+                            <p class="cake-price fw-bolder m-0">{{ cake.price|format_currency('EUR', locale='de') }}</p>
+                        </div>
+                        <div class="d-flex align-items-baseline mt-1 p-0 justify-content-between">
+                            <div class="d-flex gap-2 align-items-baseline">
+                                <img src="{{ asset('build/images/icons/hat.png') }}" class="hat img-fluid w-auto"
+                                     alt="cake img">
+                                {# TODO: is it the best way to do this? probably not #}
+                                <a href="/patissier/{{ cake.baker.id }}" style="text-decoration: none;">
+                                    <h5 class="baker-name text-start opacity-50">
+                                        {{ cake.baker.user.firstname }} {{ cake.baker.user.lastname|slice(0, 1) }}.
+                                    </h5>
                                 </a>
                             </div>
-                            <div class="cake-price-rev m-0 p-0 d-flex flex-row justify-content-between">
-                                <p class="m-0">Type : {{ cake.category }}</p>
-                            </div>
-                            <div class="cake-price-rev m-0 p-0 d-flex flex-row justify-content-between">
-                                <p class="cake-disponibility m-0">Disponible dans
-                                    {{ random(3, 10) }}
-                                    jours</p>
-                                <p class="cake-price fw-bolder m-0">{{ cake.price|format_currency('EUR', locale='de') }}</p>
-                            </div>
-                            <div class="d-flex align-items-baseline mt-1 p-0 justify-content-between">
-                                <div class="d-flex gap-2">
-                                    <img src="{{ asset('build/images/icons/hat.png') }}" class="hat img-fluid w-auto"
-                                         alt="cake img">
-                                    {# TODO: is it the best way to do this? probably not #}
-                                    <a href="/patissier/{{ cake.baker.id }}" style="text-decoration: none;">
-                                        <h5 class="baker-name text-start opacity-50">
-                                            {{ cake.baker.user.firstname }} {{ cake.baker.user.lastname|slice(0, 1) }}.
-                                        </h5>
-                                    </a>
-                                </div>
-                                <div>
-                                    <p class="m-0">{{ cake.baker.deliveryAddress.city }}
-                                        ({{ cake.baker.deliveryAddress.department.number }})</p>
-                                </div>
+                            <div>
+                                <p class="m-0">{{ cake.baker.deliveryAddress.city }}
+                                    ({{ cake.baker.deliveryAddress.department.number }})</p>
                             </div>
                         </div>
-                    {% endfor %}
-                </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
+    </div>
     </div>
 {% endblock %}

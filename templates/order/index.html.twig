@@ -48,19 +48,34 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <form action="" method=POST>
-                                        <label for="meeting-time"><h2 class="pt-5">Dâte et heure :</h2></label>
-                                        <li class="list-group-item meeting d-flex flex-row justify-content-between">
-                                            <input type="datetime-local" id="meeting-time"
-                                                   name="meeting-time" required="required" value="{{ dateorder }}">
-                                            <button type="submit" class="btn btn-secondary btn-lg text-white">
-                                                valider
-                                            </button>
-                                        </li>
+                                    <h2 class="pt-5">Click & Collect</h2>
+                                    {% for category, messages in app.flashes %}
+                                        {% for message in messages %}
+                                            <div class="alert alert-{{ category }}">
+                                                {{ message }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+                                    <p class="mb-0">Délai(s) minimum indiqué(s) par le pâtissier :</p>
+                                    <ul>
+                                        {% for data in datacart %}
+                                            <li>{{ data.cake.availability }} ({{ data.cake.name }})</li>
+                                        {% endfor %}
+                                    </ul>
+                                    <form
+                                        action=""
+                                        method=POST
+                                        class="list-group-item meeting d-flex flex-row justify-content-between">
+                                        <input type="datetime-local" id="meeting-time"
+                                               name="meeting-time" required="required" value="{{ dateorder }}">
+                                        <button type="submit" class="btn btn-secondary btn-lg text-white">
+                                            Valider la date
+                                        </button>
                                     </form>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-4 col-12 bg-white m-2 p-4 rounded">
                             <div class="container">
                                 <div class="row">
@@ -92,6 +107,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="row">
                         <div
                             class="col-12 d-flex flex-column-reverse justify-content-center align-items-center mt-5 mb-5 gap-3">

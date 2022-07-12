@@ -34,6 +34,7 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('baker_form', './assets/scripts/bakerform.js')
     .addEntry('dropzone', './assets/scripts/dropzone.js')
+    .addEntry('dropzoneupdate', './assets/scripts/dropzoneupdate.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

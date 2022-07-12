@@ -6,8 +6,8 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BakerRepository;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -31,9 +31,6 @@ class Baker
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $bakerType;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $services;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $siret = "";
@@ -173,18 +170,6 @@ class Baker
     public function setBakerType(string $bakerType): self
     {
         $this->bakerType = $bakerType;
-
-        return $this;
-    }
-
-    public function getServices(): ?string
-    {
-        return $this->services;
-    }
-
-    public function setServices(?string $services): self
-    {
-        $this->services = $services;
 
         return $this;
     }

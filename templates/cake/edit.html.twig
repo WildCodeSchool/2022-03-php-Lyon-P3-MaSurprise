@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier votre pâtisserie - {{ parent() }}{% endblock %}
+{% block title %}Modifier votre pâtisserie -
+    {{ parent() }}
+{% endblock %}
 
 {% block body %}
-    <h1 class="text-primary text-center">Modifier votre pâtisserie</h1>
-
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-6">
@@ -13,28 +13,48 @@
                         <img src="/uploads/cakes/{{ picture }}" class="img-fluid m-1">
                     {% endfor %}
                 </div>
+
             </div>
             <div class="col-6">
-                {{ form_start(form) }}
+                {{ form_start(form, {
+                    "attr": {
+                        "id":"dropzoneUpdate",
+                        "class": ""
+                    }
+                }) }}
                 {{ form_widget(form) }}
+                <div class="d-flex flex-column mt-4 align-items-center">
+                    <div class="dz-message dz-button btn btn-secondary text-white" data-dz-message>
+                        <span>Ajouter de nouvelles photos</span>
+                    </div>
+                    <div class="files" id="previews">{% include "cake/_previewdropzone.html.twig" %}</div>
+                </div>
+
                 <div class="d-flex flex-column justify-content-center">
-                    <button class="btn btn-secondary text-white p-2">
+                    <button class="btn btn-secondary text-white p-2 m-1" id="updateButton">
                         {{ button_label|default('Modifier l\'anonce') }}
                     </button>
                     {{ include('cake/_delete_form.html.twig') }}
-                    <button class="btn btn-secondary text-white p-2">
+                    <a
                         {% if is_granted("ROLE_ADMIN") %}
-                            <a href="{{ path('app_admin_cakes') }}">
+                            href="{{ path('app_admin_cakes') }}"
+                        {% else %}
+                            href="{{ path('app_bakerspace_cakes') }}"
                         {% endif %}
-                        {% if is_granted("ROLE_BAKER") %} {# modify the route when the baker space will be done #}
-                            <a href="{{ path('app_cake_index') }}">
-                        {% endif %}
-                        Retour à la liste des gâteaux</a>
-                    </button>
+                    >
+                        <button class="btn btn-secondary text-white p-2 m-3">Retour à la liste des gâteaux</button>
+                    </a>
                 </div>
+                {# the cakeId is necessary in the dropezoneupdate.js file to find the right route in the controller #}
+                <p class="d-none" name="id" id="cakeId">{{ cake.id }}</p>
                 {{ form_end(form) }}
             </div>
         </div>
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dropzoneupdate') }}
 {% endblock %}
