@@ -30,7 +30,7 @@
                 <div class="d-flex gap-4 mt-3 mb-4 align-items-center">
                     <p class="fs-3 mb-0">{{ cake.price|format_currency('EUR', locale='de') }}</p>
                     <a id="addToCart"
-                       href="{{ path('cart_add', {'id': cake.id}) }}">
+                       href="{{ path('cart_add', {'id': cake.id, 'baker': cake.baker.id}) }}">
                         <button class="btn btn-primary btn-lg">
                             Ajouter au panier
                         </button>
