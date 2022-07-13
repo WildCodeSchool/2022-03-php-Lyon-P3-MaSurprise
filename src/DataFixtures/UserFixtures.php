@@ -83,7 +83,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setEmail("customer@customer.com");
         $user->setPhone($faker->phoneNumber());
         if ($this->getReference('billingAddress_20') instanceof Address) {
-            $user->addBillingAddress($this->getReference('billingAddress_50'));
+            $user->addBillingAddress($this->getReference('billingAddress_20'));
         }
         $user->setRoles(['ROLE_CUSTOMER']);
         $hashedPassword = $this->passwordHasher->hashPassword(
