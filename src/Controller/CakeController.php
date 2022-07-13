@@ -19,7 +19,6 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\EventListener\ResponseListener;
 
 #[Route('/gateau', name: 'app_cake_')]
 class CakeController extends AbstractController
@@ -45,7 +44,11 @@ class CakeController extends AbstractController
             // some bricolage to please phpcs
             if (is_array($searchRequest)) {
                 $search = $searchRequest['search'];
-                $department = $searchRequest['department'];
+
+                // for homepage buttons (which don't take departments into account)
+                if (isset($searchRequest['department'])) {
+                    $department = $searchRequest['department'];
+                }
             }
         }
         // calling the CakeSearchService
@@ -156,9 +159,9 @@ class CakeController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $cakeRepository->add($cake, true);
-             // put the id in session is use to connect url pictures to the right cake
-             $session = $requestStack->getSession();
-             $session->set('updatedCakeId', $cake->getId());
+            // put the id in session is use to connect url pictures to the right cake
+            $session = $requestStack->getSession();
+            $session->set('updatedCakeId', $cake->getId());
         }
 
         return $this->renderForm('cake/edit.html.twig', [
@@ -176,7 +179,6 @@ class CakeController extends AbstractController
         RequestStack $requestStack,
         CakeRepository $cakeRepository
     ): Response {
-
         $session = $requestStack->getSession();
         $updatedCakeId = $session->get('updatedCakeId');
 
