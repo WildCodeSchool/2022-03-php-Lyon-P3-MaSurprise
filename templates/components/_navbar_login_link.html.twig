@@ -1,10 +1,10 @@
 {% if app.user %}
-    {% if is_granted('ROLE_CUSTOMER') %}
+    {% if is_granted('ROLE_CUSTOMER') and not is_granted('ROLE_ADMIN') %}
         <a type="button" class="text-primary nav-link"
            href="{{ path('app_customer_index') }}">Mon espace
         </a>
     {% endif %}
-    {% if is_granted('ROLE_BAKER') %}
+    {% if is_granted('ROLE_BAKER') and not is_granted('ROLE_ADMIN') %}
         <a type="button" class="text-primary nav-link"
            href="{{ path('app_bakerspace_index') }}">Mon espace
         </a>
