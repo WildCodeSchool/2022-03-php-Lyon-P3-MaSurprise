@@ -24,8 +24,9 @@
             {{ include('components/_navbar_login_link.html.twig') }}
         </div>
 
-        {{ include('components/_navbar_cart_button.html.twig') }}
-
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CUSTOMER') or not is_granted('IS_AUTHENTICATED_FULLY') %}
+            {{ include('components/_navbar_cart_button.html.twig') }}
+        {% endif %}
     </div>
 </nav>
 

@@ -29,12 +29,14 @@
                 <h5 class="m-0 mb-4">Taille : {{ cake.size }}</h5>
                 <div class="d-flex gap-4 mt-3 mb-4 align-items-center">
                     <p class="fs-3 mb-0">{{ cake.price|format_currency('EUR', locale='de') }}</p>
-                    <a id="addToCart"
-                       href="{{ path('cart_add', {'id': cake.id, 'baker': cake.baker.id}) }}">
-                        <button class="btn btn-primary btn-lg">
-                            Ajouter au panier
-                        </button>
-                    </a>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CUSTOMER') or not is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a id="addToCart"
+                           href="{{ path('cart_add', {'id': cake.id, 'baker': cake.baker.id}) }}">
+                            <button class="btn btn-primary btn-lg">
+                                Ajouter au panier
+                            </button>
+                        </a>
+                    {% endif %}
                 </div>
                 <p class="mt-2 cake-description">{{ cake.description }}</p>
                 <p class="">{{ cake.baker.deliveryAddress.city }}
