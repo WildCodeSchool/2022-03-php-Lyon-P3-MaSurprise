@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -42,7 +44,11 @@ class CakeController extends AbstractController
             // some bricolage to please phpcs
             if (is_array($searchRequest)) {
                 $search = $searchRequest['search'];
-                $department = $searchRequest['department'];
+
+                // for homepage buttons (which don't take departments into account)
+                if (isset($searchRequest['department'])) {
+                    $department = $searchRequest['department'];
+                }
             }
         }
         // calling the CakeSearchService
@@ -116,6 +122,32 @@ class CakeController extends AbstractController
         return $this->redirectToRoute('app_cake_index');
     }
 
+    // this route is used to delete pictures in edit cake form
+    #[Route('/{id}/{path}/delete-files', name: 'deletefiles')]
+    public function deleteFiles(Cake $cake, string $path, CakeRepository $cakeRepository): Response
+    {
+        $cakeUrls = $cake->getPicture1();
+        if (is_string($cakeUrls)) {
+            $cakeUrlsArray = explode(',', $cakeUrls);
+            $key = array_search($path, $cakeUrlsArray);
+            if ($key != false) {
+                unset($cakeUrlsArray[$key]);
+                $cakeUrls = implode(',', $cakeUrlsArray);
+                $cake->setPicture1($cakeUrls);
+                $cakeRepository->add($cake, true);
+            }
+        };
+        $finder = new Finder();
+        $finder->files()->in('../public/uploads/cakes');
+        $filesystem = new Filesystem();
+        foreach ($finder as $file) {
+            if ($file->getFilename() == $path) {
+                $filesystem->remove($file);
+            }
+        }
+        return $this->redirectToRoute('app_cake_edit', array('id' => $cake->getId()));
+    }
+
     #[Route('/{id}/modifier', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(
         Cake $cake,
@@ -127,9 +159,9 @@ class CakeController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $cakeRepository->add($cake, true);
-             // put the id in session is use to connect url pictures to the right cake
-             $session = $requestStack->getSession();
-             $session->set('updatedCakeId', $cake->getId());
+            // put the id in session is use to connect url pictures to the right cake
+            $session = $requestStack->getSession();
+            $session->set('updatedCakeId', $cake->getId());
         }
 
         return $this->renderForm('cake/edit.html.twig', [
@@ -147,7 +179,6 @@ class CakeController extends AbstractController
         RequestStack $requestStack,
         CakeRepository $cakeRepository
     ): Response {
-
         $session = $requestStack->getSession();
         $updatedCakeId = $session->get('updatedCakeId');
 

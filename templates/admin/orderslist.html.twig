@@ -39,8 +39,9 @@
                             <div class="col-12">
                                 <div class="card m-2">
                                     <div class="card-header">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <h5 class="card-text {% if order.orderStatus == "Commande annulée" %}text-red{% endif %}">
+                                        <div
+                                            class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                                            <h5 class="card-text mb-0 {% if order.orderStatus == "Commande annulée" %}text-red{% endif %}">
                                                 Le {{ order.orderedAt|date("d/m/Y") }}
                                                 à {{ order.orderedAt|date("H:i:s") }}
                                             </h5>
@@ -52,34 +53,40 @@
                                     <div class="card-body container">
 
                                         {% if is_granted('ROLE_BAKER') %}
-                                            <div class="row d-flex align-items-center justify-content-end">
-                                                <div class="col-3">
-                                                    <p class="card-text">Changer le statut de la commande : </p>
-                                                </div>
-                                                <div class="col-4">
-                                                    <form
-                                                        action="{{ path("app_bakerspace_order_validation", {
-                                                            id: order.id
-                                                        }) }}"
-                                                        method="post"
-                                                        class="input-group">
-                                                        <select
-                                                            name="status"
-                                                            class="form-select"
-                                                            aria-label="Status selector">
-                                                            <option selected>Statut...</option>
-                                                            <option value="1">Commande créée</option>
-                                                            <option value="2">Commande validée</option>
-                                                            <option value="3">Commande en préparation</option>
-                                                            <option value="4">Commande disponible en retrait</option>
-                                                            <option value="5">Commande retirée</option>
-                                                            <option value="6">Commande terminée</option>
-                                                            <option value="7">Commande annulée</option>
-                                                        </select>
-                                                        <button type="submit" class="btn btn-secondary text-white">
-                                                            Valider
-                                                        </button>
-                                                    </form>
+                                            <div class="row">
+                                                <div
+                                                    class="d-flex align-items-center justify-content-end gap-3 flex-column flex-md-row">
+                                                    <div class="col-12 col-md-6">
+                                                        <p class="card-text text-center text-md-end">Changer le statut
+                                                            de la commande
+                                                            : </p>
+                                                    </div>
+                                                    <div class="col-12 col-md-5">
+                                                        <form
+                                                            action="{{ path("app_bakerspace_order_validation", {
+                                                                id: order.id
+                                                            }) }}"
+                                                            method="post"
+                                                            class="input-group">
+                                                            <select
+                                                                name="status"
+                                                                class="form-select"
+                                                                aria-label="Status selector">
+                                                                <option selected>Statut...</option>
+                                                                <option value="1">Commande créée</option>
+                                                                <option value="2">Commande validée</option>
+                                                                <option value="3">Commande en préparation</option>
+                                                                <option value="4">Commande disponible en retrait
+                                                                </option>
+                                                                <option value="5">Commande retirée</option>
+                                                                <option value="6">Commande terminée</option>
+                                                                <option value="7">Commande annulée</option>
+                                                            </select>
+                                                            <button type="submit" class="btn btn-secondary text-white">
+                                                                Valider
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                                 <hr class="mt-3">
                                             </div>
@@ -87,18 +94,17 @@
 
                                         {% if is_granted('ROLE_CUSTOMER') and not is_granted('ROLE_ADMIN') %}
                                             {% if order.orderStatus is same as "Commande créée" %}
-                                                <div class="row d-flex align-items-center justify-content-end">
-                                                    <div class="col-3">
-                                                        <p class="card-text">Changer le statut de la commande : </p>
-                                                    </div>
-                                                    <div class="col-4">
+                                                <div class="row d-flex align-items-center justify-content-center">
+                                                    <div
+                                                        class="col-12 d-flex justify-content-md-end justify-content-center">
                                                         <form
                                                             action="{{ path('app_customer_cancel', {
                                                                 id: order.id
                                                             }) }}"
                                                             method="post">
                                                             <button type="submit" name="status" value="1"
-                                                                    class="btn btn-primary text-white">Annuler ma
+                                                                    class="btn btn-primary text-white">
+                                                                Annuler ma
                                                                 commande
                                                             </button>
                                                         </form>
@@ -108,22 +114,25 @@
                                             {% endif %}
                                         {% endif %}
 
-                                        <div class="row">
+                                        <div class="row d-flex flex-column flex-md-row">
                                             {% for cakes in order.orderLines %}
                                                 <h5 class="card-title col-6">{{ cakes.cakeName }}</h5>
-                                                <p class="card-text col-2">{{ cakes.cakeSize }}</p>
-                                                <p class="card-text col-2">x{{ cakes.quantity }}</p>
-                                                <p class="card-text col-2 text-end">{{ cakes.cakePrice|format_currency('EUR', locale='de') }}</p>
-                                                <hr>
+                                                <div class="col-12 col-md-6 d-flex">
+                                                    <p class="card-text col-4">{{ cakes.cakeSize }}</p>
+                                                    <p class="card-text col-4 text-center">x{{ cakes.quantity }}</p>
+                                                    <p class="card-text col-4 text-end">{{ cakes.cakePrice|format_currency('EUR', locale='de') }}</p>
+                                                    <hr>
+                                                </div>
                                             {% endfor %}
                                         </div>
 
-                                        <div class="row d-flex justify-content-between">
+                                        <div class="row d-flex justify-content-between flex-column-reverse flex-md-row">
                                             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CUSTOMER') %}
                                                 {% for cakes in order.orderLines %}
                                                     {% if loop.index == 1 %} {# this if won't be necessary anymore when the order will have only one baker #}
                                                         <div class="col-xs-12 col-md-4">
-                                                            <h5 class="card-title text-center pt-1">Pâtissier</h5>
+                                                            <h5 class="card-title text-center mt-3 mt-md-0">
+                                                                Pâtissier</h5>
                                                             <p class="card-text text-center mb-0">
                                                                 {% if is_granted('ROLE_ADMIN') %}
                                                                     {{ cakes.seller.firstname }} {{ cakes.seller.lastname }}
@@ -157,7 +166,7 @@
                                             {% endif %}
                                             {% if is_granted('ROLE_ADMIN') %}
                                                 <div class="col-xs-12 col-md-4">
-                                                    <h5 class="card-title text-center pt-1">Client</h5>
+                                                    <h5 class="card-title text-center mt-3 mt-md-0">Client</h5>
                                                     <p class="card-text text-center mb-0">
                                                         {{ order.buyer.firstname }} {{ order.buyer.lastname }}
                                                     </p>
@@ -170,15 +179,15 @@
                                                 </div>
                                             {% endif %}
                                             <div class="col-xs-12 col-md-4">
-                                                <h5 class="card-title text-end pt-1">
+                                                <h5 class="card-title text-end pt-1 text-center text-md-end">
                                                     Total
                                                     : {{ order.total|format_currency('EUR', locale='de') }}
                                                 </h5>
-                                                <p class="card-text text-end mb-0">
+                                                <p class="card-text text-end mb-0 text-center text-md-end">
                                                     Date de collecte :
                                                     {{ order.collectDate|date("d/m/Y") }}
                                                 </p>
-                                                <p class="card-text text-end">
+                                                <p class="card-text text-end text-center text-md-end">
                                                     Commande N°
                                                     {{ order.number }}
                                                 </p>

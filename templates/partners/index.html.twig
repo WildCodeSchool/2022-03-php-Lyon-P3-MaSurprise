@@ -3,36 +3,35 @@
 {% block title %}Partenaires - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
+    <div class="container p-4">
         <div class="row d-flex flex-column align-items-center">
-            <h1 class="text-primary text-center">Espace partenaires</h1>
-            <h2 class="text-secondary text-center">Passionné(e)s ou professionnel(le)s</h2>
-            <div class="col-lg-6 col-12 d-flex flex-column align-items-center mt-5">
-                <div>
-                    <h3 class="text-primary">Pour un complément de revenus, un lancement d'activité ou pour augmenter
-                        votre chiffre d'affaires :</h3>
-                    <p class="">MyCake Event vous permet de mettre en œuvre votre savoir-faire sans vous soucier du
-                        marketing, du
-                        paiement et des rendez-vous client. On met à votre disposition un espace partenaire avec une
-                        boutique en ligne spécifique à votre activité, que ce soit pour de la vente de gâteau, pour
-                        proposer vos ateliers ou même pour faire de la formation.</p>
-                </div>
-                <div>
-                    <h3 class="text-primary mt-4">Ce que nous proposons :</h3>
-                    <ul>
-                        <li>Une interface flexible et compréhensive</li>
-                        <li>Gestion personnelle de votre catalogue</li>
-                        <li>Gestion de disponibilités</li>
-                        <li>Recevez votre virement une fois la commande réalisée</li>
-                    </ul>
-                </div>
-                <div class="d-flex flex-column align-items-center">
-                    <h3 class="text-primary mt-4 mb-5 text-center">Si vous êtes intéressé(e), inscrivez-vous et l'un de
-                        nos responsables prendra contact avec vous rapidement.</h3>
-                    <a href="{{ path("app_register_baker") }}" class="mb-5">
-                        <button class="btn btn-lg btn-secondary text-white">Créer un compte !</button>
-                    </a>
-                </div>
+            <h1 class="text-primary text-center m-0 mb-3">Espace partenaires</h1>
+            <h2 class="text-secondary text-center m-0 mb-5">Passionné(e)s ou professionnel(le)s</h2>
+            <div class="col-lg-7 col-12 align-self-md-start">
+                <h3 class="text-primary m-0 mb-3">Pour un complément de revenus, un lancement d'activité ou pour
+                    augmenter
+                    votre chiffre d'affaires :</h3>
+                <p class="">MyCake Event vous permet de mettre en œuvre votre savoir-faire sans vous soucier du
+                    marketing, du
+                    paiement et des rendez-vous client. On met à votre disposition un espace partenaire avec une
+                    boutique en ligne spécifique à votre activité, que ce soit pour de la vente de gâteau, pour
+                    proposer vos ateliers ou même pour faire de la formation.</p>
+            </div>
+            <div class="col-md-7 col-12 align-self-md-end">
+                <h3 class="text-primary m-0 mt-4 mb-3">Ce que nous proposons :</h3>
+                <ul>
+                    <li>Une interface flexible et compréhensive</li>
+                    <li>Gestion personnelle de votre catalogue</li>
+                    <li>Gestion de disponibilités</li>
+                    <li>Recevez votre virement une fois la commande réalisée</li>
+                </ul>
+            </div>
+            <div class="col-md-6 col-12 d-flex flex-column align-items-center">
+                <h3 class="text-primary mt-4 mb-5 text-center m-0">Si vous êtes intéressé(e), inscrivez-vous et l'un de
+                    nos responsables prendra contact avec vous rapidement.</h3>
+                <a href="{{ path("app_register_baker") }}" class="mb-5">
+                    <button class="btn btn-lg btn-secondary text-white">Créer un compte !</button>
+                </a>
             </div>
         </div>
     </div>
