@@ -42,24 +42,21 @@
 
                 <p>Disponibilité : {{ cake.availability }}</p>
 
-                <a data-bs-toggle="collapse"
-                   href="#collapseIngredients" role="button" aria-expanded="false"
-                   aria-controls="collapseIngredients">
-                    <button class="btn btn-secondary text-white mb-2">
-                        Ingrédients et saveurs
-                    </button>
-                </a>
-                <div class="collapse mb-3" id="collapseIngredients">
-                    <div class="container-fluid card card-body bg-light">
-                        <div class="row">
-                            {# TODO: change this #}
-                            {% for i in 1..10 %}
-                                ingrédient
-                                {{ i }},
-                            {% endfor %}
+                    <p>
+                        <a class="btn btn-secondary text-white" data-bs-toggle="collapse"
+                           href="#collapseIngredients" role="button" aria-expanded="false"
+                           aria-controls="collapseIngredients">
+                            Ingrédients et saveurs
+                        </a>
+                    </p>
+                    <div class="collapse mb-3" id="collapseIngredients">
+                        <div class="container-fluid card card-body bg-light">
+                            <div class="row">
+                                {{ cake.ingredients }}
+                            </div>
                         </div>
                     </div>
-                </div>
+                
 
                 <a data-bs-toggle="collapse"
                    href="#collapseAllergens" role="button" aria-expanded="false"
@@ -72,6 +69,7 @@
                             {{ cake.allergens }}
                         </div>
                     </div>
+                </div>
                 </div>
 
             </div>

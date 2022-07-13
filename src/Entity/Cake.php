@@ -48,8 +48,11 @@ class Cake
     #[ORM\Column(type: 'string', length: 255)]
     private string $category;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $ingredients;
+
     #[ORM\Column(type: 'string', length: 255)]
-    private string $availability = "NR";
+    private ?string $availability = "NR";
 
     public function __construct()
     {
@@ -116,7 +119,7 @@ class Cake
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
@@ -195,12 +198,22 @@ class Cake
         return $this;
     }
 
+    public function getIngredients(): ?string
+    {
+        return $this->ingredients;
+    }
+
+    public function setIngredients(?string $ingredients): void
+    {
+        $this->ingredients = $ingredients;
+    }
+
     public function getAvailability(): ?string
     {
         return $this->availability;
     }
 
-    public function setAvailability(string $availability): self
+    public function setAvailability(?string $availability): self
     {
         $this->availability = $availability;
 
