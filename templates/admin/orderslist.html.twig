@@ -121,9 +121,9 @@
                                                     <p class="card-text col-4">{{ cakes.cakeSize }}</p>
                                                     <p class="card-text col-4 text-center">x{{ cakes.quantity }}</p>
                                                     <p class="card-text col-4 text-end">{{ cakes.cakePrice|format_currency('EUR', locale='de') }}</p>
-                                                    <hr>
                                                 </div>
                                             {% endfor %}
+                                            <hr>
                                         </div>
 
                                         <div class="row d-flex justify-content-between flex-column-reverse flex-md-row">
