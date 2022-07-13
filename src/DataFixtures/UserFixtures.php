@@ -71,7 +71,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 "password"
             );
             $user->setPassword($hashedPassword);
-
             $this->addReference('seller_' . $i, $user);
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);
