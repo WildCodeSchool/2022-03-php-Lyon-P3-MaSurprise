@@ -7,7 +7,7 @@
 {% block body %}
     <div class="container container-card">
         <div class="row d-flex justify-content-start">
-            <h1 class="title-show text-center col-12">Nos gâteaux</h1>
+            <h1 class="title-show text-center col-12 text-primary mb-5">Nos gâteaux</h1>
             <p>
                 <a class="btn btn-secondary text-light" data-bs-toggle="collapse" href="#collapseFilters" role="button"
                    aria-expanded="false" aria-controls="collapseFilters">
@@ -15,13 +15,11 @@
                 </a>
             </p>
             <div class="collapse" id="collapseFilters">
-                <div class="container-fluid card card-body bg-light">
+                <div class="container card card-body bg-light">
                     <div class="row d-flex justify-content-between">
-                        <div>
-                            <h4>Rechercher</h4>
+                        <div class="col-xl-6 col-lg-8 col-12">
                             {{ include('components/_filterform.html.twig') }}
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -41,7 +39,7 @@
                 gâteaux</p>
         {% endif %}
 
-        <div id="cake-list" class="container-fluid container-lg">
+        <div id="cake-list" class="container container-lg">
             <div class="row justify-content-center">
                 {% for cake in cakes %}
                     <div class="cake-card col-6 col-md-4 d-flex flex-column  p-2 p-lg-4">
@@ -58,13 +56,14 @@
                             </a>
                         </div>
                         <div class="cake-price-rev m-0 p-0 d-flex flex-row justify-content-between">
-                            <p class="m-0">Type : {{ cake.category }}</p>
+                            <p class="m-0 text-secondary">Type : {{ cake.category }}</p>
                         </div>
-                        <div class="cake-price-rev m-0 p-0 d-flex flex-row justify-content-between">
+                        <div class="cake-price-rev m-0 p-0 d-flex flex-lg-row flex-column justify-content-between">
                             <p class="cake-disponibility m-0">Disponible dans {{ cake.availability }}</p>
                             <p class="cake-price fw-bolder m-0">{{ cake.price|format_currency('EUR', locale='de') }}</p>
                         </div>
-                        <div class="d-flex align-items-baseline mt-1 p-0 justify-content-between">
+                        <div
+                            class="d-flex flex-column flex-sm-row align-items-baseline mt-1 p-0 justify-content-between">
                             <div class="d-flex gap-2 align-items-baseline">
                                 <img src="{{ asset('build/images/icons/hat.png') }}" class="hat img-fluid w-auto"
                                      alt="cake img">
