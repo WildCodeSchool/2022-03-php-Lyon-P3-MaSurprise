@@ -40,7 +40,6 @@
                 <p class="">{{ cake.baker.deliveryAddress.city }}
                     ({{ cake.baker.deliveryAddress.department.number }})</p>
 
-                {# TODO: change this #}
                 <p>Disponibilité : {{ cake.availability }}</p>
 
                 <a data-bs-toggle="collapse"
@@ -78,13 +77,14 @@
             </div>
         </div>
     </div>
-    <div class="container baker-description m-5">
+    <div class="container baker-description p-5">
         <div class="baker-row row d-flex flex-row justify-content-center">
 
             <div class="col-md-3 col-6 border-end d-flex flex-column align-items-center">
                 {# TODO: is it the best way to do this? probably not #}
                 <a href="/patissier/{{ cake.baker.id }}" style="text-decoration: none;">
-                    <img class="comment-img m-4" src="https://i.pravatar.cc/" alt="L'avatar du pâtissier">
+                    <img class="comment-img m-4" src="/uploads/bakers/{{ cake.baker.profilePicture }}"
+                         alt="L'avatar du pâtissier">
                     <div class="d-flex flex-column justify-content-center">
                         <h3 class="font-weight-bold m-0 text-center text-primary">
                             {{ cake.baker.user.firstname }}
