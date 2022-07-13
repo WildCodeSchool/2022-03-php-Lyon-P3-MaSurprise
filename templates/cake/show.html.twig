@@ -30,7 +30,7 @@
                 <div class="d-flex gap-4 mt-3 mb-4 align-items-center">
                     <p class="fs-3 mb-0">{{ cake.price|format_currency('EUR', locale='de') }}</p>
                     <a id="addToCart"
-                       href="{{ path('cart_add', {'id': cake.id}) }}">
+                       href="{{ path('cart_add', {'id': cake.id, 'baker': cake.baker.id}) }}">
                         <button class="btn btn-primary btn-lg">
                             Ajouter au panier
                         </button>
@@ -40,27 +40,23 @@
                 <p class="">{{ cake.baker.deliveryAddress.city }}
                     ({{ cake.baker.deliveryAddress.department.number }})</p>
 
-                {# TODO: change this #}
                 <p>Disponibilité : {{ cake.availability }}</p>
 
-                <a data-bs-toggle="collapse"
-                   href="#collapseIngredients" role="button" aria-expanded="false"
-                   aria-controls="collapseIngredients">
-                    <button class="btn btn-secondary text-white mb-2">
-                        Ingrédients et saveurs
-                    </button>
-                </a>
-                <div class="collapse mb-3" id="collapseIngredients">
-                    <div class="container-fluid card card-body bg-light">
-                        <div class="row">
-                            {# TODO: change this #}
-                            {% for i in 1..10 %}
-                                ingrédient
-                                {{ i }},
-                            {% endfor %}
+                    <p>
+                        <a class="btn btn-secondary text-white" data-bs-toggle="collapse"
+                           href="#collapseIngredients" role="button" aria-expanded="false"
+                           aria-controls="collapseIngredients">
+                            Ingrédients et saveurs
+                        </a>
+                    </p>
+                    <div class="collapse mb-3" id="collapseIngredients">
+                        <div class="container-fluid card card-body bg-light">
+                            <div class="row">
+                                {{ cake.ingredients }}
+                            </div>
                         </div>
                     </div>
-                </div>
+                
 
                 <a data-bs-toggle="collapse"
                    href="#collapseAllergens" role="button" aria-expanded="false"
@@ -74,17 +70,19 @@
                         </div>
                     </div>
                 </div>
+                </div>
 
             </div>
         </div>
     </div>
-    <div class="container-fluid baker-description m-5">
+    <div class="container baker-description p-5">
         <div class="baker-row row d-flex flex-row justify-content-center">
 
             <div class="col-md-3 col-6 border-end d-flex flex-column align-items-center">
                 {# TODO: is it the best way to do this? probably not #}
                 <a href="/patissier/{{ cake.baker.id }}" style="text-decoration: none;">
-                    <img class="comment-img m-4" src="https://i.pravatar.cc/" alt="L'avatar du pâtissier">
+                    <img class="comment-img m-4" src="/uploads/bakers/profile/{{ cake.baker.profilePicture }}"
+                         alt="L'avatar du pâtissier">
                     <div class="d-flex flex-column justify-content-center">
                         <h3 class="font-weight-bold m-0 text-center text-primary">
                             {{ cake.baker.user.firstname }}

@@ -30,7 +30,7 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
                     'Commande annulée',
                 ])))
                 ->setCollectDate($faker->dateTimeInInterval('+3 months', '+1 months'));
-            $buyer = $this->getReference('buyer_' . $faker->numberBetween(50, 150));
+            $buyer = $this->getReference('buyer_' . $faker->numberBetween(20, 50));
             if ($buyer instanceof User) {
                 $order->setBuyer($buyer);
             };

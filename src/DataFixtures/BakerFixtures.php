@@ -15,7 +15,7 @@ class BakerFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $baker = new Baker();
             $baker->setCreated($faker->dateTimeInInterval('-5 months', '+3 months'));
             $commercialName = $faker->optional()->randomElement(
