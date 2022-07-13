@@ -44,7 +44,7 @@ class OrderLineFixtures extends Fixture implements DependentFixtureInterface
                 if ($this->getReference('deliveryAddress_' . $i) instanceof Address) {
                     $orderLine->setDeliveryAddress($this->getReference('deliveryAddress_' . $i));
                 }
-                $seller = $this->getReference('seller_' . $faker->numberBetween(0, 49));
+                $seller = $this->getReference('seller_' . $faker->numberBetween(0, 19));
                 if ($seller instanceof User) {
                     $orderLine->setSeller($seller);
                 };

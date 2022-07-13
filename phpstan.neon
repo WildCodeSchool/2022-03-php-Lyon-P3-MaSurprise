@@ -6,6 +6,7 @@ parameters:
     excludePaths:
     - src/Security
     - src/Entity
+    - src/DataFixtures
     ignoreErrors:
     reportUnmatchedIgnoredErrors: false
     checkGenericClassInNonGenericObjectType: false
