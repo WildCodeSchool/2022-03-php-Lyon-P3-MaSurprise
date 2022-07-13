@@ -42,21 +42,21 @@
 
                 <p>Disponibilité : {{ cake.availability }}</p>
 
-                    <p>
-                        <a class="btn btn-secondary text-white" data-bs-toggle="collapse"
-                           href="#collapseIngredients" role="button" aria-expanded="false"
-                           aria-controls="collapseIngredients">
-                            Ingrédients et saveurs
-                        </a>
-                    </p>
-                    <div class="collapse mb-3" id="collapseIngredients">
-                        <div class="container-fluid card card-body bg-light">
-                            <div class="row">
-                                {{ cake.ingredients }}
-                            </div>
+                <p>
+                    <a class="btn btn-secondary text-white" data-bs-toggle="collapse"
+                       href="#collapseIngredients" role="button" aria-expanded="false"
+                       aria-controls="collapseIngredients">
+                        Ingrédients et saveurs
+                    </a>
+                </p>
+                <div class="collapse mb-3" id="collapseIngredients">
+                    <div class="container-fluid card card-body bg-light">
+                        <div class="row">
+                            {{ cake.ingredients }}
                         </div>
                     </div>
-                
+                </div>
+
 
                 <a data-bs-toggle="collapse"
                    href="#collapseAllergens" role="button" aria-expanded="false"
@@ -70,10 +70,10 @@
                         </div>
                     </div>
                 </div>
-                </div>
-
             </div>
+
         </div>
+    </div>
     </div>
     <div class="container baker-description p-5">
         <div class="baker-row row d-flex flex-row justify-content-center">
@@ -81,7 +81,7 @@
             <div class="col-md-3 col-6 border-end">
                 <a href="{{ path('app_baker_list', {'id' : cake.baker.id}) }}"
                    class="d-flex flex-column align-items-center social-link">
-                    <img class="comment-img m-4" src="/uploads/bakers/{{ cake.baker.profilePicture }}"
+                    <img class="comment-img m-4" src="/uploads/bakers/profile/{{ cake.baker.profilePicture }}"
                          alt="L'avatar du pâtissier">
                     <div class="d-flex flex-column justify-content-center">
                         {% if cake.baker.commercialName is not empty %}
