@@ -80,27 +80,43 @@
     <div class="container baker-description p-5">
         <div class="baker-row row d-flex flex-row justify-content-center">
 
-            <div class="col-md-3 col-6 border-end d-flex flex-column align-items-center">
-                {# TODO: is it the best way to do this? probably not #}
-                <a href="/patissier/{{ cake.baker.id }}" style="text-decoration: none;">
+            <div class="col-md-3 col-6 border-end">
+                <a href="{{ path('app_baker_list', {'id' : cake.baker.id}) }}"
+                   class="d-flex flex-column align-items-center social-link">
                     <img class="comment-img m-4" src="/uploads/bakers/{{ cake.baker.profilePicture }}"
                          alt="L'avatar du pâtissier">
                     <div class="d-flex flex-column justify-content-center">
-                        <h3 class="font-weight-bold m-0 text-center text-primary">
-                            {{ cake.baker.user.firstname }}
-                            {{ cake.baker.user.lastname|slice(0, 1) }}.
-                        </h3>
-                        <p class="titre text-center text-dark">Pâtissier {{ cake.baker.bakerType }}</p>
+                        {% if cake.baker.commercialName is not empty %}
+                            <h3 class="m-0 text-center text-primary">{{ cake.baker.commercialName }}</h3>
+                            <h4 class="font-weight-bold m-0 text-center text-primary">
+                                {{ cake.baker.user.firstname }}
+                                {{ cake.baker.user.lastname|slice(0, 1) }}.
+                            </h4>
+                        {% else %}
+                            <h3 class="font-weight-bold m-0 text-center text-primary">
+                                {{ cake.baker.user.firstname }}
+                                {{ cake.baker.user.lastname|slice(0, 1) }}.
+                            </h3>
+                        {% endif %}
                     </div>
                 </a>
             </div>
 
             <div class="col-md-3 col-6 d-flex flex-column justify-content-center">
-                <p class="mb-1">Livraison</p>
-                <p class="mb-1">Click & collect</p>
-                <p class="mb-1">CAP Pâtissier</p>
-                <p class="mt-3 mb-1"><a href="{{ cake.baker.facebook }}">Facebook</a></p>
-                <p class="mb-1"><a href="{{ cake.baker.instagram }}">Instagram</a></p>
+                <p class="mb-1">✅ Click & collect</p>
+                <p class="mb-4">✅ Pâtissier {{ cake.baker.bakerType }}</p>
+                {% if cake.baker.facebook is not empty %}
+                    <a href="{{ cake.baker.facebook }}" class="d-flex gap-2 social-link" alt="Facebook logo">
+                        <img src="{{ asset("build/images/icons/facebook.png") }}" width="20px" height="20px">
+                        <p class="m-0 social-link">Facebook</p>
+                    </a>
+                {% endif %}
+                {% if cake.baker.instagram is not empty %}
+                    <a href="{{ cake.baker.instagram }}" class="d-flex gap-2 social-link" alt="Instagram logo">
+                        <img src="{{ asset("build/images/icons/instagram.png") }}" width="20px" height="20px">
+                        <p class="m-0 social-link">Instagram</p>
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>

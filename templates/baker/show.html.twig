@@ -25,36 +25,53 @@
                 </div>
 
                 <div class="d-flex flex-column justify-content-center">
-                    <h3 class="text-center mt-5 mb-3">Informations</h3>
-                    <p>Téléphone : {{ baker.user.phone }}</p>
-                    <p class="mb-0">Adresse
-                        : {{ baker.deliveryAddress.streetNumber }} {{ baker.deliveryAddress.bisTerInfo }} {{ baker.deliveryAddress.streetName }}</p>
-                    <p>{{ baker.deliveryAddress.postcode }} {{ baker.deliveryAddress.city }}</p>
-                    {% if baker.facebook %}
-                        <p>
-                            <a href="{{ baker.facebook }}">Facebook</a>
-                        </p>
+                    <h3 class="text-center mt-5 mb-3 text-primary">Informations</h3>
+                    {% if is_granted('ROLE_BAKER') %}
+                        <p>Téléphone : {{ baker.user.phone }}</p>
+                        <p class="mb-0">Adresse
+                            : {{ baker.deliveryAddress.streetNumber }} {{ baker.deliveryAddress.bisTerInfo }} {{ baker.deliveryAddress.streetName }}</p>
+                        <p>{{ baker.deliveryAddress.postcode }} {{ baker.deliveryAddress.city }}</p>
+                        <p>Date d'inscription : {{ baker.created | date("d/m/Y") }}</p>
                     {% endif %}
-                    {% if baker.instagram %}
-                        <p>
-                            <a href="{{ baker.instagram }}">Instagram</a>
-                        </p>
-                    {% endif %}
-                    <p>Date d'inscription : {{ baker.created | date("d/m/Y") }}</p>
+                    <div class="d-flex">
+                        {% if baker.facebook is not empty %}
+                            <a href="{{ baker.facebook }}" class="d-flex gap-2 social-link">
+                                <img src="{{ asset("build/images/icons/facebook.png") }}" width="20px" height="20px"
+                                     alt="Facebook logo">
+                                <p class="m-0 social-link">Facebook</p>
+                            </a>
+                        {% endif %}
+                        {% if baker.instagram is not empty %}
+                            <a href="{{ baker.instagram }}" class="d-flex gap-2 social-link" alt="Instagram logo">
+                                <img src="{{ asset("build/images/icons/instagram.png") }}" width="20px" height="20px">
+                                <p class="m-0 social-link">Instagram</p>
+                            </a>
+                        {% endif %}
+                    </div>
+
                 </div>
 
-                <h3 class="text-center mt-5">Gâteaux créés par ce pâtissier</h3>
+                <h3 class="text-center mt-5 text-primary">Gâteaux créés par ce pâtissier</h3>
                 <div class="card-group container">
                     <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4">
                         {% for cake in baker.cakes %}
                             <div class="card col">
-                                <img src="https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg"
-                                     class="card-img-top mt-2"
-                                     alt="...">
+                                <a href="{{ path('app_cake_show', {'id': cake.id}) }}" class="social-link">
+                                    <img class="card-img-top img-fluid rounded cakes-list-baker"
+                                        {% for picture in cake.picture1|split(',') %}
+                                            {% if loop.index == 1 %} {# show only the first picture #}
+                                                src="/uploads/cakes/{{ picture }}"
+                                            {% endif %}
+                                        {% endfor %}
+                                         alt="Une photo de {{ cake.name }}">
+                                </a>
                                 <div class="card-body">
-                                    <h4 class="text-center">{{ cake.name }}</h4>
-                                    <p>{{ cake.price|format_currency('EUR', locale='de') }}</p>
-                                    <p>Taille : {{ cake.size }}</p>
+                                    <a href="{{ path('app_cake_show', {'id': cake.id}) }}" class="social-link">
+                                        <h4 class="text-center text-primary mb-4">{{ cake.name }}</h4>
+                                    </a>
+                                    <p class="text-center">{{ cake.price|format_currency('EUR', locale='de') }}</p>
+                                    <p class="text-center">Type : {{ cake.category }}</p>
+                                    <p class="text-center">Taille : {{ cake.size }}</p>
                                 </div>
                             </div>
                         {% else %}
