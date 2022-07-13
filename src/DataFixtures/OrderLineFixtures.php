@@ -17,18 +17,19 @@ class OrderLineFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
 
-        for ($i = 0; $i < 400; $i++) {
+        for ($i = 0; $i < 100; $i++) {
+            $randomBakerRef = rand(0, 19);
             for ($j = 0; $j < rand(1, 3); $j++) {
                 $orderLine = new OrderLine();
                 $name = $faker->randomElement([
-                    'Gâteau d\'anniversaire',
                     'Forêt noire',
-                    'Pièce montée',
+                    'Pièce montée au caramel et fruits rouges',
                     'Gâteau licorne',
-                    'Fraisier',
-                    'Gâteau à étages, crème au beurre',
-                    'Baba au rhum',
-                    'Gâteau au twix, mars et coulis de kinder surprise',
+                    'Gâteau d\'anniversaire Peppa Pig',
+                    'Entremets aux fruits',
+                    'Saint-Pothin',
+                    'Tarte aux framboises',
+                    'Mille-feuilles à la crème pâtissière',
                 ]);
                 if (is_string($name)) {
                     $orderLine->setCakeName($name);
@@ -44,7 +45,7 @@ class OrderLineFixtures extends Fixture implements DependentFixtureInterface
                 if ($this->getReference('deliveryAddress_' . $i) instanceof Address) {
                     $orderLine->setDeliveryAddress($this->getReference('deliveryAddress_' . $i));
                 }
-                $seller = $this->getReference('seller_' . $faker->numberBetween(0, 19));
+                $seller = $this->getReference('seller_' . $randomBakerRef);
                 if ($seller instanceof User) {
                     $orderLine->setSeller($seller);
                 };

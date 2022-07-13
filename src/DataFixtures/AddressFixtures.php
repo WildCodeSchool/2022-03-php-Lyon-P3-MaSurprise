@@ -20,7 +20,7 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
 
-        for ($i = 0; $i < 400; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $address = new Address();
 
             $address->setStreetNumber($faker->randomNumber(2, true));
@@ -33,7 +33,7 @@ class AddressFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($address);
         }
 
-        for ($j = 0; $j < 400; $j++) {
+        for ($j = 0; $j < 100; $j++) {
             $address = new Address();
 
             $address->setStreetNumber($faker->randomNumber(2, true));
