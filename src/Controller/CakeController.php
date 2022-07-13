@@ -145,7 +145,6 @@ class CakeController extends AbstractController
                 $filesystem->remove($file);
             }
         }
-        //return $this->redirectToRoute('app_cake_edit', array('id' => $cake->getId()));
         return new Response($path);
     }
 
