@@ -10,6 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
+// @codingStandardsIgnoreStart
 class CakeFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
@@ -43,15 +44,11 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
                 $cake->setPicture1($picture1);
             }
             $category = $faker->randomElement([
-                'Pièce montée',
-                'Cupcake(s)',
+                'Pièce montée', 'Cupcake(s)',
                 'Spécialité(s) étrangère(s)',
-                'Mini gâteau',
-                'Patisserie(s)',
-                'Gâteau junior',
-                'Gâteau sculpté',
-                'Magnum cake(s)',
-                'Pop cake(s)',
+                'Mini gâteau', 'Patisserie(s)',
+                'Gâteau junior', 'Gâteau sculpté',
+                'Magnum cake(s)', 'Pop cake(s)',
             ]);
             if (is_string($category)) {
                 $cake->setCategory($category);
@@ -120,3 +117,4 @@ class CakeFixtures extends Fixture implements DependentFixtureInterface
             ];
     }
 }
+// @codingStandardsIgnoreEnd

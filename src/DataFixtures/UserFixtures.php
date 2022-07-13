@@ -104,8 +104,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setEmail($faker->email());
             $user->setPhone($faker->phoneNumber());
             // billingAddress_0 is already taken by the first customer
-            if ($this->getReference('billingAddress_' . $j) instanceof Address) {
-                $user->addBillingAddress($this->getReference('billingAddress_' . $j));
+            $billingAddress = $this->getReference('billingAddress_' . $j);
+            if ($billingAddress instanceof Address) {
+                $user->addBillingAddress($billingAddress);
             }
             $user->setRoles(['ROLE_CUSTOMER']);
             $hashedPassword = $this->passwordHasher->hashPassword(
