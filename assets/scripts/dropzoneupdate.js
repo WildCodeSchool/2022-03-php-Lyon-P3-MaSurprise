@@ -18,23 +18,18 @@ let dropzoneUpdate = new Dropzone("form#dropzoneUpdate", {
     url: "/gateau/updated-files",
 });
 
+// remove the deleted pictures from the view while editing the cake
+let deleteBtns = document.getElementsByClassName('deleteBtns');
 
-let deleteBtn = document.getElementById('deleteBtn');
-let path = deleteBtn.value;
-
-
-function ajaxPost(url) {
-    let req = new XMLHttpRequest();
-    req.open("GET", url);
-    req.send();
+for (let i = 0; i < deleteBtns.length; i++) {
+    deleteBtns[i].addEventListener("click", function(e) {
+        e.preventDefault();
+        fetch('/gateau/' + id + '/' + deleteBtns[i].id + '/delete-files')
+            .then(function() {
+                deleteBtns[i].parentElement.remove(); 
+            })
+    });
 }
-
-let deleteUrl = 'gateau/' + id + path + '/delete-files';
-
-deleteBtn.addEventListener("click", function(e) {
-    e.preventDefault();
-    e.ajaxPost(deleteUrl);
-});
 
 let updateForm = document.getElementById('dropzoneUpdate');
 let id = document.getElementById('cakeId').innerHTML;

@@ -18,7 +18,7 @@
                 {% for picture in cake.picture1|split(',') %}
                 <div class="row justify-content-center align-items-center">
                     <img src="/uploads/cakes/{{ picture }}" class="col-2 img-fluid m-1">
-                    <button class="col-1 btn btn-primary text-white" id="deleteBtn" value="{{ picture }}">
+                    <button class="col-1 btn btn-primary text-white deleteBtns" id="{{ picture }}" value="{{ picture }}">
                         <a href="{{ path('app_cake_deletefiles', {'id':cake.id, 'path':picture}) }}">
                         Supprimer</a>
                     </button>
