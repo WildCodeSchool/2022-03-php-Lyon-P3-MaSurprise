@@ -18,17 +18,18 @@
                 {% for picture in cake.picture1|split(',') %}
                 <div class="row justify-content-center align-items-center">
                     <img src="/uploads/cakes/{{ picture }}" class="col-2 img-fluid m-1">
-                    <button class="col-1 btn btn-primary text-white deleteBtns" id="{{ picture }}" value="{{ picture }}">
-                        <a href="{{ path('app_cake_deletefiles', {'id':cake.id, 'path':picture}) }}">
-                        Supprimer</a>
-                    </button>
+                        <a class="col-1 deleteBtns" id="{{ picture }}" href="{{ path('app_cake_deletefiles', {'id':cake.id, 'path':picture}) }}">
+                            <button class="btn btn-primary text-white" value="{{ picture }}">
+                            Supprimer
+                            </button>
+                        </a>
                 </div>
                 {% endfor %}
                 
             </div>
             <div class="d-flex flex-column mt-4 align-items-center">
                 <div class="files" id="previews">{% include "cake/_previewdropzone.html.twig" %}</div>
-                <div class="dz-message dz-button btn btn-secondary text-white" data-dz-message>
+                <div class="dz-message dz-button btn btn-primary text-white" data-dz-message>
                     <span>Ajouter de nouvelles photos</span>
                 </div>
             </div>
