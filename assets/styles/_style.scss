@@ -560,6 +560,10 @@ p {
     }
 }
 
+.social-link {
+    text-decoration: none;
+}
+
 /* ERRORS */
 
 .error-cake {
@@ -579,6 +583,11 @@ p {
 
 .cakes-list-admin {
     min-height: 100%;
+    aspect-ratio: 1 / 1;
+}
+
+.cakes-list-baker {
+    min-width: 100%;
     aspect-ratio: 1 / 1;
 }
 

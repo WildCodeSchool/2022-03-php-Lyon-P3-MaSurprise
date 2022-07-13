@@ -16,7 +16,7 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
 
-        for ($i = 0; $i < 400; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $order = new Order();
             $order
                 ->setOrderedAt($faker->dateTimeInInterval('-1 week', '+6 days'))
@@ -30,7 +30,7 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
                     'Commande annulée',
                 ])))
                 ->setCollectDate($faker->dateTimeInInterval('+3 months', '+1 months'));
-            $buyer = $this->getReference('buyer_' . $faker->numberBetween(50, 150));
+            $buyer = $this->getReference('buyer_' . $faker->numberBetween(20, 50));
             if ($buyer instanceof User) {
                 $order->setBuyer($buyer);
             };

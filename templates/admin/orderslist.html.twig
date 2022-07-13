@@ -121,9 +121,9 @@
                                                     <p class="card-text col-4">{{ cakes.cakeSize }}</p>
                                                     <p class="card-text col-4 text-center">x{{ cakes.quantity }}</p>
                                                     <p class="card-text col-4 text-end">{{ cakes.cakePrice|format_currency('EUR', locale='de') }}</p>
-                                                    <hr>
                                                 </div>
                                             {% endfor %}
+                                            <hr>
                                         </div>
 
                                         <div class="row d-flex justify-content-between flex-column-reverse flex-md-row">
@@ -164,7 +164,7 @@
                                                     {% endif %}
                                                 {% endfor %}
                                             {% endif %}
-                                            {% if is_granted('ROLE_ADMIN') %}
+                                            {% if is_granted('ROLE_BAKER') %}
                                                 <div class="col-xs-12 col-md-4">
                                                     <h5 class="card-title text-center mt-3 mt-md-0">Client</h5>
                                                     <p class="card-text text-center mb-0">

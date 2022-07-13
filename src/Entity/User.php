@@ -46,9 +46,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'seller', targetEntity: OrderLine::class)]
     private Collection $ordersFromBuyers;
 
-    #[ORM\OneToOne(inversedBy: 'deliveryAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
-    private $deliveryAddress;
-
     #[ORM\OneToOne(inversedBy: 'user', targetEntity: Baker::class, cascade: ['persist', 'remove'])]
     private ?Baker $baker = null;
 
@@ -289,18 +286,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBaker(?Baker $baker): self
     {
         $this->baker = $baker;
-
-        return $this;
-    }
-
-    public function getDeliveryAddress(): ?Address
-    {
-        return $this->deliveryAddress;
-    }
-
-    public function setDeliveryAddress(?Address $deliveryAddress): self
-    {
-        $this->deliveryAddress = $deliveryAddress;
 
         return $this;
     }
