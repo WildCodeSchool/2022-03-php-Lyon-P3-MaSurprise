@@ -183,14 +183,44 @@
                                                     Total
                                                     : {{ order.total|format_currency('EUR', locale='de') }}
                                                 </h5>
-                                                <p class="card-text text-end mb-0 text-center text-md-end">
-                                                    Date de collecte :
-                                                    {{ order.collectDate|date("d/m/Y") }}
-                                                </p>
                                                 <p class="card-text text-end text-center text-md-end">
                                                     Commande N°
                                                     {{ order.number }}
                                                 </p>
+                                                <p class="card-text text-end mb-0 text-center text-md-end">
+                                                    Date de collecte :
+                                                    {{ order.collectDate|date("d/m/Y") }}
+                                                </p>
+                                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CUSTOMER') %}
+                                                    {% for cakes in order.orderLines %}
+                                                        {% if loop.index == 1 %}
+                                                            <div>
+                                                                {% if is_granted('ROLE_ADMIN') %}
+                                                                    <p class="card-text text-end mb-0">
+                                                                        Adresse de collecte
+                                                                        : {{ cakes.seller.baker.deliveryAddress.streetNumber }} {{ cakes.seller.baker.deliveryAddress.streetName }}
+                                                                    </p>
+                                                                    <p class="card-text text-end">
+                                                                        {{ cakes.seller.baker.deliveryAddress.postcode }} {{ cakes.seller.baker.deliveryAddress.city }}
+                                                                    </p>
+                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" %}
+                                                                    <p class="card-text text-end mb-0">
+                                                                        Adresse de collecte
+                                                                        : {{ cakes.seller.baker.deliveryAddress.streetNumber }} {{ cakes.seller.baker.deliveryAddress.streetName }}
+                                                                    </p>
+                                                                    <p class="card-text text-end">
+                                                                        {{ cakes.seller.baker.deliveryAddress.postcode }} {{ cakes.seller.baker.deliveryAddress.city }}
+                                                                    </p>
+                                                                {% else %}
+                                                                    <p class="card-text text-end mb-0">
+                                                                        Adresse de collecte
+                                                                        : en attente de validation de commande.
+                                                                    </p>
+                                                                {% endif %}
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
