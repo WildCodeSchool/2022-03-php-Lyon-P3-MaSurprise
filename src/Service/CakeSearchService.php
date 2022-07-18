@@ -19,7 +19,7 @@ class CakeSearchService
 
     public function cakeSearch(mixed $search, mixed $department): mixed
     {
-        // initilizing cakes
+        // initializing cakes
         $cakes = [];
         // if KEYWORD is set and DEPARTMENT is not
         if (!empty($search) && (empty($department))) {
