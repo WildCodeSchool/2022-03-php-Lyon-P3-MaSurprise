@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/espace-admin', name: 'app_admin_')]
-#[IsGranted('ROLE_ADMIN')]
 class AdminController extends AbstractController
 {
     #[Route('/', name: 'index')]
