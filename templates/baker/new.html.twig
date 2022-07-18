@@ -3,10 +3,21 @@
 {% block title %}Créer un compte pâtissier - {{ parent() }}{% endblock %}
 
 {% block body %}
+{% if not is_granted('ROLE_USER') %}
     <h1 class="text-primary text-center">Compte pâtissier : Créer un compte</h1>
 
     {{ include('baker/_form.html.twig') }}
-
+{% else %}
+{% if is_granted('ROLE_BAKER') %}
+<p class="text-center">Veuillez vous déconnecter pour créer un nouveau compte.</p>
+    {{ include('baker_space/index.html.twig') }}
+{% else %}
+{% if is_granted('ROLE_USER') %}
+<p class="text-center">Veuillez vous déconnecter pour créer un nouveau compte.</p>
+    {{ include('customer/index.html.twig') }}
+{% endif %}
+{% endif %}
+{% endif %}
 {% endblock %}
 
 {% block javascripts %}
