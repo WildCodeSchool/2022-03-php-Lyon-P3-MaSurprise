@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Baker;
+use App\Entity\User;
 use App\Form\BakerType;
 use App\Form\BakerModifyType;
 use App\Repository\BakerRepository;
@@ -54,11 +55,13 @@ class BakerController extends AbstractController
     public function edit(Request $request, Baker $baker, BakerRepository $bakerRepository): Response
     {
         //make sure only the current baker and the admin can access this route
+        /** @var User $user */
+        $user = $this->getUser();
         if (
             $this->getUser() !== null
-            && in_array("ROLE_ADMIN", $this->getUser()->getRoles()) == false
-            && $baker !== $this->getUser()
-            || $this->getUser() == null
+            && in_array("ROLE_ADMIN", $user->getRoles()) == false
+            && $baker !== $user->getBaker()
+            || $user == null
         ) {
             throw $this->createAccessDeniedException();
         }

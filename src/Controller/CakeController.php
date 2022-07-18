@@ -6,6 +6,7 @@ use App\Form\CakeType;
 use App\Form\SearchCakeFormType;
 use Exception;
 use App\Entity\Cake;
+use App\Entity\User;
 use App\Repository\CakeRepository;
 use App\Repository\DepartmentRepository;
 use App\Service\CakeSearchService;
@@ -155,6 +156,19 @@ class CakeController extends AbstractController
         RequestStack $requestStack,
         CakeRepository $cakeRepository
     ): Response {
+
+        //make sure only the current baker and the admin can access this route
+        /** @var User $user */
+        $user = $this->getUser();
+        if (
+            $user !== null
+            && in_array("ROLE_ADMIN", $user->getRoles()) == false
+            && $cake->getBaker() !== $user->getBaker()
+            || $user == null
+        ) {
+            throw $this->createAccessDeniedException();
+        }
+
         $form = $this->createForm(CakeType::class, $cake);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
