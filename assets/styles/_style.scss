@@ -500,7 +500,10 @@ $modal-backdrop-opacity: 0.8;
 /* ---------- ADMIN NAVBAR ---------- */
 .btnNavAdmin:hover {
     background-color: white;
-    color: black;
+}
+
+.btnNavAdmin > a {
+    color: var(--bs-light)
 }
 
 /* ---------- BAKER ---------- */
@@ -579,16 +582,26 @@ p {
     object-fit: cover;
     object-position: center center;
     aspect-ratio: 1 / 1;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .cakes-list-admin {
-    min-height: 100%;
     aspect-ratio: 1 / 1;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .cakes-list-baker {
-    min-width: 100%;
     aspect-ratio: 1 / 1;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .modal-resize {
