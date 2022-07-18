@@ -10,18 +10,20 @@
         <div class="row">
             <div class="col-12 d-flex flex-column align-items-center">
                 <h1 class="text-primary text-center mb-4">Commandes</h1>
-                {% if is_granted('ROLE_BAKER') or is_granted('ROLE_CUSTOMER') and not is_granted('ROLE_ADMIN') %}
-                    <div class="container">
-                        <a
-                            {% if is_granted('ROLE_BAKER') %}
-                                href="{{ path('app_bakerspace_index') }}"
-                            {% else %}
-                                href="{{ path('app_customer_index') }}"
-                            {% endif %}
-                        >
-                            <button class="btn btn-secondary text-white m-3">Retour</button>
-                        </a>
-                    </div>
+                {% if not is_granted('ROLE_ADMIN') %}
+                    {% if is_granted('ROLE_BAKER') or is_granted('ROLE_CUSTOMER') %}
+                        <div class="container">
+                            <a
+                                {% if is_granted('ROLE_BAKER') %}
+                                    href="{{ path('app_bakerspace_index') }}"
+                                {% else %}
+                                    href="{{ path('app_customer_index') }}"
+                                {% endif %}
+                            >
+                                <button class="btn btn-secondary text-white m-3">Retour</button>
+                            </a>
+                        </div>
+                    {% endif %}
                 {% endif %}
                 <div class="container">
                     {% for message in app.flashes('success') %}
