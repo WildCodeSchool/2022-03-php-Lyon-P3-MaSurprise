@@ -3,9 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Address;
-use App\Entity\Department;
-use App\Repository\DepartmentRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -20,7 +17,7 @@ class AddressType extends AbstractType
     {
         $builder
             ->add('streetNumber', NumberType::class, [
-                'label' => 'Numéro de rue*',
+                'label' => 'Numéro de rue',
                 'required' => false,
             ])
             ->add('bisTerInfo', TextType::class, [
