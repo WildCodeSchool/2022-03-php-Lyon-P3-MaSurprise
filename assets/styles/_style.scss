@@ -148,7 +148,7 @@ h4 {
 .main-how-to-container-title,
 .main-sweet-dream-container-title,
 .main-references-container-title {
-    font-size: 48pt;
+    font-size: 5vh;
 }
 
 .main-theme-container,
@@ -606,4 +606,8 @@ p {
 
 .modal-resize {
     max-width: 95% !important;
+}
+
+.admin-container {
+    height: 70vh;
 }
