@@ -12,7 +12,7 @@
 <p class="text-center">Veuillez vous déconnecter pour créer un nouveau compte.</p>
     {{ include('baker_space/index.html.twig') }}
 {% endif %}
-{% if is_granted('ROLE_USER') %}
+{% if not is_granted('ROLE_BAKER')  and is_granted('ROLE_USER') %}
 <p class="text-center">Veuillez vous déconnecter pour créer un nouveau compte.</p>
     {{ include('customer/index.html.twig') }}
 {% endif %}
