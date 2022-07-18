@@ -23,10 +23,24 @@ class UserType extends AbstractType
             ->add('lastname', TextType::class, [
                 'label' => 'Nom*',
                 'required' => 'Le champ Nom est obligatoire',
+                'constraints' => [
+                    new NotBlank(['message' => "Ce champ est obligatoire."]),
+                    new Length([
+                        'max' => 255,
+                        'maxMessage' => 'Le champ prénom doit comporter au maximum {{ limit }} caractères.'
+                    ])
+                ],
             ])
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom*',
                 'required' => 'Le champ Prénom est obligatoire',
+                'constraints' => [
+                    new NotBlank(['message' => "Ce champ est obligatoire."]),
+                    new Length([
+                        'max' => 255,
+                        'maxMessage' => 'Le champ prénom doit comporter au maximum {{ limit }} caractères.'
+                    ])
+                ],
             ])
             ->add('email', EmailType::class, [
                 'label' => "E-mail*",
