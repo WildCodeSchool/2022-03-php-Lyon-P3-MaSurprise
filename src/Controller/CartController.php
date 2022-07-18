@@ -46,7 +46,6 @@ class CartController extends AbstractController
         int $baker,
         SessionInterface $session,
     ): Response {
-
         $datacart = $session->get("datacart");
         if (empty($datacart)) {
             $cartService->addCartService($id, $session);
@@ -83,7 +82,7 @@ class CartController extends AbstractController
         $this->addFlash(
             'warning',
             "Vous ne pouvez pas commander chez deux pâtissiers en même temps,
-             veuillez finaliser votre commande pour en passer un autre."
+             veuillez finaliser votre commande pour en passer une autre."
         );
 
         return $this->redirectToRoute('cart_index');
