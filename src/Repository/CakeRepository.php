@@ -106,9 +106,9 @@ class CakeRepository extends ServiceEntityRepository
             ->join('c.baker', 'b')
             ->join('b.user', 'u')
             ->addSelect('b')
-            ->where('u.lastname LIKE :baker_name')
+            ->where('u.firstname LIKE :baker_name')
             ->setParameter('baker_name', '%' . $bakerName . '%')
-            ->orderBy('u.lastname', 'ASC')
+            ->orderBy('u.firstname', 'ASC')
             ->getQuery();
 
         return $queryBuilder->getResult();
@@ -118,14 +118,14 @@ class CakeRepository extends ServiceEntityRepository
     public function findByDepartment(mixed $department): mixed
     {
         $queryBuilder = $this->createQueryBuilder('c')
-        ->join('c.baker', 'b')
-        ->join('b.deliveryAddress', 'a') // department
-        ->join('a.department', 'd') // department
-        ->join('b.user', 'u')
-        ->where('a.department = :department') // department
-        ->setParameter('department', $department) // department
-        ->orderBy('a.department', 'ASC')
-        ->getQuery();
+            ->join('c.baker', 'b')
+            ->join('b.deliveryAddress', 'a') // department
+            ->join('a.department', 'd') // department
+            ->join('b.user', 'u')
+            ->where('a.department = :department') // department
+            ->setParameter('department', $department) // department
+            ->orderBy('a.department', 'ASC')
+            ->getQuery();
 
         return $queryBuilder->getResult();
     }
