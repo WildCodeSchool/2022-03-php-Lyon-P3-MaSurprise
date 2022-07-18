@@ -36,7 +36,7 @@
 
             <div class="d-flex flex-column justify-content-center">
                 <button class="btn btn-secondary text-white p-2 m-1" id="updateButton">
-                    {{ button_label|default('Modifier l\'anonce') }}
+                    {{ button_label|default('Modifier l\'annonce') }}
                 </button>
                 {{ include('cake/_delete_form.html.twig') }}
                 <a
@@ -45,7 +45,7 @@
                     {% else %}
                         href="{{ path('app_bakerspace_cakes') }}"
                     {% endif %}
-                >
+                href="{{ path('app_cake_index') }}">
                     <button class="btn btn-secondary text-white p-2 m-3">Retour à la liste des gâteaux</button>
                 </a>
             </div>
