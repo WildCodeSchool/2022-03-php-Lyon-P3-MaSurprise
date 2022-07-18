@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accès interdit - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    {{ include('bundles/TwigBundle/Exception/_base.html.twig', {
+        errorNumber : "403",
+        errorType : "Accès interdit",
+        errorMessage : "L'accès à cette page vous est interdit. Essayez-peut-être de vous connecter.",
+    }) }}
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement... - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid container-height">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-primary text-center mb-4">Paiement</h1>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center">
+                            <a href="{{ path("app_order_placed") }}">
+                                <button type="button" class="btn btn-secondary btn-lg text-white">Simuler le paiement
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

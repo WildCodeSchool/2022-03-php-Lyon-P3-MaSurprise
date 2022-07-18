@@ -3,13 +3,11 @@
 namespace App\Entity;
 
 use DateTime;
-use App\Entity\Cake;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BakerRepository;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -33,9 +31,6 @@ class Baker
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $bakerType;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $services;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $siret = "";
@@ -83,10 +78,22 @@ class Baker
     private ?\DateTimeInterface $updateAt = null;
 
     #[ORM\OneToOne(mappedBy: 'baker', targetEntity: User::class, cascade: ['persist', 'remove'])]
-    private $user;
+    private ?User $user;
 
     #[ORM\OneToOne(mappedBy: 'deliveryAddress', targetEntity: Address::class, cascade: ['persist', 'remove'])]
-    private $deliveryAddress;
+    private ?Address $deliveryAddress = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $profilePicture = "";
+
+    #[Vich\UploadableField(mapping: 'profilePicture_file', fileNameProperty: 'profilePicture')]
+    #[Assert\File(
+        maxSize: '1M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+        mimeTypesMessage: 'Ce fichier doit être une image',
+        uploadFormSizeErrorMessage: 'Votre photo ne peut pas dépasser 1Mo'
+    )]
+    private ?File $profilePictureFile = null;
 
     public function __construct()
     {
@@ -163,18 +170,6 @@ class Baker
     public function setBakerType(string $bakerType): self
     {
         $this->bakerType = $bakerType;
-
-        return $this;
-    }
-
-    public function getServices(): ?string
-    {
-        return $this->services;
-    }
-
-    public function setServices(?string $services): self
-    {
-        $this->services = $services;
 
         return $this;
     }
@@ -280,7 +275,7 @@ class Baker
 
         return $this;
     }
-    
+
     public function getUpdateAt(): ?\DateTimeInterface
     {
         return $this->updateAt;
@@ -330,5 +325,31 @@ class Baker
         $this->deliveryAddress = $deliveryAddress;
 
         return $this;
+    }
+
+    public function getProfilePicture(): ?string
+    {
+        return $this->profilePicture;
+    }
+
+    public function setProfilePicture(?string $profilePicture): self
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    public function setProfilePictureFile(?File $profilePictureFile = null): void
+    {
+        $this->logoFile = $profilePictureFile;
+
+        if (null !== $profilePictureFile) {
+            $this->getUpdateAt();
+        }
+    }
+
+    public function getProfilePictureFile(): ?File
+    {
+        return $this->profilePictureFile;
     }
 }

@@ -3,21 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Baker;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use App\Entity\Department;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class BakerType extends AbstractType
@@ -26,25 +16,39 @@ class BakerType extends AbstractType
     {
         $builder
             ->add('user', UserType::class, [
-                'label' => 'user'
+                'label' => 'Vos informations',
+            ])
+            ->add('deliveryAddress', AddressType::class, [
+                'label' => "Adresse de livraison*",
+            ])
+            ->add('profilePictureFile', VichFileType::class, [
+                'label' => 'Photo de profil',
+                'required' => false,
+                'allow_delete' => true,
+                'download_uri' => true,
+            ])
+            ->add('facebook', TextType::class, [
+                'label' => "Facebook",
+                'required' => false,
+            ])
+            ->add('instagram', TextType::class, [
+                'label' => "Instagram",
+                'required' => false,
             ])
             ->add('bakerType', ChoiceType::class, [
                 'label' => 'Vous êtes :*',
                 'choices' => ['professionnel' => 'professionnel', 'amateur' => 'amateur'],
                 'expanded' => true,
                 'multiple' => false,
-                ])
+            ])
             ->add('commercialName', TextType::class, [
                 'label' => "Nom de l'entreprise",
                 'required' => false,
-                ])
-            ->add('deliveryAddress', AddressType::class, [
-                'label' => "Adresse de livraison (si différente de l'adresse de facturation)",
-                ])
+            ])
             ->add('logoFile', VichFileType::class, [
                 'label' => 'Logo',
                 'required' => false,
-                'allow_delete' => false,
+                'allow_delete' => true,
                 'download_uri' => true,
             ])
             ->add('siretFile', VichFileType::class, [
@@ -56,18 +60,9 @@ class BakerType extends AbstractType
             ->add('diplomaFile', VichFileType::class, [
                 'label' => 'CAP, autre diplôme ou accréditation',
                 'required' => false,
-                'allow_delete' => false,
+                'allow_delete' => true,
                 'download_uri' => true,
-            ])
-            ->add('facebook', TextType::class, [
-                'label' => "Facebook",
-                'required' => false,
-            ])
-            ->add('instagram', TextType::class, [
-                'label' => "Instagram",
-                'required' => false,
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

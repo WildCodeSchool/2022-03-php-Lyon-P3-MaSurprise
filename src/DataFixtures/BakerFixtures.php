@@ -15,15 +15,20 @@ class BakerFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
-        for ($i = 3; $i < 51; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $baker = new Baker();
-            $baker->setCreated($faker->dateTime);
+            $baker->setCreated($faker->dateTimeInInterval('-5 months', '+3 months'));
             $commercialName = $faker->optional()->randomElement(
                 ['La fée des gâteaux', 'Super Cake', 'Maison Truffe', 'Cakery Lina', 'Chef Alex', 'Gâteau sur commande']
             );
             if (is_string($commercialName)) {
                 $baker->setCommercialname($commercialName);
             }
+            $baker->setFacebook("https://www.facebook.com/MyCakeEvent");
+            $baker->setSiret(strval($faker->numberBetween(12345678901234, 98765432109876)));
+            $baker->setProfilePicture('_fixtures_portrait-of-happy-male-chef-dressed-in-uniform.jpg');
+            $baker->setDiploma('_fixtures_diploma.jpg');
+            $baker->setLogo('_fixtures_logo_mycakeevent.png');
             $bakerType = $faker->randomElement(['professionnel', 'amateur']);
             if (is_string($bakerType)) {
                 $baker->setBakerType($bakerType);
@@ -45,7 +50,7 @@ class BakerFixtures extends Fixture implements DependentFixtureInterface
     {
         return
             [
-                UserFixtures::class, AddressFixtures::class
+                UserFixtures::class, AddressFixtures::class,
             ];
     }
 }

@@ -4,42 +4,87 @@
     {% if baker.commercialName is not empty %}
         {{ baker.commercialName }}
     {% else %}
-        {{ baker.firstname }} {{ baker.lastname }}
+        {{ baker.user.firstname }} {{ baker.user.lastname }}
     {% endif %}
     - {{ parent() }}
 {% endblock %}
 
 {% block body %}
     <main class="container-fluid">
-        <h1>{% if baker.commercialName is not empty %}
-                {{ baker.commercialName }}
-            {% endif %}
-        </h1>
-        <h2>{{ baker.firstname }} {{ baker.lastname }}</h2>
-        <p>Téléphone : {{ baker.phone }}</p>
-        <p>Adresse : {{ baker.address }}</p>
-        <p>Date d'inscription : {{ baker.created | date("d/m/Y") }}</p>
 
-        {% if baker.cakes is not empty %}<h3 class="text-center">Liste des gâteaux proposés par ce
-            pâtissier</h3>{% endif %}
-        <div class="card-group">
-            {% for cake in baker.cakes %}
-                <div class="card m-2">
-                    <img src="https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg" class="card-img-top"
-                         alt="...">
-                    <div class="card-body">
-                        <h3 class="text-center">Gâteau n°{{ loop.index }} : {{ cake.name }}</h3>
-                        <ul>
-                            <li>Prix : {{ cake.price }} €</li>
-                            <li>Taille : {{ cake.size }}</li>
-                        </ul>
+        <div class="row d-flex justify-content-center">
+            <div class="col-10 d-flex flex-column align-items-center">
+
+                <div>
+                    {% if baker.commercialName is not empty %}
+                        <h1 class="m-0 text-center text-primary">{{ baker.commercialName }}</h1>
+                    {% endif %}
+                    <h2 class="m-0 text-center text-secondary">
+                        {{ baker.user.firstname }} {{ baker.user.lastname|slice(0,1) }}.
+                    </h2>
+                </div>
+
+                <div class="d-flex flex-column justify-content-center">
+                    <h3 class="text-center mt-5 mb-3 text-primary">Informations</h3>
+                    {% if is_granted('ROLE_BAKER') %}
+                        <p>Téléphone : {{ baker.user.phone }}</p>
+                        <p class="mb-0">Adresse
+                            : {{ baker.deliveryAddress.streetNumber }} {{ baker.deliveryAddress.bisTerInfo }} {{ baker.deliveryAddress.streetName }}</p>
+                        <p>{{ baker.deliveryAddress.postcode }} {{ baker.deliveryAddress.city }}</p>
+                        <p>Date d'inscription : {{ baker.created | date("d/m/Y") }}</p>
+                    {% endif %}
+                    <div class="d-flex">
+                        {% if baker.facebook is not empty %}
+                            <a href="{{ baker.facebook }}" class="d-flex gap-2 social-link">
+                                <img src="{{ asset("build/images/icons/facebook.png") }}" width="20px" height="20px"
+                                     alt="Facebook logo">
+                                <p class="m-0 social-link">Facebook</p>
+                            </a>
+                        {% endif %}
+                        {% if baker.instagram is not empty %}
+                            <a href="{{ baker.instagram }}" class="d-flex gap-2 social-link" alt="Instagram logo">
+                                <img src="{{ asset("build/images/icons/instagram.png") }}" width="20px" height="20px">
+                                <p class="m-0 social-link">Instagram</p>
+                            </a>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                <h3 class="text-center mt-5 text-primary">Gâteaux créés par ce pâtissier</h3>
+                <div class="card-group container">
+                    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4">
+                        {% for cake in baker.cakes %}
+                            <div class="card col">
+                                <a href="{{ path('app_cake_show', {'id': cake.id}) }}" class="social-link">
+                                    <img class="card-img-top img-fluid rounded cakes-list-baker"
+                                        {% for picture in cake.picture1|split(',') %}
+                                            {% if loop.index == 1 %} {# show only the first picture #}
+                                                src="/uploads/cakes/{{ picture }}"
+                                            {% endif %}
+                                        {% endfor %}
+                                         alt="Une photo de {{ cake.name }}">
+                                </a>
+                                <div class="card-body">
+                                    <a href="{{ path('app_cake_show', {'id': cake.id}) }}" class="social-link">
+                                        <h4 class="text-center text-primary mb-4">{{ cake.name }}</h4>
+                                    </a>
+                                    <p class="text-center">{{ cake.price|format_currency('EUR', locale='de') }}</p>
+                                    <p class="text-center">Type : {{ cake.category }}</p>
+                                    <p class="text-center">Taille : {{ cake.size }}</p>
+                                </div>
+                            </div>
+                        {% else %}
+                            <h2>Ce pâtissier ne propose aucun gâteau actuellement. Revenez plus tard !</h2>
+                        {% endfor %}
                     </div>
                 </div>
-            {% else %}
-                <h2>Ce pâtissier ne propose aucun gâteau actuellement</h2>
-            {% endfor %}
+                <div class="d-flex justify-content-center">
+                    <a href="{{ path('app_baker_index') }}" class="btn btn-primary center p-2 m-2">Retour à la liste des
+                        pâtissiers
+                    </a>
+                </div>
+            </div>
         </div>
-        <a href="{{ path('app_baker_index') }}" class="btn btn-primary center p-2 m-2">Retour à la liste des
-            pâtissiers</a>
     </main>
 {% endblock %}

@@ -4,17 +4,16 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Vich\UploaderBundle\Form\Type\VichFileType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class UserType extends AbstractType
 {
@@ -23,21 +22,21 @@ class UserType extends AbstractType
         $builder
             ->add('lastname', TextType::class, [
                 'label' => 'Nom*',
-                'required' => 'Le champ Nom est obligatoire'
+                'required' => 'Le champ Nom est obligatoire',
             ])
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom*',
-                'required' => 'Le champ Prénom est obligatoire'
+                'required' => 'Le champ Prénom est obligatoire',
             ])
             ->add('email', EmailType::class, [
                 'label' => "E-mail*",
-                'required' => "Le champ E-mail est obligatoire"
+                'required' => "Le champ E-mail est obligatoire",
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'required' => true,
-                'first_options'  => array('label' => 'Password*'),
-                'second_options' => array('label' => 'Repeat Password*'),
+                'first_options' => array('label' => 'Mot de passe*'),
+                'second_options' => array('label' => 'Confirmez votre mot de passe*'),
                 'constraints' => [
                     new NotBlank(['message' => "Ce champ est obligatoire."]),
                     new Length([
@@ -48,25 +47,20 @@ class UserType extends AbstractType
                 'invalid_message' => 'Le mot de passe doit être identique.',
                 'options' => ['attr' => [
                     'class' => 'password-field',
-                    'placeholder' => "Mot de passe"
+                    'placeholder' => "Mot de passe",
                 ]],
             ])
-            ->add('billingAddress', AddressType::class, [
-                'label' => "Adresse*",
-                'required' => false
-            ])
-            ->add('phone', TextType::class, [
+            ->add('phone', NumberType::class, [
                 'label' => "Téléphone*",
                 'required' => "Le champ Téléphone est obligatoire",
-                'constraints' => [
-                    new Length([
-                        'min' => 10,
-                        'max' => 10,
-                        'minMessage' => 'Le numéro de téléphone doit comporter 10 chiffres.',
-                    ])
-                ]
             ])
-        ;
+            ->add('billingAddress', CollectionType::class, [
+                'label' => "Adresse*",
+                'required' => "Le champ Adresse est obligatoire",
+                'entry_type' => AddressType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

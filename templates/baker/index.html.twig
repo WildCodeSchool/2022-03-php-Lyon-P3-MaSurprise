@@ -4,33 +4,60 @@
 
 {% block body %}
     <main class="container-fluid">
-        <h1 class="text-center text-primary p-3">Liste des pâtissiers</h1>
+        {% include "components/_adminnav.html.twig" %}
 
+        <h1 class="text-primary text-center mb-4">Pâtissiers</h1>
         {% for baker in bakers %}
-            <div id="baker-card" class="card mb-3">
+            <div id="baker-card" class="container-fluid card mb-3">
                 <div class="row m-3 g-{{ loop.index0 }}">
-                    <div class="col-md-4">
+                    <div class="col-lg-2">
                         <img
-                            src="https://images.pexels.com/photos/3771812/pexels-photo-3771812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                            src="/uploads/bakers/profile/{{ baker.profilePicture }}"
                             class="img-fluid rounded-start" alt="portrait du pâtissier">
                     </div>
-                    <div class="col-md-8">
-                    <div class="card-body">
-                        <h2 class="card-title">{% if baker.commercialName is not empty %}
-                        {{ baker.commercialName}}
-                            {% else %}{{ baker.user.firstname }} {{ baker.user.lastname }}
-                            {% endif %}
-                        </h2>
-                        <p class="card-text">{% if baker.commercialName is not empty %}
-                        {{ baker.user.firstname }} {{ baker.user.lastname }}
-                            {% endif %}
-                        </p>
-                        <p class="card-text">Téléphone : {{ baker.user.phone }}</p>
-                        <p class="card-text">Lieu : {{ baker.department.number }} - {{ baker.department.name }}</p>
-                        <a href="{{ path('app_baker_list', {id:baker.id} ) }}" class="btn btn-primary m-3">Plus de détails</a></br>
-                        <div class="d-flex align-items-center">
-                            <a href="{{ path('app_baker_edit', {id:baker.id} ) }}" class="btn btn-secondary text-white m-2">Modifier</a>
-                            {{ include('baker/_delete_form.html.twig') }}
+                    <div class="col-lg-10">
+                        <div class="card-body d-flex flex-column flex-sm-column flex-lg-row justify-content-around">
+                            <div>
+                                <h5 class="card-title">
+                                    {{ baker.user.firstname }} {{ baker.user.lastname }}
+                                </h5>
+                                <p class="card-text">{% if baker.commercialName is not empty %}
+                                    {{ baker.commercialName}}
+                                    {% endif %}
+                                </p>
+                                <p>Inscrit le : {{ baker.created | date("d/m/Y") }}</p>
+                                <p>N° de Siret : {{ baker.siret }}</p>
+                            </div>
+                            <div>
+                                <h5 class="card-title">Contact</h5>
+                                <p>{{ baker.user.phone }}
+                                <br>{{ baker.user.email }}
+                                {% if baker.facebook is not empty %}
+                                <br><a href="{{baker.facebook }}">Page Facebook</a>
+                                {% endif %}
+                                {% if baker.instagram is not empty %}
+                                <br><a href="{{baker.instagram }}">Compte Instagram</a>
+                                {% endif %}
+                                </p>
+                            </div>
+                            <div>
+                                <h5 class="card-title">Adresse de facturation</h5>
+                                {% for address in baker.user.billingAddress %}
+                                    {% if address.status == 1 %} {# to show the active adress #}
+                                        <p>{{ address.streetNumber}} {{ address.bisTerInfo }} {{ address.streetName }}
+                                        <br>{{ address.postcode }} {{ address.city }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div>
+                                <h5 class="card-title">Adresse de click&collect</h5>
+                                <p>{{ baker.deliveryAddress.streetNumber }}{{ baker.deliveryAddress.bisTerInfo }} {{ baker.deliveryAddress.streetName }}
+                                <br>{{ baker.deliveryAddress.postcode }} {{ baker.deliveryAddress.city }}</p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <a href="{{ path('app_baker_edit', {id:baker.id} ) }}" class="btn btn-secondary text-white m-2">Modifier</a>
+                                {{ include('baker/_delete_form.html.twig') }}
+                            </div>
                         </div>
                     </div>
                 </div>

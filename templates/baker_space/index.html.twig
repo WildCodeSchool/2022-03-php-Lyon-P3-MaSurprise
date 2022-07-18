@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon espace pâtissier - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-3 mb-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-12 col-md-8 col-lg-6 card p-5">
+                            <h1 class="text-primary text-center">Mon espace pâtissier</h1>
+                            <a class="btn btn-secondary btn-lg text-white m-3"
+                               href="{{ path('app_bakerspace_show') }}">Mon
+                                profil</a>
+                            <a class="btn btn-secondary btn-lg text-white m-3"
+                               href="{{ path('app_bakerspace_cakes') }}">Gérer mes gâteaux</a>
+                            <a class="btn btn-secondary btn-lg text-white m-3"
+                               href="{{ path('app_bakerspace_orders') }}">Mes
+                                commandes</a>
+                            <a class="btn btn-secondary btn-lg text-white m-3" href="{{ path('logout') }}">Me
+                                déconnecter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
