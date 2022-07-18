@@ -53,6 +53,16 @@ class BakerController extends AbstractController
     #[Route('/{id}/modifier', name: '_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Baker $baker, BakerRepository $bakerRepository): Response
     {
+        //make sure only the current baker and the admin can access this route
+        if (
+            $this->getUser() !== null
+            && in_array("ROLE_ADMIN", $this->getUser()->getRoles()) == false
+            && $baker !== $this->getUser()
+            || $this->getUser() == null
+        ) {
+            throw $this->createAccessDeniedException();
+        }
+
         $modifyForm = $this->createForm(BakerModifyType::class, $baker);
         $modifyForm->handleRequest($request);
 
