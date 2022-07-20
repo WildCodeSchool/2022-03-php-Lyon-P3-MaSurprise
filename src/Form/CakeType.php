@@ -18,7 +18,7 @@ class CakeType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom du gâteau*',
-                'required' => 'Le nom du gâteau est obligatoire'                
+                'required' => 'Le nom du gâteau est obligatoire'
                 ])
             ->add('description', TextareaType::class, ['label' => 'Description*'])
             ->add('ingredients', TextType::class, [
