@@ -7,6 +7,9 @@
         <div class="row">
             <div class="col-12">
                 <h1 class="text-primary mb-5 text-center">Mon panier</h1>
+            </div>
+            <div class="row">
+                <div>
                 <table class="table">
                     <thead>
                     <tr>
@@ -36,7 +39,8 @@
                             <td class=>{{ product.quantity }}</td>
                             <td class="text-right">{{ (product.quantity * product.cake.price)|format_currency('EUR', locale='de') }}</td>
                             <td>
-                                <a href="{{ path("cart_add", {id: product.cake.id, baker: product.cake.baker.id}) }}" class="btn btn-secondary">
+                                <a href="{{ path("cart_add", {id: product.cake.id, baker: product.cake.baker.id}) }}"
+                                   class="btn btn-secondary">
                                     <p class="bi cart-plus text-white m-0">+</p>
                                 </a>
                                 <a href="{{ path("cart_remove", {id: product.cake.id}) }}"
