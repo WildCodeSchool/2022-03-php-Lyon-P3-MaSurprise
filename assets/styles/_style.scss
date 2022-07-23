@@ -327,8 +327,8 @@ h4 {
 }
 
 .how-to-container {
-    column-gap:  1.25em;
-    row-gap:  1.25em;
+    column-gap: 1.25em;
+    row-gap: 1.25em;
 }
 
 .how-to {
@@ -339,7 +339,7 @@ h4 {
 
 /* ----- references ----- */
 .main-ratings-container {
-    column-gap:  1.25em;
+    column-gap: 1.25em;
 }
 
 .ratings-container {
@@ -365,7 +365,7 @@ h4 {
 .separator {
     width: 6.25em;
     height: 2px;
-    margin:3.125em 0 3.125em 0;
+    margin: 3.125em 0 3.125em 0;
 }
 
 .floating-logos {
@@ -429,13 +429,13 @@ h4 {
 
 /* ---------- FOOTER ---------- */
 footer {
-    height: 350px;
+    height: 21.875em;
     background-color: var(--background-footer-navbar);
-    padding: 50px;
+    padding: 3.125em;
 }
 
 footer h4 {
-    font-size: 25px;
+    font-size: 1.5625em;
 }
 
 footer ul {
@@ -445,7 +445,7 @@ footer ul {
 footer ul a {
     text-decoration: none;
     color: black;
-    font-size: 25px;
+    font-size: 1.5625em;
 }
 
 /* ---------- CONNEXION MODAL ---------- */
@@ -482,7 +482,7 @@ $modal-backdrop-opacity: 0.8;
     color: black;
     text-decoration: none;
     font-family: 'Karla';
-    font-size: 12px;
+    font-size: 0.75em;
     cursor: pointer;
 }
 
