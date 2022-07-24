@@ -3,11 +3,18 @@
 {% block title %}Votre panier - {{ parent() }}{% endblock %}
 
 {% block body %}
+    {% for category, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
     <section class="h-100 h-custom">
         <div class="container-fluid py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12">
-                    <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                    <div class="card card-registration card-registration-2">
                         <div class="card-body p-0">
                             <div class="row g-0">
                                 <div class="col-12">
@@ -62,11 +69,6 @@
                                                     <a class="btn btn-primary btn-lg text-white"
                                                        href="{{ path("app_order_index") }}">Commander</a>
                                                 {% endif %}
-                                            </div>
-                                            <div class="pt-5">
-                                                <h6 class="mb-0"><a href="#!" class="text-body"><i
-                                                            class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a>
-                                                </h6>
                                             </div>
                                         </div>
                                     </div>
