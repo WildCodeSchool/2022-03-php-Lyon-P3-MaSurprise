@@ -32,11 +32,10 @@ class RegistrationController extends AbstractController
 
     #[Route('/patissier', name: '_baker')]
     public function newBaker(
-        Request                     $request,
+        Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface      $entityManager
-    ): Response
-    {
+        EntityManagerInterface $entityManager
+    ): Response {
         // need to set an empty address to see the address fields when a client want to create his account
         $billingAddress = new Address();
         $baker = new Baker();
@@ -68,11 +67,10 @@ class RegistrationController extends AbstractController
 
     #[Route('/client', name: '_user')]
     public function newUser(
-        Request                     $request,
+        Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface      $entityManager
-    ): Response
-    {
+        EntityManagerInterface $entityManager
+    ): Response {
         $user = new User();
         // need to set an empty address to see the address fields when a client want to create his account
         $billingAddress = new Address();
