@@ -141,7 +141,6 @@ h2,
 h3,
 h4 {
     font-family: "Prata", sans-serif;
-    margin: 20px;
 }
 
 .main-theme-container-title,
@@ -310,10 +309,11 @@ h4 {
 
 @media screen and (max-width: 500px) {
     .carousel-img {
-        width: 100px;
-        height: 100px;
+        width: 90px;
+        height: 90px;
         border: 5px solid white;
     }
+
 }
 
 /* ----- how to ----- */
@@ -333,7 +333,7 @@ h4 {
 
 .how-to {
     border-radius: 6px;
-    width: 400px;
+    width: 280px;
     padding: 30px;
 }
 
@@ -346,7 +346,7 @@ h4 {
     border: 1px solid #D67826;
     border-radius: 6px;
     height: 370px;
-    width: 400px;
+    width: 280px;
     padding: 30px;
     background-color: white;
 }
@@ -602,6 +602,22 @@ p {
 
 .admin-container {
     height: 70vh;
+}
+
+/*-----------Cart-view------------*/
+
+.card .card-registration {
+    border-radius: 15px;
+}
+
+.quantity {
+    margin-right: 3em;
+}
+
+@media (min-width: 768px) {
+    .quantity {
+        min-width: max-content;
+    }
 }
 
 /* CHECK EMAIL PAGE */
