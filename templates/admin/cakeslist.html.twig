@@ -19,16 +19,11 @@
         </div>
 
         <div class="d-flex justify-content-between">
-
-            <a
-                {% if is_granted('ROLE_ADMIN') %}
-                    href="{{ path('app_bakerspace_index') }}"
-                {% else %}
-                    href="{{ path('app_bakerspace_index') }}"
-                {% endif %}
-            >
-                <button class="btn btn-secondary text-white m-3">Retour</button>
-            </a>
+            {% if not is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_bakerspace_index') }}">
+                    <button class="btn btn-secondary text-white m-3">Retour</button>
+                </a>
+            {% endif %}
 
             <a href="{{ path('app_cake_new') }}">
                 <button class="btn btn-secondary text-white m-3">Ajouter un nouveau gâteau</button>
@@ -53,7 +48,7 @@
                         <h4 class="card-title m-0 mb-3">{{ cake.name }}</h4>
                         {# displaying baker info only if admin (for use on baker space) #}
                         {% if is_granted('ROLE_ADMIN') %}
-                            <p class="card-text">
+                            <p class="card-text mb-0">
                                 {{ cake.baker.user.firstname }} {{ cake.baker.user.lastname }}
                             </p>
                             <p class="card-text">
@@ -61,24 +56,24 @@
                                     {{ cake.baker.commercialName }}
                                 {% endif %}
                             </p>
-                            <p> {{ cake.baker.deliveryAddress.postcode }} {{ cake.baker.deliveryAddress.city }}</p>
+                            <p class="card-text">{{ cake.baker.deliveryAddress.postcode }} {{ cake.baker.deliveryAddress.city }}</p>
                         {% endif %}
                         <h5 class="card-title">Description</h5>
-                        <p>{{ cake.description }}</p>
+                        <p class="card-text">{{ cake.description }}</p>
                     </div>
 
                     <div class="col-12 col-lg-2">
                         <h5 class="card-title">Allergènes</h5>
-                        <p>{{ cake.allergens }}</p>
+                        <p class="card-text">{{ cake.allergens }}</p>
                     </div>
 
                     <div class="col-12 col-lg-2">
                         <h5 class="card-title">Taille</h5>
-                        <p>{{ cake.size }}</p>
+                        <p class="card-text">{{ cake.size }}</p>
                         <h5 class="card-title">Prix</h5>
-                        <p>{{ cake.price|format_currency('EUR', locale='de') }}</p>
+                        <p class="card-text">{{ cake.price|format_currency('EUR', locale='de') }}</p>
                         <h5 class="card-title">Type</h5>
-                        <p>{{ cake.category }}</p>
+                        <p class="card-text">{{ cake.category }}</p>
                     </div>
 
                     <div class="col-12 col-lg-1 d-flex flex-column justify-content-center align-items-center">

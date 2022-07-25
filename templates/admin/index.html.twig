@@ -3,5 +3,12 @@
 {% block title %}Espace Admin - {{ parent() }}{% endblock %}
 
 {% block body %}
-    {% include "components/_adminnav.html.twig" %}
+    <div class="container-fluid">
+        <div class="row">
+            {% include "components/_adminnav.html.twig" %}
+        </div>
+        <div class="row admin-container d-flex justify-content-center align-items-center">
+            <h1 class="text-primary text-center">Espace admin</h1>
+        </div>
+    </div>
 {% endblock %}
