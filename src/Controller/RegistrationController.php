@@ -9,7 +9,6 @@ use App\Form\BakerType;
 use App\Form\RegistrationFormType;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,10 +32,11 @@ class RegistrationController extends AbstractController
 
     #[Route('/patissier', name: '_baker')]
     public function newBaker(
-        Request $request,
+        Request                     $request,
         UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface $entityManager
-    ): Response {
+        EntityManagerInterface      $entityManager
+    ): Response
+    {
         // need to set an empty address to see the address fields when a client want to create his account
         $billingAddress = new Address();
         $baker = new Baker();
@@ -68,10 +68,11 @@ class RegistrationController extends AbstractController
 
     #[Route('/client', name: '_user')]
     public function newUser(
-        Request $request,
+        Request                     $request,
         UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface $entityManager
-    ): Response {
+        EntityManagerInterface      $entityManager
+    ): Response
+    {
         $user = new User();
         // need to set an empty address to see the address fields when a client want to create his account
         $billingAddress = new Address();
