@@ -7,14 +7,11 @@
     <h1 class="text-primary text-center">Créer un compte</h1>
 
     {{ include('user/_form.html.twig') }}
-{% else %}
-{% if is_granted('ROLE_BAKER') %}
+{% elseif is_granted('ROLE_BAKER') %}
 <p class="text-center">Veuillez vous déconnecter pour créer un nouveau compte.</p>
     {{ include('baker_space/index.html.twig') }}
-{% endif %}
-{% if not is_granted('ROLE_BAKER')  and is_granted('ROLE_USER') %}
+{% elseif not is_granted('ROLE_BAKER')  and is_granted('ROLE_USER') %}
 <p class="text-center">Veuillez vous déconnecter pour créer un nouveau compte.</p>
     {{ include('customer/index.html.twig') }}
-{% endif %}
 {% endif %}
 {% endblock %}
