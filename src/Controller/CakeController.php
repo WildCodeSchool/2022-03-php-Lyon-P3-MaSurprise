@@ -78,10 +78,16 @@ class CakeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var User $user */
+            $user = $this->getUser();
+            $baker = $user->getBaker();
+            $cake->setBaker($baker);
             $cakeRepository->add($cake, true);
             // put the id in session is use to connect url pictures to the right cake
             $session = $requestStack->getSession();
             $session->set('cakeId', $cake->getId());
+
+            return $this->redirectToRoute('app_bakerspace_cakes');
         }
 
         return $this->renderForm('cake/new.html.twig', [
