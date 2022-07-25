@@ -54,7 +54,7 @@ class BakerController extends AbstractController
     #[Route('/{id}/modifier', name: '_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Baker $baker, BakerRepository $bakerRepository): Response
     {
-        // useless bit of code
+        // initializing modifyForm in case conditions are not met
         $modifyForm = "";
 
         //make sure only the current baker and the admin can access this route
