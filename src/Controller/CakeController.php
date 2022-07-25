@@ -6,7 +6,7 @@ use App\Form\CakeType;
 use App\Form\SearchCakeFormType;
 use Exception;
 use App\Entity\Cake;
-use App\Entity\Baker;
+use App\Entity\User;
 use App\Repository\CakeRepository;
 use App\Repository\DepartmentRepository;
 use App\Service\CakeSearchService;
