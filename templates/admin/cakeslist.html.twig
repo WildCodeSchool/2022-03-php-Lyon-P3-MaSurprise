@@ -59,7 +59,7 @@
                             <p class="card-text">{{ cake.baker.deliveryAddress.postcode }} {{ cake.baker.deliveryAddress.city }}</p>
                         {% endif %}
                         <h5 class="card-title">Description</h5>
-                        <p class="card-text">{{ cake.description }}</p>
+                        <p class="card-text">{{ cake.description|length > 250 ? cake.description|slice(0, 250) ~ ' [...]' : cake.description }}</p>
                     </div>
 
                     <div class="col-12 col-lg-2">
