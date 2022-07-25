@@ -3,73 +3,81 @@
 {% block title %}Votre panier - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h1 class="text-primary mb-5 text-center">Mon panier</h1>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Produit</th>
-                        <th scope="col">Pâtissier</th>
-                        <th scope="col">Prix unitaire</th>
-                        <th scope="col">Quantité</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for category, messages in app.flashes %}
-                        {% for message in messages %}
-                            <div class="alert alert-{{ category }}">
-                                {{ message }}
+    {% for category, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <section class="h-100 h-custom">
+        <div class="container-fluid py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12">
+                    <div class="card card-registration card-registration-2">
+                        <div class="card-body p-0">
+                            <div class="row g-0">
+                                <div class="col-12">
+                                    <div class="p-5">
+                                        <div class="d-flex justify-content-between align-items-center mb-5">
+                                            <h1 class="fw-bold mb-0 text-black">Mon panier</h1>
+                                        </div>
+                                        <hr class="my-4">
+                                        {% for product in datacart %}
+                                            <div class="row mb-4 d-flex justify-content-between align-items-center g-0">
+                                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                                <h6 class="text-black mb-0">{{ product.cake.name }}</h6>
+                                                <h6 class="text-muted">{{ product.cake.baker.user.firstname }} {{ product.cake.baker.user.lastname|slice(0, 1) }}
+                                                    . </h6>
+                                            </div>
+                                            <div
+                                                class="quantity col-xs-2 col-md-3 d-flex flex-row justify-content-between align-items-baseline">
+                                                <div>
+                                                    <p class="fs-5 quantity">{{ product.quantity }}</p>
+                                                </div>
+                                                <div>
+                                                    <a href="{{ path("cart_add", {id: product.cake.id, baker: product.cake.baker.id}) }}"
+                                                       class="btn btn-secondary">
+                                                        <p class="bi cart-plus text-white m-0">+</p>
+                                                    </a>
+                                                    <a href="{{ path("cart_remove", {id: product.cake.id}) }}"
+                                                       class="btn btn-secondary">
+                                                        <p class="bi bi-cart-dash text-white m-0">-</p>
+                                                    </a>
+                                                    <a href="{{ path("cart_delete", {id: product.cake.id}) }}"
+                                                       class="btn btn-primary">
+                                                        <p class="bi bi-cart-check text-white m-0">x</p>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                <h6 class="mb-0">{{ (product.quantity * product.cake.price)|format_currency('EUR', locale='de') }}</h6>
+                                            </div>
+                                        {% else %}
+                                            <p class="text-center">Votre panier est vide.</p>
+                                            </div>
+                                        {% endfor %}
+                                        <hr class="my-4">
+                                        <div>
+                                            <p class="text-end">
+                                                total: {{ total|format_currency('EUR', locale='de') }}
+                                            </p>
+                                            <div class="d-flex justify-content-end mb-5">
+                                                {% if datacart is empty %}
+                                                    <a class="btn btn-secondary btn-lg text-white disabled">Commander</a>
+                                                {% else %}
+                                                    <a class="btn btn-primary btn-lg text-white"
+                                                       href="{{ path("app_order_index") }}">Commander</a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        {% endfor %}
-                    {% endfor %}
-                    {% for product in datacart %}
-                        <tr>
-                            <td>{{ product.cake.name }}</td>
-                            <td>{{ product.cake.baker.user.firstname }} {{ product.cake.baker.user.lastname|slice(0, 1) }}
-                                .
-                            </td>
-                            <td class="text-right">{{ product.cake.price|format_currency('EUR', locale='de') }}</td>
-                            <td class=>{{ product.quantity }}</td>
-                            <td class="text-right">{{ (product.quantity * product.cake.price)|format_currency('EUR', locale='de') }}</td>
-                            <td>
-                                <a href="{{ path("cart_add", {id: product.cake.id, baker: product.cake.baker.id}) }}" class="btn btn-secondary">
-                                    <p class="bi cart-plus text-white m-0">+</p>
-                                </a>
-                                <a href="{{ path("cart_remove", {id: product.cake.id}) }}"
-                                   class="btn btn-secondary">
-                                    <p class="bi bi-cart-dash text-white m-0">-</p>
-                                </a>
-                                <a href="{{ path("cart_delete", {id: product.cake.id}) }}"
-                                   class="btn btn-primary">
-                                    <p class="bi bi-cart-check text-white m-0">x</p>
-                                </a>
-                            </td>
-                        </tr>
-                    {% else %}
-                        <td class="text-center">Votre panier est vide.</td>
-                    {% endfor %}
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <td colspan="5">Total</td>
-                        <td class="text-end" colspan="6">
-                            {{ total|format_currency('EUR', locale='de') }}
-                        </td>
-                    </tr>
-                    </tfoot>
-                </table>
-                <div class="d-flex justify-content-end mb-5">
-                    {% if datacart is empty %}
-                        <a class="btn btn-secondary btn-lg text-white disabled">Commander</a>
-                    {% else %}
-                        <a class="btn btn-primary btn-lg text-white" href="{{ path("app_order_index") }}">Commander</a>
-                    {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 {% endblock %}
