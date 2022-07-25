@@ -105,18 +105,6 @@
             <div class="col-md-3 col-6 d-flex flex-column justify-content-center">
                 <p class="mb-1">✅ Click & collect</p>
                 <p class="mb-4">✅ Pâtissier {{ cake.baker.bakerType }}</p>
-                {% if cake.baker.facebook is not empty %}
-                    <a href="{{ cake.baker.facebook }}" class="d-flex gap-2 social-link" alt="Facebook logo">
-                        <img src="{{ asset("build/images/icons/facebook.png") }}" width="20px" height="20px">
-                        <p class="m-0 social-link">Facebook</p>
-                    </a>
-                {% endif %}
-                {% if cake.baker.instagram is not empty %}
-                    <a href="{{ cake.baker.instagram }}" class="d-flex gap-2 social-link" alt="Instagram logo">
-                        <img src="{{ asset("build/images/icons/instagram.png") }}" width="20px" height="20px">
-                        <p class="m-0 social-link">Instagram</p>
-                    </a>
-                {% endif %}
             </div>
         </div>
     </div>
