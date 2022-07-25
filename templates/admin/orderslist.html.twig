@@ -138,28 +138,28 @@
                                                             <p class="card-text text-center mb-0">
                                                                 {% if is_granted('ROLE_ADMIN') %}
                                                                     {{ cakes.seller.firstname }} {{ cakes.seller.lastname }}
-                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" %}
+                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" and order.orderStatus is not same as "Commande retirée" %}
                                                                     {{ cakes.seller.firstname }} {{ cakes.seller.lastname }}
                                                                 {% else %}
-                                                                    Les coordonnées du pâtissier
+                                                                    Les coordonnées du
                                                                 {% endif %}
                                                             </p>
                                                             <p class="card-text text-center mb-0">
                                                                 {% if is_granted('ROLE_ADMIN') %}
                                                                     {{ cakes.seller.email }}
-                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" %}
+                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" and order.orderStatus is not same as "Commande retirée" %}
                                                                     {{ cakes.seller.email }}
                                                                 {% else %}
-                                                                    apparaîtront ici après
+                                                                    pâtissier ne sont
                                                                 {% endif %}
                                                             </p>
                                                             <p class="card-text text-center">
                                                                 {% if is_granted('ROLE_ADMIN') %}
                                                                     {{ cakes.seller.phone }}
-                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" %}
+                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" and order.orderStatus is not same as "Commande retirée" %}
                                                                     {{ cakes.seller.phone }}
                                                                 {% else %}
-                                                                    validation de votre commande.
+                                                                    pas/plus disponibles.
                                                                 {% endif %}
                                                             </p>
                                                         </div>

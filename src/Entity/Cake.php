@@ -52,7 +52,7 @@ class Cake
     private ?string $ingredients;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $availability = "NR";
+    private ?string $availability = "Non renseigné";
 
     public function __construct()
     {
