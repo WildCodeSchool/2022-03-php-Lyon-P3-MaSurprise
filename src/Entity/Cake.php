@@ -7,6 +7,7 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CakeRepository::class)]
 #[Vich\Uploadable]
@@ -21,21 +22,30 @@ class Cake
     private \DateTimeInterface $created;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Length(
+        min: 3,
+        max: 255,
+        minMessage: 'Your first name must be at least {{ limit }} characters long',
+        maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
+    )]
     private string $name;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $picture1 = "";
 
     #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank]
     private ?string $description;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $allergens;
 
     #[ORM\Column(type: 'float')]
+    #[Assert\NotBlank]
     private float $price;
 
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank]
     private string $size;
 
     #[ORM\ManyToOne(targetEntity: Baker::class, inversedBy: 'cakes')]
@@ -46,6 +56,7 @@ class Cake
     private ?\DateTimeInterface $updateAt = null;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
     private string $category;
 
     #[ORM\Column(type: 'text', nullable: true)]
