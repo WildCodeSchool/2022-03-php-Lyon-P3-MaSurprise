@@ -32,13 +32,17 @@
                             </a>
                         {% endif %}
                         {% if is_granted('ROLE_BAKER') %}
-                        <a href="{{ path('app_bakerspace_index') }}">
-                            <button type="button" class="btn btn-secondary text-white mt-5">Retour</button>
-                        </a>
+                            <a href="{{ path('app_baker_edit', {'id': app.user.baker.id}) }}">
+                                <button type="button" class="btn btn-secondary text-white">Modifier mon profil
+                                </button>
+                            </a>
+                            <a href="{{ path('app_bakerspace_index') }}">
+                                <button type="button" class="btn btn-secondary text-white mt-5">Retour</button>
+                            </a>
                         {% else %}
-                        <a href="{{ path('app_customer_index') }}">
-                            <button type="button" class="btn btn-secondary text-white mt-5">Retour</button>
-                        </a>
+                            <a href="{{ path('app_customer_index') }}">
+                                <button type="button" class="btn btn-secondary text-white mt-5">Retour</button>
+                            </a>
                         {% endif %}
                     {% endif %}
                 </div>

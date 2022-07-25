@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block body %}
-    <main class="container-fluid">
+    <main class="container-fluid mb-5">
 
         <div class="row d-flex justify-content-center">
             <div class="col-10 d-flex flex-column align-items-center">
@@ -20,36 +20,36 @@
                         <h1 class="m-0 text-center text-primary">{{ baker.commercialName }}</h1>
                     {% endif %}
                     <h2 class="m-0 text-center text-secondary">
-                        {{ baker.user.firstname }} {{ baker.user.lastname|slice(0,1) }}.
+                        par {{ baker.user.firstname }} {{ baker.user.lastname|slice(0,1) }}.
                     </h2>
                 </div>
 
-                <div class="d-flex flex-column justify-content-center">
-                    <h3 class="text-center mt-5 mb-3 text-primary">Informations</h3>
-                    {% if is_granted('ROLE_BAKER') %}
+                {% if is_granted('ROLE_BAKER') %}
+                    <div class="d-flex flex-column justify-content-center">
+                        <h3 class="text-center mt-5 mb-3 text-primary">Informations</h3>
                         <p>Téléphone : {{ baker.user.phone }}</p>
                         <p class="mb-0">Adresse
                             : {{ baker.deliveryAddress.streetNumber }} {{ baker.deliveryAddress.bisTerInfo }} {{ baker.deliveryAddress.streetName }}</p>
                         <p>{{ baker.deliveryAddress.postcode }} {{ baker.deliveryAddress.city }}</p>
                         <p>Date d'inscription : {{ baker.created | date("d/m/Y") }}</p>
-                    {% endif %}
-                    <div class="d-flex">
-                        {% if baker.facebook is not empty %}
-                            <a href="{{ baker.facebook }}" class="d-flex gap-2 social-link">
-                                <img src="{{ asset("build/images/icons/facebook.png") }}" width="20px" height="20px"
-                                     alt="Facebook logo">
-                                <p class="m-0 social-link">Facebook</p>
-                            </a>
-                        {% endif %}
-                        {% if baker.instagram is not empty %}
-                            <a href="{{ baker.instagram }}" class="d-flex gap-2 social-link" alt="Instagram logo">
-                                <img src="{{ asset("build/images/icons/instagram.png") }}" width="20px" height="20px">
-                                <p class="m-0 social-link">Instagram</p>
-                            </a>
-                        {% endif %}
+                        <div class="d-flex">
+                            {% if baker.facebook is not empty %}
+                                <a href="{{ baker.facebook }}" class="d-flex gap-2 social-link">
+                                    <img src="{{ asset("build/images/icons/facebook.png") }}" width="20px" height="20px"
+                                         alt="Facebook logo">
+                                    <p class="m-0 social-link">Facebook</p>
+                                </a>
+                            {% endif %}
+                            {% if baker.instagram is not empty %}
+                                <a href="{{ baker.instagram }}" class="d-flex gap-2 social-link" alt="Instagram logo">
+                                    <img src="{{ asset("build/images/icons/instagram.png") }}" width="20px"
+                                         height="20px">
+                                    <p class="m-0 social-link">Instagram</p>
+                                </a>
+                            {% endif %}
+                        </div>
                     </div>
-
-                </div>
+                {% endif %}
 
                 <h3 class="text-center mt-5 text-primary">Gâteaux créés par ce pâtissier</h3>
                 <div class="card-group container">
@@ -75,15 +75,19 @@
                                 </div>
                             </div>
                         {% else %}
-                            <h2>Ce pâtissier ne propose aucun gâteau actuellement. Revenez plus tard !</h2>
+                            <h2 class="text-primary">Ce pâtissier ne propose aucun gâteau actuellement. Revenez plus
+                                tard !</h2>
                         {% endfor %}
                     </div>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <a href="{{ path('app_baker_index') }}" class="btn btn-primary center p-2 m-2">Retour à la liste des
-                        pâtissiers
-                    </a>
-                </div>
+                {% if is_granted('ROLE_BAKER') %}
+                    <div class="d-flex justify-content-center">
+                        <a href="{{ path('app_baker_index') }}" class="btn btn-primary center p-2 m-2">Retour à la liste
+                            des
+                            pâtissiers
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </main>
