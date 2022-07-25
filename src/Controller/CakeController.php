@@ -20,6 +20,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Validator\Constraints\Length;
 
 #[Route('/gateau', name: 'app_cake_')]
 class CakeController extends AbstractController
@@ -130,23 +131,26 @@ class CakeController extends AbstractController
         $cakeUrls = $cake->getPicture1();
         if (is_string($cakeUrls)) {
             $cakeUrlsArray = explode(',', $cakeUrls);
-            $key = array_search($path, $cakeUrlsArray);
-            if ($key != false) {
-                unset($cakeUrlsArray[$key]);
-                $cakeUrls = implode(',', $cakeUrlsArray);
-                $cake->setPicture1($cakeUrls);
-                $cakeRepository->add($cake, true);
-            }
-        };
-        $finder = new Finder();
-        $finder->files()->in('../public/uploads/cakes');
-        $filesystem = new Filesystem();
-        foreach ($finder as $file) {
-            if ($file->getFilename() == $path) {
-                $filesystem->remove($file);
+            if (count($cakeUrlsArray) != 1) {
+                $key = array_search($path, $cakeUrlsArray);
+                if ($key !== false) {
+                    unset($cakeUrlsArray[$key]);
+                    $cakeUrls = implode(',', $cakeUrlsArray);
+                    $cake->setPicture1($cakeUrls);
+                    $cakeRepository->add($cake, true);
+                }
+                $finder = new Finder();
+                $finder->files()->in('../public/uploads/cakes');
+                $filesystem = new Filesystem();
+                foreach ($finder as $file) {
+                    if ($file->getFilename() == $path) {
+                        $filesystem->remove($file);
+                    }
+                }
+                return new Response($path);
             }
         }
-        return new Response($path);
+        return new Response("", 403); // response if there is only one picture in edit form
     }
 
     #[Route('/{id}/modifier', name: 'edit', methods: ['GET', 'POST'])]
