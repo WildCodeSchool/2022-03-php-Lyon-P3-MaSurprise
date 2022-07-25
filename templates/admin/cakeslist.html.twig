@@ -77,8 +77,15 @@
                     </div>
 
                     <div class="col-12 col-lg-1 d-flex flex-column justify-content-center align-items-center">
-                        <a href="{{ path('app_cake_edit', {id:cake.id} ) }}"
-                           class="btn btn-secondary text-white m-1 w-100">Modifier</a>
+                        <div class="container">
+                            <div class="row d-flex justify-content-center m-3">
+                                <div class="col-6 d-flex justify-content-center">
+                                    <a href="{{ path('app_cake_edit', {id:cake.id} ) }}">
+                                        <button class="btn btn-secondary text-white">Modifier</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                         {{ include('cake/_delete_form.html.twig') }}
                     </div>
                 </div>
