@@ -21,6 +21,12 @@ class RegistrationController extends AbstractController
     #[Route('/', name: '_type')]
     public function bakerOrUser(): Response
     {
+        //make sure a connected user cannot create a new account
+        /** @var User $user */
+        $user = $this->getUser();
+        if ($user != null) {
+            throw $this->createAccessDeniedException();
+        }
         return $this->render('registration/type.html.twig');
     }
 
