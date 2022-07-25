@@ -3,8 +3,15 @@
 {% block title %}Créer un compte{% endblock %}
 
 {% block body %}
+{% if not is_granted('ROLE_USER') %}
     <h1 class="text-primary text-center">Créer un compte</h1>
 
     {{ include('user/_form.html.twig') }}
-
+{% elseif is_granted('ROLE_BAKER') %}
+<p class="text-center">Veuillez vous déconnecter pour créer un nouveau compte.</p>
+    {{ include('baker_space/index.html.twig') }}
+{% elseif not is_granted('ROLE_BAKER')  and is_granted('ROLE_USER') %}
+<p class="text-center">Veuillez vous déconnecter pour créer un nouveau compte.</p>
+    {{ include('customer/index.html.twig') }}
+{% endif %}
 {% endblock %}
