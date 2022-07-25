@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class CakeType extends AbstractType
 {
@@ -18,21 +20,45 @@ class CakeType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom du gâteau*',
-                'required' => 'Le nom du gâteau est obligatoire'
-                ])
-            ->add('description', TextareaType::class, ['label' => 'Description*'])
+                'required' => 'Le nom du gâteau est obligatoire',
+                'constraints' => [
+                    new NotBlank(['message' => "Ce champ est obligatoire."]),
+                    new Length([
+                        'max' => 255,
+                        'maxMessage' => 'Le champ nom doit comporter au maximum {{ limit }} caractères.'
+                    ])
+                ]
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Description*',
+                'required' => 'La description est obligatoire',
+                'constraints' => [
+                    new NotBlank(['message' => "Ce champ est obligatoire."]),
+                    new Length([
+                        'max' => 600,
+                        'maxMessage' => 'Le champ prénom doit comporter au maximum {{ limit }} caractères.'
+                    ])
+                ]
+            ])
             ->add('ingredients', TextType::class, [
                 'label' => 'Goûts et saveurs',
                 'required' => false
                 ])
-            ->add('allergens', TextType::class, [
-                'label' => 'Liste des allergènes',
-                'required' => false
-                ])
-            ->add('price', NumberType::class, ['label' => 'Prix*'])
+            ->add('allergens', TextType::class, ['label' => 'Liste des allergènes'])
+            ->add('price', NumberType::class, [
+                'label' => 'Prix*',
+                'required' => true,
+                'constraints' => [
+                    new NotBlank(['message' => "Ce champ est obligatoire."]),
+                    new Length([
+                        'max' => 3,
+                        'maxMessage' => 'Le champ prénom doit comporter au maximum {{ limit }} caractères.'
+                    ])
+                ]
+            ])
             ->add('size', TextType::class, [
                 'label' => 'Nombre de parts / personnes*'
-            ])
+                ])
             ->add('category', ChoiceType::class, [
                 'label' => 'Type*',
                 'choices' => [
@@ -46,6 +72,7 @@ class CakeType extends AbstractType
                     'Magnum cake(s)' => 'Magnum cake(s)',
                     'Pop cake(s)' => 'Pop cake(s)',
                 ],
+                'required' => true
             ])
             ->add('availability', TextType::class, [
                 'label' => 'Délai minimum nécessaire entre une commande et son retrait*',

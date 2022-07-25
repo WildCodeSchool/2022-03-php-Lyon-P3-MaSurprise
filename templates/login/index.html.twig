@@ -19,6 +19,10 @@
                     <div class="w-100 d-flex justify-content-center">
                         <button type="submit" class="btn-connection m-5 w-50">Connexion</button>
                     </div>
+                    <div class="modal-footer container d-flex justify-content-around pb-3">
+                        <a class="forgotten-password" href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
+                        <a class="create-account" href="{{ path('app_register_type') }}">Créer un compte</a>
+                    </div>
                 </form>
             </div>
         </div>
