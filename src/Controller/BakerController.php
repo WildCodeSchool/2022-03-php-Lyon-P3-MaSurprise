@@ -39,7 +39,7 @@ class BakerController extends AbstractController
         }
 
         return $this->renderForm('baker/new.html.twig', [
-            'form' => $form, 'baker' => $baker
+            'form' => $form, 'baker' => $baker,
         ]);
     }
 
@@ -54,25 +54,29 @@ class BakerController extends AbstractController
     #[Route('/{id}/modifier', name: '_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Baker $baker, BakerRepository $bakerRepository): Response
     {
+        // useless bit of code
+        $modifyForm = "";
+
         //make sure only the current baker and the admin can access this route
         /** @var User $user */
         $user = $this->getUser();
+
         if (
-            $this->getUser() !== null
-            && in_array("ROLE_ADMIN", $user->getRoles()) == false
-            && $baker !== $user->getBaker()
-            || $user == null
+            (in_array('ROLE_BAKER', $user->getRoles()) && $user->getBaker())
+            || in_array('ROLE_ADMIN', $user->getRoles())
         ) {
-            throw $this->createAccessDeniedException();
-        }
+            $modifyForm = $this->createForm(BakerModifyType::class, $baker);
+            $modifyForm->handleRequest($request);
 
-        $modifyForm = $this->createForm(BakerModifyType::class, $baker);
-        $modifyForm->handleRequest($request);
+            if ($modifyForm->isSubmitted() && $modifyForm->isValid()) {
+                $bakerRepository->add($baker, true);
 
-        if ($modifyForm->isSubmitted() && $modifyForm->isValid()) {
-            $bakerRepository->add($baker, true);
-
-            return $this->redirectToRoute('app_baker_index', [], Response::HTTP_SEE_OTHER);
+                if (in_array('ROLE_BAKER', $user->getRoles())) {
+                    return $this->redirectToRoute('app_bakerspace_show', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+                } else {
+                    return $this->redirectToRoute('app_baker_index', [], Response::HTTP_SEE_OTHER);
+                }
+            }
         }
 
         return $this->renderForm('baker/edit.html.twig', [
