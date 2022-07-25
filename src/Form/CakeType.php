@@ -19,8 +19,8 @@ class CakeType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom du gâteau',
-                'required' => true,
+                'label' => 'Nom du gâteau*',
+                'required' => 'Le nom du gâteau est obligatoire',
                 'constraints' => [
                     new NotBlank(['message' => "Ce champ est obligatoire."]),
                     new Length([
@@ -30,8 +30,8 @@ class CakeType extends AbstractType
                 ]
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description',
-                'required' => true,
+                'label' => 'Description*',
+                'required' => 'La description est obligatoire',
                 'constraints' => [
                     new NotBlank(['message' => "Ce champ est obligatoire."]),
                     new Length([
@@ -40,9 +40,13 @@ class CakeType extends AbstractType
                     ])
                 ]
             ])
+            ->add('ingredients', TextType::class, [
+                'label' => 'Goûts et saveurs',
+                'required' => false
+                ])
             ->add('allergens', TextType::class, ['label' => 'Liste des allergènes'])
             ->add('price', NumberType::class, [
-                'label' => 'Prix',
+                'label' => 'Prix*',
                 'required' => true,
                 'constraints' => [
                     new NotBlank(['message' => "Ce champ est obligatoire."]),
@@ -53,18 +57,10 @@ class CakeType extends AbstractType
                 ]
             ])
             ->add('size', TextType::class, [
-                'label' => 'Taille',
-                'required' => true,
-                'constraints' => [
-                    new NotBlank(['message' => "Ce champ est obligatoire."]),
-                    new Length([
-                        'max' => 255,
-                        'maxMessage' => 'Le champ prénom doit comporter au maximum {{ limit }} caractères.'
-                    ])
-                ]
-            ])
+                'label' => 'Nombre de parts / personnes*'
+                ])
             ->add('category', ChoiceType::class, [
-                'label' => 'Type',
+                'label' => 'Type*',
                 'choices' => [
                     'Pièce montée' => 'Pièce montée',
                     'Cupcake(s)' => 'Cupcake(s)',
@@ -78,10 +74,9 @@ class CakeType extends AbstractType
                 ],
                 'required' => true
             ])
-            ->add('availability', TextType::class, ['label' => 'Disponibilité'])
-            ->add('baker', null, ['label' => 'Pâtissier', 'choice_label' => function ($baker) {
-                return $baker->getUser()->getFirstname() . ' ' . $baker->getUser()->getLastname();
-            },
+            ->add('availability', TextType::class, [
+                'label' => 'Délai minimum nécessaire entre une commande et son retrait*',
+                'required' => 'Le délai minimum est obligatoire'
             ]);
     }
 
