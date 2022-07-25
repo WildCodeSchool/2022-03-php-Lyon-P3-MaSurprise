@@ -9,7 +9,9 @@
                 <div class="d-flex flex-column align-items-center card p-5">
                     <h1 class="text-primary text-center">Mon profil</h1>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <img class="comment-img m-4" src="https://i.pravatar.cc/200" alt="Une image de gâteau.">
+                        {% if is_granted('ROLE_BAKER') %}
+                        <img class="comment-img m-4" src="/uploads/bakers/profile/{{ app.user.baker.profilePicture }}" alt="Une image de gâteau.">
+                        {% endif %}
                         <h3>{{ app.user.firstname }} {{ app.user.lastname }}</h3>
                         <p class="mb-2">E-mail : {{ app.user.email }}</p>
                         <a href="{{ path('app_forgot_password_request') }}">
