@@ -610,7 +610,12 @@ p {
     border-radius: 15px;
 }
 
-    .quantity {
-        margin-right: 3em;
-    }
+.quantity {
+    margin-right: 3em;
+}
 
+@media (min-width: 768px) {
+    .quantity {
+        min-width: max-content;
+    }
+}
