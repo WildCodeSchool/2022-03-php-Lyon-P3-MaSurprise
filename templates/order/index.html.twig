@@ -64,7 +64,7 @@
                                     </ul>
                                     <div class="list-group-item meeting d-flex flex-row justify-content-between">
                                         <input type="date" id="meeting-time" min="datemin"
-                                               name="meeting-time" required="required" value="{{ dateorder }}">
+                                               name="meeting-time" required="required">
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +100,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div
                             class="col-12 d-flex flex-column-reverse justify-content-center align-items-center mt-5 mb-5 gap-3">
@@ -108,8 +107,8 @@
                                 <button type="button" class="btn btn-secondary text-white">Retour au panier
                                 </button>
                             </a>
-                            <a href="{{ path("app_order_processing") }}">
-                                <button type="button" class="btn btn-secondary btn-lg text-white">Valider la commande
+                            <a href="{{ path("app_order_index", {meetingTime: 'meetingTime'}) }}">
+                                <button type="submit" class="btn btn-secondary btn-lg text-white">Valider la commande
                                 </button>
                             </a>
                         </div>

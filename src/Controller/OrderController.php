@@ -21,25 +21,33 @@ class OrderController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
         $userId = $user->getId();
+        $orderDate = $session->get('order');
+
         $address = $addressRepository->findOneBy(['billingAddress' => $userId, 'status' => 1]);
 
         if (!$address) {
             $address = 'Aucune adresse renseignée.';
         }
 
-        if (isset($_POST['meeting-time'])) {
-            $session->set('order', $_POST['meeting-time']);
+        $now = date_create("now");
+
+        if ($orderDate < $now) {
+            $this->addFlash(
+                'warning',
+                'Merci de selectionner une date valide.'
+            );
+
+            $this->redirectToRoute('app_order_index');
         }
 
         $total = $session->get('total', []);
         $datacart = $session->get('datacart');
-        $dateorder = $session->get('order');
 
         return $this->render('order/index.html.twig', [
             'address' => $address,
             'total' => $total,
             'datacart' => $datacart,
-            'dateorder' => $dateorder,
+            'orderDate' => $orderDate,
         ]);
     }
 
