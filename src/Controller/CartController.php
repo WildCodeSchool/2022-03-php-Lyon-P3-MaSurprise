@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Baker;
 use App\Entity\Cake;
 use App\Repository\CakeRepository;
 use App\Service\CartService;
@@ -39,16 +40,15 @@ class CartController extends AbstractController
             "total" => $total,]);
     }
 
-    #[Route('/ajouter/{id}/{baker}', name: 'add')]
+    #[Route('/ajouter/{id}', name: 'add')]
     public function add(
         CartService $cartService,
-        int $id,
-        int $baker,
+        Cake $cake,
         SessionInterface $session,
     ): Response {
         $datacart = $session->get("datacart");
         if (empty($datacart)) {
-            $cartService->addCartService($id, $session);
+            $cartService->addCartService($cake->getId(), $session);
             return $this->redirectToRoute("cart_index");
         }
 
@@ -74,9 +74,11 @@ class CartController extends AbstractController
             return $this->redirectToRoute('cart_index');
         }
 
-        if ($bakerIn === $baker) {
-            $cartService->addCartService($id, $session);
-            return $this->redirectToRoute("cart_index");
+        if ($cake->getBaker() instanceof Baker) {
+            if ($bakerIn === $cake->getBaker()->getId()) {
+                $cartService->addCartService($cake->getId(), $session);
+                return $this->redirectToRoute("cart_index");
+            }
         }
 
         $this->addFlash(

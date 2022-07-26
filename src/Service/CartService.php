@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService
 {
-    public function addCartService(int $id, SessionInterface $session): mixed
+    public function addCartService(?int $id, SessionInterface $session): mixed
     {
         $cart = $session->get("cart", []);
         if (is_array($cart)) {
