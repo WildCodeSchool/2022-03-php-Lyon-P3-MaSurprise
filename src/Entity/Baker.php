@@ -86,7 +86,7 @@ class Baker
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $profilePicture = "";
 
-    #[Vich\UploadableField(mapping: 'profilePicture_file', fileNameProperty: 'profilePicture')]
+    #[Vich\UploadableField(mapping: 'profile_file', fileNameProperty: 'profilePicture')]
     #[Assert\File(
         maxSize: '1M',
         mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
@@ -341,7 +341,7 @@ class Baker
 
     public function setProfilePictureFile(?File $profilePictureFile = null): void
     {
-        $this->logoFile = $profilePictureFile;
+        $this->profilePictureFile = $profilePictureFile;
 
         if (null !== $profilePictureFile) {
             $this->getUpdateAt();

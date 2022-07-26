@@ -20,7 +20,7 @@ vich_uploader:
             uri_prefix: /uploads/bakers/diploma
             upload_destination: '%kernel.project_dir%/public/uploads/bakers/diploma'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
-        profilePicture_file:
+        profile_file:
             uri_prefix: /uploads/bakers/profile
             upload_destination: '%kernel.project_dir%/public/uploads/bakers/profile'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
