@@ -191,7 +191,7 @@ class Baker
         $this->siretFile = $siretFile;
 
         if (null !== $siretFile) {
-            $this->getUpdateAt();
+            $this->updatedAt = new DateTime('now');
         }
     }
 
@@ -217,7 +217,7 @@ class Baker
         $this->diplomaFile = $diplomaFile;
 
         if (null !== $diplomaFile) {
-            $this->getUpdateAt();
+            $this->updatedAt = new DateTime('now');
         }
     }
 
@@ -243,7 +243,7 @@ class Baker
         $this->logoFile = $logoFile;
 
         if (null !== $logoFile) {
-            $this->getUpdateAt();
+            $this->updatedAt = new DateTime('now');
         }
     }
 
@@ -344,7 +344,7 @@ class Baker
         $this->profilePictureFile = $profilePictureFile;
 
         if (null !== $profilePictureFile) {
-            $this->getUpdateAt();
+            $this->updatedAt = new DateTime('now');
         }
     }
 
