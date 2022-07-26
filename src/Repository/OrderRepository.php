@@ -39,7 +39,7 @@ class OrderRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAll(): mixed
+    public function findAll()
     {
         return $this->createQueryBuilder('o')
             ->orderBy('o.orderedAt', 'DESC')
