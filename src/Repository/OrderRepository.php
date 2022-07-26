@@ -39,11 +39,10 @@ class OrderRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAll(): array
+    public function findAll(): mixed
     {
         return $this->createQueryBuilder('o')
             ->orderBy('o.orderedAt', 'DESC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
