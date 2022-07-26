@@ -27,6 +27,15 @@ class BakerRepository extends ServiceEntityRepository
 
         if ($flush) {
             $this->getEntityManager()->flush();
+            // all pictures are set to null to avoid serialization error when the user modify the pictures
+            $entity->setProfilePictureFile(null);
+            $entity->setProfilePicture(null);
+            $entity->setLogoFile(null);
+            $entity->setLogo(null);
+            $entity->setSiretFile(null);
+            $entity->setSiret(null);
+            $entity->setDiplomaFile(null);
+            $entity->setDiploma(null);
         }
     }
 

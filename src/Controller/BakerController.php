@@ -76,11 +76,10 @@ class BakerController extends AbstractController
                 if (in_array('ROLE_BAKER', $user->getRoles())) {
                     return $this->redirectToRoute(
                         'app_bakerspace_show',
-                        ['id' => $user->getId()],
-                        Response::HTTP_SEE_OTHER
+                        ['id' => $user->getId()]
                     );
                 } else {
-                    return $this->redirectToRoute('app_baker_index', [], Response::HTTP_SEE_OTHER);
+                    return $this->redirectToRoute('app_baker_index', []);
                 }
             }
         }
