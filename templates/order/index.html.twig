@@ -62,20 +62,13 @@
                                             <li>{{ data.cake.availability }} ({{ data.cake.name }})</li>
                                         {% endfor %}
                                     </ul>
-                                    <form
-                                        action="{{ path('app_order_index') }}"
-                                        method=POST
-                                        class="list-group-item meeting d-flex flex-row justify-content-between">
+                                    <div class="list-group-item meeting d-flex flex-row justify-content-between">
                                         <input type="date" id="meeting-time" min="datemin"
                                                name="meeting-time" required="required" value="{{ dateorder }}">
-                                        <button type="submit" class="btn btn-secondary btn-lg text-white">
-                                            Valider la date
-                                        </button>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-lg-4 col-12 bg-white m-2 p-4 rounded">
                             <div class="container">
                                 <div class="row">
