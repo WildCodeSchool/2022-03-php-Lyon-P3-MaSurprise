@@ -73,9 +73,11 @@ class CartController extends AbstractController
             return $this->redirectToRoute('cart_index');
         }
 
-        if ($bakerIn === $cake->getBaker()->getId()) {
-            $cartService->addCartService($cake->getId(), $session);
-            return $this->redirectToRoute("cart_index");
+        if ($cake->getBaker()->getId() !== null) {
+            if ($bakerIn === $cake->getBaker()->getId()) {
+                $cartService->addCartService($cake->getId(), $session);
+                return $this->redirectToRoute("cart_index");
+            }
         }
 
         $this->addFlash(
