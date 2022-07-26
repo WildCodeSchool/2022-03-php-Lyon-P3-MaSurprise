@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Baker;
 use App\Entity\Cake;
 use App\Repository\CakeRepository;
 use App\Service\CartService;
@@ -73,7 +74,7 @@ class CartController extends AbstractController
             return $this->redirectToRoute('cart_index');
         }
 
-        if ($cake->getBaker()->getId() !== null) {
+        if ($cake->getBaker() instanceof Baker) {
             if ($bakerIn === $cake->getBaker()->getId()) {
                 $cartService->addCartService($cake->getId(), $session);
                 return $this->redirectToRoute("cart_index");
