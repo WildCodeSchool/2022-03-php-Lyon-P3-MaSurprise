@@ -63,10 +63,10 @@
                                         {% endfor %}
                                     </ul>
                                     <form
-                                        action=""
+                                        action="{{ path('app_order_index') }}"
                                         method=POST
                                         class="list-group-item meeting d-flex flex-row justify-content-between">
-                                        <input type="datetime-local" id="meeting-time"
+                                        <input type="date" id="meeting-time" min="datemin"
                                                name="meeting-time" required="required" value="{{ dateorder }}">
                                         <button type="submit" class="btn btn-secondary btn-lg text-white">
                                             Valider la date
@@ -107,7 +107,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div
                             class="col-12 d-flex flex-column-reverse justify-content-center align-items-center mt-5 mb-5 gap-3">
@@ -125,4 +125,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dateverification') }}
 {% endblock %}

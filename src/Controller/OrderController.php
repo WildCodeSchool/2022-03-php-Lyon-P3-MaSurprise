@@ -59,23 +59,15 @@ class OrderController extends AbstractController
         $orderDate = $session->get('order');
 
         $orderDate = strval($orderDate);
-        date_default_timezone_set('Europe/Paris');
         $orderDate = date_create($orderDate);
-        $now = date_create("now");
 
-        // TODO: could we maybe move this to index?
-        if ($now < $orderDate && $orderDate != false) {
-            // getting user
-            /** @var User $user */
-            $user = $this->getUser();
-            // calling service to add order
-            $orderService->createOrder((array)$datacart, $user, $orderDate);
-            // emptying cart
-            $orderService->emptyCart();
-            return $this->render('order/placed.html.twig');
-        }
-
-        $this->addFlash('danger', "Veuillez sélectionner une autre date.");
-        return $this->redirectToRoute('app_order_index');
+        // getting user
+        /** @var User $user */
+        $user = $this->getUser();
+        // calling service to add order
+        $orderService->createOrder((array)$datacart, $user, $orderDate);
+        // emptying cart
+        $orderService->emptyCart();
+        return $this->render('order/placed.html.twig');
     }
 }
