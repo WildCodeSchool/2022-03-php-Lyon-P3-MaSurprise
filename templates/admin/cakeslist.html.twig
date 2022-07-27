@@ -35,17 +35,21 @@
                 <div class="row m-3 d-flex flex-lg-row justify-content-around">
 
                     <div class="col-12 col-md-6 col-lg-2">
-                        <img class="img-fluid rounded cakes-list-admin"
-                            {% for picture in cake.picture1|split(',') %}
-                                {% if loop.index == 1 %} {# show only the first picture #}
-                                    src="/uploads/cakes/{{ picture }}"
-                                {% endif %}
-                            {% endfor %}
-                             alt="photo principale du gâteau">
+                        <a href="{{ path('app_cake_show', {'id': cake.id}) }}" class="text-decoration-none">
+                            <img class="img-fluid rounded cakes-list-admin"
+                                {% for picture in cake.picture1|split(',') %}
+                                    {% if loop.index == 1 %} {# show only the first picture #}
+                                        src="/uploads/cakes/{{ picture }}"
+                                    {% endif %}
+                                {% endfor %}
+                                 alt="photo principale du gâteau">
+                        </a>
                     </div>
 
                     <div class="col-12 col-md-6 col-lg-5">
-                        <h4 class="card-title m-0 mb-3">{{ cake.name }}</h4>
+                        <a href="{{ path('app_cake_show', {'id': cake.id}) }}" class="text-decoration-none">
+                            <h4 class="card-title m-0 mb-3">{{ cake.name }}</h4>
+                        </a>
                         {# displaying baker info only if admin (for use on baker space) #}
                         {% if is_granted('ROLE_ADMIN') %}
                             <p class="card-text mb-0">
