@@ -20,11 +20,12 @@
                         <h1 class="m-0 text-center text-primary">{{ baker.commercialName }}</h1>
                     {% endif %}
                     <h2 class="m-0 text-center text-secondary">
-                        par {{ baker.user.firstname }} {{ baker.user.lastname|slice(0,1) }}.
+                        {% if baker.commercialName is not empty %}par{% endif %}
+                        {{ baker.user.firstname }} {{ baker.user.lastname|slice(0,1) }}.
                     </h2>
                 </div>
 
-                {% if is_granted('ROLE_BAKER') %}
+                {% if is_granted('ROLE_BAKER') and app.user.baker.id == baker.id %}
                     <div class="d-flex flex-column justify-content-center">
                         <h3 class="text-center mt-5 mb-3 text-primary">Informations</h3>
                         <p>Téléphone : {{ baker.user.phone }}</p>
@@ -69,8 +70,8 @@
                                     <a href="{{ path('app_cake_show', {'id': cake.id}) }}" class="social-link">
                                         <h4 class="text-center text-primary mb-4">{{ cake.name }}</h4>
                                     </a>
-                                    <p class="text-center">{{ cake.price|format_currency('EUR', locale='de') }}</p>
-                                    <p class="text-center">Type : {{ cake.category }}</p>
+                                    <h5 class="text-center mb-4">{{ cake.price|format_currency('EUR', locale='de') }}</h5>
+                                    <p class="text-center mb-0">Type : {{ cake.category }}</p>
                                     <p class="text-center">Taille : {{ cake.size }}</p>
                                 </div>
                             </div>
@@ -80,7 +81,7 @@
                         {% endfor %}
                     </div>
                 </div>
-                {% if is_granted('ROLE_BAKER') %}
+                {% if is_granted('ROLE_ADMIN') %}
                     <div class="d-flex justify-content-center">
                         <a href="{{ path('app_baker_index') }}" class="btn btn-primary center p-2 m-2">Retour à la liste
                             des
