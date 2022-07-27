@@ -34,7 +34,7 @@ class OrderController extends AbstractController
         $total = $session->get('total', []);
         $datacart = $session->get('datacart');
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['meetingTime'])) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['meetingTime'])) {
             $order = $_POST['meetingTime'];
             date_default_timezone_set('Europe/Paris');
             $orderDate = date_create($order);
