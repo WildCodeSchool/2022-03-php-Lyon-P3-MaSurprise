@@ -51,7 +51,7 @@ class CakeType extends AbstractType
                 'constraints' => [
                     new NotBlank(['message' => "Ce champ est obligatoire."]),
                     new Length([
-                        'max' => 3,
+                        'max' => 10,
                         'maxMessage' => 'Le champ prénom doit comporter au maximum {{ limit }} caractères.'
                     ])
                 ]
