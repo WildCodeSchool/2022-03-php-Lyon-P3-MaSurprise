@@ -81,6 +81,11 @@ class OrderController extends AbstractController
         $datacart = $session->get('datacart');
         $orderDate = $session->get('orderDate');
 
+        if (!$orderDate instanceof DateTime || $orderDate == false) {
+            return $this->redirectToRoute('app_order_index');
+        }
+
+
         // TODO: could we maybe move this to index?
         // getting user
         /** @var User $user */
