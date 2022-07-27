@@ -44,7 +44,10 @@ class CakeType extends AbstractType
                 'label' => 'Goûts et saveurs',
                 'required' => false
                 ])
-            ->add('allergens', TextType::class, ['label' => 'Liste des allergènes'])
+            ->add('allergens', TextType::class, [
+                'label' => 'Liste des allergènes',
+                'required'   => false,
+                'empty_data' => ''])
             ->add('price', NumberType::class, [
                 'label' => 'Prix*',
                 'required' => true,
