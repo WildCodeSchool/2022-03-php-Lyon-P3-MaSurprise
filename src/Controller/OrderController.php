@@ -5,12 +5,11 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Repository\AddressRepository;
 use App\Service\OrderService;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Date;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 #[Route('/commande', name: 'app_order_')]
 class OrderController extends AbstractController
@@ -39,6 +38,10 @@ class OrderController extends AbstractController
             date_default_timezone_set('Europe/Paris');
             $orderDate = date_create($order);
             $now = date_create("now");
+
+            if (!$orderDate instanceof DateTime || $orderDate == false) {
+                return $this->redirectToRoute('app_order_index');
+            }
 
             $diff = $orderDate->diff($now);
 
