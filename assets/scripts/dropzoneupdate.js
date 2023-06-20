@@ -25,8 +25,13 @@ for (let i = 0; i < deleteBtns.length; i++) {
     deleteBtns[i].addEventListener("click", function(e) {
         e.preventDefault();
         fetch('/gateau/' + id + '/' + deleteBtns[i].id + '/delete-files')
-            .then(function() {
-                deleteBtns[i].parentElement.remove(); 
+            .then((response) => {
+                if (response.ok) {
+                    deleteBtns[i].parentElement.remove();
+                }
+                if (response.status == 403) {
+                    alert('Votre pâtisserie doit contenir au moins une photo, vous ne pouvez pas supprimer cette photo.');
+                }
             })
     });
 }

@@ -24,8 +24,8 @@ class Address
     #[ORM\Column(type: 'string', length: 100)]
     private string $streetName;
 
-    #[ORM\Column(type: 'integer')]
-    private int $postcode;
+    #[ORM\Column(type: 'string')]
+    private string $postcode;
 
     #[ORM\Column(type: 'string', length: 100)]
     private string $city;
@@ -100,12 +100,12 @@ class Address
         return $this;
     }
 
-    public function getPostcode(): ?int
+    public function getPostcode(): ?string
     {
         return $this->postcode;
     }
 
-    public function setPostcode(int $postcode): self
+    public function setPostcode(string $postcode): self
     {
         $this->postcode = $postcode;
 

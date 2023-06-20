@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class AddressType extends AbstractType
 {
@@ -16,7 +17,7 @@ class AddressType extends AbstractType
     {
         $builder
             ->add('streetNumber', NumberType::class, [
-                'label' => 'Numéro de rue*',
+                'label' => 'Numéro de rue',
                 'required' => false,
             ])
             ->add('bisTerInfo', TextType::class, [
@@ -31,7 +32,7 @@ class AddressType extends AbstractType
                 return $department->getNumber() . ' - ' . $department->getName();
             },
             ])
-            ->add('postcode', NumberType::class, [
+            ->add('postcode', TextType::class, [
                 'label' => 'Code postal*',
                 'required' => 'Le champ code postal est obligatoire',
                 'constraints' => [
@@ -40,6 +41,11 @@ class AddressType extends AbstractType
                         'max' => 5,
                         'minMessage' => 'Le code postal doit comporter 5 chiffres.',
                     ]),
+                    new Regex(array(
+                        'pattern'   => '/^[0-9]+$/',
+                        'match'     => true,
+                        'message'   => 'Le code postal doit comporter 5 chiffres.'
+                    ))
                 ],
             ])
             ->add('city', TextType::class, [

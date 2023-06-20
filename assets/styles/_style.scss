@@ -141,14 +141,13 @@ h2,
 h3,
 h4 {
     font-family: "Prata", sans-serif;
-    margin: 20px;
 }
 
 .main-theme-container-title,
 .main-how-to-container-title,
 .main-sweet-dream-container-title,
 .main-references-container-title {
-    font-size: 48pt;
+    font-size: 5vh;
 }
 
 .main-theme-container,
@@ -310,10 +309,11 @@ h4 {
 
 @media screen and (max-width: 500px) {
     .carousel-img {
-        width: 100px;
-        height: 100px;
+        width: 90px;
+        height: 90px;
         border: 5px solid white;
     }
+
 }
 
 /* ----- how to ----- */
@@ -333,7 +333,7 @@ h4 {
 
 .how-to {
     border-radius: 6px;
-    width: 400px;
+    width: 280px;
     padding: 30px;
 }
 
@@ -346,7 +346,7 @@ h4 {
     border: 1px solid #D67826;
     border-radius: 6px;
     height: 370px;
-    width: 400px;
+    width: 280px;
     padding: 30px;
     background-color: white;
 }
@@ -360,6 +360,7 @@ h4 {
     height: 135px;
     border-radius: 100%;
     aspect-ratio: 1 / 1;
+    object-fit: cover;
 }
 
 .separator {
@@ -500,7 +501,10 @@ $modal-backdrop-opacity: 0.8;
 /* ---------- ADMIN NAVBAR ---------- */
 .btnNavAdmin:hover {
     background-color: white;
-    color: black;
+}
+
+.btnNavAdmin > a {
+    color: var(--bs-light)
 }
 
 /* ---------- BAKER ---------- */
@@ -579,18 +583,51 @@ p {
     object-fit: cover;
     object-position: center center;
     aspect-ratio: 1 / 1;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    max-width: 100%;
 }
 
-.cakes-list-admin {
-    min-height: 100%;
+.cakes-list-admin, .cakes-list-baker {
     aspect-ratio: 1 / 1;
-}
-
-.cakes-list-baker {
-    min-width: 100%;
-    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .modal-resize {
     max-width: 95% !important;
+}
+
+.admin-container {
+    height: 70vh;
+}
+
+label {
+    color: #B1367E;
+}
+
+/*-----------Cart-view------------*/
+
+.card .card-registration {
+    border-radius: 15px;
+}
+
+.quantity {
+    margin-right: 3em;
+}
+
+@media (min-width: 768px) {
+    .quantity {
+        min-width: max-content;
+    }
+}
+
+/* CHECK EMAIL PAGE */
+
+#check-email-container {
+    min-height: 70vh;
 }

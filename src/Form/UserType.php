@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class UserType extends AbstractType
 {
@@ -22,10 +23,24 @@ class UserType extends AbstractType
             ->add('lastname', TextType::class, [
                 'label' => 'Nom*',
                 'required' => 'Le champ Nom est obligatoire',
+                'constraints' => [
+                    new NotBlank(['message' => "Ce champ est obligatoire."]),
+                    new Length([
+                        'max' => 255,
+                        'maxMessage' => 'Le champ prénom doit comporter au maximum {{ limit }} caractères.'
+                    ])
+                ],
             ])
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom*',
                 'required' => 'Le champ Prénom est obligatoire',
+                'constraints' => [
+                    new NotBlank(['message' => "Ce champ est obligatoire."]),
+                    new Length([
+                        'max' => 255,
+                        'maxMessage' => 'Le champ prénom doit comporter au maximum {{ limit }} caractères.'
+                    ])
+                ],
             ])
             ->add('email', EmailType::class, [
                 'label' => "E-mail*",
@@ -40,8 +55,8 @@ class UserType extends AbstractType
                     new NotBlank(['message' => "Ce champ est obligatoire."]),
                     new Length([
                         'min' => 8,
-                        'minMessage' => 'Le mot de passe doit comporter plus de {{ limit }} caractères.',
-                    ]),
+                        'minMessage' => 'Le mot de passe doit comporter plus de {{ limit }} caractères.'
+                    ])
                 ],
                 'invalid_message' => 'Le mot de passe doit être identique.',
                 'options' => ['attr' => [
@@ -49,7 +64,7 @@ class UserType extends AbstractType
                     'placeholder' => "Mot de passe",
                 ]],
             ])
-            ->add('phone', TextType::class, [
+            ->add('phone', NumberType::class, [
                 'label' => "Téléphone*",
                 'required' => "Le champ Téléphone est obligatoire",
             ])

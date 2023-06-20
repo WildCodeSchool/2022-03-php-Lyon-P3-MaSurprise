@@ -6,6 +6,7 @@ use App\Form\CakeType;
 use App\Form\SearchCakeFormType;
 use Exception;
 use App\Entity\Cake;
+use App\Entity\User;
 use App\Repository\CakeRepository;
 use App\Repository\DepartmentRepository;
 use App\Service\CakeSearchService;
@@ -19,6 +20,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Validator\Constraints\Length;
 
 #[Route('/gateau', name: 'app_cake_')]
 class CakeController extends AbstractController
@@ -76,10 +78,16 @@ class CakeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var User $user */
+            $user = $this->getUser();
+            $baker = $user->getBaker();
+            $cake->setBaker($baker);
             $cakeRepository->add($cake, true);
             // put the id in session is use to connect url pictures to the right cake
             $session = $requestStack->getSession();
             $session->set('cakeId', $cake->getId());
+
+            return $this->redirectToRoute('app_bakerspace_cakes');
         }
 
         return $this->renderForm('cake/new.html.twig', [
@@ -129,23 +137,26 @@ class CakeController extends AbstractController
         $cakeUrls = $cake->getPicture1();
         if (is_string($cakeUrls)) {
             $cakeUrlsArray = explode(',', $cakeUrls);
-            $key = array_search($path, $cakeUrlsArray);
-            if ($key != false) {
-                unset($cakeUrlsArray[$key]);
-                $cakeUrls = implode(',', $cakeUrlsArray);
-                $cake->setPicture1($cakeUrls);
-                $cakeRepository->add($cake, true);
-            }
-        };
-        $finder = new Finder();
-        $finder->files()->in('../public/uploads/cakes');
-        $filesystem = new Filesystem();
-        foreach ($finder as $file) {
-            if ($file->getFilename() == $path) {
-                $filesystem->remove($file);
+            if (count($cakeUrlsArray) != 1) {
+                $key = array_search($path, $cakeUrlsArray);
+                if ($key !== false) {
+                    unset($cakeUrlsArray[$key]);
+                    $cakeUrls = implode(',', $cakeUrlsArray);
+                    $cake->setPicture1($cakeUrls);
+                    $cakeRepository->add($cake, true);
+                }
+                $finder = new Finder();
+                $finder->files()->in('../public/uploads/cakes');
+                $filesystem = new Filesystem();
+                foreach ($finder as $file) {
+                    if ($file->getFilename() == $path) {
+                        $filesystem->remove($file);
+                    }
+                }
+                return new Response($path);
             }
         }
-        return new Response($path);
+        return new Response("", 403); // response if there is only one picture in edit form
     }
 
     #[Route('/{id}/modifier', name: 'edit', methods: ['GET', 'POST'])]
@@ -155,6 +166,19 @@ class CakeController extends AbstractController
         RequestStack $requestStack,
         CakeRepository $cakeRepository
     ): Response {
+
+        //make sure only the current baker and the admin can access this route
+        /** @var User $user */
+        $user = $this->getUser();
+        if (
+            $user !== null
+            && in_array("ROLE_ADMIN", $user->getRoles()) == false
+            && $cake->getBaker() !== $user->getBaker()
+            || $user == null
+        ) {
+            throw $this->createAccessDeniedException();
+        }
+
         $form = $this->createForm(CakeType::class, $cake);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Baker;
+use App\Entity\User;
 use App\Form\BakerType;
 use App\Form\BakerModifyType;
 use App\Repository\BakerRepository;
@@ -12,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use DateTime;
 
 #[Route('/patissier', name: 'app_baker')]
 class BakerController extends AbstractController
@@ -38,7 +40,7 @@ class BakerController extends AbstractController
         }
 
         return $this->renderForm('baker/new.html.twig', [
-            'form' => $form, 'baker' => $baker
+            'form' => $form, 'baker' => $baker,
         ]);
     }
 
@@ -53,13 +55,33 @@ class BakerController extends AbstractController
     #[Route('/{id}/modifier', name: '_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Baker $baker, BakerRepository $bakerRepository): Response
     {
-        $modifyForm = $this->createForm(BakerModifyType::class, $baker);
-        $modifyForm->handleRequest($request);
+        // initializing modifyForm in case conditions are not met
+        $modifyForm = "";
 
-        if ($modifyForm->isSubmitted() && $modifyForm->isValid()) {
-            $bakerRepository->add($baker, true);
+        //make sure only the current baker and the admin can access this route
+        /** @var User $user */
+        $user = $this->getUser();
 
-            return $this->redirectToRoute('app_baker_index', [], Response::HTTP_SEE_OTHER);
+        if (
+            (in_array('ROLE_BAKER', $user->getRoles()) && $user->getBaker())
+            || in_array('ROLE_ADMIN', $user->getRoles())
+        ) {
+            $modifyForm = $this->createForm(BakerModifyType::class, $baker);
+            $modifyForm->handleRequest($request);
+
+            if ($modifyForm->isSubmitted() && $modifyForm->isValid()) {
+                $baker->setUpdateAt(new DateTime());
+                $bakerRepository->add($baker, true);
+
+                if (in_array('ROLE_BAKER', $user->getRoles())) {
+                    return $this->redirectToRoute(
+                        'app_bakerspace_show',
+                        ['id' => $user->getId()]
+                    );
+                } else {
+                    return $this->redirectToRoute('app_baker_index', []);
+                }
+            }
         }
 
         return $this->renderForm('baker/edit.html.twig', [

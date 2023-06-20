@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur serveur - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    {{ include('bundles/TwigBundle/Exception/_base.html.twig', {
+        errorNumber : "500",
+        errorType : "Erreur serveur",
+        errorMessage : "Aïe, alors là c'est la tuile.",
+    }) }}
+
+{% endblock %}

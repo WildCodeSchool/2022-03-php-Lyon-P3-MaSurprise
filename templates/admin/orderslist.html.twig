@@ -10,18 +10,20 @@
         <div class="row">
             <div class="col-12 d-flex flex-column align-items-center">
                 <h1 class="text-primary text-center mb-4">Commandes</h1>
-                {% if is_granted('ROLE_BAKER') or is_granted('ROLE_CUSTOMER') and not is_granted('ROLE_ADMIN') %}
-                    <div class="container">
-                        <a
-                            {% if is_granted('ROLE_BAKER') %}
-                                href="{{ path('app_bakerspace_index') }}"
-                            {% else %}
-                                href="{{ path('app_customer_index') }}"
-                            {% endif %}
-                        >
-                            <button class="btn btn-secondary text-white m-3">Retour</button>
-                        </a>
-                    </div>
+                {% if not is_granted('ROLE_ADMIN') %}
+                    {% if is_granted('ROLE_BAKER') or is_granted('ROLE_CUSTOMER') %}
+                        <div class="container">
+                            <a
+                                {% if is_granted('ROLE_BAKER') %}
+                                    href="{{ path('app_bakerspace_index') }}"
+                                {% else %}
+                                    href="{{ path('app_customer_index') }}"
+                                {% endif %}
+                            >
+                                <button class="btn btn-secondary text-white m-3">Retour</button>
+                            </a>
+                        </div>
+                    {% endif %}
                 {% endif %}
                 <div class="container">
                     {% for message in app.flashes('success') %}
@@ -136,28 +138,28 @@
                                                             <p class="card-text text-center mb-0">
                                                                 {% if is_granted('ROLE_ADMIN') %}
                                                                     {{ cakes.seller.firstname }} {{ cakes.seller.lastname }}
-                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" %}
+                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" and order.orderStatus is not same as "Commande retirée" %}
                                                                     {{ cakes.seller.firstname }} {{ cakes.seller.lastname }}
                                                                 {% else %}
-                                                                    Les coordonnées du pâtissier
+                                                                    Les coordonnées du
                                                                 {% endif %}
                                                             </p>
                                                             <p class="card-text text-center mb-0">
                                                                 {% if is_granted('ROLE_ADMIN') %}
                                                                     {{ cakes.seller.email }}
-                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" %}
+                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" and order.orderStatus is not same as "Commande retirée" %}
                                                                     {{ cakes.seller.email }}
                                                                 {% else %}
-                                                                    apparaîtront ici après
+                                                                    pâtissier ne sont
                                                                 {% endif %}
                                                             </p>
                                                             <p class="card-text text-center">
                                                                 {% if is_granted('ROLE_ADMIN') %}
                                                                     {{ cakes.seller.phone }}
-                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" %}
+                                                                {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" and order.orderStatus is not same as "Commande retirée" %}
                                                                     {{ cakes.seller.phone }}
                                                                 {% else %}
-                                                                    validation de votre commande.
+                                                                    pas/plus disponibles.
                                                                 {% endif %}
                                                             </p>
                                                         </div>
@@ -196,23 +198,25 @@
                                                         {% if loop.index == 1 %}
                                                             <div>
                                                                 {% if is_granted('ROLE_ADMIN') %}
-                                                                    <p class="card-text text-end mb-0">
-                                                                        Adresse de collecte
-                                                                        : {{ cakes.seller.baker.deliveryAddress.streetNumber }} {{ cakes.seller.baker.deliveryAddress.streetName }}
+                                                                    <p class="card-text text-center text-md-end mb-0">
+                                                                        Adresse de collecte :</p>
+                                                                    <p class="card-text text-center text-md-end mb-0">
+                                                                        {{ cakes.seller.baker.deliveryAddress.streetNumber }} {{ cakes.seller.baker.deliveryAddress.streetName }}
                                                                     </p>
-                                                                    <p class="card-text text-end">
+                                                                    <p class="card-text text-center text-md-end">
                                                                         {{ cakes.seller.baker.deliveryAddress.postcode }} {{ cakes.seller.baker.deliveryAddress.city }}
                                                                     </p>
                                                                 {% elseif is_granted('ROLE_CUSTOMER') and order.orderStatus is not same as "Commande créée" and order.orderStatus is not same as "Commande annulée" %}
-                                                                    <p class="card-text text-end mb-0">
-                                                                        Adresse de collecte
-                                                                        : {{ cakes.seller.baker.deliveryAddress.streetNumber }} {{ cakes.seller.baker.deliveryAddress.streetName }}
+                                                                    <p class="card-text text-center text-md-end mb-0">
+                                                                        Adresse de collecte :</p>
+                                                                    <p class="card-text text-center text-md-end mb-0">
+                                                                        {{ cakes.seller.baker.deliveryAddress.streetNumber }} {{ cakes.seller.baker.deliveryAddress.streetName }}
                                                                     </p>
-                                                                    <p class="card-text text-end">
+                                                                    <p class="card-text text-center text-md-end">
                                                                         {{ cakes.seller.baker.deliveryAddress.postcode }} {{ cakes.seller.baker.deliveryAddress.city }}
                                                                     </p>
                                                                 {% else %}
-                                                                    <p class="card-text text-end mb-0">
+                                                                    <p class="card-text text-center text-md-end mb-0">
                                                                         Adresse de collecte
                                                                         : en attente de validation de commande.
                                                                     </p>
